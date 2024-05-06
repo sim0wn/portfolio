@@ -2,6 +2,7 @@ import classNames from "classnames"
 import type { Metadata } from "next"
 import { Raleway } from "next/font/google"
 import { ReactNode } from "react"
+import Navbar from "./components/navbar"
 import "./styles.css"
 
 const raleway = Raleway({ subsets: ["latin"] })
@@ -32,6 +33,7 @@ export default function RootLayout({
           "dark:bg-neutral-950 dark:text-neutral-50",
         )}
       >
+        <Navbar />
         {children}
       </body>
     </html>
