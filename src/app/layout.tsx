@@ -14,6 +14,9 @@ export const metadata: Metadata = {
   creator: "sim0wn",
   applicationName: "sim0wn's portfolio",
   keywords: ["Segurança da Informação", "Hacking", "Portfolio", "CTF"],
+  icons: {
+    icon: "/icons/favicon.ico",
+  },
 }
 
 export default function RootLayout({
