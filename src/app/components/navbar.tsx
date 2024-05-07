@@ -8,7 +8,7 @@ export default function Navbar() {
       </Link>
       <menu className="flex gap-2 justify-end *:border-b *:px-2 py-1 dark:*:border-neutral-800">
         <li>
-          <Link href={"#"}>Soluções</Link>
+          <Link href={"/solutions"}>Soluções</Link>
         </li>
         <li>
           <Link href={"/articles"}>Artigos</Link>
