@@ -24,7 +24,7 @@ export default function Article({ params }: { params: { article: string } }) {
       <article className="prose p-2 m-auto dark:prose-invert prose-neutral">
         <header className="flex flex-col">
           <h1 className="mb-2 uppercase">{article.title}</h1>
-          <time className="text-lg self-end" dateTime={article.date}>
+          <time className="text-lg" dateTime={article.date}>
             {format(parseISO(article.date), "LLLL d, yyyy")}
           </time>
         </header>

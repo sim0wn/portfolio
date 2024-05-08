@@ -1,6 +1,6 @@
 import { defineDocumentType, makeSource } from "contentlayer/source-files"
 import rehypePrettyCode, {
-  type Options as PrettyCodeOptions,
+  Options as PrettyCodeOptions,
 } from "rehype-pretty-code"
 import remarkGfm from "remark-gfm"
 
@@ -48,13 +48,13 @@ export default makeSource({
         rehypePrettyCode as any,
         {
           theme: {
-            dark: "night-owl",
-            light: "material-theme",
+            dark: "vitesse-black",
+            light: "catppuccin-macchiato",
           },
-          grid: false,
           onVisitHighlightedChars(node) {
             node.properties.className = ["word"]
           },
+          keepBackground: false,
         } satisfies Partial<PrettyCodeOptions>,
       ],
     ],

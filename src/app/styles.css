@@ -15,3 +15,22 @@ code[data-theme*=" "] span {
     background-color: var(--shiki-dark-bg);
   }
 }
+
+code {
+  counter-reset: line;
+}
+
+code > [data-line]::before {
+  counter-increment: line;
+  content: counter(line);
+
+  @apply dark:text-neutral-500 text-neutral-400 mr-2 text-right inline-block;
+}
+
+code[data-line-numbers-max-digits="2"] > [data-line]::before {
+  @apply min-w-8;
+}
+
+code[data-line-numbers-max-digits="3"] > [data-line]::before {
+  @apply min-w-12;
+}

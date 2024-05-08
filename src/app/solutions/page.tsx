@@ -3,7 +3,7 @@ import Link from "next/link"
 
 export default function Solutions() {
   return (
-    <main className="flex p-2">
+    <main className="flex p-2 gap-2 flex-wrap justify-center">
       {allSolutions.map((solution, index) => (
         <article key={index} className="bg-neutral-800 p-3 w-fit">
           <Link href={solution._raw.flattenedPath}>
