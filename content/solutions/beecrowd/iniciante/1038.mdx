@@ -1,0 +1,61 @@
+---
+title: Lanche
+url: https://judge.beecrowd.com/pt/problems/view/1038
+category: Iniciante
+---
+
+## Descrição
+
+Com base na tabela abaixo, escreva um programa que leia o código de um item e a quantidade deste item. A seguir, calcule e mostre o valor da conta a pagar.
+
+<table className="text-center">
+  <thead>
+    <tr>
+      <th>Código</th>
+      <th>Especificação</th>
+      <th>Preço</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>Cachorro-quente</td>
+      <td>R$4,00</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>X-Salada</td>
+      <td>R$4,50</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>X-Bacon</td>
+      <td>R$5,00</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>Torrada Simples</td>
+      <td>R$2,00</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>Refrigerante</td>
+      <td>R$1,50</td>
+    </tr>
+  </tbody>
+</table>
+
+## Solução
+
+Como o exercício não pede para verificar a validade do código e ele é sequencial, podemos apenas criar uma lista e acessar seus índices com base na entrada do usuário.
+Lembrando-se, claro, que como na programação os índices começam a ser contados a partir do zero, é preciso subtrair 1 da entrada do usuário. Tendo o valor do produto, basta multiplicá-lo pela quantidade e tem-se o valor total.
+
+```py title="main.py"
+# -*- coding: utf-8 -*-
+
+code, amount = map(int, input().split(" "))
+
+prices = [4.0, 4.5, 5.0, 2.0, 1.5]
+
+print(f"Total: R$ {prices[code-1]*amount:.2f}")
+```

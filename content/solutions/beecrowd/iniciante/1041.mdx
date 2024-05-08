@@ -1,0 +1,46 @@
+---
+title: Coordenadas de um Ponto
+url: https://judge.beecrowd.com/pt/problems/view/1041
+category: Iniciante
+---
+
+## Descrição
+
+Leia 2 valores com uma casa decimal (x e y), que devem representar as coordenadas de um ponto em um plano. A seguir, determine qual o quadrante ao qual pertence o ponto, ou se está sobre um dos eixos cartesianos ou na origem (x = y = 0).
+
+![Plano Cartesiano](data:image/png;base64,UklGRtIDAABXRUJQVlA4TMUDAAAvroArAAXd2rbb2s6u5Rt08Y1OFUgVowaWgFiOcikqoKIfIZKlvINc9I68gUx2xrgEwYtDDMhLEf134LZtJCkzBSZ71XOms+t9gHQav+Hmsw8+u/n+N+ku/jrjxVuxIFs3Rt59/N43G7NZB7nwye0nLiQsw0y/ABZxdqBPeegkYh0oLyOaaahvNMHkocIIg708YfkrF1qHW7j+vwAcnCXrAtfJwRFZv2pwgqTJnUr22IfPFaJBGS63oy6JLcAnkgjGR2aO3oDSfgZc5JwCwbajLSkRTmWtrvA8waQSwrzrC2FpRlkSA86cCJuDG2sBhgtmX9kbYZtRlpTdLHQiE7zUw2M63u9hmtGXdCYJdLhSCEmOgsCtqEo6HX/FPdYAf0WTW1GVdDr2im2YYOWK3bIVVUlnk4Hc3JUApGZ0JZ0Mg0TaDpE8AVGa0ZXUebMSzGXuqukpHfPuRFLPWtaoVXQlnc2MuXbtIy5fVs0GEQ1UJZ0O186O2RWXZ9p/kxiKrA76kk6+mrpqH7B6uMo8q9XZqpLOJxN89dSOfa0SgUXU0JTUAZIMHNeEYdorCYqjGE1JPSBpE7Avhg0wp91BWYvmOltVUg9Ink1tqLGieO+AeqytoxhdSZo0qVkmS1QO5JKzvG2PeqTWMaK2JBHxbrj3N/6DEutKZpPHyGrmciAdRrmwIIlk48eZdpS3/DhhM0esI33ZAuPH+kaEPFQizDxS2Pjlkv6j+rLiGbyd70d7NR1vrTLcwvWPLxhtfN9pMD5865W3PvyC+xN002l8gbdeidvUn6DPOo0P8Up8tE39Cfqg03gL8dFL29SfoOE2w00P92W/dRo/4IsPt/mH/gQNt1b533/+THKCh1hkmayWP7ldzpW4qS97siRS9CeryqnaY6gre7KwAS3MKRhQbkZFzjEBoK7syeL2xiAmhGZ05Bx360JX9mQJliuSbDOqciqr3oM6tScLg5o5QY6FY1B39mTFRl+OB+ULvdqTrUJaXc4CJLnQoz25eJmVZrTlJGCRjQ4NtEt5tm5HTU7V7FfQoT05GgBmaUdZjtu2b6+NSF4nYO6qmWF4R2f25Fp/FGx9WnJqIlRQ9xDng865VjTlJIPARRSuzJYHtD3E2dj62cS0omlNtjiIlmJQ20PMBwZ7UOvVVNOaPFElAKKW31qqe4gJS1Xn1IquNVlEdNLqHuIFiJUDAM2WVCVrsjb6HmIPuKLOJij8wY2WNVmZEzzEYd8bWttHMWpydNH1EFd6Q2SnmBXGiGpyjseIw72/8b///KMJAQA=)
+
+Se o ponto estiver na origem, escreva a mensagem “Origem”.
+Se o ponto estiver sobre um dos eixos escreva “Eixo X” ou “Eixo Y”, conforme for a situação.
+
+## Solução
+
+Pode-se usar a seguinte lógica para determinar em qual quadrante se encontram os pontos informados:
+* Se x e y são iguais a zero, então tem-se a origem do plano cartesiano;
+* Se x e y são maiores que zero, isto é, são positivos, tem-se o quadrante Q1;
+* Se x é menor que zero (ou negativo) e y é maior que zero (positivo), então tem-se o quadrante Q2;
+* Se x e y são menores que zero, ou negativos, então tem-se o quadrante Q3;
+* Se x é positivo, maior que zero, e y é negativo, menor que zero, tem-se o quadrante Q4;
+* Se x é diferente de zero e y é igual a zero, tem-se o eixo X;
+* Se x é igual a zero, e y é diferente de zero, tem-se o eixo Y;
+
+```py title="main.py"
+# -*- coding: utf-8 -*-
+
+x, y = map(float, input().replace(",", ".").split(" "))
+
+if x == 0 and y == 0:
+    print("Origem")
+elif x > 0 and y > 0:
+    print("Q1")
+elif x < 0 and y > 0:
+    print("Q2")
+elif x < 0 and y < 0:
+    print("Q3")
+elif x > 0 and y < 0:
+    print("Q4")
+elif x != 0 and y == 0:
+    print("Eixo X")
+elif x == 0 and y != 0:
+    print("Eixo Y")
+```

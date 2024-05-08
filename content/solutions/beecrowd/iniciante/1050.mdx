@@ -1,0 +1,82 @@
+---
+title: DDD
+url: https://judge.beecrowd.com/pt/problems/view/1050
+category: Iniciante
+---
+
+## Descrição
+
+Leia um número inteiro que representa um código de DDD para discagem interurbana. Em seguida, informe à qual cidade o DDD pertence, considerando a tabela abaixo:
+
+<table className="text-center">
+  <thead>
+    <tr>
+      <th>DDD</th>
+      <th>Destination</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>61</td>
+      <td>Brasilia</td>
+    </tr>
+    <tr>
+      <td>71</td>
+      <td>Salvador</td>
+    </tr>
+    <tr>
+      <td>11</td>
+      <td>Sao Paulo</td>
+    </tr>
+    <tr>
+      <td>21</td>
+      <td>Rio de Janeiro</td>
+    </tr>
+    <tr>
+      <td>32</td>
+      <td>Juiz de Fora</td>
+    </tr>
+    <tr>
+      <td>19</td>
+      <td>Campinas</td>
+    </tr>
+    <tr>
+      <td>27</td>
+      <td>Vitoria</td>
+    </tr>
+    <tr>
+      <td>31</td>
+      <td>Belo Horizonte</td>
+    </tr>
+  </tbody>
+</table>
+
+Se a entrada for qualquer outro DDD que não esteja presente na tabela acima, o programa deverá informar:
+DDD nao cadastrado
+
+## Solução
+
+Esse problema pode ser resolvido simplesmente através de condicionais, ou através de ferramentas da linguagem como o dicionário do Python.
+Nesse caso, pode-se definir o código do DDD como a chave do elemento e a cidade correspondente como valor.
+
+```py title="main.py"
+# -*- coding: utf-8 -*-
+
+ddd = int(input())
+
+DDD = {
+    61: "Brasilia",
+    71: "Salvador",
+    11: "Sao Paulo",
+    21: "Rio de Janeiro",
+    32: "Juiz de Fora",
+    19: "Campinas",
+    27: "Vitoria",
+    31: "Belo Horizonte",
+}
+
+if ddd in DDD:
+    print(DDD[ddd])
+else:
+    print("DDD nao cadastrado")
+```

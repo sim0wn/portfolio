@@ -1,0 +1,36 @@
+---
+title: Cédulas
+url: https://judge.beecrowd.com/pt/problems/view/1018
+category: Iniciante
+---
+
+## Descrição
+
+Leia um valor inteiro. A seguir, calcule o menor número de notas possíveis (cédulas) no qual o valor pode ser decomposto. As notas consideradas são de 100, 50, 20, 10, 5, 2 e 1. A seguir mostre o valor lido e a relação de notas necessárias.
+
+## Solução
+Para sabermos, dentre as notas, quantas serão necessárias de cada uma, podemos simplesmente calcular o resto da divisão do valor por cada nota.
+Tendo o resto da divisão, basta dividir o valor informado pelo valor da nota. Desta forma, podemos calcular quantas notas do próximo valor serão necessárias.
+Sendo a entrada 576, então:
+
+* Recebe-se 576;
+* O resto da divisão de 576 por 100 é 5, ou seja, são necessárias 5 notas de 100, e sobra 76;
+* O resto da divisão de 76 por 50 é 1 -* uma nota de 50, sobra 26;
+* O resto da divisão de 26 por 20 é 1 -* uma nota de 20, sobra 6;
+* O resto da divisão de 6 por 10 é 0; isto é, uma nota de 10 ultrapassa o valor, então vamos para a próxima nota;
+* O resto da divisão de 6 por 5 é 1 -* uma nota de 5, sobra 1;
+* O resto da divisão de 1 por 2 é 0 -* o valor ultrapassa, então vamos à próxima nota;
+* O resto da divisão de 1 por 1 é 1 -* uma nota de 1, resta 0;
+* Conclui-se a execução do programa e resolve o problema.
+
+```py title="main.py"
+# -*- coding: utf-8 -*-
+
+valor = int(input())
+
+print(valor)
+
+for nota in [100, 50, 20, 10, 5, 2, 1]:
+    print(f"{valor//nota} nota(s) de R$ {nota},00")
+    valor %= nota
+```

@@ -1,0 +1,28 @@
+---
+title: Triângulo
+url: https://judge.beecrowd.com/pt/problems/view/1043
+category: Iniciante
+---
+
+## Descrição
+
+Leia 3 valores reais (A, B e C) e verifique se eles formam ou não um triângulo. Em caso positivo, calcule o perímetro do triângulo e apresente a mensagem:
+Perimetro = XX.X
+Em caso negativo, calcule a área do trapézio que tem A e B como base e C como altura, mostrando a mensagem
+Area = XX.X
+
+## Solução
+
+Para resolução do problema, é preciso primeiro entender quais parâmetros são usados para determinar a formação de um triângulo.
+Para que seja considerado um triângulo, é necessário que a medida de cada lado seja inferior a soma dos outros dois. Isto é, C deve ser menor que a soma de A e B, por exemplo. Com isso, pode-se realizar essa verificação e, caso seja um triângulo, calcular o perímetro (A+B+C); caso contrário, calcular a área do trapézio usando a fórmula ((A+B)*C)/2.
+
+```py title="main.py"
+# -*- coding: utf-8 -*-
+
+A, B, C = map(float, input().split(" "))
+
+if A < B + C and B < A + C and C < A + B:
+    print(f"Perimetro = {A+B+C:.1f}")
+else:
+    print(f"Area = {((A+B)*C)/2:.1f}")
+```

@@ -1,0 +1,27 @@
+---
+title: Múltiplos
+url: https://judge.beecrowd.com/pt/problems/view/1044
+category: Iniciante
+---
+
+## Descrição
+
+Leia 2 valores inteiros (A e B). Após, o programa deve mostrar uma mensagem "Sao Multiplos" ou "Nao sao Multiplos", indicando se os valores lidos são múltiplos entre si.
+
+## Solução
+
+Para solucionar esse problema, pode-se usar dos seguintes princípios:
+1. Se A é maior que B e quando se divide A por B não tem resto, então eles são múltiplos;
+1. Se A é menor que B e quando se divide B por A não tem resto, então eles são múltiplos;
+1. Caso contrário, ao dividir A por B ou B por A sobrar resto, significa que eles não são múltiplos
+
+```py title="main.py"
+# -*- coding: utf-8 -*-
+
+A, B = map(int, input().split(" "))
+
+if (A > B and A % B) or (A < B and B % A):
+    print("Nao sao Multiplos")
+else:
+    print("Sao Multiplos")
+```

@@ -1,0 +1,43 @@
+---
+title: Tipos de Triângulos
+url: https://judge.beecrowd.com/pt/problems/view/1045
+category: Iniciante
+---
+
+## Descrição
+
+Leia 3 valores de ponto flutuante A, B e C e ordene-os em ordem decrescente, de modo que o lado A representa o maior dos 3 lados. A seguir, determine o tipo de triângulo que estes três lados formam, com base nos seguintes casos, sempre escrevendo uma mensagem adequada:
+
+* se A ≥ B+C, apresente a mensagem: NAO FORMA TRIANGULO
+* se A2 = B2 + C2, apresente a mensagem: TRIANGULO RETANGULO
+* se A2 > B2 + C2, apresente a mensagem: TRIANGULO OBTUSANGULO
+* se A2 < B2 + C2, apresente a mensagem: TRIANGULO ACUTANGULO
+* se os três lados forem iguais, apresente a mensagem: TRIANGULO EQUILATERO
+* se apenas dois dos lados forem iguais, apresente a mensagem: TRIANGULO ISOSCELES
+
+## Solução
+
+O problema informa quais são os parâmetros necessários para comparação. Tendo isso, basta primeiro verificar se as medidas informadas formam ou não um triângulo e, caso formem, realizar a classificação dele quanto aos ângulos e as medidas.
+
+```py title="main.py"
+# -*- coding: utf-8 -*-
+
+A, B, C = sorted([float(number) for number in input().split(" ")], reverse=True)
+
+# identifica se as medidas informadas formam ou não um triângulo
+if A >= B + C:
+    print("NAO FORMA TRIANGULO")
+else:
+    # classifica o triângulo formado de acordo com seus ângulos
+    if A**2 == B**2 + C**2:
+        print("TRIANGULO RETANGULO")
+    elif A**2 > B**2 + C**2:
+        print("TRIANGULO OBTUSANGULO")
+    elif A**2 < B**2 + C**2:
+        print("TRIANGULO ACUTANGULO")
+    # classifica o triângulo de acordo com as medidas de seus lados
+    if A == B and B == C:
+        print("TRIANGULO EQUILATERO")
+    elif A == B or A == C or B == C:
+        print("TRIANGULO ISOSCELES")
+```

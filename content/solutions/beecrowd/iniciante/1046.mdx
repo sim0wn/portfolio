@@ -1,0 +1,30 @@
+---
+title: Tempo de Jogo
+url: https://judge.beecrowd.com/pt/problems/view/1046
+category: Iniciante
+---
+
+## Descrição
+
+Leia a hora inicial e a hora final de um jogo. A seguir calcule a duração do jogo, sabendo que o mesmo pode começar em um dia e terminar em outro, tendo uma duração mínima de 1 hora e máxima de 24 horas.
+
+## Solução
+
+Levando em consideração que o jogo pode começar em um dia e terminar em outro, significa que se o horário de término for inferior ao horário de início é porque o jogo terminou em outro dia. Sendo assim, tem-se que subtraindo 24 e a hora final da hora inicial, chegamos à duração do jogo. Caso não tenha durado mais que um dia, basta apenas subtrair a hora inicial da hora final e chega-se ao resultado.
+
+```py title="main.py"
+# -*- coding: utf-8 -*-
+
+hI, hF = map(int, input().split(" "))
+
+# se a hora final for menor que a hora inicial, significa que o jogo terminou
+# em outro dia. Sendo assim, a duração equivale a subtração de 24 e a hora
+# final da hora inicial
+if hF <= hI:
+    d = abs(hI - 24 - hF)
+# caso contrário, basta apenas subtrair a hora final da hora inicial
+else:
+    d = hF - hI
+
+print(f"O JOGO DUROU {d} HORA(S)")
+```

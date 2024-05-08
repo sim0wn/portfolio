@@ -1,0 +1,30 @@
+---
+title: Fórmula de Bhaskara
+url: https://judge.beecrowd.com/pt/problems/view/1036
+category: Iniciante
+---
+
+## Descrição
+
+Leia 3 valores de ponto flutuante e efetue o cálculo das raízes da equação de Bhaskara.
+Se não for possível calcular as raízes, mostre a mensagem correspondente “Impossivel calcular”, caso haja uma divisão por 0 ou raiz de numero negativo.
+
+## Solução
+
+Para a solução, basta aplicar a Fórmula de Bhaskara.
+Primeiro determina-se o delta, e então é possível verificar se as variáveis permitem a realização do cálculo; sendo A maior que 0 e raiz de delta maior que 0, pode-se realizar o cálculo.
+
+```py title="main.py"
+# -*- coding: utf-8 -*-
+
+A, B, C = map(float, input().split(" "))
+
+delta = (B**2) - 4 * A * C
+
+if delta < 0 or A == 0:
+    print("Impossivel calcular")
+else:
+    delta **= 1 / 2
+    print(f"R1 = {(-B + delta) / (2 * A):.5f}")
+    print(f"R2 = {(-B - delta) / (2 * A):.5f}")
+```

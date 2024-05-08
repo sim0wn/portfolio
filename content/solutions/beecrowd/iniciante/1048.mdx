@@ -1,0 +1,70 @@
+---
+title: Aumento de Salário
+url: https://judge.beecrowd.com/pt/problems/view/1048
+category: Iniciante
+---
+
+## Descrição
+
+A empresa ABC resolveu conceder um aumento de salários a seus funcionários de acordo com a tabela abaixo:
+
+<table className="text-center">
+  <thead>
+    <tr>
+      <th>Salário</th>
+      <th>Percentual de Reajuste</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0 - 400.00</td>
+      <td>15%</td>
+    </tr>
+    <tr>
+      <td>400.01 - 800.00</td>
+      <td>12%</td>
+    </tr>
+    <tr>
+      <td>800.01 - 1200.00</td>
+      <td>15%</td>
+    </tr>
+    <tr>
+      <td>1200.01 - 2000.00</td>
+      <td>10%</td>
+    </tr>
+    <tr>
+      <td>Acima de 2000.00</td>
+      <td>4%</td>
+    </tr>
+  </tbody>
+</table>
+
+Leia o salário do funcionário e calcule e mostre o novo salário, bem como o valor de reajuste ganho e o índice reajustado, em percentual.
+
+## Solução
+
+A solução desse problema envolve apenas se atentar às condições informadas na tabela e então calcular o reajuste salarial usando a porcentagem.
+
+```py title="main.py"
+# -*- coding: utf-8 -*-
+
+# recebe o salário do funcionário
+s = float(input())
+
+if s > 0 and s <= 400:
+    p = 15
+elif s > 400 and s <= 800:
+    p = 12
+elif s > 800 and s <= 1200:
+    p = 10
+elif s > 1200 and s <= 2000:
+    p = 7
+elif s > 2000:
+    p = 4
+
+p /= 100
+
+print(f"Novo salario: {s+(s*p):.2f}")
+print(f"Reajuste ganho: {s*p:.2f}")
+print(f"Em percentual: {int(p*100)} %")
+```

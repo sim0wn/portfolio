@@ -1,0 +1,46 @@
+---
+title: Sort Simples
+url: https://judge.beecrowd.com/pt/problems/view/1042
+category: Iniciante
+---
+
+## Descrição
+
+Leia 3 valores inteiros e ordene-os em ordem crescente. No final, mostre os valores em ordem crescente, uma linha em branco e em seguida, os valores na sequência como foram lidos.
+
+## Solução
+
+Embora exista a possibilidade de utilizar funções built-in para ordenar a lista, é interessante a implementação de um algoritmo de ordenação "na unha" para fins de aprendizagem.
+Nesse caso, pode-se implementar um algoritmo como o Insertion Sort.
+A ideia é percorrer uma lista com os valores, e a cada iteração, percorrer do elemento atual até o fim da lista, verificando se quaisquer dos elementos são menores que o elemento comparado.
+Os elementos que atenderem a essa condição irão ser trocados de posição, e então tem-se a ordenação da lista.
+Tendo como base os exemplos de entrada, leve em consideração os valores "7 21 -14".
+Primeiro, compara-se o elemento 7 com os elementos 21 e -14. Como -14 é menor que 7, troca as posições, tendo então "-14 21 7".
+Depois, compara-se o elemento 21 com o elemento 7. Como 7 é menor, troca as posições e tem-se a lista devidamente ordenada em ordem crescente.
+
+```py title="main.py"
+# -*- coding: utf-8 -*-
+
+# recebe a entrada do usuário
+valores = list(map(int, input().split(" ")))
+
+# cria cópia dos valores informados
+lista_ordenada = [valor for valor in valores]
+
+# percorre os índices da lista
+for position in range(len(lista_ordenada)):
+    # percorre do índice até o último elemento
+    for index in range(position, len(lista_ordenada)):
+        a = lista_ordenada[position]
+        b = lista_ordenada[index]
+        # se quaisquer elementos à frente do índice forem maior que ele, troca
+        # as posições
+        if b < a:
+            lista_ordenada[position] = b
+            lista_ordenada[index] = a
+
+
+print(*lista_ordenada, sep="\n")
+print()
+print(*valores, sep="\n")
+```
