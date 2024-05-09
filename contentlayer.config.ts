@@ -41,6 +41,9 @@ export const Solution = defineDocumentType(() => ({
 export default makeSource({
   contentDirPath: "content",
   documentTypes: [Article, Solution],
+  markdown: {
+    remarkPlugins: [remarkGfm],
+  },
   mdx: {
     remarkPlugins: [remarkGfm],
     rehypePlugins: [
