@@ -1,4 +1,4 @@
 {
-  "extends": ["next/core-web-vitals", "plugin:prettier/recommended", "plugin:perfectionist/recommended-natural"],
+  "extends": ["next/core-web-vitals",  "plugin:perfectionist/recommended-natural", "plugin:prettier/recommended"],
   "plugins": ["perfectionist"]
 }

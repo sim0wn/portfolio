@@ -21,7 +21,7 @@ export const Article = defineDocumentType(() => ({
   name: "Article",
 }))
 
-export const Solution = defineDocumentType(() => ({
+export const Challenge = defineDocumentType(() => ({
   computedFields: {
     challenge: {
       resolve: (solution) => solution._raw.sourceFileName.replace(/\.mdx/, ""),
@@ -35,13 +35,13 @@ export const Solution = defineDocumentType(() => ({
     title: { required: true, type: "string" },
     url: { required: false, type: "string" },
   },
-  filePathPattern: "solutions/**/**/**.mdx",
-  name: "Solution",
+  filePathPattern: "challenges/**/**/**.mdx",
+  name: "Challenge",
 }))
 
 export default makeSource({
   contentDirPath: "content",
-  documentTypes: [Article, Solution],
+  documentTypes: [Article, Challenge],
   markdown: {
     remarkPlugins: [remarkGfm],
   },
