@@ -16,7 +16,11 @@ export async function generateMetadata({
 }) {
   const article = allArticles.find(({ article }) => article === params.article)
   if (article) {
-    return { title: article.title } as Metadata
+    return {
+      authors: article.authors,
+      publisher: "Hálisson Ferreira da Cruz",
+      title: article.title,
+    } as Metadata
   }
 }
 
