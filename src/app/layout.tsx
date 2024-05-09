@@ -1,23 +1,25 @@
-import classNames from "classnames"
 import type { Metadata } from "next"
+
+import classNames from "classnames"
 import { Raleway } from "next/font/google"
 import { ReactNode } from "react"
+
 import Navbar from "./components/navbar"
 import "./styles.css"
 
 const raleway = Raleway({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: { template: "%s | sim0wn", default: "whoami | sim0wn" },
-  description:
-    "Sou um estudante de Segurança da Informação apaixonado em solucionar desafios. Aqui, eu reúno minhas atividades e busco transmitir conhecimento. Confira meu portfólio completo e entre em contato para discutir oportunidades de trabalho.",
+  applicationName: "sim0wn's portfolio",
   authors: [{ name: "sim0wn" }],
   creator: "sim0wn",
-  applicationName: "sim0wn's portfolio",
-  keywords: ["Segurança da Informação", "Hacking", "Portfolio", "CTF"],
+  description:
+    "Sou um estudante de Segurança da Informação apaixonado em solucionar desafios. Aqui, eu reúno minhas atividades e busco transmitir conhecimento. Confira meu portfólio completo e entre em contato para discutir oportunidades de trabalho.",
   icons: {
     icon: "/icons/favicon.ico",
   },
+  keywords: ["Segurança da Informação", "Hacking", "Portfolio", "CTF"],
+  title: { default: "whoami | sim0wn", template: "%s | sim0wn" },
 }
 
 export default function RootLayout({

@@ -5,7 +5,7 @@ export default function Solutions() {
   return (
     <main className="flex p-2 gap-2 flex-wrap justify-center">
       {allSolutions.map((solution, index) => (
-        <article key={index} className="bg-neutral-800 p-3 w-fit">
+        <article className="bg-neutral-800 p-3 w-fit" key={index}>
           <Link href={solution._raw.flattenedPath}>
             <p className="font-semibold text-lg">{solution.title}</p>
             <p className="text-center">

@@ -1,6 +1,10 @@
 ---
-title: Consumismo
+authors:
+  - Hálisson Ferreira da Cruz
+  - Hugo Morete Felix
+  - João Pedro de Oliveira Sampaio
 date: 2022-09-14
+title: Consumismo
 ---
 
 ## Introdução

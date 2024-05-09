@@ -1,7 +1,7 @@
 import { allSolutions } from "contentlayer/generated"
-import { useMDXComponent } from "next-contentlayer/hooks"
 import Link from "next/link"
 import { notFound } from "next/navigation"
+import { useMDXComponent } from "next-contentlayer/hooks"
 
 export async function generateStaticParams() {
   return allSolutions.map((solution) => ({
@@ -24,7 +24,7 @@ export default function Solution({
       <header>
         <p className="font-bold text-3xl mb-0">{solution.title}</p>
         {solution.url && (
-          <Link target="_blank" rel="noopener noreferrer" href={solution.url}>
+          <Link href={solution.url} rel="noopener noreferrer" target="_blank">
             Acessar desafio
           </Link>
         )}

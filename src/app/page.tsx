@@ -12,11 +12,11 @@ export default function WhoAmI() {
     <main className="flex flex-col sm:flex-row place-items-center justify-center gap-4 h-screen p-1.5">
       <section className="flex flex-col gap-1.5">
         <Image
-          src={"/images/sim0wn.jpg"}
-          className="rounded-full"
           alt=""
-          width={250}
+          className="rounded-full"
           height={250}
+          src={"/images/sim0wn.jpg"}
+          width={250}
         />
         <ul className="border-y border-neutral-800 py-2 text-4xl flex gap-1.5 justify-center">
           <li>

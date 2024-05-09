@@ -5,37 +5,38 @@ import rehypePrettyCode, {
 import remarkGfm from "remark-gfm"
 
 export const Article = defineDocumentType(() => ({
-  name: "Article",
-  filePathPattern: "articles/**.md",
-  contentType: "markdown",
-  fields: {
-    title: { type: "string", required: true },
-    date: { type: "date", required: true },
-  },
   computedFields: {
     article: {
-      type: "string",
       resolve: (article) => article._raw.sourceFileName.replace(/\.mdx?/, ""),
+      type: "string",
     },
   },
+  contentType: "markdown",
+  fields: {
+    authors: { of: { type: "string" }, required: true, type: "list" },
+    date: { required: true, type: "date" },
+    title: { required: true, type: "string" },
+  },
+  filePathPattern: "articles/**.md",
+  name: "Article",
 }))
 
 export const Solution = defineDocumentType(() => ({
-  name: "Solution",
-  filePathPattern: "solutions/**/**/**.mdx",
-  contentType: "mdx",
-  fields: {
-    title: { type: "string", required: true },
-    category: { type: "string", required: true },
-    url: { type: "string", required: false },
-    thumbnail: { type: "string", required: false },
-  },
   computedFields: {
     challenge: {
-      type: "string",
       resolve: (solution) => solution._raw.sourceFileName.replace(/\.mdx/, ""),
+      type: "string",
     },
   },
+  contentType: "mdx",
+  fields: {
+    category: { required: true, type: "string" },
+    thumbnail: { required: false, type: "string" },
+    title: { required: true, type: "string" },
+    url: { required: false, type: "string" },
+  },
+  filePathPattern: "solutions/**/**/**.mdx",
+  name: "Solution",
 }))
 
 export default makeSource({
@@ -45,21 +46,21 @@ export default makeSource({
     remarkPlugins: [remarkGfm],
   },
   mdx: {
-    remarkPlugins: [remarkGfm],
     rehypePlugins: [
       [
         rehypePrettyCode as any,
         {
+          keepBackground: false,
+          onVisitHighlightedChars(node) {
+            node.properties.className = ["word"]
+          },
           theme: {
             dark: "vitesse-black",
             light: "catppuccin-macchiato",
           },
-          onVisitHighlightedChars(node) {
-            node.properties.className = ["word"]
-          },
-          keepBackground: false,
         } satisfies Partial<PrettyCodeOptions>,
       ],
     ],
+    remarkPlugins: [remarkGfm],
   },
 })

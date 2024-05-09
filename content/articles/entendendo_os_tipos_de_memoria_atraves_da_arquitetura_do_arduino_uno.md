@@ -1,6 +1,8 @@
 ---
-title: Entendendo os tipos de memória através da arquitetura do Arduino Uno
+authors:
+  - Hálisson Ferreira da Cruz
 date: 2024-05-09
+title: Entendendo os tipos de memória através da arquitetura do Arduino Uno
 ---
 
 ## Arquitetura do Arduino Uno

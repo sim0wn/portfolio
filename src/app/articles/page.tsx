@@ -9,7 +9,7 @@ export default function Articles() {
   return (
     <main className="p-2 gap-2 flex">
       {articles.map((article, index) => (
-        <article key={index} className="p-4 bg-neutral-800">
+        <article className="p-4 bg-neutral-800" key={index}>
           <Link href={article._raw.flattenedPath}>{article.title}</Link>
         </article>
       ))}

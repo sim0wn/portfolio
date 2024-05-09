@@ -1,6 +1,8 @@
 ---
-title: Relato do Filme "Fome de Poder"
+authors:
+  - Hálisson Ferreira da Cruz
 date: 2022-04-24
+title: Relato do Filme "Fome de Poder"
 ---
 
 ## Introdução
