@@ -1,8 +1,22 @@
+import classNames from "classnames"
 import Link from "next/link"
+import { HTMLAttributes } from "react"
 
-export default function Navbar() {
+export default function Navbar({
+  className,
+  props,
+}: {
+  className?: string
+  props?: HTMLAttributes<HTMLDivElement>
+}) {
   return (
-    <nav className="border-b px-2 flex py-4 justify-center mx-1.5 dark:border-neutral-800">
+    <nav
+      className={classNames(
+        "border-b px-2 flex py-4 justify-center mx-1.5 dark:border-neutral-800",
+        className,
+      )}
+      {...props}
+    >
       <Link className="flex text-2xl" href={"/"}>
         ~/
       </Link>

@@ -9,7 +9,7 @@ import Link from "next/link"
 
 export default function WhoAmI() {
   return (
-    <main className="flex flex-col sm:flex-row place-items-center justify-center gap-4 h-screen p-1.5">
+    <main className="flex flex-col sm:flex-row place-items-center justify-center gap-4 p-1.5">
       <section className="flex flex-col gap-1.5">
         <Image
           alt=""

@@ -32,7 +32,7 @@ export default function RootLayout({
       <body
         className={classNames(
           raleway.className,
-          "dark:bg-neutral-950 dark:text-neutral-50 flex flex-col",
+          "dark:bg-neutral-950 dark:text-neutral-50 h-screen grid grid-rows-[min-content_1fr]",
         )}
       >
         <Navbar />
