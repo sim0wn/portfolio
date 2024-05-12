@@ -1,5 +1,4 @@
 import { allPlatforms } from "@/utils/challenges.utils"
-import { allChallenges } from "contentlayer/generated"
 import Link from "next/link"
 
 export default function Platforms() {
