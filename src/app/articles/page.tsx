@@ -7,9 +7,9 @@ export default function Articles() {
     compareDesc(new Date(a.date), new Date(b.date)),
   )
   return (
-    <main className="p-2 gap-2 flex flex-row">
+    <main className="p-2 gap-2 flex flex-col">
       {articles.map((article, index) => (
-        <article className="p-4 bg-neutral-800 h-fit" key={index}>
+        <article className="p-4 bg-neutral-800 rounded-sm" key={index}>
           <Link href={article._raw.flattenedPath}>{article.title}</Link>
         </article>
       ))}
