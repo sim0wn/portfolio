@@ -5,9 +5,8 @@ authors:
   - João Pedro de Oliveira Sampaio
 date: 2022-09-14
 title: Consumismo
+content: 'Trabalho acadêmico sobre o consumismo apresentado como requisito parcial de avaliação na unidade curricular "Cinema e Sociedade: compreender a sociedade pela sétima arte", lecionada pelo professor Dr. Árife Amaral Melo.'
 ---
-
-## Introdução
 
 O consumo é essencial para todos as sociedades. É necessário para
 que os indivíduos satisfaçam suas necessidades básicas e sobrevivam. Entretanto,
@@ -35,9 +34,6 @@ O consumismo gira em torno da atribuição imaterial de valores a
 bens de consumo e a inovação constante dos produtos (mesmo que seja quase
 insignificante), pois os indivíduos buscam possuir sempre o mais novo, e aquilo que
 é considerado velho (mesmo que ainda seja funcional e viável), se torna obsoleto.
-
-## Desenvolvimento
-
 A produção de mercadorias antes do surgimento das primeiras
 fábricas se dava através da manufatura, que era conduzida por um artesão – alguém
 com domínio técnico sobre o método de produção – e era mais suscetível a erros.
@@ -230,10 +226,7 @@ essencial para a sobrevivência, agora consome algo pela necessidade de identifi
 a si mesmo através do seu padrão de consumo. Assim a promessa que antes era
 suprir a necessidade está hoje sendo utilizada para ser visto de maneira diferente,
 ser respeitado, ser admirado e desejado.
-
-## Conclusão
-
-A sociedade de consumo é movida pela superficialidade. O
+Por fim, a sociedade de consumo é movida pela superficialidade. O
 consumismo se caracteriza por uma busca incessante pelo preenchimento do vazio
 do indivíduo através de bens de consumo, o que nunca será alcançado pois a
 propaganda consumista vende constantemente a ideia que o indivíduo possui um

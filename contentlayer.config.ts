@@ -14,6 +14,7 @@ export const Article = defineDocumentType(() => ({
   contentType: "markdown",
   fields: {
     authors: { of: { type: "string" }, required: true, type: "list" },
+    content: { required: true, type: "string" },
     date: { required: true, type: "date" },
     title: { required: true, type: "string" },
   },

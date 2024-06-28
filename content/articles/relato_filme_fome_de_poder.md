@@ -3,9 +3,8 @@ authors:
   - Hálisson Ferreira da Cruz
 date: 2022-04-24
 title: Relato do Filme "Fome de Poder"
+content: 'Um breve relato sobre o filme "Fome de Poder" (The Founder), desenvolvido como requisito parcial de avaliação em uma unidade curricular do IFPR Jacarezinho sobre Empreendorismo.'
 ---
-
-## Introdução
 
 O filme “Fome de Poder” (The Founder) trata sobre a história do
 surgimento da linha de restaurantes de fast-food McDonald’s e como ela se tornou
@@ -24,9 +23,6 @@ demorado, ou ele acaba recebendo o pedido errado). Embora esse exemplo dele se
 refira especificamente ao mixer, isso se aplica na produção de qualquer outro
 produto, e será um das características diferenciais do McDonald’s, que é capaz de
 produzir todo o cardápio oferecido de forma rápida e eficiente.
-
-## Desenvolvimento
-
 Certo dia, Ray liga ao escritório de onde trabalha e é informado por
 sua secretária que um cliente havia feito o pedido de 6 mixers. Surpreso, ele pede o
 contato do cliente e liga para confirmar o pedido. Ele entra em contato com o cliente,
@@ -60,10 +56,7 @@ propostas por Ray eram descartadas. Mesmo aquelas que beneficiavam a todos
 aceitas. Nota-se que isso foi um fator limitante no crescimento da empresa pois é a
 partir do momento em que ele passa a romper o contrato que o McDonald’s atinge
 seu melhor estado.
-
-## Conclusão
-
-A ambição, o desejo constante de crescer e a persistência de Ray
+Concluindo, a ambição, o desejo constante de crescer e a persistência de Ray
 foram os fatores mais importantes para o McDonald’s crescer. Ele viu potencial na
 ideia e arriscou tudo para que pudesse investir nele. Diferente de outros investidores
 (apresentados no filme), ele não se conformava com o estado do McDonald’s e não
