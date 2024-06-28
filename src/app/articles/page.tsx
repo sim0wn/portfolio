@@ -20,9 +20,7 @@ export default function Articles() {
               </time>
             )}
           </header>
-          <main>
-            {article.content && <p className="italic">{article.content}</p>}
-          </main>
+          {article.content && <p className="italic">{article.content}</p>}
         </article>
       ))}
     </main>
