@@ -76,15 +76,29 @@ export default function WhoAmI() {
         </ul>
       </section>
       <section className="max-w-lg">
-        <p className="text-wrap text-lg text-center">
-          Olá, amigo. Seja bem-vindo! Sou um entusiasta apaixonado por Segurança
-          da Informação. Aqui, lhe disponibilizo os links de acesso ao meu
-          currículo acadêmico e profissional, além do meu perfil do LinkedIn e
-          plataformas de desafios. Em breve, estarei disponibilizando resoluções
-          de desafios através dessa plataforma para auxiliar outros estudantes e
-          profissionais de Segurança da Informação a resolverem desafios ou
-          aprenderem coisas novas.
-        </p>
+        <section className="bg-neutral-800 py-2 px-4 flex rounded-tr-xl rounded-tl-lg select-none">
+          <p className="text-center flex-1">Terminal</p>
+          <p>x</p>
+        </section>
+        <section className="bg-neutral-900 p-1.5">
+          <header className="inline-flex">
+            <p className="text-green-500">root</p>
+            <p className="text-yellow-400">@</p>
+            <p className="text-blue-600">sim0wn</p>
+            <p className="text-purple-600 px-1">~</p>
+            <p className="text-red-600">#</p>
+            <p className="italic text-neutral-200 px-1">cat ./welcome.txt</p>
+          </header>
+          <p className="text-wrap text-justify">
+            Olá, amigo. Seja bem-vindo! Sou um entusiasta apaixonado por
+            Segurança da Informação. Aqui, lhe disponibilizo os links de acesso
+            ao meu currículo acadêmico e profissional, além do meu perfil do
+            LinkedIn e plataformas de desafios. Em breve, estarei
+            disponibilizando resoluções de desafios através dessa plataforma
+            para auxiliar outros estudantes e profissionais de Segurança da
+            Informação a resolverem desafios ou aprenderem coisas novas.
+          </p>
+        </section>
       </section>
     </main>
   )
