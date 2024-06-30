@@ -14,11 +14,23 @@ export const metadata: Metadata = {
   authors: [{ name: "sim0wn" }],
   creator: "sim0wn",
   description:
-    "Sou um estudante de Segurança da Informação apaixonado em solucionar desafios. Aqui, eu reúno minhas atividades e busco transmitir conhecimento. Confira meu portfólio completo e entre em contato para discutir oportunidades de trabalho.",
+    "Sou um estudante de Segurança da Informação apaixonado por desafios. Aqui, eu reúno minhas atividades e busco transmitir conhecimento. Confira meu portfólio completo e entre em contato para discutir oportunidades de trabalho.",
   icons: {
     icon: "/icons/favicon.ico",
   },
-  keywords: ["Segurança da Informação", "Hacking", "Portfolio", "CTF"],
+  keywords: [
+    "Segurança da Informação",
+    "Hacking",
+    "Portfolio",
+    "CTF",
+    "Hackers do Bem",
+    "Desenvolvedor Web",
+    "Python",
+    "BASH",
+    "TypeScript",
+    "API",
+    "Linux",
+  ],
   title: { default: "whoami | sim0wn", template: "%s | sim0wn" },
 }
 
