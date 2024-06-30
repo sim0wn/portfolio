@@ -30,7 +30,7 @@ export default function Article({ params }: { params: { article: string } }) {
     return (
       <article className="prose p-2 m-auto dark:prose-invert prose-neutral">
         <header className="flex flex-col">
-          <h1 className="mb-2 uppercase">{article.title}</h1>
+          <h1 className="mb-2 capitalize">{article.title}</h1>
           <address className="text-right">{article.authors.join(", ")}</address>
           <time className="text-right" dateTime={article.date}>
             {formatWithOptions(
