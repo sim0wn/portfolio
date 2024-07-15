@@ -28,8 +28,8 @@ export default function Articles() {
               <ul>
                 {(article.tags as string[]).map((tag, index) => (
                   <li
-                    key={index}
                     className="text-sm list-none border px-2 py-0 rounded-full border-neutral-800 bg-neutral-900"
+                    key={index}
                   >
                     {tag}
                   </li>

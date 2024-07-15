@@ -1,8 +1,8 @@
 import { defineDocumentType, makeSource } from "contentlayer/source-files"
+import { createHash } from "crypto"
 import rehypePrettyCode, {
   Options as PrettyCodeOptions,
 } from "rehype-pretty-code"
-import { createHash } from "crypto"
 import remarkGfm from "remark-gfm"
 
 export const Article = defineDocumentType(() => ({
@@ -20,15 +20,15 @@ export const Article = defineDocumentType(() => ({
   contentType: "mdx",
   fields: {
     authors: {
+      default: ["Hálisson Ferreira da Cruz (sim0wn)"],
       of: { type: "string" },
       required: false,
       type: "list",
-      default: ["Hálisson Ferreira da Cruz (sim0wn)"],
     },
-    description: { required: true, type: "string" },
     date: { required: true, type: "date" },
-    title: { required: true, type: "string" },
+    description: { required: true, type: "string" },
     tags: { of: { type: "string" }, required: false, type: "list" },
+    title: { required: true, type: "string" },
   },
   filePathPattern: "articles/**.md",
   name: "Article",
