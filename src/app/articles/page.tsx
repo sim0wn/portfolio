@@ -12,7 +12,7 @@ export default function Articles() {
         <article className={"p-4 bg-neutral-800 rounded-sm"} key={index}>
           <header className="flex">
             <h1 className="flex-1 font-semibold text-lg">
-              <Link href={article._raw.flattenedPath}>{article.title}</Link>
+              <Link href={`articles/${article.slug}`}>{article.title}</Link>
             </h1>
             {article.date && (
               <time dateTime={article.date}>
@@ -20,7 +20,23 @@ export default function Articles() {
               </time>
             )}
           </header>
-          {article.content && <p className="italic">{article.content}</p>}
+          {article.description && (
+            <p className="italic mb-2">{article.description}</p>
+          )}
+          <footer className="flex gap-1.5">
+            {article.tags && (
+              <ul>
+                {(article.tags as string[]).map((tag, index) => (
+                  <li
+                    key={index}
+                    className="text-sm list-none border px-2 py-0 rounded-full border-neutral-800 bg-neutral-900"
+                  >
+                    {tag}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </footer>
         </article>
       ))}
     </main>

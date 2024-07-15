@@ -22,9 +22,6 @@ export default function Navbar({
       </Link>
       <menu className="flex flex-1 gap-2 justify-end *:border-b *:px-2 py-1 dark:*:border-neutral-800">
         <li>
-          <Link href={"/challenges"}>~/desafios</Link>
-        </li>
-        <li>
           <Link href={"/articles"}>~/artigos</Link>
         </li>
       </menu>

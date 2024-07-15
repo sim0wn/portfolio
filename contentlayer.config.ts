@@ -2,47 +2,41 @@ import { defineDocumentType, makeSource } from "contentlayer/source-files"
 import rehypePrettyCode, {
   Options as PrettyCodeOptions,
 } from "rehype-pretty-code"
+import { createHash } from "crypto"
 import remarkGfm from "remark-gfm"
 
 export const Article = defineDocumentType(() => ({
   computedFields: {
-    article: {
-      resolve: (article) => article._raw.sourceFileName.replace(/\.mdx?/, ""),
-      type: "string",
-    },
-  },
-  contentType: "markdown",
-  fields: {
-    authors: { of: { type: "string" }, required: true, type: "list" },
-    content: { required: true, type: "string" },
-    date: { required: true, type: "date" },
-    title: { required: true, type: "string" },
-  },
-  filePathPattern: "articles/**.md",
-  name: "Article",
-}))
-
-export const Challenge = defineDocumentType(() => ({
-  computedFields: {
-    challenge: {
-      resolve: (solution) => solution._raw.sourceFileName.replace(/\.mdx/, ""),
+    slug: {
+      resolve: (article) =>
+        article.title
+          .toLowerCase()
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "")
+          .replace(/[^\w]/g, (match) => (match === " " ? "-" : "")),
       type: "string",
     },
   },
   contentType: "mdx",
   fields: {
-    category: { required: true, type: "string" },
-    thumbnail: { required: false, type: "string" },
+    authors: {
+      of: { type: "string" },
+      required: false,
+      type: "list",
+      default: ["Hálisson Ferreira da Cruz (sim0wn)"],
+    },
+    description: { required: true, type: "string" },
+    date: { required: true, type: "date" },
     title: { required: true, type: "string" },
-    url: { required: false, type: "string" },
+    tags: { of: { type: "string" }, required: false, type: "list" },
   },
-  filePathPattern: "challenges/**/**/**.mdx",
-  name: "Challenge",
+  filePathPattern: "articles/**.md",
+  name: "Article",
 }))
 
 export default makeSource({
   contentDirPath: "content",
-  documentTypes: [Article, Challenge],
+  documentTypes: [Article],
   markdown: {
     remarkPlugins: [remarkGfm],
   },
