@@ -20,7 +20,7 @@ export const Article = defineDocumentType(() => ({
   contentType: "mdx",
   fields: {
     authors: {
-      default: ["Hálisson Ferreira da Cruz (sim0wn)"],
+      default: ["sim0wn"],
       of: { type: "string" },
       required: false,
       type: "list",

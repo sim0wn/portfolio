@@ -18,7 +18,7 @@ export async function generateMetadata({
     return {
       authors: article.authors,
       keywords: article.tags,
-      publisher: "Hálisson Ferreira da Cruz",
+      publisher: "sim0wn",
       title: article.title,
     } as Metadata
   }
@@ -33,11 +33,12 @@ export default function Article({ params }: { params: { article: string } }) {
   if (!article) notFound()
   const MDXContent = useMDXComponent(article.body.code)
   return (
-    <article className="prose p-2 m-auto dark:prose-invert prose-neutral">
-      <header className="flex flex-col gap-0.5">
-        <h1 className="mb-2 capitalize">{article.title}</h1>
+    <article className="p-2 m-auto w-svw prose dark:prose-invert prose-neutral mx-auto">
+      <header className="flex flex-col gap-0.5 items-center text-center border-b">
+        <h1 className="mb-2">{article.title}</h1>
         {article.tags && (
-          <ul className="flex self-end items-center gap-1.5 m-0">
+          <ul className="flex flex-wrap items-center justify-stretch gap-1.5 m-0">
+            <TagsIcon />
             {article.tags.map((tag) => (
               <li
                 className="list-none text-sm m-0 border px-2 py-0 rounded-full border-neutral-800 bg-neutral-900"
@@ -46,19 +47,19 @@ export default function Article({ params }: { params: { article: string } }) {
                 {tag}
               </li>
             ))}
-            <TagsIcon />
           </ul>
         )}
-        <address className="text-right">{article.authors.join(", ")}</address>
-        <time className="text-right" dateTime={article.date}>
+        <address>{article.authors.join(", ")}</address>
+        <time dateTime={article.date}>
           {formatWithOptions(
             { locale: ptBR },
             "dd' de 'MMMM' de 'yyyy",
             parseISO(article.date),
           )}
         </time>
+        <p className="border-b mx-4 px-2">{article.description}</p>
       </header>
-      <main>
+      <main className="mt-6">
         <MDXContent />
       </main>
     </article>

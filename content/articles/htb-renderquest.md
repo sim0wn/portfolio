@@ -1,12 +1,13 @@
 ---
 date: 2024-07-16
-description: "Um desafio simples que consiste na exploração de um SSTI em Go"
-title: "RenderQuest - Explorando Server-Side Template Injection em Go"
+description: "Explorando Server-Side Template Injection em Go"
+title: "RenderQuest"
 tags:
   - Write-Up
   - Easy
   - Hack The Box
   - SSTI
+  - Web
   - Go
 ---
 
@@ -86,7 +87,7 @@ Porém, se observarmos, após realizar a leitura do arquivo de template, a aplic
 
 # Explorando a vulnerabilidade
 
-Podemos explorar essa vulnerabilidade criando um arquivo de template em nossa máquina local e expondo-o através de um servidor HTTP e o ngrok. Podemos iniciar um servidor HTTP em Python através do comando `python -m http.server` e expor nossa máquina através do ngrok com o seguinte comando: `ngrok http 8000`. Dessa forma, podemos criar um arquivo de template com um payload malicioso. Como exemplo, um arquivo template.tpl contendo `{{.}}` vai imprimir as propriedades do objeto acessível pelo template. Alterando esse payload para `{{.FetchServerInfo "id"}}` e enviando novamente para ser carregado pela aplicação, a resposta será o resultado do comando `id` executado pela máquina alvo. Dessa forma, temos um RCE que permite navegar pelo sistema e encontrar a _flag_, e basta apenas manipular o argumento do comando `FetchServerInfo`.
+Podemos explorar essa vulnerabilidade criando um arquivo de template em nossa máquina local e expondo-o através de um servidor HTTP e o ngrok. Podemos iniciar um servidor HTTP em Python através do comando `python -m http.server` e expor nossa máquina através do ngrok com o seguinte comando: `ngrok http 8000`. Dessa forma, podemos criar um arquivo de template com um payload malicioso. Como exemplo, um arquivo template.tpl contendo `{{.}}` vai imprimir as propriedades do objeto acessível pelo template. Alterando esse payload para `{{.FetchServerInfo "id"}}` e enviando novamente para ser carregado pela aplicação, a resposta será o resultado do comando `id` executado pela máquina alvo. Dessa forma, temos um RCE que permite navegar pelo sistema e encontrar a _flag_, e basta apenas manipular o argumento do comando FetchServerInfo`.
 
 # Prova de Conceito
 
