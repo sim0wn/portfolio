@@ -40,7 +40,7 @@ export default function Article({ params }: { params: { article: string } }) {
           <ul className="flex self-end items-center gap-1.5 m-0">
             {article.tags.map((tag) => (
               <li
-                className="list-none m-0 border px-2 py-0 rounded-full border-neutral-800 bg-neutral-900"
+                className="list-none text-sm m-0 border px-2 py-0 rounded-full border-neutral-800 bg-neutral-900"
                 key={tag}
               >
                 {tag}

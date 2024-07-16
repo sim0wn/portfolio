@@ -23,10 +23,10 @@ export default function Articles() {
           {article.description && (
             <p className="italic mb-2">{article.description}</p>
           )}
-          <footer className="flex gap-1.5">
+          <footer className="flex gap-1.5 flex-1">
             {article.tags && (
-              <ul>
-                {(article.tags as string[]).map((tag, index) => (
+              <ul className="flex">
+                {(article.tags as string[]).sort().map((tag, index) => (
                   <li
                     className="text-sm list-none border px-2 py-0 rounded-full border-neutral-800 bg-neutral-900"
                     key={index}
