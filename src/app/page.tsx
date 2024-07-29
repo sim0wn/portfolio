@@ -22,7 +22,7 @@ export default function Home() {
         </h2>
         <p className={classNames(jetbrains_mono.className, "text-lg")}>
           Welcome to my portfolio! I&apos;m a self-taught developer and
-          penetration tester with a specialty in web application vulnerability
+          penetration tester specializing in web application vulnerability
           assessment.
         </p>
       </aside>

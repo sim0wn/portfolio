@@ -21,11 +21,13 @@ export const metadata: Metadata = {
     "Hello, friend. I'm sim0wn, a developer and penetration tester specializing in web application vulnerability assessment.",
   keywords: [
     "Segurança da Informação",
+    "Information Security",
     "Hacking",
     "Portfolio",
     "CTF",
     "Hackers do Bem",
     "Desenvolvedor Web",
+    "Web Developer",
     "Python",
     "BASH",
     "TypeScript",
@@ -56,6 +58,15 @@ export default function RootLayout({
             <menu className="flex flex-1 gap-2 justify-end *:px-2 *:py-0.5 py-1 text-lg">
               <li>
                 <Link href={"/articles"}>Articles</Link>
+              </li>
+              <li>
+                <Link
+                  href={"https://knowledge.sim0wn.com/"}
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  Knowledge Base
+                </Link>
               </li>
               <li className="bg-purple-800 rounded-lg font-bold">
                 <Link href={"/whoami"}>Who Am I</Link>
