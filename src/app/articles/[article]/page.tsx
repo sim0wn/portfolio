@@ -1,6 +1,6 @@
 import type { Metadata } from "next"
 
-import TagsIcon from "@/icons/tags.icon"
+import TagsIcon from "@/app/components/icons/tags.icon"
 import { allArticles } from "contentlayer/generated"
 import { formatWithOptions } from "date-fns/fp/formatWithOptions"
 import { parseISO } from "date-fns/fp/parseISO"
@@ -22,6 +22,7 @@ export async function generateMetadata({
       title: article.title,
     } as Metadata
   }
+  return {}
 }
 
 export async function generateStaticParams() {

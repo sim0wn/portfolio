@@ -9,11 +9,11 @@ export default function Home() {
     <main className="flex sm:flex-row-reverse flex-col place-items-center justify-center gap-4 p-2">
       {/* logo */}
       <Image
-        alt="AI generated image."
+        alt="Brave purple squirrel mascot logo."
         className="rounded-full"
-        height={250}
-        src={"/images/sim0wn.jpg"}
-        width={250}
+        height="300"
+        src="/images/mascot.svg"
+        width="300"
       />
       <aside className="max-w-lg">
         <h1 className="font-semibold text-xl">Hello, friend.</h1>
