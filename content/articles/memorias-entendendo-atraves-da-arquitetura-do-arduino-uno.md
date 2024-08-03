@@ -3,7 +3,7 @@ date: 2024-05-09
 description: Uma breve exploração dos tipos de memórias presentes no Arduino Uno para compreender a arquitetura das memórias computacionais.
 tags:
   - Arquitetura de Computadores
-title: Entendendo os tipos de memória através da arquitetura do Arduino Uno
+title: "Memórias: entendendo através da arquitetura do Arduino Uno."
 ---
 
 ## Arquitetura do Arduino Uno
