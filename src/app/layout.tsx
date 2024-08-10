@@ -10,6 +10,7 @@ import classNames from "classnames"
 import Link from "next/link"
 import { ReactNode } from "react"
 
+import { Header } from "./components/header"
 import { raleway } from "./fonts"
 import "./styles.css"
 
@@ -50,30 +51,7 @@ export default function RootLayout({
           "bg-neutral-950 text-neutral-50 h-screen grid grid-rows-[min-content_1fr] md:px-16",
         )}
       >
-        <header>
-          <nav className={"px-2 flex py-3 justify-center"}>
-            <Link className="flex text-xl" href={"/"}>
-              sim0wn
-            </Link>
-            <menu className="flex flex-1 gap-2 justify-end *:px-2 *:py-0.5 py-1 text-lg">
-              <li>
-                <Link href={"/articles"}>Articles</Link>
-              </li>
-              <li>
-                <Link
-                  href={"https://knowledge.sim0wn.com/"}
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  Knowledge Base
-                </Link>
-              </li>
-              <li className="bg-purple-800 rounded-lg font-bold">
-                <Link href={"/whoami"}>Who Am I</Link>
-              </li>
-            </menu>
-          </nav>
-        </header>
+        <Header />
         {children}
         <footer>
           <menu className="py-2 text-4xl flex gap-2 justify-center">
