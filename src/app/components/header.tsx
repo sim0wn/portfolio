@@ -35,7 +35,10 @@ export function Header() {
         </svg>
       </button>
       <nav
-        className={classNames({ hidden: expanded }, "w-full md:w-fit md:block")}
+        className={classNames(
+          { hidden: expanded ? false : true },
+          "w-full md:w-fit md:block",
+        )}
         id="navbar"
       >
         <menu className="flex gap-2 justify-end *:px-2 *:py-0.5 flex-col border rounded-lg border-neutral-800 bg-neutral-900 my-2 p-1.5 md:py-1 md:px-0 md:flex-row md:border-0 md:my-0 md:bg-neutral-950">
