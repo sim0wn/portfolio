@@ -10,7 +10,6 @@ import classNames from "classnames"
 import Link from "next/link"
 import { ReactNode } from "react"
 
-import { Header } from "./components/header"
 import { raleway } from "./fonts"
 import "./styles.css"
 
@@ -40,8 +39,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
+  header,
 }: Readonly<{
   children: ReactNode
+  header: ReactNode
 }>) {
   return (
     <html>
@@ -51,7 +52,7 @@ export default function RootLayout({
           "bg-neutral-950 text-neutral-50 h-screen grid grid-rows-[min-content_1fr] md:px-16",
         )}
       >
-        <Header />
+        {header}
         {children}
         <footer>
           <menu className="py-2 text-4xl flex gap-2 justify-center">

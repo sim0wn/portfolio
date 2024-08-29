@@ -2,13 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* header style */
-header > nav > menu > li > a {
-  text-shadow:
-    0em 0.1em 0.8em white,
-    0em 0.15em 0.45em rgb(115, 41, 96);
-}
-
 /* footer style */
 footer > menu > li:hover {
   transform: scale(1.25);
