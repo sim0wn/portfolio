@@ -10,7 +10,14 @@ const config: Config = {
   ],
   plugins: [typography],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        purple: {
+          "deep-plum": "#34233C",
+          plum: "#732961",
+        },
+      },
+    },
   },
 }
 export default config
