@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from "next/server"
+import { NextRequest } from "next/server"
 
 export function middleware(request: NextRequest) {
   const { hostname } = request.nextUrl
@@ -17,7 +17,9 @@ export function middleware(request: NextRequest) {
   } else if (hostname.endsWith(".com.br")) {
     request.headers.set("Accept-Language", "pt-BR")
   }
-  return NextResponse.next()
+
+  // return the modified request
+  return request
 }
 
 export const config = {
