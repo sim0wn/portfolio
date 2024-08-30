@@ -1,9 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 
-import { getLocale } from "./utils/locale.utils"
-
 export function middleware(request: NextRequest) {
-  const url = new URL(request.url)
+  const { hostname } = request.nextUrl
 
   // ignore files in `public` directory and non-production requests
   if (
@@ -13,14 +11,13 @@ export function middleware(request: NextRequest) {
     return
   }
 
-  // determine the locale based on the domain
-  const locale = getLocale(request.headers)
-  if (locale === "en-US") {
-    url.hostname = "sim0wn.com"
-  } else if (locale === "pt-BR") {
-    url.hostname = "sim0wn.com.br"
+  // set the locale based on the domain
+  if (hostname.endsWith(".com")) {
+    request.headers.set("Accept-Language", "en-US")
+  } else if (hostname.endsWith(".com.br")) {
+    request.headers.set("Accept-Language", "pt-BR")
   }
-  return NextResponse.redirect(url.toString())
+  return NextResponse.next()
 }
 
 export const config = {
