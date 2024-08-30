@@ -1,0 +1,65 @@
+{
+  "navigation_bar": {
+    "sr_open_menu_button": "Abrir menu principal",
+    "articles": "Artigos",
+    "knowledge_base": "Base de conhecimento",
+    "whoami": "Quem sou eu"
+  },
+  "homepage": {
+    "greeting": "Olá, amigo. Eu sou sim0wn, um hacker ético.",
+    "bio": "Bem-vindo ao meu portfólio! Eu sou um desenvolvedor autodidata e penetration tester especializado em segurança de aplicações web."
+  },
+  "whoami": {
+    "education": {
+      "title": "Formação Acadêmica",
+      "degrees": {
+        "associate": "Tecnólogo em Segurança da Informação",
+        "technician": "Técnico em Informática"
+      }
+    },
+    "skills": {
+      "title": "Habilidades",
+      "categories": [
+        {
+          "title": "Analíticas",
+          "entries": [
+            "autonomia",
+            "disciplina",
+            "foco",
+            "organização",
+            "resolução de problemas"
+          ]
+        },
+        {
+          "title": "Interpessoais",
+          "entries": [
+            "liderença",
+            "apresentação",
+            "trabalho em equipe",
+            "redação"
+          ]
+        },
+        {
+          "title": "Idiomas",
+          "entries": ["Inglês", "Português"]
+        },
+        {
+          "title": "Técnicas",
+          "entries": [
+            "segurança de aplicações",
+            "desenvolvimento full-stack",
+            "testes de invasão"
+          ]
+        },
+        {
+          "title": "Linguagens de Programação",
+          "entries": ["BASH", "SQL", "PHP", "Python", "TypeScript"]
+        }
+      ]
+    },
+    "experience": {
+      "title": "Experiência profissional",
+      "entries": { "sesc": "Assistente administrativo" }
+    }
+  }
+}

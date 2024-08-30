@@ -5,12 +5,12 @@ import Link from "next/link"
 import { useState } from "react"
 
 import { lato } from "../fonts"
-import { BusinessUserCurriculum } from "./components/icons/business-user-curriculum"
-import { GiftOfKnowledge } from "./components/icons/gift-of-knowledge"
-import { Hamburger } from "./components/icons/hamburger"
-import { SquareArticle } from "./components/icons/square-article"
+import { BusinessUserCurriculum } from "./icons/business-user-curriculum"
+import { GiftOfKnowledge } from "./icons/gift-of-knowledge"
+import { Hamburger } from "./icons/hamburger"
+import { SquareArticle } from "./icons/square-article"
 
-export default function Header() {
+export default function Header({ dictionary }: { dictionary: any }) {
   const [expanded, setExpanded] = useState(false)
   return (
     <header
@@ -28,7 +28,9 @@ export default function Header() {
         onClick={() => setExpanded(!expanded)}
         type="button"
       >
-        <span className="sr-only">Open main menu</span>
+        <span className="sr-only">
+          {dictionary.navigation_bar.sr_open_menu_button}
+        </span>
         <Hamburger />
       </button>
       <nav
@@ -48,7 +50,7 @@ export default function Header() {
         >
           <li>
             <SquareArticle />
-            <Link href={"/articles"}>Articles</Link>
+            <Link href={"/articles"}>{dictionary.navigation_bar.articles}</Link>
           </li>
           <li>
             <GiftOfKnowledge />
@@ -57,7 +59,7 @@ export default function Header() {
               rel="noopener noreferrer"
               target="_blank"
             >
-              Knowledge Base
+              {dictionary.navigation_bar.knowledge_base}
             </Link>
           </li>
           <li className="group">
@@ -76,7 +78,7 @@ export default function Header() {
               )}
               href={"/whoami"}
             >
-              Who am I
+              {dictionary.navigation_bar.whoami}
             </Link>
           </li>
         </menu>

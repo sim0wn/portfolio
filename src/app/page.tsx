@@ -1,9 +1,13 @@
+import { getDictionary } from "@/lib/dictionaries"
+import { getLocale } from "@/utils/locale.utils"
 import classNames from "classnames"
+import { headers } from "next/headers"
 import Image from "next/image"
 
 import { jetbrains_mono } from "./fonts"
 
-export default function Home() {
+export default async function Home() {
+  const dictionary = await getDictionary(getLocale(headers()))
   return (
     /* main container */
     <main className="flex sm:flex-row-reverse flex-col place-items-center justify-center gap-4 p-2">
@@ -15,13 +19,10 @@ export default function Home() {
         src="/images/mascot.svg"
         width="300"
       />
-      <aside className="max-w-lg text-lg">
-        <h1 className="font-semibold">Hello, friend.</h1>
-        <h2 className="font-semibold">I&apos;m sim0wn, an ethical hacker.</h2>
+      <aside className="max-w-lg">
+        <h1 className="font-bold">{dictionary.homepage.greeting}</h1>
         <p className={classNames(jetbrains_mono.className, "font-light")}>
-          Welcome to my portfolio! I&apos;m a self-taught developer and
-          penetration tester specializing in web application vulnerability
-          assessment.
+          {dictionary.homepage.bio}
         </p>
       </aside>
     </main>

@@ -6,10 +6,14 @@ import HackTheBoxIcon from "@/app/components/icons/hackthebox.icon"
 import LattesIcon from "@/app/components/icons/lattes.icon"
 import LinkedInIcon from "@/app/components/icons/linkedin.icon"
 import TryHackMeIcon from "@/app/components/icons/tryhackme.icon"
+import { getDictionary } from "@/lib/dictionaries"
+import { getLocale } from "@/utils/locale.utils"
 import classNames from "classnames"
+import { headers } from "next/headers"
 import Link from "next/link"
 import { ReactNode } from "react"
 
+import Header from "./components/header"
 import { raleway } from "./fonts"
 import "./styles.css"
 
@@ -37,13 +41,12 @@ export const metadata: Metadata = {
   title: { default: "whoami | sim0wn", template: "%s | sim0wn" },
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
-  header,
 }: Readonly<{
   children: ReactNode
-  header: ReactNode
 }>) {
+  const dictionary = await getDictionary(getLocale(headers()))
   return (
     <html>
       <body
@@ -52,7 +55,7 @@ export default function RootLayout({
           "bg-neutral-950 text-neutral-50 h-screen grid grid-rows-[min-content_1fr] md:px-16",
         )}
       >
-        {header}
+        <Header dictionary={dictionary} />
         {children}
         <footer>
           <menu className="py-2 text-4xl flex gap-2 justify-center">
