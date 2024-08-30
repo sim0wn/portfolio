@@ -1,7 +1,8 @@
-import { NextRequest } from "next/server"
+import { NextRequest, NextResponse } from "next/server"
 
 export function middleware(request: NextRequest) {
   const { hostname } = request.nextUrl
+  const response = NextResponse.next()
 
   // ignore files in `public` directory and non-production requests
   if (
@@ -13,13 +14,13 @@ export function middleware(request: NextRequest) {
 
   // set the locale based on the domain
   if (hostname.endsWith(".com")) {
-    request.headers.set("Accept-Language", "en-US")
+    response.headers.set("Accept-Language", "en-US")
   } else if (hostname.endsWith(".com.br")) {
-    request.headers.set("Accept-Language", "pt-BR")
+    response.headers.set("Accept-Language", "pt-BR")
   }
 
-  // return the modified request
-  return request
+  // return the modified response
+  return response
 }
 
 export const config = {
