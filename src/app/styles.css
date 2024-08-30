@@ -2,12 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* footer style */
-footer > menu > li:hover {
-  transform: scale(1.25);
-  transition: transform 0.2s;
-}
-
 /* syntax highlighting on articles */
 code[data-theme*=" "],
 code[data-theme*=" "] span {

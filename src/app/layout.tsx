@@ -1,11 +1,5 @@
 import type { Metadata } from "next"
 
-import EmailIcon from "@/app/components/icons/email.icon"
-import GithubIcon from "@/app/components/icons/github.icon"
-import HackTheBoxIcon from "@/app/components/icons/hackthebox.icon"
-import LattesIcon from "@/app/components/icons/lattes.icon"
-import LinkedInIcon from "@/app/components/icons/linkedin.icon"
-import TryHackMeIcon from "@/app/components/icons/tryhackme.icon"
 import { getDictionary } from "@/lib/dictionaries"
 import { getLocale } from "@/utils/locale.utils"
 import classNames from "classnames"
@@ -13,8 +7,14 @@ import { headers } from "next/headers"
 import Link from "next/link"
 import { ReactNode } from "react"
 
-import Header from "./components/header"
-import { raleway } from "./fonts"
+import { Email } from "./components/icons/email"
+import { Github } from "./components/icons/github"
+import { HackTheBox } from "./components/icons/hackthebox"
+import { Lattes } from "./components/icons/lattes"
+import { LinkedIn } from "./components/icons/linkedin"
+import { TryHackMe } from "./components/icons/tryhackme"
+import Navbar from "./components/navbar"
+import { lato, raleway } from "./fonts"
 import "./styles.css"
 
 export const metadata: Metadata = {
@@ -46,26 +46,28 @@ export default async function RootLayout({
 }: Readonly<{
   children: ReactNode
 }>) {
-  const dictionary = await getDictionary(getLocale(headers()))
+  const locale = getLocale(headers())
   return (
-    <html>
+    <html lang={locale}>
       <body
         className={classNames(
           raleway.className,
           "bg-neutral-950 text-neutral-50 h-screen grid grid-rows-[min-content_1fr] md:px-16",
         )}
       >
-        <Header dictionary={dictionary} />
+        <header className={classNames(lato.className, "px-2 py-3 md:p-0")}>
+          <Navbar dictionary={await getDictionary(locale)} />
+        </header>
         {children}
         <footer>
-          <menu className="py-2 text-4xl flex gap-2 justify-center">
+          <menu className="py-2 text-4xl flex gap-2 justify-center hover:*:transition-transform hover:*:scale-125">
             <li>
               <Link
                 href={"https://www.linkedin.com/in/halissoncruz/"}
                 rel="noopener noreferrer"
                 target="_blank"
               >
-                <LinkedInIcon />
+                <LinkedIn />
               </Link>
             </li>
             <li>
@@ -74,7 +76,7 @@ export default async function RootLayout({
                 rel="noopener noreferrer"
                 target="_blank"
               >
-                <LattesIcon />
+                <Lattes />
               </Link>
             </li>
             <li>
@@ -83,7 +85,7 @@ export default async function RootLayout({
                 rel="noopener noreferrer"
                 target="_blank"
               >
-                <HackTheBoxIcon />
+                <HackTheBox />
               </Link>
             </li>
             <li>
@@ -92,7 +94,7 @@ export default async function RootLayout({
                 rel="noopener noreferrer"
                 target="_blank"
               >
-                <GithubIcon />
+                <Github />
               </Link>
             </li>
             <li>
@@ -101,7 +103,7 @@ export default async function RootLayout({
                 rel="noopener noreferrer"
                 target="_blank"
               >
-                <TryHackMeIcon />
+                <TryHackMe />
               </Link>
             </li>
             <li>
@@ -110,7 +112,7 @@ export default async function RootLayout({
                 rel="noopener noreferrer"
                 target="_blank"
               >
-                <EmailIcon />
+                <Email />
               </Link>
             </li>
           </menu>
