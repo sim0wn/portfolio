@@ -1,9 +1,8 @@
 import type { Metadata } from "next"
 
-import { getDictionary } from "@/lib/dictionaries"
-import { getLocale } from "@/utils/locale.utils"
+import { getTranslation } from "@/lib/translations.lib"
+import { getLocale, getLocaleDomain } from "@/utils/locale.utils"
 import classNames from "classnames"
-import { headers } from "next/headers"
 import Link from "next/link"
 import { ReactNode } from "react"
 
@@ -17,28 +16,30 @@ import Navbar from "./components/navbar"
 import { lato, raleway } from "./fonts"
 import "./styles.css"
 
-export const metadata: Metadata = {
-  applicationName: "sim0wn's portfolio",
-  authors: [{ name: "sim0wn" }],
-  creator: "sim0wn",
-  description:
-    "Hello, friend. I'm sim0wn, a developer and penetration tester specializing in web application vulnerability assessment.",
-  keywords: [
-    "Segurança da Informação",
-    "Information Security",
-    "Hacking",
-    "Portfolio",
-    "CTF",
-    "Hackers do Bem",
-    "Desenvolvedor Web",
-    "Web Developer",
-    "Python",
-    "BASH",
-    "TypeScript",
-    "API",
-    "Linux",
-  ],
-  title: { default: "whoami | sim0wn", template: "%s | sim0wn" },
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = getLocale()
+  const translation = await getTranslation(locale)
+  return {
+    applicationName: translation.metadata.applicationName,
+    authors: [{ name: "sim0wn" }],
+    creator: "sim0wn",
+    description: translation.metadata.description,
+    keywords: translation.metadata.keywords,
+    openGraph: {
+      description: translation.metadata.description,
+      images: [] /* TODO: add image to OpenGraph */,
+      locale: locale,
+      siteName: translation.metadata.applicationName,
+      title: translation.metadata.title.default,
+      type: "website",
+      url: `https://www.${getLocaleDomain(locale)}`,
+    },
+    publisher: "Vercel",
+    title: {
+      default: translation.metadata.title.default,
+      template: "%s | sim0wn",
+    },
+  }
 }
 
 export default async function RootLayout({
@@ -46,7 +47,7 @@ export default async function RootLayout({
 }: Readonly<{
   children: ReactNode
 }>) {
-  const locale = getLocale(headers())
+  const locale = getLocale()
   return (
     <html lang={locale}>
       <body
@@ -56,7 +57,7 @@ export default async function RootLayout({
         )}
       >
         <header className={classNames(lato.className, "px-2 py-3 md:p-0")}>
-          <Navbar dictionary={await getDictionary(locale)} />
+          <Navbar dictionary={await getTranslation(locale)} />
         </header>
         {children}
         <footer>

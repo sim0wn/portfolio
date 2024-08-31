@@ -1,4 +1,28 @@
 {
+  "alt": {
+    "avatar": "Brave purple squirrel mascot logo",
+    "email": "Email logo",
+    "github": "GitHub logo",
+    "linkedin": "LinkedIn logo"
+  },
+  "metadata": {
+    "applicationName": "sim0wn's portfolio",
+    "description": "Hello, friend. I'm sim0wn, a developer and ethical hacker specialized in web application vulnerability assessment.",
+    "keywords": [
+      "BASH",
+      "CTF",
+      "Web developer",
+      "Ethical hacker",
+      "Linux",
+      "Portfolio",
+      "Python",
+      "Information Security",
+      "TypeScript"
+    ],
+    "title": {
+      "default": "Welcome | sim0wn"
+    }
+  },
   "navigation_bar": {
     "sr_open_menu_button": "Open main menu",
     "articles": "Articles",

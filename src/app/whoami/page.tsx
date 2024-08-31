@@ -1,12 +1,11 @@
-import { getDictionary } from "@/lib/dictionaries"
+import { getTranslation } from "@/lib/translations.lib"
 import { getLocale } from "@/utils/locale.utils"
-import { headers } from "next/headers"
 import Link from "next/link"
 
 import { Card } from "../components/card"
 
 export default async function WhoAmI() {
-  const dictionary = await getDictionary(getLocale(headers()))
+  const dictionary = await getTranslation(getLocale())
   return (
     <main className="columns-1 lg:columns-2 xl:columns-3 gap-4 *:xl:py-0 *:mb-4">
       <Card>

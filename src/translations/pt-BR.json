@@ -1,4 +1,29 @@
 {
+  "alt": {
+    "avatar": "Logo de um mascote de esquilo roxo corajoso",
+    "email": "Logo do e-mail",
+    "github": "Logo do GitHub",
+    "linkedin": "Logo do LinkedIn"
+  },
+  "metadata": {
+    "applicationName": "Portfólio do sim0wn",
+    "description": "Olá, amigo. Eu sou sim0wn, um desenvolvedor e hacker ético especializado em testes de invasão em aplicações web.",
+    "keywords": [
+      "BASH",
+      "CTF",
+      "Desenvolvedor web",
+      "Hackers do Bem",
+      "Hacker ético",
+      "Linux",
+      "Portfólio",
+      "Python",
+      "Segurança da Informação",
+      "TypeScript"
+    ],
+    "title": {
+      "default": "Bem-vindo | sim0wn"
+    }
+  },
   "navigation_bar": {
     "sr_open_menu_button": "Abrir menu principal",
     "articles": "Artigos",
