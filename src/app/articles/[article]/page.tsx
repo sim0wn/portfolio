@@ -1,6 +1,6 @@
 import type { Metadata } from "next"
 
-import TagsIcon from "@/app/components/icons/tags.icon"
+import { Tags } from "@/app/components/icons/tags"
 import { allArticles } from "contentlayer/generated"
 import { formatWithOptions } from "date-fns/fp/formatWithOptions"
 import { parseISO } from "date-fns/fp/parseISO"
@@ -49,7 +49,7 @@ export default function Article({ params }: { params: { article: string } }) {
       <footer>
         {article.tags && (
           <ul className="flex flex-wrap items-center justify-end gap-1.5">
-            <TagsIcon />
+            <Tags />
             {article.tags.map((tag) => (
               <li
                 className="list-none text-sm m-0 border px-2 py-0 rounded-full border-neutral-800 bg-neutral-900"
