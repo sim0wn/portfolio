@@ -6,6 +6,54 @@
     "linkedin": "Logo do LinkedIn"
   },
   "bio": "Eu sou um entusiasta em cibersegurança especializado no teste de invasão à aplicações web e desenvolvedor autodidata.",
+  "education": {
+    "title": "Formação Acadêmica",
+    "degrees": [
+      {
+        "degree": "Tecnólogo em Segurança da Informação",
+        "institution": {
+          "name": "Faculdade de Tecnologia de Ourinhos",
+          "website": "https://www.fatecourinhos.edu.br/",
+          "location": {
+            "city": "Ourinhos",
+            "state": "SP",
+            "country": "Brasil"
+          },
+          "date": "2024 - 2026"
+        }
+      },
+      {
+        "degree": "Técnico em Informática",
+        "institution": {
+          "name": "Instituto Federal de Educação, Ciência e Tecnologia do Paraná",
+          "website": "https://ifpr.edu.br/jacarezinho/",
+          "location": {
+            "city": "Jacarezinho",
+            "state": "PR",
+            "country": "Brasil"
+          },
+          "date": "2020 - 2023"
+        }
+      }
+    ]
+  },
+  "experience": {
+    "title": "Experiência profissional",
+    "entries": [
+      {
+        "position": "Assistente administrativo",
+        "company": {
+          "name": "Serviço Social do Comércio (SESC)",
+          "location": {
+            "city": "Santo Antônio da Platina",
+            "state": "PR",
+            "country": "Brasil"
+          },
+          "date": "2023 - 2024"
+        }
+      }
+    ]
+  },
   "metadata": {
     "applicationName": "Portfólio do sim0wn",
     "description": "Olá, amigo. Eu sou sim0wn, um desenvolvedor e hacker ético especializado em testes de invasão em aplicações web.",
@@ -26,6 +74,46 @@
     }
   },
   "salutation": "Olá, amigo. Eu sou sim0wn, um hacker ético.",
+  "skills": {
+    "title": "Habilidades",
+    "categories": [
+      {
+        "title": "Analíticas",
+        "entries": [
+          "autonomia",
+          "disciplina",
+          "foco",
+          "organização",
+          "resolução de problemas"
+        ]
+      },
+      {
+        "title": "Interpessoais",
+        "entries": [
+          "liderença",
+          "apresentação",
+          "trabalho em equipe",
+          "redação"
+        ]
+      },
+      {
+        "title": "Idiomas",
+        "entries": ["Inglês", "Português"]
+      },
+      {
+        "title": "Técnicas",
+        "entries": [
+          "segurança de aplicações",
+          "desenvolvimento full-stack",
+          "testes de invasão"
+        ]
+      },
+      {
+        "title": "Linguagens de Programação",
+        "entries": ["BASH", "SQL", "PHP", "Python", "TypeScript"]
+      }
+    ]
+  },
   "navigation_bar": {
     "sr_open_menu_button": "Abrir menu principal",
     "knowledge_base": "Base de conhecimento",
@@ -34,58 +122,5 @@
   "quote": {
     "message": "Todos os intelectuais que vêm à mente escrevem. Não porque eles precisam ou são pagos por isso, mas simplesmente pelo prazer de fazê-lo. Que valor tem o pensamento se você não pode compartilhar?",
     "author": "Aaron Swartz"
-  },
-  "whoami": {
-    "education": {
-      "title": "Formação Acadêmica",
-      "degrees": {
-        "associate": "Tecnólogo em Segurança da Informação",
-        "technician": "Técnico em Informática"
-      }
-    },
-    "skills": {
-      "title": "Habilidades",
-      "categories": [
-        {
-          "title": "Analíticas",
-          "entries": [
-            "autonomia",
-            "disciplina",
-            "foco",
-            "organização",
-            "resolução de problemas"
-          ]
-        },
-        {
-          "title": "Interpessoais",
-          "entries": [
-            "liderença",
-            "apresentação",
-            "trabalho em equipe",
-            "redação"
-          ]
-        },
-        {
-          "title": "Idiomas",
-          "entries": ["Inglês", "Português"]
-        },
-        {
-          "title": "Técnicas",
-          "entries": [
-            "segurança de aplicações",
-            "desenvolvimento full-stack",
-            "testes de invasão"
-          ]
-        },
-        {
-          "title": "Linguagens de Programação",
-          "entries": ["BASH", "SQL", "PHP", "Python", "TypeScript"]
-        }
-      ]
-    },
-    "experience": {
-      "title": "Experiência profissional",
-      "entries": { "sesc": "Assistente administrativo" }
-    }
   }
 }

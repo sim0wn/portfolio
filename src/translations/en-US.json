@@ -6,6 +6,54 @@
     "linkedin": "LinkedIn logo"
   },
   "bio": "I'm a cybersecurity enthusiast specialized in web application penetration testing and self-taught developer.",
+  "education": {
+    "title": "Education",
+    "degrees": [
+      {
+        "degree": "Information Security Associate",
+        "institution": {
+          "name": "Faculdade de Tecnologia de Ourinhos",
+          "website": "https://www.fatecourinhos.edu.br/",
+          "location": {
+            "city": "Ourinhos",
+            "state": "SP",
+            "country": "Brazil"
+          },
+          "date": "2024 - 2026"
+        }
+      },
+      {
+        "degree": "Information Technician",
+        "institution": {
+          "name": "Instituto Federal de Educação, Ciência e Tecnologia do Paraná",
+          "website": "https://ifpr.edu.br/jacarezinho/",
+          "location": {
+            "city": "Jacarezinho",
+            "state": "PR",
+            "country": "Brazil"
+          },
+          "date": "2020 - 2023"
+        }
+      }
+    ]
+  },
+  "experience": {
+    "title": "Work",
+    "entries": [
+      {
+        "position": "Administrative assistant",
+        "company": {
+          "name": "Serviço Social do Comércio (SESC)",
+          "location": {
+            "city": "Santo Antônio da Platina",
+            "state": "PR",
+            "country": "Brazil"
+          },
+          "date": "2023 - 2024"
+        }
+      }
+    ]
+  },
   "metadata": {
     "applicationName": "sim0wn's portfolio",
     "description": "Hello, friend. I'm sim0wn, a developer and ethical hacker specialized in web application vulnerability assessment.",
@@ -25,6 +73,41 @@
     }
   },
   "salutation": "Hello, friend. I'm sim0wn, an ethical hacker.",
+  "skills": {
+    "title": "Skills",
+    "categories": [
+      {
+        "title": "Analytical",
+        "entries": [
+          "autonomy",
+          "discipline",
+          "focus",
+          "organization",
+          "problem-solving"
+        ]
+      },
+      {
+        "title": "Interpersonal",
+        "entries": ["leadership", "presentation", "teamwork", "writing"]
+      },
+      {
+        "title": "Languages",
+        "entries": ["English", "Portuguese"]
+      },
+      {
+        "title": "Technical",
+        "entries": [
+          "application security",
+          "full-stack development",
+          "penetration testing"
+        ]
+      },
+      {
+        "title": "Programming",
+        "entries": ["BASH", "SQL", "PHP", "Python", "TypeScript"]
+      }
+    ]
+  },
   "navigation_bar": {
     "sr_open_menu_button": "Open main menu",
     "knowledge_base": "Knowledge base",
@@ -33,53 +116,5 @@
   "quote": {
     "message": "All the intellectuals that come to mind write, not because they have to or get paid to, but simply for its own sake. What good is thinking if you can’t share?",
     "author": "Aaron Swartz"
-  },
-  "whoami": {
-    "education": {
-      "title": "Education",
-      "degrees": {
-        "associate": "Information Security Associate",
-        "technician": "Information Technician"
-      }
-    },
-    "skills": {
-      "title": "Skills",
-      "categories": [
-        {
-          "title": "Analytical",
-          "entries": [
-            "autonomy",
-            "discipline",
-            "focus",
-            "organization",
-            "problem-solving"
-          ]
-        },
-        {
-          "title": "Interpersonal",
-          "entries": ["leadership", "presentation", "teamwork", "writing"]
-        },
-        {
-          "title": "Languages",
-          "entries": ["English", "Portuguese"]
-        },
-        {
-          "title": "Technical",
-          "entries": [
-            "application security",
-            "full-stack development",
-            "penetration testing"
-          ]
-        },
-        {
-          "title": "Programming",
-          "entries": ["BASH", "SQL", "PHP", "Python", "TypeScript"]
-        }
-      ]
-    },
-    "experience": {
-      "title": "Work experience",
-      "entries": { "sesc": "Administrative Assistant" }
-    }
   }
 }
