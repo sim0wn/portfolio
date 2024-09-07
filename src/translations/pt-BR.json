@@ -5,6 +5,7 @@
     "github": "Logo do GitHub",
     "linkedin": "Logo do LinkedIn"
   },
+  "bio": "Eu sou um entusiasta em cibersegurança especializado no teste de invasão à aplicações web e desenvolvedor autodidata.",
   "metadata": {
     "applicationName": "Portfólio do sim0wn",
     "description": "Olá, amigo. Eu sou sim0wn, um desenvolvedor e hacker ético especializado em testes de invasão em aplicações web.",
@@ -24,15 +25,16 @@
       "default": "Bem-vindo | sim0wn"
     }
   },
+  "salutation": "Olá, amigo. Eu sou sim0wn, um hacker ético.",
   "navigation_bar": {
     "sr_open_menu_button": "Abrir menu principal",
     "articles": "Artigos",
     "knowledge_base": "Base de conhecimento",
     "whoami": "Quem sou eu"
   },
-  "homepage": {
-    "greeting": "Olá, amigo. Eu sou sim0wn, um hacker ético.",
-    "bio": "Bem-vindo ao meu portfólio! Eu sou um desenvolvedor autodidata e penetration tester especializado em segurança de aplicações web."
+  "quote": {
+    "message": "Todos os intelectuais que vêm à mente escrevem. Não porque eles precisam ou são pagos por isso, mas simplesmente pelo prazer de fazê-lo. Que valor tem o pensamento se você não pode compartilhar?",
+    "author": "Aaron Swartz"
   },
   "whoami": {
     "education": {

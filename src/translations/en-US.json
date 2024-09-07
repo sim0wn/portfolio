@@ -5,6 +5,7 @@
     "github": "GitHub logo",
     "linkedin": "LinkedIn logo"
   },
+  "bio": "I'm a cybersecurity enthusiast specialized in web application penetration testing and self-taught developer.",
   "metadata": {
     "applicationName": "sim0wn's portfolio",
     "description": "Hello, friend. I'm sim0wn, a developer and ethical hacker specialized in web application vulnerability assessment.",
@@ -23,15 +24,16 @@
       "default": "Welcome | sim0wn"
     }
   },
+  "salutation": "Hello, friend. I'm sim0wn, an ethical hacker.",
   "navigation_bar": {
     "sr_open_menu_button": "Open main menu",
     "articles": "Articles",
     "knowledge_base": "Knowledge base",
     "whoami": "Who am I"
   },
-  "homepage": {
-    "greeting": "Hello, friend. I'm sim0wn, an ethical hacker.",
-    "bio": "Welcome to my portfolio! I'm a self-taught developer and penetration tester specialized in web application security."
+  "quote": {
+    "message": "All the intellectuals that come to mind write, not because they have to or get paid to, but simply for its own sake. What good is thinking if you can’t share?",
+    "author": "Aaron Swartz"
   },
   "whoami": {
     "education": {
