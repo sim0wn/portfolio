@@ -41,7 +41,7 @@ export default function Navbar({
       >
         <li>
           <SquareArticle />
-          <Link href={"/articles"}>{dictionary.navigation_bar.articles}</Link>
+          <Link href={"/blog"}>Blog</Link>
         </li>
         <li>
           <GiftOfKnowledge />

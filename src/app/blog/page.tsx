@@ -2,7 +2,7 @@ import { allArticles } from "contentlayer/generated"
 import { compareDesc, formatDate } from "date-fns"
 import Link from "next/link"
 
-export default function Articles() {
+export default function Blog() {
   const articles = allArticles.sort((a, b) =>
     compareDesc(new Date(a.date), new Date(b.date)),
   )
@@ -12,7 +12,7 @@ export default function Articles() {
         <article className={"p-4 bg-neutral-800 rounded-sm"} key={index}>
           <header className="flex">
             <h1 className="flex-1 font-semibold text-lg">
-              <Link href={`articles/${article.slug}`}>{article.title}</Link>
+              <Link href={`blog/${article.slug}`}>{article.title}</Link>
             </h1>
             {article.date && (
               <time dateTime={article.date}>
