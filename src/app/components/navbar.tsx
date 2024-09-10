@@ -46,7 +46,7 @@ export default function Navbar({
         <li>
           <GiftOfKnowledge />
           <Link
-            href={"https://knowledge.sim0wn.com/"}
+            href={"https://logs.sim0wn.com.br/"}
             rel="noopener noreferrer"
             target="_blank"
           >
