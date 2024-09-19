@@ -9,7 +9,7 @@ const Header: React.FC<HeaderProps> = ({ children, className, ...props }) => {
       <h1
         className={classNames(
           className,
-          "font-bold text-lg border-b border-b-purple-800 p-2",
+          "font-bold text-lg border-b border-b-purple-800 px-2",
         )}
         {...props}
       >

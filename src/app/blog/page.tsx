@@ -1,29 +1,41 @@
+import { getTranslation } from "@/lib/translations.lib"
+import { getLocale } from "@/utils/locale.utils"
 import { allArticles } from "contentlayer/generated"
 import { compareDesc, formatDate } from "date-fns"
 import Link from "next/link"
 
-export default function Blog() {
+import { Card } from "../components/card"
+
+export default async function Blog() {
+  const translation = await getTranslation(getLocale())
   const articles = allArticles.sort((a, b) =>
     compareDesc(new Date(a.date), new Date(b.date)),
   )
   return (
     <main className="p-2 gap-2 flex flex-col">
       {articles.map((article, index) => (
-        <article className={"p-4 bg-neutral-800 rounded-sm"} key={index}>
-          <header className="flex">
+        <Card key={index}>
+          <Card.Header>
             <h1 className="flex-1 font-semibold text-lg">
               <Link href={`blog/${article.slug}`}>{article.title}</Link>
             </h1>
             {article.date && (
-              <time dateTime={article.date}>
-                {formatDate(article.date, "dd'/'MM'/'yyyy")}
-              </time>
+              <aside className="text-sm font-normal flex justify-between">
+                <address>
+                  {translation.by} {article.authors.join(",")}
+                </address>
+                <time dateTime={article.date}>
+                  {formatDate(article.date, "dd'/'MM'/'yyyy")}
+                </time>
+              </aside>
             )}
-          </header>
+          </Card.Header>
           {article.description && (
-            <p className="italic mb-2">{article.description}</p>
+            <Card.Body>
+              <p className="italic">{article.description}</p>
+            </Card.Body>
           )}
-          <footer className="flex gap-1.5 flex-1">
+          <Card.Footer>
             {article.tags && (
               <ul className="flex">
                 {(article.tags as string[]).sort().map((tag, index) => (
@@ -36,8 +48,8 @@ export default function Blog() {
                 ))}
               </ul>
             )}
-          </footer>
-        </article>
+          </Card.Footer>
+        </Card>
       ))}
     </main>
   )
