@@ -16,7 +16,7 @@ const Card: {
     <article
       className={classNames(
         className,
-        "bg-neutral-900 rounded-lg flex flex-col gap-2 break-inside-avoid py-2",
+        "bg-neutral-900 rounded-lg flex flex-col gap-0.5 break-inside-avoid py-1",
       )}
       {...props}
     >
