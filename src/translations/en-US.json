@@ -138,6 +138,16 @@
       }
     ]
   },
+  "honors_card_title": "Awards & Honors",
+  "honors": [
+    {
+      "title": "1st place in CTF",
+      "issuer": "Hackers do Bem",
+      "date": "2024",
+      "url": "https://ctf.hackersdobem.org.br/",
+      "description": "In 2024, I was the champion of the inaugural Capture The Flag (CTF) competition organized by the Hackers do Bem Program. The CTF involved a diverse range of cybersecurity challenges, including OSINT, scripting, network analysis, cryptography, and vulnerability exploitation. This experience allowed me to demonstrate and further develop my practical skills in information security."
+    }
+  ],
   "metadata": {
     "applicationName": "sim0wn's portfolio",
     "description": "Hello, friend. I'm sim0wn, a developer and ethical hacker specialized in web application vulnerability assessment.",

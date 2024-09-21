@@ -138,6 +138,16 @@
       }
     ]
   },
+  "honors_card_title": "Prêmios e Honrarias",
+  "honors": [
+    {
+      "title": "1º lugar no CTF",
+      "issuer": "Hackers do Bem",
+      "date": "2024",
+      "url": "https://ctf.hackersdobem.org.br/",
+      "description": "Fui o campeão da primeira edição do Capture The Flag (CTF) organizado pelo Programa Hackers do Bem. O CTF envolveu uma diversa gama de desafios de segurança cibernética, incluindo OSINT, scripting, análise de rede, criptografia e exploração de vulnerabilidades. Essa experiência me permitiu demonstrar e desenvolver ainda mais minhas habilidades práticas em segurança da informação."
+    }
+  ],
   "metadata": {
     "applicationName": "Portfólio do sim0wn",
     "description": "Olá, amigo. Eu sou sim0wn, um desenvolvedor e hacker ético especializado em testes de invasão em aplicações web.",

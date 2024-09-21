@@ -79,7 +79,7 @@ export default async function WhoAmI() {
           <ul className="flex flex-col gap-0.5 divide-y divide-neutral-800">
             {translation.certificates.map((certificate, index) => (
               <li
-                className="flex flex-wrap gap-2 items-center group"
+                className="flex flex-wrap gap-2 items-center break-inside-avoid"
                 key={index}
                 title={certificate.description}
               >
@@ -97,6 +97,7 @@ export default async function WhoAmI() {
           </ul>
         </Card.Body>
       </Card>
+      {/* Courses Section */}
       <Card>
         <Card.Header>
           <h1>Cursos</h1>
@@ -105,7 +106,7 @@ export default async function WhoAmI() {
           <ul className="flex flex-col gap-0.5 divide-y divide-neutral-800">
             {translation.courses.map((course, index) => (
               <li
-                className="flex flex-wrap gap-2 items-center group"
+                className="flex flex-wrap gap-2 items-center break-inside-avoid"
                 key={index}
                 title={course.description}
               >
@@ -118,6 +119,33 @@ export default async function WhoAmI() {
                   {course.title}
                 </Link>
                 <time className="text-sm">{course.date}</time>
+              </li>
+            ))}
+          </ul>
+        </Card.Body>
+      </Card>
+      {/* Awards & Honors Section */}
+      <Card>
+        <Card.Header>
+          <h1>{translation.honors_card_title}</h1>
+        </Card.Header>
+        <Card.Body>
+          <ul className="flex flex-col gap-0.5 divide-y divide-neutral-800">
+            {translation.honors.map((honor, index) => (
+              <li
+                className="flex flex-wrap gap-2 gap-y-0 items-center"
+                key={index}
+              >
+                <span className="text-sm">{honor.issuer}</span>
+                <Link
+                  className="font-medium flex-1"
+                  href={honor.url}
+                  target="_blank"
+                  title={honor.description}
+                >
+                  {honor.title}
+                </Link>
+                <time className="text-sm">{honor.date}</time>
               </li>
             ))}
           </ul>
