@@ -1,32 +1,36 @@
 {
   "name": "portfolio",
-  "version": "0.2.5",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "contentlayer dev & next dev",
-    "build": "contentlayer build & next build",
+    "dev": "next dev",
+    "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
     "@formatjs/intl-localematcher": "^0.5.4",
+    "@portabletext/react": "^3.1.0",
+    "@sanity/client": "^6.22.0",
+    "@sanity/icons": "^3.4.0",
+    "@sanity/image-url": "^1.0.2",
+    "@sanity/vision": "^3.58.0",
     "classnames": "^2.5.1",
-    "contentlayer": "^0.3.4",
     "date-fns": "^4.1.0",
+    "groq": "^3.58.0",
     "negotiator": "^0.6.3",
     "next": "^14.2.13",
-    "next-contentlayer": "^0.3.4",
+    "next-sanity": "^9.5.0",
     "react": "^18",
     "react-dom": "^18",
-    "rehype-pretty-code": "^0.14.0",
-    "remark-gfm": "^4.0.0",
+    "sanity": "^3.58.0",
     "sharp": "^0.33.5",
-    "shiki": "^1.18.0"
+    "styled-components": "^6.1.13"
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.15",
     "@types/negotiator": "^0.6.3",
-    "@types/node": "^22",
+    "@types/node": "^22.7.1",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "eslint": "^8",
@@ -38,11 +42,6 @@
     "prettier": "^3.3.3",
     "tailwindcss": "^3.4.13",
     "typescript": "^5"
-  },
-  "overrides": {
-    "next-contentlayer": {
-      "next": "$next"
-    }
   },
   "prettier": {
     "semi": false
