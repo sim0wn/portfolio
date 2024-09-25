@@ -19,7 +19,7 @@ Welcome to my personal portfolio repository! This project showcases my work and 
 - **Next.js 14**: a powerful React-based framework for building server-rendered applications, ensuring optimal performance and SEO.
 - **TypeScript**: a statically-typed superset of JavaScript that enhances code quality and maintainability by catching errors during development.
 - **Vercel**: the hosting platform for my website, providing seamless integration with Next.js and automatic deployments from GitHub.
-- **ContentLayer**: a headless CMS that simplifies content management, allowing for easy integration with my Next.js application.
+- **Sanity CMS**: a flexible headless CMS for managing and delivering content with real-time collaboration.
 
 ## Features
 
@@ -33,6 +33,7 @@ Welcome to my personal portfolio repository! This project showcases my work and 
 To run the project locally, follow these steps:
 
 1. Clone the repository:
+
 ```bash
 git clone https://github.com/sim0wn/portfolio.git
 ```
@@ -63,16 +64,19 @@ I welcome contributions to my portfolio! If you would like to contribute, please
 1. **Fork the repository**: click the "Fork" button at the top right of this page to create a copy of the repository in your GitHub account.
 
 2. **Create a new branch**: create a new branch for your feature or bug fix:
+
 ```bash
 git checkout -b feature/your-feature-name
 ```
 
 3. **Make your changes**: implement your changes and commit them with a clear message:
+
 ```bash
 git commit -m ':pencil: article: adding a blog post about the HTTP protocol'
 ```
 
 4. **Push to your fork**: push your changes to your forked repository:
+
 ```bash
 git push origin feature/your-feature-name
 ```
