@@ -1,5 +1,5 @@
+import { Table } from "@/types/sanity-schema.type"
 import { PortableTextComponents } from "next-sanity"
-import { Table } from "sanity.types"
 
 export const portableTextComponents: PortableTextComponents = {
   types: {
