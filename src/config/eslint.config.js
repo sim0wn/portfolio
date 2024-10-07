@@ -1,12 +1,12 @@
-import { FlatCompat } from '@eslint/eslintrc';
-import js from '@eslint/js';
-import next from 'eslint-config-next';
-import prettier from 'eslint-config-prettier';
-import perfectionist from 'eslint-plugin-perfectionist';
+import { FlatCompat } from "@eslint/eslintrc"
+import js from "@eslint/js"
+import next from "eslint-config-next"
+import prettier from "eslint-config-prettier"
+import perfectionist from "eslint-plugin-perfectionist"
 
 const compat = new FlatCompat({
   baseDirectory: import.meta.url,
-});
+})
 
 export default [
   js.configs.recommended,
@@ -18,15 +18,14 @@ export default [
       perfectionist,
     },
     rules: {
-      // Add any custom rules here
     },
     languageOptions: {
-      ecmaVersion: 'latest',
-      sourceType: 'module',
+      ecmaVersion: "latest",
+      sourceType: "module",
     },
     env: {
       browser: true,
       es2021: true,
     },
   },
-];
+]
