@@ -1,15 +1,15 @@
-import { client } from "@/sanity/lib/client"
+import { sanityClient } from "@/lib/sanity-client.lib"
+import { Author } from "@/types/sanity-schema.type"
 import { defineQuery } from "groq"
-import { Author } from "sanity.types"
 
 export async function findAllAuthors() {
-  return (await client.fetch(
+  return (await sanityClient.fetch(
     defineQuery("*[_type == 'author'] | order(name asc)"),
   )) as Author[]
 }
 
 export async function findAuthorById(id?: string) {
-  return (await client.fetch(
+  return (await sanityClient.fetch(
     defineQuery("*[_type == 'author' && _id == $id][0]"),
     { id },
   )) as Author
