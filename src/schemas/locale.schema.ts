@@ -1,8 +1,8 @@
 import { defineType } from "sanity"
 
-export const languageType = defineType({
-  name: "language",
-  title: "Language",
+export const localeType = defineType({
+  name: "locale",
+  title: "Locale",
   type: "string",
   options: {
     list: [

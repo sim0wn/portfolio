@@ -5,9 +5,9 @@ import { sanityClient } from "./sanity-client.lib"
 
 export async function findAllServices() {
   return (await sanityClient.fetch(
-    defineQuery("*[_type == 'service' && localization == $localization]"),
+    defineQuery("*[_type == 'service' && locale == $locale]"),
     {
-      localization: getLocale(),
+      locale: getLocale(),
     },
   )) as Service[]
 }

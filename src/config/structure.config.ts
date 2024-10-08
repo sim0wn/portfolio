@@ -23,6 +23,8 @@ export const structure: StructureResolver = (S) =>
           S.list()
             .id("portfolio")
             .items([
+              S.documentTypeListItem("faq").title("FAQs"),
+              S.documentTypeListItem("highlight").title("Highlights"),
               S.documentTypeListItem("testimonial").title("Testimonials"),
               S.documentTypeListItem("service").title("Services"),
             ]),
@@ -39,10 +41,12 @@ export const structure: StructureResolver = (S) =>
                   item.getId() &&
                   ![
                     "article",
-                    "category",
                     "author",
+                    "category",
+                    "faq",
                     "testimonial",
                     "service",
+                    "highlight",
                   ].includes(item.getId()!),
               ),
             ]),

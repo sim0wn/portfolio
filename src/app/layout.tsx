@@ -1,18 +1,21 @@
 import type { Metadata } from "next"
 
 import { getTranslation } from "@/lib/translations.lib"
-import { getLocale, getLocaleDomain } from "@/utils/locale.utils"
+import { getLocale, getLocaleDomain } from "@/utils/locale.util"
 import classNames from "classnames"
 import Link from "next/link"
 import { ReactNode } from "react"
 
-import { Email } from "./components/icons/email"
-import { Github } from "./components/icons/github"
-import { HackTheBox } from "./components/icons/hackthebox"
-import { Lattes } from "./components/icons/lattes"
-import { LinkedIn } from "./components/icons/linkedin"
-import { TryHackMe } from "./components/icons/tryhackme"
-import Navbar from "./components/navbar"
+import { BusinessUserCurriculum } from "../components/icons/business-user-curriculum"
+import { Email } from "../components/icons/email"
+import { GiftOfKnowledge } from "../components/icons/gift-of-knowledge"
+import { Github } from "../components/icons/github"
+import { HackTheBox } from "../components/icons/hackthebox"
+import { Lattes } from "../components/icons/lattes"
+import { Lettermark } from "../components/icons/lettermark"
+import { LinkedIn } from "../components/icons/linkedin"
+import { SquareArticle } from "../components/icons/square-article"
+import { TryHackMe } from "../components/icons/tryhackme"
 import { lato, raleway } from "./fonts"
 import "./styles.css"
 
@@ -48,20 +51,76 @@ export default async function RootLayout({
   children: ReactNode
 }>) {
   const locale = getLocale()
+  const translation = await getTranslation(locale)
   return (
     <html lang={locale}>
       <body
         className={classNames(
           raleway.className,
-          "bg-neutral-950 text-neutral-50 h-screen grid grid-rows-[min-content_1fr] md:px-16",
+          "grid h-screen grid-rows-[min-content_1fr] scroll-smooth bg-neutral-950 text-neutral-50",
         )}
       >
-        <header className={classNames(lato.className, "px-2 py-3 md:p-0")}>
-          <Navbar dictionary={await getTranslation(locale)} />
+        <header
+          className={classNames(lato.className, "container px-2 py-3 sm:p-0")}
+        >
+          <nav
+            className="grid grid-cols-[min-content_1fr] items-center"
+            id="navbar"
+          >
+            <Link href={"/"} className="flex items-end">
+              <Lettermark className="text-3xl" />
+              <span>im0wn</span>
+            </Link>
+            <menu
+              className={classNames(
+                "col-span-full w-full place-self-end", // general style
+                "my-4 flex-col justify-end gap-2 rounded-lg border border-neutral-800 bg-neutral-900 p-2", // mobile style
+                "sm:col-span-1 sm:flex sm:w-fit sm:flex-row sm:gap-4 sm:border-0 sm:bg-neutral-950", // desktop style
+                "*:group *:flex *:items-center *:gap-2", // children style
+              )}
+            >
+              <li>
+                <SquareArticle />
+                <Link href={"/blog"}>Blog</Link>
+              </li>
+              <li>
+                <GiftOfKnowledge />
+                <Link
+                  href={"https://logs.sim0wn.com.br/"}
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  {translation.navigation_bar.knowledge_base}
+                </Link>
+              </li>
+              <li className="group">
+                <BusinessUserCurriculum
+                  className={classNames(
+                    "md:rounded-md md:bg-purple-plum md:p-1 md:text-2xl",
+                    "md:animate-[pulse_2.5s_ease-in-out_infinite]", // animation
+                    "md:group-hover:animate-none", // hover style
+                  )}
+                />
+                <Link
+                  className={classNames(
+                    "md:max-w-0 md:overflow-hidden md:whitespace-nowrap md:opacity-0", // desktop style
+                    "group-hover:max-w-xs group-hover:opacity-100", // hover style
+                    "transition-[opacity,max-width] duration-300 ease-in-out", // transition properties
+                  )}
+                  rel="noopener noreferrer"
+                  target="_blank"
+                  href={"https://drive.proton.me/urls/PYTJCHBEPG#7RGY5BfA2LU8"}
+                >
+                  {translation.navigation_bar.whoami}
+                </Link>
+              </li>
+            </menu>
+          </nav>
         </header>
         {children}
+        {/* TODO: improve footer layout */}
         <footer>
-          <menu className="py-2 text-4xl flex gap-2 justify-center hover:*:transition-transform hover:*:scale-125">
+          <menu className="container flex justify-center gap-2 py-2 text-4xl hover:*:scale-125 hover:*:transition-transform">
             <li>
               <Link
                 href={"https://www.linkedin.com/in/halissoncruz/"}

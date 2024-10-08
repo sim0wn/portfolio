@@ -68,6 +68,63 @@ export type Geopoint = {
   alt?: number
 }
 
+export type Faq = {
+  _id: string
+  _type: "faq"
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  question: string
+  answer: string
+  locale: "pt-BR" | "en-US"
+}
+
+export type Highlight = {
+  _id: string
+  _type: "highlight"
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  title: string
+  description: Array<
+    | {
+        children?: Array<{
+          marks?: Array<string>
+          text?: string
+          _type: "span"
+          _key: string
+        }>
+        style?: "normal" | "h1" | "h2" | "h3" | "h4" | "blockquote"
+        listItem?: "bullet"
+        markDefs?: Array<{
+          href?: string
+          _type: "link"
+          _key: string
+        }>
+        level?: number
+        _type: "block"
+        _key: string
+      }
+    | {
+        asset?: {
+          _ref: string
+          _type: "reference"
+          _weak?: boolean
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset"
+        }
+        hotspot?: SanityImageHotspot
+        crop?: SanityImageCrop
+        alt?: string
+        _type: "image"
+        _key: string
+      }
+    | ({
+        _key: string
+      } & Table)
+  >
+  locale: "pt-BR" | "en-US"
+}
+
 export type Service = {
   _id: string
   _type: "service"
@@ -112,7 +169,7 @@ export type Service = {
         _key: string
       } & Table)
   >
-  localization: "pt-BR" | "en-US"
+  locale: "pt-BR" | "en-US"
 }
 
 export type Testimonial = {
@@ -139,7 +196,7 @@ export type Testimonial = {
   rating: number
 }
 
-export type Language = "pt-BR" | "en-US"
+export type Locale = "pt-BR" | "en-US"
 
 export type Table = {
   _type: "table"
@@ -390,9 +447,11 @@ export type AllSanitySchemaTypes =
   | SanityImageDimensions
   | SanityFileAsset
   | Geopoint
+  | Faq
+  | Highlight
   | Service
   | Testimonial
-  | Language
+  | Locale
   | Table
   | Article
   | Author

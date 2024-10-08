@@ -5,149 +5,32 @@
     "github": "GitHub logo",
     "linkedin": "LinkedIn logo"
   },
+  "landingPage": {
+    "callForAction": {
+      "title": "What are you waiting for? Don't leave your organization behind, invest in cybersecurity!"
+    },
+    "contactForm": {
+      "title": "Contact me",
+      "subTitle": "Fill out the form below and I'll get back to you as soon as possible."
+    },
+    "headline": {
+      "title": "Protect your company's most valuable asset: information.",
+      "subTitle": "Transform your cybersecurity posture and minimize breach risks. Solutions ranging from secure software development to penetration testing and specialized consulting.",
+      "contactLink": "Hire my services"
+    },
+    "highlights": {
+      "title": "Highlights"
+    },
+    "services": {
+      "title": "My services",
+      "dialogTriggerLabel": "Learn more"
+    },
+    "socialProof": {
+      "title": "Testimonials",
+      "subTitle": "What people are saying about my work"
+    }
+  },
   "bio": "I'm a cybersecurity enthusiast specialized in web application penetration testing and self-taught developer.",
-  "by": "by",
-  "certificates_card_title": "Certifications",
-  "certificates": [
-    {
-      "title": "Endpoint Security",
-      "issuer": "Cisco",
-      "date": "2024",
-      "url": "https://www.credly.com/badges/1e62432e-0721-4e38-b50a-248fd243c109/linked_in_profile",
-      "description": "The Endpoint Security course introduces the architecture, structure, functions, components, and models of the Internet and other computer networks."
-    },
-    {
-      "title": "Networking Basics",
-      "issuer": "Cisco",
-      "date": "2024",
-      "url": "https://www.credly.com/badges/4e0d6e85-d991-496a-922a-7117ab38418d/",
-      "description": "The Networking Basics course introduces the architecture, structure, functions, components, and models of the Internet and other computer networks."
-    },
-    {
-      "title": "Cybersecurity Awareness - CAPC",
-      "issuer": "CertiProf",
-      "date": "2024",
-      "url": "https://www.credly.com/badges/2c7bc72b-3a9e-4c0c-82e2-77bf22137680/",
-      "description": "The Cybersecurity Awareness course provides an overview of the cybersecurity landscape and introduces key concepts."
-    },
-    {
-      "title": "Introduction to Cybersecurity",
-      "issuer": "Cisco",
-      "date": "2024",
-      "url": "https://www.credly.com/badges/10e03c10-6e29-461c-8c1a-1081a3121110/",
-      "description": "The Introduction to Cybersecurity course develops foundational understanding of cybersecurity and how it relates to information and network security."
-    },
-    {
-      "title": "Introduction to Packet Tracer",
-      "issuer": "Cisco",
-      "date": "2024",
-      "url": "https://www.credly.com/badges/df2af31a-5d43-4afc-9a8d-6e4d94789533/",
-      "description": "The Introduction to Packet Tracer course introduces the architecture, structure, functions, components, and models of the Internet and other computer networks."
-    },
-    {
-      "title": "C2 Proficient",
-      "issuer": "EF SET",
-      "date": "2024",
-      "url": "https://cert.efset.org/xodwuB",
-      "description": "The EF SET is the world’s most convenient and affordable English test. It’s the standardized test that you can use to prove your English level."
-    },
-    {
-      "title": "CCNA: Introduction to Networks",
-      "issuer": "Cisco",
-      "date": "2022",
-      "url": "https://www.credly.com/badges/0fc35cb1-ecd7-4a0b-9316-2a44004998c5/",
-      "description": "The Introduction to Networks course introduces the architecture, structure, functions, components, and models of the Internet and other computer networks."
-    },
-    {
-      "title": "Cybersecurity Essentials",
-      "issuer": "Cisco",
-      "date": "2021",
-      "url": "https://www.credly.com/badges/4c6a10bd-83ff-4958-a3fa-71dd3e6165ff/",
-      "description": "The Cybersecurity Essentials course develops foundational understanding of cybersecurity and how it relates to information and network security."
-    }
-  ],
-  "courses_card_title": "Courses",
-  "courses": [
-    {
-      "title": "Certified in Cybersecurity",
-      "institution": "ISC²",
-      "url": "https://www.isc2.org/training/online-self-paced/cc-online-self-paced",
-      "date": "2024",
-      "description": "The Certified in Cybersecurity course provides an overview of the principles and practices of cybersecurity, enabling students to understand how to identify and mitigate cyber threats."
-    },
-    {
-      "title": "Advent of Cyber",
-      "institution": "TryHackMe",
-      "url": "https://tryhackme.com/r/christmas",
-      "date": "2021",
-      "description": "Advent of Cyber is an event aimed at helping people learn the basics of cybersecurity through a series of challenges."
-    },
-    {
-      "title": "Fundamentos de Ethical Hacking",
-      "institution": "Udemy",
-      "url": "https://www.udemy.com/course/fundamentos-de-ethical-hacking/",
-      "date": "2018",
-      "description": "A training course in ethical hacking that covers the basic concepts of cybersecurity, including vulnerabilities, attacks, defenses, and security techniques. The course provides an overview of the principles and practices of ethical hacking, enabling students to understand how to identify and mitigate cyber threats."
-    }
-  ],
-  "education": {
-    "title": "Education",
-    "degrees": [
-      {
-        "degree": "Information Security Associate",
-        "institution": {
-          "name": "Faculdade de Tecnologia de Ourinhos",
-          "website": "https://www.fatecourinhos.edu.br/",
-          "location": {
-            "city": "Ourinhos",
-            "state": "SP",
-            "country": "Brazil"
-          },
-          "date": "2024 - 2026"
-        }
-      },
-      {
-        "degree": "Information Technician",
-        "institution": {
-          "name": "Instituto Federal de Educação, Ciência e Tecnologia do Paraná",
-          "website": "https://ifpr.edu.br/jacarezinho/",
-          "location": {
-            "city": "Jacarezinho",
-            "state": "PR",
-            "country": "Brazil"
-          },
-          "date": "2020 - 2023"
-        }
-      }
-    ]
-  },
-  "experience": {
-    "title": "Work",
-    "entries": [
-      {
-        "position": "Administrative assistant",
-        "company": {
-          "name": "Serviço Social do Comércio (SESC)",
-          "location": {
-            "city": "Santo Antônio da Platina",
-            "state": "PR",
-            "country": "Brazil"
-          },
-          "date": "2023 - 2024"
-        }
-      }
-    ]
-  },
-  "honors_card_title": "Awards & Honors",
-  "honors": [
-    {
-      "title": "1st place in CTF",
-      "issuer": "Hackers do Bem",
-      "date": "2024",
-      "url": "https://ctf.hackersdobem.org.br/",
-      "description": "In 2024, I was the champion of the inaugural Capture The Flag (CTF) competition organized by the Hackers do Bem Program. The CTF involved a diverse range of cybersecurity challenges, including OSINT, scripting, network analysis, cryptography, and vulnerability exploitation. This experience allowed me to demonstrate and further develop my practical skills in information security."
-    }
-  ],
   "metadata": {
     "applicationName": "sim0wn's portfolio",
     "description": "Hello, friend. I'm sim0wn, a developer and ethical hacker specialized in web application vulnerability assessment.",
@@ -167,41 +50,6 @@
     }
   },
   "salutation": "Hello, friend. I'm sim0wn, an ethical hacker.",
-  "skills": {
-    "title": "Skills",
-    "categories": [
-      {
-        "title": "Analytical",
-        "entries": [
-          "autonomy",
-          "discipline",
-          "focus",
-          "organization",
-          "problem-solving"
-        ]
-      },
-      {
-        "title": "Interpersonal",
-        "entries": ["leadership", "presentation", "teamwork", "writing"]
-      },
-      {
-        "title": "Languages",
-        "entries": ["English", "Portuguese"]
-      },
-      {
-        "title": "Technical",
-        "entries": [
-          "application security",
-          "full-stack development",
-          "penetration testing"
-        ]
-      },
-      {
-        "title": "Programming",
-        "entries": ["BASH", "SQL", "PHP", "Python", "TypeScript"]
-      }
-    ]
-  },
   "navigation_bar": {
     "sr_open_menu_button": "Open main menu",
     "knowledge_base": "Knowledge base",

@@ -1,28 +1,19 @@
-import { CaseIcon } from "@sanity/icons"
 import { defineField, defineType } from "sanity"
 
-export const serviceType = defineType({
-  name: "service",
-  title: "Service",
+export const faqType = defineType({
+  name: "faq",
   type: "document",
-  icon: CaseIcon,
   fields: [
     defineField({
-      name: "title",
-      title: "Title",
+      name: "question",
+      title: "Question",
       type: "string",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: "brief",
-      title: "Brief",
-      type: "text",
-      validation: (Rule) => Rule.required(),
-    }),
-    defineField({
-      name: "description",
-      title: "Description",
-      type: "blockContent",
+      name: "answer",
+      title: "Answer",
+      type: "string",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
