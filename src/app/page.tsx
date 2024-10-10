@@ -54,7 +54,7 @@ export default async function LandingPage() {
           <p>{landingPage.headline.subTitle}</p>
           <Link
             href="#contact"
-            className="w-fit self-center rounded-md bg-purple-plum p-2 font-semibold"
+            className="bg-purple-1000 w-fit self-center rounded-md p-2 font-semibold"
           >
             {landingPage.headline.contactLink}
           </Link>
@@ -64,7 +64,7 @@ export default async function LandingPage() {
         </aside>
       </section>
       {/* Services */}
-      <section className="flex flex-col place-items-center justify-center bg-purple-plum">
+      <section className="from-purple-1000 via-berry-600 to-purple-1000 flex flex-col place-items-center justify-center bg-gradient-to-r">
         <h1 className="py-4 text-lg font-semibold">
           {landingPage.services.title}
         </h1>

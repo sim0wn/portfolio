@@ -64,17 +64,17 @@ export default async function RootLayout({
           className={classNames(lato.className, "container px-2 py-3 sm:p-0")}
         >
           <nav
-            className="grid grid-cols-[min-content_1fr] items-center"
+            className="grid grid-cols-[min-content_1fr] items-center px-2"
             id="navbar"
           >
-            <Link href={"/"} className="flex items-end">
+            <Link href={"/"} className="flex items-end gap-2">
               <Lettermark className="text-3xl" />
-              <span>im0wn</span>
+              sim0wn
             </Link>
             <menu
               className={classNames(
                 "col-span-full w-full place-self-end", // general style
-                "my-4 flex-col justify-end gap-2 rounded-lg border border-neutral-800 bg-neutral-900 p-2", // mobile style
+                "my-4 flex-col justify-end gap-2 rounded-lg border border-neutral-800 bg-neutral-900 py-2", // mobile style
                 "sm:col-span-1 sm:flex sm:w-fit sm:flex-row sm:gap-4 sm:border-0 sm:bg-neutral-950", // desktop style
                 "*:group *:flex *:items-center *:gap-2", // children style
               )}
@@ -96,7 +96,7 @@ export default async function RootLayout({
               <li className="group">
                 <BusinessUserCurriculum
                   className={classNames(
-                    "md:rounded-md md:bg-purple-plum md:p-1 md:text-2xl",
+                    "md:bg-berry-600 md:rounded-md md:p-1 md:text-2xl",
                     "md:animate-[pulse_2.5s_ease-in-out_infinite]", // animation
                     "md:group-hover:animate-none", // hover style
                   )}
