@@ -24,8 +24,13 @@ const config: Config = {
     extend: {
       colors: {
         purple: {
-          "deep-plum": "#34233C",
-          plum: "#732961",
+          1000: "#29143E",
+        },
+        berry: {
+          600: "#732961",
+        },
+        wine: {
+          900: "#34233C",
         },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
