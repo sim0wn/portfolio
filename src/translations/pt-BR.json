@@ -51,10 +51,10 @@
     }
   },
   "salutation": "Olá, amigo. Eu sou sim0wn, um hacker ético.",
-  "navigation_bar": {
+  "navigationBar": {
     "sr_open_menu_button": "Abrir menu principal",
     "knowledge_base": "Base de conhecimento",
-    "whoami": "Quem sou eu"
+    "contact": "Contato"
   },
   "quote": {
     "message": "Todos os intelectuais que vêm à mente escrevem. Não porque eles precisam ou são pagos por isso, mas simplesmente pelo prazer de fazê-lo. Que valor tem o pensamento se você não pode compartilhar?",

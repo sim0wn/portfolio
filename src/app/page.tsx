@@ -1,4 +1,5 @@
 import { ContactForm } from "@/components/contact-form"
+import { Mascot } from "@/components/icons"
 import {
   Accordion,
   AccordionContent,
@@ -26,7 +27,6 @@ import { StarIcon } from "lucide-react"
 import { PortableText } from "next-sanity"
 import Image from "next/image"
 import Link from "next/link"
-import { Mascot } from "../components/icons/mascot"
 import {
   Card,
   CardContent,
@@ -65,7 +65,7 @@ export default async function LandingPage() {
         </aside>
       </section>
       {/* Highlights */}
-      <section className="container flex flex-col items-center gap-4 border-t-2 border-t-neutral-800 bg-neutral-900 py-4">
+      <section className="flex flex-col items-center gap-4 border-t-2 border-t-neutral-800 bg-neutral-900 py-4">
         {(await findAllHighlights()).map(
           ({ _id, icon, title, description }) => (
             <Dialog key={_id}>

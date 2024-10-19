@@ -50,10 +50,10 @@
     }
   },
   "salutation": "Hello, friend. I'm sim0wn, an ethical hacker.",
-  "navigation_bar": {
+  "navigationBar": {
     "sr_open_menu_button": "Open main menu",
     "knowledge_base": "Knowledge base",
-    "whoami": "Who am I"
+    "contact": "Contact"
   },
   "quote": {
     "message": "All the intellectuals that come to mind write, not because they have to or get paid to, but simply for its own sake. What good is thinking if you can’t share?",

@@ -1,21 +1,20 @@
 import type { Metadata } from "next"
 
 import {
-  BusinessUserCurriculum,
   Email,
-  GiftOfKnowledge,
   GitHub,
   HackTheBox,
   Lattes,
   Lettermark,
   LinkedIn,
-  SquareArticle,
   TryHackMe,
 } from "@/components/icons"
+import { Button } from "@/components/ui/button"
 import { ExternalLink } from "@/components/ui/external-link"
 import { getTranslation } from "@/lib/translations.lib"
 import { getLocale, getLocaleDomain } from "@/utils/locale.util"
 import classNames from "classnames"
+import { Library, Newspaper, Send } from "lucide-react"
 import Link from "next/link"
 import { ReactNode } from "react"
 import { lato, raleway } from "./fonts"
@@ -59,68 +58,59 @@ export default async function RootLayout({
       <body
         className={classNames(
           raleway.className,
-          "grid h-screen grid-rows-[min-content_1fr] scroll-smooth bg-neutral-950 text-neutral-50",
+          "grid h-svh grid-rows-[min-content_1fr] gap-4 scroll-smooth bg-neutral-950 text-neutral-50",
         )}
       >
         <header
-          className={classNames(lato.className, "container px-2 py-3 sm:p-0")}
+          className={classNames(
+            lato.className,
+            "w-screen border-b border-b-neutral-900 bg-inherit bg-opacity-50 backdrop-blur-md sm:p-0",
+          )}
         >
           <nav
-            className="grid grid-cols-[min-content_1fr] items-center px-2"
+            className="container flex items-center justify-between py-2"
             id="navbar"
           >
-            <Link href={"/"} className="flex items-end gap-2">
-              <Lettermark className="text-3xl" />
-              sim0wn
-            </Link>
-            <menu
-              className={classNames(
-                "col-span-full w-full place-self-end", // general style
-                "my-4 flex-col justify-end gap-2 rounded-lg border border-neutral-800 bg-neutral-900 py-2", // mobile style
-                "sm:col-span-1 sm:flex sm:w-fit sm:flex-row sm:gap-4 sm:border-0 sm:bg-neutral-950", // desktop style
-                "*:group *:flex *:items-center *:gap-2", // children style
-              )}
-            >
+            <menu className="*:*:text-md flex w-full gap-1.5 *:*:flex *:flex *:*:items-center *:items-center *:*:gap-2">
               <li>
-                <SquareArticle />
-                <Link href={"/blog"}>Blog</Link>
+                <Button asChild variant={"ghost"} size={"sm"}>
+                  <Link href={"/"}>
+                    <Lettermark className="text-xl" />
+                  </Link>
+                </Button>
               </li>
               <li>
-                <GiftOfKnowledge />
-                <Link
-                  href={"https://logs.sim0wn.com.br/"}
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  {translation.navigation_bar.knowledge_base}
-                </Link>
+                <Button asChild variant={"link"} size={"sm"}>
+                  <Link href={"/blog"}>
+                    <Newspaper width={"1em"} />
+                    Blog
+                  </Link>
+                </Button>
               </li>
-              <li className="group">
-                <BusinessUserCurriculum
-                  className={classNames(
-                    "md:rounded-md md:bg-berry-600 md:p-1 md:text-2xl",
-                    "md:animate-[pulse_2.5s_ease-in-out_infinite]", // animation
-                    "md:group-hover:animate-none", // hover style
-                  )}
-                />
-                <Link
-                  className={classNames(
-                    "md:max-w-0 md:overflow-hidden md:whitespace-nowrap md:opacity-0", // desktop style
-                    "group-hover:max-w-xs group-hover:opacity-100", // hover style
-                    "transition-[opacity,max-width] duration-300 ease-in-out", // transition properties
-                  )}
-                  rel="noopener noreferrer"
-                  target="_blank"
-                  href={"https://drive.proton.me/urls/PYTJCHBEPG#7RGY5BfA2LU8"}
-                >
-                  {translation.navigation_bar.whoami}
-                </Link>
+              <li>
+                <Button asChild variant={"link"} size={"sm"}>
+                  <ExternalLink href={"https://logs.sim0wn.com.br/"}>
+                    <Library width={"1em"} />
+                    Logs
+                  </ExternalLink>
+                </Button>
+              </li>
+              <li className="flex-1 place-content-end">
+                <Button asChild size={"sm"}>
+                  <Link
+                    className={classNames("flex items-center gap-2")}
+                    href={"/#contact"}
+                  >
+                    <Send width={"1em"} />
+                    {translation.navigationBar.contact}
+                  </Link>
+                </Button>
               </li>
             </menu>
           </nav>
         </header>
         {children}
-        <footer className="border-t-2 border-t-neutral-800 bg-neutral-900">
+        <footer className="h-fit border-t border-t-neutral-800 bg-neutral-900">
           <menu className="container flex justify-center gap-2 py-2 text-4xl hover:*:scale-125 hover:*:transition-transform">
             <li>
               <ExternalLink href="https://www.linkedin.com/in/halissoncruz/">
