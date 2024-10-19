@@ -1,6 +1,6 @@
 import type { SVGProps } from "react"
 
-export function Github(props: SVGProps<SVGSVGElement>) {
+export function GitHub(props: SVGProps<SVGSVGElement>) {
   return (
     <svg
       height="1em"
