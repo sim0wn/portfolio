@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "build:schemas": "sanity schema extract --enforce-required-fields && sanity typegen generate",
     "start": "next start",
     "lint": "next lint"
   },
