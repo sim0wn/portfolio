@@ -6,6 +6,12 @@ export const highlightType = defineType({
   type: "document",
   fields: [
     defineField({
+      name: "icon",
+      title: "Icon",
+      type: "image",
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
       name: "title",
       title: "Title",
       type: "string",

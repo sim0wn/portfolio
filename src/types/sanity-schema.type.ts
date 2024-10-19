@@ -85,6 +85,17 @@ export type Highlight = {
   _createdAt: string
   _updatedAt: string
   _rev: string
+  icon: {
+    asset?: {
+      _ref: string
+      _type: "reference"
+      _weak?: boolean
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset"
+    }
+    hotspot?: SanityImageHotspot
+    crop?: SanityImageCrop
+    _type: "image"
+  }
   title: string
   description: Array<
     | {
