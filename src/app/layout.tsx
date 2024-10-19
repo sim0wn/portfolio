@@ -1,21 +1,23 @@
 import type { Metadata } from "next"
 
+import {
+  BusinessUserCurriculum,
+  Email,
+  GiftOfKnowledge,
+  GitHub,
+  HackTheBox,
+  Lattes,
+  Lettermark,
+  LinkedIn,
+  SquareArticle,
+  TryHackMe,
+} from "@/components/icons"
+import { ExternalLink } from "@/components/ui/external-link"
 import { getTranslation } from "@/lib/translations.lib"
 import { getLocale, getLocaleDomain } from "@/utils/locale.util"
 import classNames from "classnames"
 import Link from "next/link"
 import { ReactNode } from "react"
-
-import { BusinessUserCurriculum } from "../components/icons/business-user-curriculum"
-import { Email } from "../components/icons/email"
-import { GiftOfKnowledge } from "../components/icons/gift-of-knowledge"
-import { Github } from "../components/icons/github"
-import { HackTheBox } from "../components/icons/hackthebox"
-import { Lattes } from "../components/icons/lattes"
-import { Lettermark } from "../components/icons/lettermark"
-import { LinkedIn } from "../components/icons/linkedin"
-import { SquareArticle } from "../components/icons/square-article"
-import { TryHackMe } from "../components/icons/tryhackme"
 import { lato, raleway } from "./fonts"
 import "./styles.css"
 
@@ -96,7 +98,7 @@ export default async function RootLayout({
               <li className="group">
                 <BusinessUserCurriculum
                   className={classNames(
-                    "md:bg-berry-600 md:rounded-md md:p-1 md:text-2xl",
+                    "md:rounded-md md:bg-berry-600 md:p-1 md:text-2xl",
                     "md:animate-[pulse_2.5s_ease-in-out_infinite]", // animation
                     "md:group-hover:animate-none", // hover style
                   )}
@@ -118,62 +120,37 @@ export default async function RootLayout({
           </nav>
         </header>
         {children}
-        {/* TODO: improve footer layout */}
-        <footer>
+        <footer className="border-t-2 border-t-neutral-800 bg-neutral-900">
           <menu className="container flex justify-center gap-2 py-2 text-4xl hover:*:scale-125 hover:*:transition-transform">
             <li>
-              <Link
-                href={"https://www.linkedin.com/in/halissoncruz/"}
-                rel="noopener noreferrer"
-                target="_blank"
-              >
+              <ExternalLink href="https://www.linkedin.com/in/halissoncruz/">
                 <LinkedIn />
-              </Link>
+              </ExternalLink>
             </li>
             <li>
-              <Link
-                href={"http://lattes.cnpq.br/4781391320784524/"}
-                rel="noopener noreferrer"
-                target="_blank"
-              >
+              <ExternalLink href="http://lattes.cnpq.br/4781391320784524/">
                 <Lattes />
-              </Link>
+              </ExternalLink>
             </li>
             <li>
-              <Link
-                href={"https://app.hackthebox.com/profile/143157/"}
-                rel="noopener noreferrer"
-                target="_blank"
-              >
+              <ExternalLink href="https://app.hackthebox.com/profile/143157/">
                 <HackTheBox />
-              </Link>
+              </ExternalLink>
             </li>
             <li>
-              <Link
-                href={"https://github.com/sim0wn/"}
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                <Github />
-              </Link>
+              <ExternalLink href="https://github.com/sim0wn/">
+                <GitHub />
+              </ExternalLink>
             </li>
             <li>
-              <Link
-                href={"https://tryhackme.com/p/sim0wn/"}
-                rel="noopener noreferrer"
-                target="_blank"
-              >
+              <ExternalLink href="https://tryhackme.com/p/sim0wn/">
                 <TryHackMe />
-              </Link>
+              </ExternalLink>
             </li>
             <li>
-              <Link
-                href={"mailto:contact@sim0wn.com"}
-                rel="noopener noreferrer"
-                target="_blank"
-              >
+              <ExternalLink href="mailto:contact@sim0wn.com">
                 <Email />
-              </Link>
+              </ExternalLink>
             </li>
           </menu>
         </footer>

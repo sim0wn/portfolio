@@ -24,6 +24,7 @@ import { getLocale } from "@/utils/locale.util"
 import { DialogDescription } from "@radix-ui/react-dialog"
 import { StarIcon } from "lucide-react"
 import { PortableText } from "next-sanity"
+import Image from "next/image"
 import Link from "next/link"
 import { Mascot } from "../components/icons/mascot"
 import {
@@ -43,7 +44,7 @@ import {
 export default async function LandingPage() {
   const { landingPage } = await getTranslation(getLocale())
   return (
-    <main className="flex flex-col place-content-center gap-24">
+    <main className="flex flex-col place-content-center">
       {/* Call for Action */}
       <section className="container flex items-center justify-between gap-x-12 gap-y-4 py-24 md:py-36">
         {/* Headline */}
@@ -54,7 +55,7 @@ export default async function LandingPage() {
           <p>{landingPage.headline.subTitle}</p>
           <Link
             href="#contact"
-            className="bg-purple-1000 w-fit self-center rounded-md p-2 font-semibold"
+            className="w-fit self-center rounded-md bg-purple-1000 p-2 font-semibold"
           >
             {landingPage.headline.contactLink}
           </Link>
@@ -63,12 +64,35 @@ export default async function LandingPage() {
           <Mascot className="rounded-full text-[16rem]" />
         </aside>
       </section>
+      {/* Highlights */}
+      <section className="container flex flex-col items-center gap-4 border-t-2 border-t-neutral-800 bg-neutral-900 py-4">
+        {(await findAllHighlights()).map(
+          ({ _id, icon, title, description }) => (
+            <Dialog key={_id}>
+              <DialogTrigger className="rounded-md border-2 border-neutral-800 bg-gradient-to-br from-berry-600 via-purple-800 via-75% to-purple-1000 p-2">
+                <Image
+                  src={urlFor(icon).url()}
+                  width={100}
+                  height={1}
+                  alt={title}
+                />
+              </DialogTrigger>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle>{title}</DialogTitle>
+                </DialogHeader>
+                <DialogDescription>
+                  <PortableText value={description} />
+                </DialogDescription>
+              </DialogContent>
+            </Dialog>
+          ),
+        )}
+      </section>
       {/* Services */}
-      <section className="from-purple-1000 via-berry-600 to-purple-1000 flex flex-col place-items-center justify-center bg-gradient-to-r">
-        <h1 className="py-4 text-lg font-semibold">
-          {landingPage.services.title}
-        </h1>
-        <section className="flex flex-wrap px-4 pb-12">
+      <section className="flex flex-col place-items-center justify-center gap-8 bg-gradient-to-r from-purple-1000 via-berry-600 to-purple-1000 pb-12 pt-8">
+        <h1 className="text-lg font-semibold">{landingPage.services.title}</h1>
+        <section className="flex flex-wrap px-4">
           {(await findAllServices()).map(
             ({ _id, title, brief, description }) => (
               <Card key={_id} className="max-w-lg">
@@ -97,22 +121,6 @@ export default async function LandingPage() {
             ),
           )}
         </section>
-      </section>
-      {/* Highlights */}
-      <section className="container flex flex-col items-center gap-4 py-12">
-        <h1 className="text-lg font-semibold">
-          {landingPage.highlights.title}
-        </h1>
-        {(await findAllHighlights()).map(({ _id, title, description }) => (
-          <Card key={_id} className="max-w-md">
-            <CardHeader>
-              <CardTitle>{title}</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <PortableText value={description} />
-            </CardContent>
-          </Card>
-        ))}
       </section>
       {/* Social Proof */}
       <section className="container flex flex-col items-center gap-4 py-8">
