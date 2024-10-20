@@ -1,5 +1,6 @@
 import { ContactForm } from "@/components/contact-form"
 import { Mascot } from "@/components/icons"
+import { portableTextComponents } from "@/components/portable-text-components"
 import {
   Accordion,
   AccordionContent,
@@ -10,6 +11,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -22,7 +24,6 @@ import { getTranslation } from "@/lib/translations.lib"
 import { getInitials } from "@/utils/get-initials.util"
 import { urlFor } from "@/utils/image.util"
 import { getLocale } from "@/utils/locale.util"
-import { DialogDescription } from "@radix-ui/react-dialog"
 import { StarIcon } from "lucide-react"
 import { PortableText } from "next-sanity"
 import Image from "next/image"
@@ -81,8 +82,13 @@ export default async function LandingPage() {
                 <DialogHeader>
                   <DialogTitle>{title}</DialogTitle>
                 </DialogHeader>
-                <DialogDescription>
-                  <PortableText value={description} />
+                <DialogDescription asChild>
+                  <section>
+                    <PortableText
+                      value={description}
+                      components={portableTextComponents}
+                    />
+                  </section>
                 </DialogDescription>
               </DialogContent>
             </Dialog>
@@ -111,8 +117,13 @@ export default async function LandingPage() {
                       <DialogHeader>
                         <DialogTitle>{title}</DialogTitle>
                       </DialogHeader>
-                      <DialogDescription>
-                        <PortableText value={description}></PortableText>
+                      <DialogDescription asChild>
+                        <section>
+                          <PortableText
+                            value={description}
+                            components={portableTextComponents}
+                          ></PortableText>
+                        </section>
                       </DialogDescription>
                     </DialogContent>
                   </Dialog>
