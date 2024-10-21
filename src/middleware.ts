@@ -2,7 +2,16 @@ import { NextRequest, NextResponse } from "next/server"
 
 export function middleware(request: NextRequest) {
   const { hostname } = request.nextUrl
+  const origin = request.headers.get("origin")
   const response = NextResponse.next()
+
+  if (
+    (origin && /^https:\/\/(sim0wn\.com|sim0wn\.com\.br)$/.test(origin)) ||
+    origin === "http://localhost:3000"
+  ) {
+    response.headers.set("Access-Control-Allow-Origin", origin)
+    response.headers.set("Vary", "Origin")
+  }
 
   // ignore files in `public` directory and non-production requests
   if (
@@ -25,5 +34,5 @@ export function middleware(request: NextRequest) {
 
 export const config = {
   // matcher ignoring `/_next/` and `/api/`
-  matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
+  matcher: ["/((?!_next/static|_next/image|favicon.ico).*)"],
 }

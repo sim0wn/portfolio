@@ -11,6 +11,7 @@ import {
 } from "@/components/icons"
 import { Button } from "@/components/ui/button"
 import { ExternalLink } from "@/components/ui/external-link"
+import { Toaster } from "@/components/ui/toaster"
 import { getTranslation } from "@/lib/translations.lib"
 import { getLocale, getLocaleDomain } from "@/utils/locale.util"
 import classNames from "classnames"
@@ -144,6 +145,7 @@ export default async function RootLayout({
             </li>
           </menu>
         </footer>
+        <Toaster />
       </body>
     </html>
   )

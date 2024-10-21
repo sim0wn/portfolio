@@ -5,6 +5,7 @@ import { authorType } from "./author.schema"
 import { blockContentType } from "./block-content.schema"
 import { categoryType } from "./category.schema"
 import { faqType } from "./faq.schema"
+import { formSchema } from "./form.schema"
 import { highlightType } from "./highlight.schema"
 import { localeType } from "./locale.schema"
 import { serviceType } from "./service.schema"
@@ -25,3 +26,5 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     faqType,
   ],
 }
+
+export { formSchema }

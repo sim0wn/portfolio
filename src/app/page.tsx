@@ -196,7 +196,7 @@ export default async function LandingPage() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <ContactForm />
+            <ContactForm translation={landingPage.contactForm.fields} />
           </CardContent>
         </Card>
       </section>

@@ -5,13 +5,24 @@
     "github": "GitHub logo",
     "linkedin": "LinkedIn logo"
   },
+  "api": {
+    "error": "An error occurred while trying to send the message. Please try again later.",
+    "success": "Message sent successfully!",
+    "recaptchaError": "Please complete the reCAPTCHA challenge."
+  },
   "landingPage": {
     "callForAction": {
       "title": "What are you waiting for? Don't leave your organization behind, invest in cybersecurity!"
     },
     "contactForm": {
       "title": "Contact me",
-      "subTitle": "Fill out the form below and I'll get back to you as soon as possible."
+      "subTitle": "Fill out the form below and I'll get back to you as soon as possible.",
+      "fields": {
+        "fullName": "Full Name",
+        "email": "Email",
+        "phoneNumber": "Phone Number",
+        "message": "Message"
+      }
     },
     "headline": {
       "title": "Protect your company's most valuable asset: information.",
