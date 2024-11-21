@@ -1,6 +1,6 @@
 {
   "alt": {
-    "avatar": "Logo de um mascote de esquilo roxo corajoso",
+    "avatar": "Logo de um mascote de esquilo roxo imponente",
     "email": "Logo do e-mail",
     "github": "Logo do GitHub",
     "linkedin": "Logo do LinkedIn"
@@ -11,8 +11,8 @@
     "recaptchaError": "Por favor, complete o desafio reCAPTCHA."
   },
   "landingPage": {
-    "callForAction": {
-      "title": "O que está esperando? Não deixe sua organização de lado, invista em cibersegurança!"
+    "faq": {
+      "title": "Talvez te interesse..."
     },
     "contactForm": {
       "title": "Entre em contato",
@@ -25,15 +25,19 @@
       }
     },
     "headline": {
-      "title": "Proteja o ativo mais valioso da sua empresa: a informação.",
-      "subTitle": "Transforme sua postura de segurança cibernética e minimize os riscos de violação. Soluções que vão desde desenvolvimento de software seguro a testes de invasão e consultoria especializada.",
-      "contactLink": "Contrate meus serviços"
+      "title": "Olá, amigo! Eu sou sim0wn, um hacker ético.",
+      "subTitle": "Sou um entusiasta em cibersegurança especializado em segurança ofensiva. Iniciei como programador, tendo meu primeiro contato com a linguagem Java aos 11 anos. Com o tempo, me deparei com a área de segurança da informação, na qual sou um autodidata desde 2018, e sigo uma rotina de estudo e prática constante.",
+      "contactLink": "Entre em contato",
+      "quote": {
+        "message": "Seja curioso, leia amplamente e experimente coisas novas. Para mim, o que as pessoas chamam de inteligência se resume à curiosidade.",
+        "author": "Aaron Swartz"
+      }
     },
     "highlights": {
       "title": "Destaques"
     },
     "services": {
-      "title": "Meus serviços",
+      "title": "Sou especialista em...",
       "dialogTriggerLabel": "Saiba mais"
     },
     "socialProof": {
@@ -61,14 +65,9 @@
       "default": "Bem-vindo | sim0wn"
     }
   },
-  "salutation": "Olá, amigo. Eu sou sim0wn, um hacker ético.",
   "navigationBar": {
     "sr_open_menu_button": "Abrir menu principal",
     "knowledge_base": "Base de conhecimento",
     "contact": "Contato"
-  },
-  "quote": {
-    "message": "Todos os intelectuais que vêm à mente escrevem. Não porque eles precisam ou são pagos por isso, mas simplesmente pelo prazer de fazê-lo. Que valor tem o pensamento se você não pode compartilhar?",
-    "author": "Aaron Swartz"
   }
 }

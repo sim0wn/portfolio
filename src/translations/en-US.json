@@ -11,8 +11,8 @@
     "recaptchaError": "Please complete the reCAPTCHA challenge."
   },
   "landingPage": {
-    "callForAction": {
-      "title": "What are you waiting for? Don't leave your organization behind, invest in cybersecurity!"
+    "faq": {
+      "title": "You might be interested in..."
     },
     "contactForm": {
       "title": "Contact me",
@@ -25,15 +25,19 @@
       }
     },
     "headline": {
-      "title": "Protect your company's most valuable asset: information.",
-      "subTitle": "Transform your cybersecurity posture and minimize breach risks. Solutions ranging from secure software development to penetration testing and specialized consulting.",
-      "contactLink": "Hire my services"
+      "title": "Hello, friend! I'm sim0wn, an ethical hacker.",
+      "subTitle": "I'm a cybersecurity enthusiast specialized in offensive security. I started as a programmer, having my first contact with the Java language at the age of 11. Over time, I came across the information security area, in which I have been self-taught since 2018, and I follow a routine of constant study and practice.",
+      "contactLink": "Reach out",
+      "quote": {
+        "message": "Be curious. Read widely. Try new things. What people call intelligence just boils down to curiosity.",
+        "author": "Aaron Swartz"
+      }
     },
     "highlights": {
       "title": "Highlights"
     },
     "services": {
-      "title": "My services",
+      "title": "I'm a specialist in...",
       "dialogTriggerLabel": "Learn more"
     },
     "socialProof": {
@@ -60,14 +64,9 @@
       "default": "Welcome | sim0wn"
     }
   },
-  "salutation": "Hello, friend. I'm sim0wn, an ethical hacker.",
   "navigationBar": {
     "sr_open_menu_button": "Open main menu",
     "knowledge_base": "Knowledge base",
     "contact": "Contact"
-  },
-  "quote": {
-    "message": "All the intellectuals that come to mind write, not because they have to or get paid to, but simply for its own sake. What good is thinking if you can’t share?",
-    "author": "Aaron Swartz"
   }
 }
