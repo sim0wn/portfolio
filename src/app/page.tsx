@@ -39,9 +39,11 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel"
+import { findAllHacktivity } from "@/lib/hacktivity.lib"
 
 export default async function LandingPage() {
   const { landingPage } = await getTranslation(getLocale())
+  const hacktivity = await findAllHacktivity()
   return (
     <main className="flex flex-col place-content-center">
       {/* Hero Section */}
@@ -147,6 +149,12 @@ export default async function LandingPage() {
           <CarouselPrevious />
           <CarouselNext />
         </Carousel>
+      </section>
+      {/* Hacktivity */}
+      <section className="container">
+        <h1 className="py-12 text-lg font-semibold">
+          {landingPage.hacktivity.title}
+        </h1>
       </section>
       {/* Social Proof */}
       {/* <section className="container flex flex-col items-center gap-4 py-8">

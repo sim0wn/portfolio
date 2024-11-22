@@ -24,6 +24,9 @@
         "message": "Message"
       }
     },
+    "hacktivity": {
+      "title": "Hacktivity"
+    },
     "headline": {
       "title": "Hello, friend! I'm sim0wn, an ethical hacker.",
       "subTitle": "I'm a cybersecurity enthusiast specialized in offensive security. I started as a programmer, having my first contact with the Java language at the age of 11. Over time, I came across the information security area, in which I have been self-taught since 2018, and I follow a routine of constant study and practice.",
