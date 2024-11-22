@@ -40,10 +40,31 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel"
 import { findAllHacktivity } from "@/lib/hacktivity.lib"
+import { DataTable } from "@/components/ui/data-table"
+import { ColumnDef } from "@tanstack/react-table"
+import { Hacktivity } from "@/types/hacktivity.type"
+import { dateCell } from "./components/date-cell"
 
 export default async function LandingPage() {
   const { landingPage } = await getTranslation(getLocale())
+  const locale = getLocale()
   const hacktivity = await findAllHacktivity()
+  const hacktivityTableColumnDefinition: ColumnDef<Hacktivity>[] = [
+    { accessorKey: "name", header: landingPage.hacktivity.tableHeaders.name },
+    {
+      accessorKey: "category",
+      header: landingPage.hacktivity.tableHeaders.category,
+    },
+    {
+      accessorKey: "points",
+      header: landingPage.hacktivity.tableHeaders.points,
+    },
+    {
+      accessorKey: "date",
+      header: landingPage.hacktivity.tableHeaders.date,
+      cell: dateCell,
+    },
+  ]
   return (
     <main className="flex flex-col place-content-center">
       {/* Hero Section */}
@@ -155,6 +176,10 @@ export default async function LandingPage() {
         <h1 className="py-12 text-lg font-semibold">
           {landingPage.hacktivity.title}
         </h1>
+        <DataTable
+          columns={hacktivityTableColumnDefinition}
+          data={hacktivity}
+        />
       </section>
       {/* Social Proof */}
       {/* <section className="container flex flex-col items-center gap-4 py-8">

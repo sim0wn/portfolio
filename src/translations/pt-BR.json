@@ -21,11 +21,18 @@
         "fullName": "Nome Completo",
         "email": "E-mail",
         "phoneNumber": "Número de Telefone",
-        "message": "Mensagem"
+        "message": "Mensagem",
+        "submit": "Enviar"
       }
     },
     "hacktivity": {
-      "title": "Hacktividade"
+      "title": "Hacktividade",
+      "tableHeaders": {
+        "date": "Data",
+        "name": "Nome",
+        "category": "Categoria",
+        "points": "Pontos"
+      }
     },
     "headline": {
       "title": "Olá, amigo! Eu sou sim0wn, um hacker ético.",

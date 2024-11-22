@@ -111,7 +111,7 @@ function Form({ translation }: { translation: { [key: string]: string } }) {
             <FormMessage>{errors.message.message}</FormMessage>
           )}
         </FormItem>
-        <Button type="submit">Enviar</Button>
+        <Button type="submit">{translation.submit}</Button>
       </form>
     </FormProvider>
   )

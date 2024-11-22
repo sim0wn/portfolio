@@ -14,7 +14,7 @@ import { parseHeaders } from "./headers.util"
  *
  * @returns {string} The best matching locale.
  */
-export function getLocale() {
+export function getLocale(): string {
   const { defaultLocale, locales } = i18n
   const preferredLanguages = new Negotiator({
     headers: parseHeaders(headers()),

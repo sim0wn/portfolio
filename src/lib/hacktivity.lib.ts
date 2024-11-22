@@ -1,3 +1,5 @@
+import { Hacktivity } from "@/types/hacktivity.type"
+
 interface Machine {
   date: string
   date_diff: string
@@ -39,15 +41,8 @@ type ActivityResponse = {
   }
 }
 
-type Activity = {
-  name: string
-  points: number
-  date: string
-  category: string
-}
-
 export async function findAllHacktivity() {
-  const activities: Activity[] = []
+  const activities: Hacktivity[] = []
   const response = await fetch(
     `${process.env.HTB_API}/profile/activity/${process.env.HTB_PROFILE_ID}`,
   )
@@ -59,15 +54,17 @@ export async function findAllHacktivity() {
           activities.push({
             name: activity.name,
             points: activity.points,
-            date: activity.date_diff,
+            date: activity.date,
+            type: activity.object_type,
             category: activity.type,
           })
         } else if ("challenge_category" in activity) {
           activities.push({
             name: activity.name,
             points: activity.points,
-            date: activity.date_diff,
+            date: activity.date,
             category: activity.challenge_category,
+            type: activity.object_type,
           })
         }
       }
