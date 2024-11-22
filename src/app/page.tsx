@@ -129,7 +129,7 @@ export default async function LandingPage() {
         <h1 className="text-lg font-semibold">{landingPage.services.title}</h1>
         <Carousel
           opts={{ align: "center", loop: true }}
-          className="w-full max-w-xl"
+          className="max-w-xs sm:max-w-sm md:max-w-xl"
         >
           <CarouselContent>
             {(await findAllServices()).map(
