@@ -140,7 +140,7 @@ export default async function LandingPage() {
         <h1 className="text-lg font-semibold">{landingPage.services.title}</h1>
         <Carousel
           opts={{ align: "center", loop: true }}
-          className="mx-2 w-full max-w-xs md:max-w-2xl"
+          className="mx-2 w-full max-w-[16rem] md:max-w-2xl"
         >
           <CarouselContent>
             {services.map(({ _id, title, brief, description }) => (
@@ -187,7 +187,7 @@ export default async function LandingPage() {
         </Carousel>
       </section>
       {/* Hacktivity */}
-      <section className="container">
+      <section className="container w-svw">
         <h1 className="py-12 text-lg font-semibold">
           {landingPage.hacktivity.title}
         </h1>
