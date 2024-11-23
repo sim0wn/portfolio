@@ -46,10 +46,12 @@ import { Hacktivity } from "@/types/hacktivity.type"
 import { dateCell } from "./components/date-cell"
 import { Button } from "@/components/ui/button"
 import { urlCell } from "./components/url-cell"
+import classNames from "classnames"
 
 export default async function LandingPage() {
   const { landingPage } = await getTranslation(getLocale())
   const hacktivity = await findAllHacktivity()
+  const services = await findAllServices()
   const hacktivityTableColumnDefinition: ColumnDef<Hacktivity>[] = [
     {
       accessorKey: "url",
@@ -138,43 +140,47 @@ export default async function LandingPage() {
         <h1 className="text-lg font-semibold">{landingPage.services.title}</h1>
         <Carousel
           opts={{ align: "center", loop: true }}
-          className="mx-2 w-full max-w-xs"
+          className="mx-2 w-full max-w-xs md:max-w-2xl"
         >
           <CarouselContent>
-            {(await findAllServices()).map(
-              ({ _id, title, brief, description }) => (
-                <CarouselItem key={_id} className="">
-                  <Card>
-                    <CardHeader>
-                      <CardTitle>{title}</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <p>{brief}</p>
-                    </CardContent>
-                    <CardFooter className="text-center">
-                      <Dialog>
-                        <DialogTrigger>
-                          {landingPage.services.dialogTriggerLabel}
-                        </DialogTrigger>
-                        <DialogContent>
-                          <DialogHeader>
-                            <DialogTitle>{title}</DialogTitle>
-                          </DialogHeader>
-                          <DialogDescription asChild>
-                            <section>
-                              <PortableText
-                                value={description}
-                                components={portableTextComponents}
-                              ></PortableText>
-                            </section>
-                          </DialogDescription>
-                        </DialogContent>
-                      </Dialog>
-                    </CardFooter>
-                  </Card>
-                </CarouselItem>
-              ),
-            )}
+            {services.map(({ _id, title, brief, description }) => (
+              <CarouselItem
+                key={_id}
+                className={classNames({
+                  "md:basis-1/2": services.length <= 2,
+                  "lg:basis-1/3": services.length > 2,
+                })}
+              >
+                <Card>
+                  <CardHeader>
+                    <CardTitle>{title}</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p>{brief}</p>
+                  </CardContent>
+                  <CardFooter className="text-center">
+                    <Dialog>
+                      <DialogTrigger>
+                        {landingPage.services.dialogTriggerLabel}
+                      </DialogTrigger>
+                      <DialogContent>
+                        <DialogHeader>
+                          <DialogTitle>{title}</DialogTitle>
+                        </DialogHeader>
+                        <DialogDescription asChild>
+                          <section>
+                            <PortableText
+                              value={description}
+                              components={portableTextComponents}
+                            ></PortableText>
+                          </section>
+                        </DialogDescription>
+                      </DialogContent>
+                    </Dialog>
+                  </CardFooter>
+                </Card>
+              </CarouselItem>
+            ))}
           </CarouselContent>
           <CarouselPrevious />
           <CarouselNext />
