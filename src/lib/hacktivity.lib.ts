@@ -24,7 +24,7 @@ export async function findAllHacktivity() {
             points: activity.points,
             date: activity.date,
             type: activity.object_type,
-            category: activity.type,
+            category: `own (${activity.type})`,
           })
         } else if ("challenge_category" in activity) {
           activities.push({
