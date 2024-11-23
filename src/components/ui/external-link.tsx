@@ -2,7 +2,7 @@ import classNames from "classnames"
 import Link, { LinkProps } from "next/link"
 import { ReactNode } from "react"
 
-export async function ExternalLink({
+export function ExternalLink({
   children,
   href,
   className,

@@ -45,12 +45,21 @@ import { ColumnDef } from "@tanstack/react-table"
 import { Hacktivity } from "@/types/hacktivity.type"
 import { dateCell } from "./components/date-cell"
 import { Button } from "@/components/ui/button"
+import { urlCell } from "./components/url-cell"
 
 export default async function LandingPage() {
   const { landingPage } = await getTranslation(getLocale())
   const hacktivity = await findAllHacktivity()
   const hacktivityTableColumnDefinition: ColumnDef<Hacktivity>[] = [
-    { accessorKey: "name", header: landingPage.hacktivity.tableHeaders.name },
+    {
+      accessorKey: "url",
+      header: landingPage.hacktivity.tableHeaders.platform,
+      cell: urlCell,
+    },
+    {
+      accessorKey: "name",
+      header: landingPage.hacktivity.tableHeaders.name,
+    },
     {
       accessorKey: "category",
       header: landingPage.hacktivity.tableHeaders.category,
@@ -94,13 +103,18 @@ export default async function LandingPage() {
         {(await findAllHighlights()).map(
           ({ _id, icon, title, description }) => (
             <Dialog key={_id}>
-              <DialogTrigger className="rounded-md border-2 border-neutral-800 bg-gradient-to-br from-berry-600 via-purple-800 via-75% to-purple-1000 p-2">
-                <Image
-                  src={urlFor(icon).url()}
-                  width={100}
-                  height={1}
-                  alt={title}
-                />
+              <DialogTrigger
+                asChild
+                className="bg-gradient-to-t from-[#8A4BCA] to-[#A77BFF]"
+              >
+                <Button variant={"outline"}>
+                  <Image
+                    src={urlFor(icon).url()}
+                    width={100}
+                    height={1}
+                    alt={title}
+                  />
+                </Button>
               </DialogTrigger>
               <DialogContent>
                 <DialogHeader>
@@ -120,7 +134,7 @@ export default async function LandingPage() {
         )}
       </section>
       {/* Services */}
-      <section className="flex flex-col place-items-center justify-center gap-8 bg-gradient-to-t from-berry-600 from-5% to-purple-1000 px-16 pb-12 pt-8 md:px-0">
+      <section className="flex flex-col place-items-center justify-center gap-8 bg-purple-1000 px-16 pb-12 pt-8 md:px-0">
         <h1 className="text-lg font-semibold">{landingPage.services.title}</h1>
         <Carousel
           opts={{ align: "center", loop: true }}

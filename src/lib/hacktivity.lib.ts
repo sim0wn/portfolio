@@ -1,39 +1,6 @@
+import { Challenge } from "@/interfaces/challenge"
+import { Machine } from "@/interfaces/machine"
 import { Hacktivity } from "@/types/hacktivity.type"
-
-interface Machine {
-  date: string
-  date_diff: string
-  object_type: "machine"
-  type: "user" | "root"
-  first_blood: boolean
-  id: number
-  name: string
-  points: number
-  machine_avatar: string
-}
-
-type ChallengeCategory =
-  | "Stego"
-  | "Crypto"
-  | "Web"
-  | "Reversing"
-  | "Pwn"
-  | "Misc"
-  | "Forensics"
-  | "OSINT"
-  | "Hardware"
-
-interface Challenge {
-  date: string
-  date_diff: string
-  object_type: "challenge"
-  type: "challenge"
-  first_blood: boolean
-  id: number
-  name: string
-  points: number
-  challenge_category: ChallengeCategory
-}
 
 type ActivityResponse = {
   profile: {
@@ -52,6 +19,7 @@ export async function findAllHacktivity() {
       for (const activity of htbActivities.profile.activity) {
         if ("machine_avatar" in activity) {
           activities.push({
+            url: `https://www.hackthebox.com/achievement/machine/${process.env.HTB_PROFILE_ID}/${activity.id}`,
             name: activity.name,
             points: activity.points,
             date: activity.date,
@@ -60,6 +28,7 @@ export async function findAllHacktivity() {
           })
         } else if ("challenge_category" in activity) {
           activities.push({
+            url: `https://www.hackthebox.com/achievement/challenge/${process.env.HTB_PROFILE_ID}/${activity.id}`,
             name: activity.name,
             points: activity.points,
             date: activity.date,

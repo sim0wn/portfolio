@@ -28,10 +28,10 @@
     "hacktivity": {
       "title": "Hacktivity",
       "tableHeaders": {
-        "date": "Date",
-        "name": "Nome",
         "category": "Category",
-        "points": "Points"
+        "date": "Date",
+        "name": "Name",
+        "platform": "Platform"
       }
     },
     "headline": {

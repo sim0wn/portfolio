@@ -1,0 +1,10 @@
+export type ChallengeCategory =
+  | "Stego"
+  | "Crypto"
+  | "Web"
+  | "Reversing"
+  | "Pwn"
+  | "Misc"
+  | "Forensics"
+  | "OSINT"
+  | "Hardware"
