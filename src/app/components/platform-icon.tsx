@@ -12,6 +12,7 @@ export function PlatformIcon({ platform }: { platform: Platform }) {
             href={`https://app.hackthebox.com/profile/${process.env.HTB_PROFILE_ID}/`}
           >
             <HackTheBox className="text-[#9FEF00]" />
+            <span className="sr-only">{platform}</span>
           </ExternalLink>
         </Button>
       )

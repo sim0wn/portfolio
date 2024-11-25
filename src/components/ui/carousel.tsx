@@ -183,7 +183,7 @@ const CarouselItem = React.forwardRef<
   const { orientation } = useCarousel()
 
   return (
-    <article
+    <div
       ref={ref}
       role="group"
       aria-roledescription="slide"
