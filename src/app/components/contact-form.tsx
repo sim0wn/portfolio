@@ -9,15 +9,21 @@ import {
   useGoogleReCaptcha,
 } from "react-google-recaptcha-v3"
 import { FormProvider, useForm, useFormState } from "react-hook-form"
-import { Button } from "./ui/button"
-import { FormControl, FormItem, FormLabel, FormMessage } from "./ui/form"
-import { Input } from "./ui/input"
-import { Textarea } from "./ui/textarea"
+import { Button } from "@/components/ui/button"
+import {
+  FormControl,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form"
+import { Input } from "@/components/ui/input"
+import { Textarea } from "@/components/ui/textarea"
+import { Translation } from "@/lib/translations.lib"
 
 export function ContactForm({
   translation,
 }: {
-  translation: { [key: string]: string }
+  translation: Translation["landingPage"]
 }) {
   return (
     <GoogleReCaptchaProvider
@@ -28,7 +34,8 @@ export function ContactForm({
   )
 }
 
-function Form({ translation }: { translation: { [key: string]: string } }) {
+function Form({ translation }: { translation: Translation["landingPage"] }) {
+  const { contactForm } = translation
   const methods = useForm<ContactFormData>({
     resolver: zodResolver(formSchema),
   })
@@ -75,7 +82,7 @@ function Form({ translation }: { translation: { [key: string]: string } }) {
     <FormProvider {...methods}>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-2">
         <FormItem>
-          <FormLabel>{translation.fullName}</FormLabel>
+          <FormLabel>{contactForm.fields.fullName}</FormLabel>
           <FormControl>
             <Input placeholder="John Doe" {...register("fullName")} />
           </FormControl>
@@ -84,14 +91,14 @@ function Form({ translation }: { translation: { [key: string]: string } }) {
           )}
         </FormItem>
         <FormItem>
-          <FormLabel>{translation.email}</FormLabel>
+          <FormLabel>{contactForm.fields.email}</FormLabel>
           <FormControl>
             <Input placeholder="john.doe@ac.me" {...register("email")} />
           </FormControl>
           {errors.email && <FormMessage>{errors.email.message}</FormMessage>}
         </FormItem>
         <FormItem>
-          <FormLabel>{translation.phoneNumber}</FormLabel>
+          <FormLabel>{contactForm.fields.phoneNumber}</FormLabel>
           <FormControl>
             <Input
               placeholder="+55 (11) 11111-1111"
@@ -103,7 +110,7 @@ function Form({ translation }: { translation: { [key: string]: string } }) {
           )}
         </FormItem>
         <FormItem>
-          <FormLabel>{translation.message}</FormLabel>
+          <FormLabel>{contactForm.fields.message}</FormLabel>
           <FormControl>
             <Textarea placeholder="" {...register("message")} />
           </FormControl>
@@ -111,7 +118,7 @@ function Form({ translation }: { translation: { [key: string]: string } }) {
             <FormMessage>{errors.message.message}</FormMessage>
           )}
         </FormItem>
-        <Button type="submit">{translation.submit}</Button>
+        <Button type="submit">{contactForm.fields.submit}</Button>
       </form>
     </FormProvider>
   )

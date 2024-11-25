@@ -7,6 +7,8 @@ export function HackTheBox(props: SVGProps<SVGSVGElement>) {
       viewBox="0 0 24 24"
       width="1em"
       xmlns="http://www.w3.org/2000/svg"
+      aria-label="Hack The Box"
+      aria-hidden="true"
       {...props}
     >
       <path

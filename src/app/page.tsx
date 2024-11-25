@@ -1,4 +1,4 @@
-import { ContactForm } from "@/components/contact-form"
+import { ContactForm } from "./components/contact-form"
 import { Mascot } from "@/components/icons"
 import { portableTextComponents } from "@/components/portable-text-components"
 import {
@@ -31,7 +31,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "../components/ui/card"
+} from "@/components/ui/card"
 import {
   Carousel,
   CarouselContent,
@@ -226,7 +226,7 @@ export default async function LandingPage() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <ContactForm translation={landingPage.contactForm.fields} />
+            <ContactForm translation={landingPage} />
           </CardContent>
         </Card>
       </section>

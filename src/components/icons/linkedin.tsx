@@ -7,6 +7,8 @@ export function LinkedIn(props: SVGProps<SVGSVGElement>) {
       viewBox="0 0 448 512"
       width="0.88em"
       xmlns="http://www.w3.org/2000/svg"
+      aria-label="LinkedIn"
+      aria-hidden="true"
       {...props}
     >
       <path
