@@ -167,24 +167,29 @@ export default async function LandingPage() {
         </Carousel>
       </section>
       {/* Hacktivity */}
-      <section className="container py-12">
+      <section className="flex w-full flex-col place-items-center justify-center px-2 py-16">
         <h1 className="py-2 text-center text-lg font-semibold">
           {landingPage.hacktivity.title}
         </h1>
-        <ScrollArea className="flex max-h-96 flex-col rounded-md border border-neutral-800">
-          <section className="flex flex-col gap-2 p-2.5">
-            {hacktivity.map(({ name, platform, category, date, url }) => (
-              <ExternalLink href={url}>
-                <article className="flex items-center gap-2 rounded-md border border-neutral-800 p-4">
+        <ScrollArea className="flex max-h-[28rem] max-w-[calc(100%-0.5rem)] flex-col rounded-md border border-neutral-800 sm:w-full sm:max-w-none sm:flex-1">
+          <section className="flex w-full flex-1 flex-col gap-2 p-2.5">
+            {hacktivity.map(
+              ({ name, platform, category, date, url }, index) => (
+                <article
+                  className="flex flex-1 items-center gap-2 rounded-md border border-neutral-800 p-2"
+                  key={index}
+                >
                   {getPlatformIcon(platform)}
+                  <Button asChild variant={"link"}>
+                    <ExternalLink href={url}>{name}</ExternalLink>
+                  </Button>
                   {getChallengeCategoryIcon(category)}
-                  <h1 className="flex-1 font-semibold">{name}</h1>
-                  <time dateTime={date} className="text-sm">
+                  <time dateTime={date} className="ml-auto w-fit text-sm">
                     {intlFormatDistance(date, new Date())}
                   </time>
                 </article>
-              </ExternalLink>
-            ))}
+              ),
+            )}
           </section>
         </ScrollArea>
       </section>
