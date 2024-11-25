@@ -8,3 +8,5 @@ export type ChallengeCategory =
   | "Forensics"
   | "OSINT"
   | "Hardware"
+  | "System"
+  | "User"

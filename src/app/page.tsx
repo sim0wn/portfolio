@@ -40,38 +40,18 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel"
 import { findAllHacktivity } from "@/lib/hacktivity.lib"
-import { DataTable } from "@/components/ui/data-table"
-import { ColumnDef } from "@tanstack/react-table"
-import { Hacktivity } from "@/types/hacktivity.type"
-import { dateCell } from "./components/date-cell"
 import { Button } from "@/components/ui/button"
-import { urlCell } from "./components/url-cell"
 import classNames from "classnames"
+import { intlFormatDistance } from "date-fns"
+import { ExternalLink } from "@/components/ui/external-link"
+import { ScrollArea } from "@/components/ui/scroll-area"
+import { getPlatformIcon } from "./components/get-platform-icon"
+import { getChallengeCategoryIcon } from "./components/get-challenge-category-icon"
 
 export default async function LandingPage() {
   const { landingPage } = await getTranslation(getLocale())
   const hacktivity = await findAllHacktivity()
   const services = await findAllServices()
-  const hacktivityTableColumnDefinition: ColumnDef<Hacktivity>[] = [
-    {
-      accessorKey: "url",
-      header: landingPage.hacktivity.tableHeaders.platform,
-      cell: urlCell,
-    },
-    {
-      accessorKey: "name",
-      header: landingPage.hacktivity.tableHeaders.name,
-    },
-    {
-      accessorKey: "category",
-      header: landingPage.hacktivity.tableHeaders.category,
-    },
-    {
-      accessorKey: "date",
-      header: landingPage.hacktivity.tableHeaders.date,
-      cell: dateCell,
-    },
-  ]
   return (
     <main className="flex flex-col place-content-center">
       {/* Hero Section */}
@@ -187,14 +167,26 @@ export default async function LandingPage() {
         </Carousel>
       </section>
       {/* Hacktivity */}
-      <section className="container w-svw">
-        <h1 className="py-12 text-lg font-semibold">
+      <section className="container py-12">
+        <h1 className="py-2 text-center text-lg font-semibold">
           {landingPage.hacktivity.title}
         </h1>
-        <DataTable
-          columns={hacktivityTableColumnDefinition}
-          data={hacktivity}
-        />
+        <ScrollArea className="flex max-h-96 flex-col rounded-md border border-neutral-800">
+          <section className="flex flex-col gap-2 p-2.5">
+            {hacktivity.map(({ name, platform, category, date, url }) => (
+              <ExternalLink href={url}>
+                <article className="flex items-center gap-2 rounded-md border border-neutral-800 p-4">
+                  {getPlatformIcon(platform)}
+                  {getChallengeCategoryIcon(category)}
+                  <h1 className="flex-1 font-semibold">{name}</h1>
+                  <time dateTime={date} className="text-sm">
+                    {intlFormatDistance(date, new Date())}
+                  </time>
+                </article>
+              </ExternalLink>
+            ))}
+          </section>
+        </ScrollArea>
       </section>
       <section className="container grid grid-rows-[min-content_1fr] items-center gap-x-12 gap-y-8 py-12 lg:grid-cols-2 lg:grid-rows-1">
         <aside>

@@ -1,4 +1,4 @@
-import { ChallengeCategory } from "@/types/challenge-category"
+import { ChallengeCategory } from "@/types/challenge-category.type"
 
 export interface Challenge {
   date: string
