@@ -45,8 +45,8 @@ import classNames from "classnames"
 import { intlFormatDistance } from "date-fns"
 import { ExternalLink } from "@/components/ui/external-link"
 import { ScrollArea } from "@/components/ui/scroll-area"
-import { getPlatformIcon } from "./components/get-platform-icon"
-import { getChallengeCategoryIcon } from "./components/get-challenge-category-icon"
+import { PlatformIcon } from "./components/platform-icon"
+import { ChallengeCategoryIcon } from "./components/challenge-category-icon"
 
 export default async function LandingPage() {
   const { landingPage } = await getTranslation(getLocale())
@@ -116,11 +116,11 @@ export default async function LandingPage() {
         )}
       </section>
       {/* Services */}
-      <section className="flex flex-col place-items-center justify-center gap-8 bg-purple-1000 px-16 pb-12 pt-8 md:px-0">
+      <section className="flex flex-col place-items-center justify-center gap-8 bg-purple-1000 pb-12 pt-8 md:px-0">
         <h1 className="text-lg font-semibold">{landingPage.services.title}</h1>
         <Carousel
           opts={{ align: "center", loop: true }}
-          className="mx-2 w-full max-w-[16rem] md:max-w-2xl"
+          className="mx-2 w-full max-w-xs md:max-w-2xl"
         >
           <CarouselContent>
             {services.map(({ _id, title, brief, description }) => (
@@ -136,7 +136,7 @@ export default async function LandingPage() {
                     <CardTitle>{title}</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <p>{brief}</p>
+                    <p className="text-wrap">{brief}</p>
                   </CardContent>
                   <CardFooter className="text-center">
                     <Dialog>
@@ -162,29 +162,38 @@ export default async function LandingPage() {
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselPrevious />
-          <CarouselNext />
+          <CarouselPrevious className="hidden sm:flex" />
+          <CarouselNext className="hidden sm:flex" />
         </Carousel>
       </section>
       {/* Hacktivity */}
-      <section className="flex w-full flex-col place-items-center justify-center px-2 py-16">
+      <section className="container flex flex-col place-items-center justify-center py-16">
         <h1 className="py-2 text-center text-lg font-semibold">
           {landingPage.hacktivity.title}
         </h1>
-        <ScrollArea className="flex max-h-[28rem] max-w-[calc(100%-0.5rem)] flex-col rounded-md border border-neutral-800 sm:w-full sm:max-w-none sm:flex-1">
-          <section className="flex w-full flex-1 flex-col gap-2 p-2.5">
+        <ScrollArea className="flex max-h-[28rem] w-full rounded-md border border-neutral-800">
+          <section className="flex flex-1 flex-col gap-2 p-2.5">
             {hacktivity.map(
               ({ name, platform, category, date, url }, index) => (
                 <article
                   className="flex flex-1 items-center gap-2 rounded-md border border-neutral-800 p-2"
                   key={index}
                 >
-                  {getPlatformIcon(platform)}
-                  <Button asChild variant={"link"}>
-                    <ExternalLink href={url}>{name}</ExternalLink>
-                  </Button>
-                  {getChallengeCategoryIcon(category)}
-                  <time dateTime={date} className="ml-auto w-fit text-sm">
+                  <PlatformIcon platform={platform} />
+                  <div className="flex w-full flex-col flex-wrap place-items-start gap-x-2 sm:flex-row sm:items-center">
+                    <Button
+                      asChild
+                      variant={"link"}
+                      className="w-fit text-wrap p-0"
+                    >
+                      <ExternalLink href={url}>{name}</ExternalLink>
+                    </Button>
+                    <ChallengeCategoryIcon category={category} />
+                  </div>
+                  <time
+                    dateTime={date}
+                    className="ml-auto w-fit text-nowrap text-sm"
+                  >
                     {intlFormatDistance(date, new Date())}
                   </time>
                 </article>

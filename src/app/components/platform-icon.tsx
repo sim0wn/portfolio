@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button"
 import { ExternalLink } from "@/components/ui/external-link"
 import { Platform } from "@/types/platform.type"
 
-export function getPlatformIcon(platform: Platform) {
+export function PlatformIcon({ platform }: { platform: Platform }) {
   switch (platform) {
     case "Hack The Box":
       return (

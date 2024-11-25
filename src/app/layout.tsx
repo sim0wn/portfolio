@@ -59,13 +59,13 @@ export default async function RootLayout({
       <body
         className={classNames(
           raleway.className,
-          "grid h-svh grid-rows-[min-content_1fr] gap-4 scroll-smooth bg-neutral-950 text-neutral-50",
+          "grid h-dvh grid-rows-[min-content_1fr] gap-4 scroll-smooth bg-neutral-950 text-neutral-50",
         )}
       >
         <header
           className={classNames(
             lato.className,
-            "w-screen border-b border-b-neutral-900 bg-inherit bg-opacity-50 backdrop-blur-md sm:p-0",
+            "w-dvw border-b border-b-neutral-900 bg-inherit bg-opacity-50 backdrop-blur-md sm:p-0",
           )}
         >
           <nav
