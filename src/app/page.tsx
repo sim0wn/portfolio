@@ -120,7 +120,7 @@ export default async function LandingPage() {
         <h1 className="text-lg font-semibold">{landingPage.services.title}</h1>
         <Carousel
           opts={{ align: "center", loop: true }}
-          className="mx-2 w-full max-w-xs md:max-w-2xl"
+          className="mx-2 flex w-full max-w-xs flex-col gap-2 md:max-w-2xl"
         >
           <CarouselContent>
             {services.map(({ _id, title, brief, description }) => (
@@ -162,8 +162,10 @@ export default async function LandingPage() {
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselPrevious className="hidden sm:flex" />
-          <CarouselNext className="hidden sm:flex" />
+          <footer className="flex justify-center gap-2">
+            <CarouselPrevious />
+            <CarouselNext />
+          </footer>
         </Carousel>
       </section>
       {/* Hacktivity */}
