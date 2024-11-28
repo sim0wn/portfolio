@@ -22,7 +22,7 @@ import { lato, raleway } from "./fonts"
 import "./styles.css"
 
 export async function generateMetadata(): Promise<Metadata> {
-  const locale = getLocale()
+  const locale = await getLocale()
   const translation = await getTranslation(locale)
   return {
     applicationName: translation.metadata.applicationName,
@@ -52,7 +52,7 @@ export default async function RootLayout({
 }: Readonly<{
   children: ReactNode
 }>) {
-  const locale = getLocale()
+  const locale = await getLocale()
   const translation = await getTranslation(locale)
   return (
     <html lang={locale}>

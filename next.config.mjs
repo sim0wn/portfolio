@@ -1,4 +1,6 @@
-/** @type {import('next').NextConfig} */
+/**
+ * @type {import('next').NextConfig}
+ */
 
 const nextConfig = {
   images: {
@@ -11,7 +13,6 @@ const nextConfig = {
     ],
   },
   reactStrictMode: true,
-  swcMinify: true,
   headers: async function headers() {
     return [
       {

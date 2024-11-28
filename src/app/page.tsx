@@ -49,7 +49,7 @@ import { PlatformIcon } from "./components/platform-icon"
 import { ChallengeCategoryIcon } from "./components/challenge-category-icon"
 
 export default async function LandingPage() {
-  const { landingPage } = await getTranslation(getLocale())
+  const { landingPage } = await getTranslation(await getLocale())
   const hacktivity = await findAllHacktivity()
   const services = await findAllServices()
   return (

@@ -7,7 +7,7 @@ import { Resend } from "resend"
 export async function POST(request: Request) {
   const { fullName, email, phoneNumber, message, recaptchaToken } =
     (await request.json()) as ContactFormData & { recaptchaToken: string }
-  const { api: apiTranslation } = await getTranslation(getLocale())
+  const { api: apiTranslation } = await getTranslation(await getLocale())
 
   const validationResult = formSchema.safeParse({
     fullName,

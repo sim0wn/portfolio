@@ -5,7 +5,6 @@ import { portableTextComponents } from "@/components/portable-text-components"
 import { findAllArticles, findArticleBySlug } from "@/lib/articles.lib"
 import { findAuthorById } from "@/lib/authors.lib"
 import { findCategoryById } from "@/lib/categories.lib"
-import { getTranslation } from "@/lib/translations.lib"
 import { urlFor } from "@/utils/image.util"
 import { getLocale } from "@/utils/locale.util"
 import { formatWithOptions } from "date-fns/fp/formatWithOptions"
@@ -14,14 +13,14 @@ import { enUS } from "date-fns/locale/en-US"
 import { PortableText } from "next-sanity"
 import { notFound } from "next/navigation"
 
-export async function generateMetadata({
-  params: { slug },
-}: {
-  params: { slug: string }
-}) {
+type Params = Promise<{ slug: string }>
+
+export async function generateMetadata(props: { params: Params }) {
+  const { slug } = await props.params
   const article = await findArticleBySlug(slug)
   if (article) {
     const author = await findAuthorById(article.author._ref)
+    const locale = await getLocale()
     return {
       authors: { name: author.name },
       creator: author.name,
@@ -39,7 +38,7 @@ export async function generateMetadata({
           alt: article.mainImage?.alt,
         },
         description: article.description,
-        locale: getLocale(),
+        locale,
       },
       title: article.title,
     } as Metadata
@@ -48,22 +47,19 @@ export async function generateMetadata({
 }
 
 export async function generateStaticParams() {
-  return (await findAllArticles()).map(({ slug: { current: slug } }) => ({
-    slug,
+  const articles = await findAllArticles()
+  return articles.map(({ slug: { current: slug } }) => ({
+    params: { slug },
   }))
 }
 
-export default async function Article({
-  params: { slug },
-}: {
-  params: { slug: string }
-}) {
-  const translation = await getTranslation(getLocale())
+export default async function Article({ params }: { params: Params }) {
+  const slug = (await params).slug
   const article = await findArticleBySlug(slug)
   if (!article) notFound()
   return (
-    <article className="container m-auto w-svw prose dark:prose-invert prose-neutral mx-auto divide-y divide-neutral-800">
-      <header className="flex flex-col gap-0.5 items-center text-center">
+    <article className="container prose prose-neutral m-auto mx-auto w-svw divide-y divide-neutral-800 dark:prose-invert">
+      <header className="flex flex-col items-center gap-0.5 text-center">
         <h1 className="mb-2">{article.title}</h1>
         <address className="self-end">
           {(await findAuthorById(article.author._ref)).name}
@@ -75,7 +71,7 @@ export default async function Article({
             parseISO(article.publishedAt),
           )}
         </time>
-        <p className="mx-4 px-2 my-2">{article.description}</p>
+        <p className="mx-4 my-2 px-2">{article.description}</p>
       </header>
       <section className="mt-6">
         <PortableText
@@ -92,7 +88,7 @@ export default async function Article({
               if (category) {
                 return (
                   <li
-                    className="list-none text-sm m-0 border px-2 py-0 rounded-full border-neutral-800 bg-neutral-900"
+                    className="m-0 list-none rounded-full border border-neutral-800 bg-neutral-900 px-2 py-0 text-sm"
                     key={category._id}
                   >
                     {category.title}

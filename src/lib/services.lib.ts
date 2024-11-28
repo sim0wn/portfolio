@@ -7,7 +7,7 @@ export async function findAllServices() {
   return (await sanityClient.fetch(
     defineQuery("*[_type == 'service' && locale == $locale]"),
     {
-      locale: getLocale(),
+      locale: await getLocale(),
     },
   )) as Service[]
 }
