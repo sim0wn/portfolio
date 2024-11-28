@@ -17,7 +17,11 @@ export const serviceType = defineType({
       name: "brief",
       title: "Brief",
       type: "text",
-      validation: (Rule) => Rule.required(),
+      validation: (Rule) =>
+        Rule.required()
+          .min(250)
+          .max(270)
+          .error("Brief must be between 250 and 270 characters"),
     }),
     defineField({
       name: "description",
