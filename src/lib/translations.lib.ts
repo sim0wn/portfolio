@@ -6,7 +6,7 @@ const translations = {
   "pt-BR": async () => (await import("@/translations/pt-BR.json")).default,
 }
 
-type Translation = Awaited<ReturnType<(typeof translations)["en-US"]>>
+type Translation = Awaited<ReturnType<(typeof translations)["en-US"]>> // "en-US" is the default locale
 
 export async function getTranslation(locale: string) {
   // select the translation file based on the locale or fallback to "en-US"

@@ -18,9 +18,9 @@ export const faqType = defineType({
     }),
     defineField({
       name: "locale",
-      title: "Locale",
-      type: "locale",
-      validation: (Rule) => Rule.required().valid(["pt-BR", "en-US"]),
+      type: "string",
+      readOnly: true,
+      hidden: true,
     }),
   ],
 })

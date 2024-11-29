@@ -68,119 +68,116 @@ export type Geopoint = {
   alt?: number
 }
 
-export type Faq = {
-  _id: string
-  _type: "faq"
-  _createdAt: string
-  _updatedAt: string
-  _rev: string
-  question: string
-  answer: string
-  locale: "pt-BR" | "en-US"
+export type Table = {
+  _type: "table"
+  caption?: string
+  thead: Array<{
+    headers?: Array<string>
+    _type: "tr"
+    _key: string
+  }>
+  tbody: Array<{
+    data?: Array<string>
+    _type: "tr"
+    _key: string
+  }>
+  tfoot?: Array<{
+    footers?: Array<string>
+    _type: "tr"
+    _key: string
+  }>
 }
 
-export type Highlight = {
-  _id: string
-  _type: "highlight"
-  _createdAt: string
-  _updatedAt: string
-  _rev: string
-  icon: {
-    asset?: {
-      _ref: string
-      _type: "reference"
-      _weak?: boolean
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset"
+export type BlockContent = Array<
+  | {
+      children?: Array<{
+        marks?: Array<string>
+        text?: string
+        _type: "span"
+        _key: string
+      }>
+      style?: "normal" | "h1" | "h2" | "h3" | "h4" | "blockquote"
+      listItem?: "bullet"
+      markDefs?: Array<{
+        href?: string
+        _type: "link"
+        _key: string
+      }>
+      level?: number
+      _type: "block"
+      _key: string
     }
-    hotspot?: SanityImageHotspot
-    crop?: SanityImageCrop
-    _type: "image"
-  }
-  title: string
-  description: Array<
-    | {
-        children?: Array<{
-          marks?: Array<string>
-          text?: string
-          _type: "span"
-          _key: string
-        }>
-        style?: "normal" | "h1" | "h2" | "h3" | "h4" | "blockquote"
-        listItem?: "bullet"
-        markDefs?: Array<{
-          href?: string
-          _type: "link"
-          _key: string
-        }>
-        level?: number
-        _type: "block"
-        _key: string
+  | {
+      asset?: {
+        _ref: string
+        _type: "reference"
+        _weak?: boolean
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset"
       }
-    | {
-        asset?: {
-          _ref: string
-          _type: "reference"
-          _weak?: boolean
-          [internalGroqTypeReferenceTo]?: "sanity.imageAsset"
-        }
-        hotspot?: SanityImageHotspot
-        crop?: SanityImageCrop
-        alt?: string
-        _type: "image"
-        _key: string
-      }
-    | ({
-        _key: string
-      } & Table)
-  >
-  locale: "pt-BR" | "en-US"
-}
+      hotspot?: SanityImageHotspot
+      crop?: SanityImageCrop
+      alt?: string
+      _type: "image"
+      _key: string
+    }
+  | ({
+      _key: string
+    } & Table)
+>
 
-export type Service = {
+export type TranslationMetadata = {
   _id: string
-  _type: "service"
+  _type: "translation.metadata"
   _createdAt: string
   _updatedAt: string
   _rev: string
-  title: string
-  brief: string
-  description: Array<
-    | {
-        children?: Array<{
-          marks?: Array<string>
-          text?: string
-          _type: "span"
-          _key: string
-        }>
-        style?: "normal" | "h1" | "h2" | "h3" | "h4" | "blockquote"
-        listItem?: "bullet"
-        markDefs?: Array<{
-          href?: string
-          _type: "link"
-          _key: string
-        }>
-        level?: number
-        _type: "block"
-        _key: string
-      }
-    | {
-        asset?: {
-          _ref: string
-          _type: "reference"
-          _weak?: boolean
-          [internalGroqTypeReferenceTo]?: "sanity.imageAsset"
-        }
-        hotspot?: SanityImageHotspot
-        crop?: SanityImageCrop
-        alt?: string
-        _type: "image"
-        _key: string
-      }
-    | ({
-        _key: string
-      } & Table)
+  translations?: Array<
+    {
+      _key: string
+    } & InternationalizedArrayReferenceValue
   >
-  locale: "pt-BR" | "en-US"
+  schemaTypes?: Array<string>
+}
+
+export type InternationalizedArrayReferenceValue = {
+  _type: "internationalizedArrayReferenceValue"
+  value?:
+    | {
+        _ref: string
+        _type: "reference"
+        _weak?: boolean
+        [internalGroqTypeReferenceTo]?: "article"
+      }
+    | {
+        _ref: string
+        _type: "reference"
+        _weak?: boolean
+        [internalGroqTypeReferenceTo]?: "tag"
+      }
+    | {
+        _ref: string
+        _type: "reference"
+        _weak?: boolean
+        [internalGroqTypeReferenceTo]?: "faq"
+      }
+    | {
+        _ref: string
+        _type: "reference"
+        _weak?: boolean
+        [internalGroqTypeReferenceTo]?: "highlight"
+      }
+    | {
+        _ref: string
+        _type: "reference"
+        _weak?: boolean
+        [internalGroqTypeReferenceTo]?: "skill"
+      }
+    | {
+        _ref: string
+        _type: "reference"
+        _weak?: boolean
+        [internalGroqTypeReferenceTo]?: "testimonial"
+      }
 }
 
 export type Testimonial = {
@@ -207,26 +204,60 @@ export type Testimonial = {
   rating: number
 }
 
-export type Locale = "pt-BR" | "en-US"
+export type Skill = {
+  _id: string
+  _type: "skill"
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  title: string
+  brief: string
+  description: BlockContent
+  locale?: string
+}
 
-export type Table = {
-  _type: "table"
-  caption?: string
-  thead: Array<{
-    headers?: Array<string>
-    _type: "tr"
-    _key: string
-  }>
-  tbody: Array<{
-    data?: Array<string>
-    _type: "tr"
-    _key: string
-  }>
-  tfoot?: Array<{
-    footers?: Array<string>
-    _type: "tr"
-    _key: string
-  }>
+export type Highlight = {
+  _id: string
+  _type: "highlight"
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  icon: {
+    asset?: {
+      _ref: string
+      _type: "reference"
+      _weak?: boolean
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset"
+    }
+    hotspot?: SanityImageHotspot
+    crop?: SanityImageCrop
+    _type: "image"
+  }
+  title: string
+  description: BlockContent
+  locale?: string
+}
+
+export type Faq = {
+  _id: string
+  _type: "faq"
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  question: string
+  answer: string
+  locale?: string
+}
+
+export type Tag = {
+  _id: string
+  _type: "tag"
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  title?: string
+  description?: string
+  locale?: string
 }
 
 export type Article = {
@@ -256,50 +287,15 @@ export type Article = {
     alt?: string
     _type: "image"
   }
-  categories?: Array<{
+  tags?: Array<{
     _ref: string
     _type: "reference"
     _weak?: boolean
     _key: string
-    [internalGroqTypeReferenceTo]?: "category"
+    [internalGroqTypeReferenceTo]?: "tag"
   }>
   publishedAt: string
-  body: Array<
-    | {
-        children?: Array<{
-          marks?: Array<string>
-          text?: string
-          _type: "span"
-          _key: string
-        }>
-        style?: "normal" | "h1" | "h2" | "h3" | "h4" | "blockquote"
-        listItem?: "bullet"
-        markDefs?: Array<{
-          href?: string
-          _type: "link"
-          _key: string
-        }>
-        level?: number
-        _type: "block"
-        _key: string
-      }
-    | {
-        asset?: {
-          _ref: string
-          _type: "reference"
-          _weak?: boolean
-          [internalGroqTypeReferenceTo]?: "sanity.imageAsset"
-        }
-        hotspot?: SanityImageHotspot
-        crop?: SanityImageCrop
-        alt?: string
-        _type: "image"
-        _key: string
-      }
-    | ({
-        _key: string
-      } & Table)
-  >
+  body: BlockContent
 }
 
 export type Author = {
@@ -340,60 +336,6 @@ export type Author = {
     _key: string
   }>
 }
-
-export type Category = {
-  _id: string
-  _type: "category"
-  _createdAt: string
-  _updatedAt: string
-  _rev: string
-  title?: string
-  slug?: Slug
-  description?: string
-}
-
-export type Slug = {
-  _type: "slug"
-  current: string
-  source?: string
-}
-
-export type BlockContent = Array<
-  | {
-      children?: Array<{
-        marks?: Array<string>
-        text?: string
-        _type: "span"
-        _key: string
-      }>
-      style?: "normal" | "h1" | "h2" | "h3" | "h4" | "blockquote"
-      listItem?: "bullet"
-      markDefs?: Array<{
-        href?: string
-        _type: "link"
-        _key: string
-      }>
-      level?: number
-      _type: "block"
-      _key: string
-    }
-  | {
-      asset?: {
-        _ref: string
-        _type: "reference"
-        _weak?: boolean
-        [internalGroqTypeReferenceTo]?: "sanity.imageAsset"
-      }
-      hotspot?: SanityImageHotspot
-      crop?: SanityImageCrop
-      alt?: string
-      _type: "image"
-      _key: string
-    }
-  | ({
-      _key: string
-    } & Table)
->
 
 export type SanityImageCrop = {
   _type: "sanity.imageCrop"
@@ -452,26 +394,40 @@ export type SanityImageMetadata = {
   isOpaque?: boolean
 }
 
+export type Slug = {
+  _type: "slug"
+  current: string
+  source?: string
+}
+
+export type InternationalizedArrayReference = Array<
+  {
+    _key: string
+  } & InternationalizedArrayReferenceValue
+>
+
 export type AllSanitySchemaTypes =
   | SanityImagePaletteSwatch
   | SanityImagePalette
   | SanityImageDimensions
   | SanityFileAsset
   | Geopoint
-  | Faq
-  | Highlight
-  | Service
-  | Testimonial
-  | Locale
   | Table
+  | BlockContent
+  | TranslationMetadata
+  | InternationalizedArrayReferenceValue
+  | Testimonial
+  | Skill
+  | Highlight
+  | Faq
+  | Tag
   | Article
   | Author
-  | Category
-  | Slug
-  | BlockContent
   | SanityImageCrop
   | SanityImageHotspot
   | SanityImageAsset
   | SanityAssetSourceData
   | SanityImageMetadata
+  | Slug
+  | InternationalizedArrayReference
 export declare const internalGroqTypeReferenceTo: unique symbol

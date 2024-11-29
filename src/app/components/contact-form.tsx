@@ -1,7 +1,7 @@
 "use client"
 
 import { useToast } from "@/hooks/use-toast"
-import { formSchema } from "@/schemas"
+import { formSchema } from "@/validations"
 import { ContactFormData } from "@/types/contact-form-data.type"
 import { zodResolver } from "@hookform/resolvers/zod"
 import {

@@ -25,8 +25,9 @@ export const highlightType = defineType({
     }),
     defineField({
       name: "locale",
-      title: "Locale",
-      type: "locale",
+      type: "string",
+      hidden: true,
+      readOnly: true,
     }),
   ],
 })

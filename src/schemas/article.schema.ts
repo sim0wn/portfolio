@@ -48,9 +48,9 @@ export const articleType = defineType({
       ],
     }),
     defineField({
-      name: "categories",
+      name: "tags",
       type: "array",
-      of: [defineArrayMember({ type: "reference", to: { type: "category" } })],
+      of: [defineArrayMember({ type: "reference", to: { type: "tag" } })],
     }),
     defineField({
       name: "publishedAt",

@@ -13,8 +13,8 @@ export const structure: StructureResolver = (S) =>
             .id("blog")
             .items([
               S.documentTypeListItem("article").title("Articles"),
-              S.documentTypeListItem("category").title("Categories"),
               S.documentTypeListItem("author").title("Authors"),
+              S.documentTypeListItem("tag").title("Tags"),
             ]),
         ),
       S.listItem()
@@ -26,7 +26,7 @@ export const structure: StructureResolver = (S) =>
               S.documentTypeListItem("faq").title("FAQs"),
               S.documentTypeListItem("highlight").title("Highlights"),
               S.documentTypeListItem("testimonial").title("Testimonials"),
-              S.documentTypeListItem("service").title("Services"),
+              S.documentTypeListItem("skill").title("Skills"),
             ]),
         ),
       S.divider(),
@@ -42,11 +42,11 @@ export const structure: StructureResolver = (S) =>
                   ![
                     "article",
                     "author",
-                    "category",
                     "faq",
-                    "testimonial",
-                    "service",
                     "highlight",
+                    "testimonial",
+                    "skill",
+                    "tag",
                   ].includes(item.getId()!),
               ),
             ]),
