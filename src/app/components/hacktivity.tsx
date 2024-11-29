@@ -19,11 +19,11 @@ export async function Hacktivity({
       <h1 className="py-2 text-center text-lg font-semibold">
         {landingPage.hacktivity.title}
       </h1>
-      <ScrollArea className="flex max-h-[28rem] w-full rounded-md border border-neutral-800">
-        <section className="flex flex-1 flex-col gap-2 p-2.5">
+      <ScrollArea className="flex max-h-[28rem] w-full rounded-md border bg-neutral-100 shadow-sm dark:border-neutral-800 dark:bg-neutral-900">
+        <section className="flex h-full flex-1 flex-col gap-2 p-2.5">
           {hacktivity.map(({ name, platform, category, date, url }, index) => (
             <article
-              className="flex flex-1 items-center gap-2 rounded-md border border-neutral-800 p-2"
+              className="flex flex-1 items-center gap-2 rounded-md border bg-neutral-50 p-2 shadow-sm dark:bg-neutral-950"
               key={index}
             >
               <PlatformIcon platform={platform} />

@@ -13,6 +13,7 @@ import { ArticleRepository } from "@/repositories/article-repository"
 import { AuthorRepository } from "@/repositories/author-repository"
 import { TagRepository } from "@/repositories/tag-repository"
 import { Tags } from "lucide-react"
+import { Badge } from "@/components/ui/badge"
 
 type Params = Promise<{ slug: string }>
 
@@ -66,8 +67,8 @@ export default async function Article({ params }: { params: Params }) {
   const article = await articleRepository.findBySlug(slug)
   if (!article) notFound()
   return (
-    <article className="container prose prose-neutral m-auto mx-auto w-svw divide-y divide-neutral-800 dark:prose-invert">
-      <header className="flex flex-col items-center gap-0.5 text-center">
+    <article className="container prose prose-neutral m-auto mx-auto w-svw p-2 dark:prose-invert">
+      <header className="flex flex-col items-center gap-0.5 rounded-md bg-white p-2 text-center dark:bg-neutral-900">
         <h1 className="mb-2">{article.title}</h1>
         <address className="self-end">
           {(await authorRepository.findById(article.author._ref))?.name}
@@ -87,26 +88,21 @@ export default async function Article({ params }: { params: Params }) {
           components={portableTextComponents}
         />
       </section>
-      <footer>
-        {article.tags && (
-          <ul className="flex flex-wrap items-center justify-end gap-1.5">
-            <Tags />
-            {article.tags.map(async ({ _ref }) => {
-              const category = await tagRepository.findById(_ref)
-              if (category) {
-                return (
-                  <li
-                    className="m-0 list-none rounded-full border border-neutral-800 bg-neutral-900 px-2 py-0 text-sm"
-                    key={category._id}
-                  >
-                    {category.title}
-                  </li>
-                )
-              }
-            })}
-          </ul>
-        )}
-      </footer>
+      {article.tags && (
+        <footer className="flex flex-wrap items-center justify-end gap-1.5">
+          <Tags />
+          {article.tags.map(async ({ _ref }) => {
+            const category = await tagRepository.findById(_ref)
+            if (category) {
+              return (
+                <Badge variant={"default"} key={category._id}>
+                  {category.title}
+                </Badge>
+              )
+            }
+          })}
+        </footer>
+      )}
     </article>
   )
 }

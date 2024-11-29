@@ -40,12 +40,12 @@ export async function Features({ translation }: { translation: Translation }) {
   const skills = await skillRepository.findAll(locale)
   return (
     <>
-      <section className="flex flex-col items-center gap-4 border-t border-y-neutral-800 bg-neutral-900 py-4">
+      <section className="flex flex-col items-center gap-4 border-t bg-neutral-200 py-4 dark:border-y-neutral-800 dark:bg-neutral-900">
         {highlights.map(({ _id, icon, title, description }) => (
           <Dialog key={_id}>
             <DialogTrigger
               asChild
-              className="bg-gradient-to-t from-[#8A4BCA] to-[#A77BFF]"
+              className="bg-gradient-to-t from-purple-600 to-purple-300 dark:from-[#8A4BCA] dark:to-[#A77BFF]"
             >
               <Button variant={"outline"}>
                 <Image
@@ -72,8 +72,10 @@ export async function Features({ translation }: { translation: Translation }) {
           </Dialog>
         ))}
       </section>
-      <section className="flex flex-col place-items-center justify-center gap-8 bg-purple-1000 pb-12 pt-8 md:px-0">
-        <h1 className="text-lg font-semibold">{landingPage.services.title}</h1>
+      <section className="flex flex-col place-items-center justify-center gap-8 bg-purple-700 pb-12 pt-8 md:px-0 dark:bg-purple-1000">
+        <h1 className="text-lg font-semibold text-neutral-50">
+          {landingPage.services.title}
+        </h1>
         <Carousel
           opts={{ align: "center", loop: true }}
           className="mx-2 flex w-full max-w-xs flex-col gap-2 md:max-w-2xl"

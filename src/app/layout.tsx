@@ -58,13 +58,13 @@ export default async function RootLayout({
       <body
         className={classNames(
           raleway.className,
-          "flex min-h-svh flex-col scroll-smooth bg-neutral-950 text-neutral-50",
+          "flex min-h-svh flex-col scroll-smooth bg-neutral-100 text-neutral-950 dark:bg-neutral-950 dark:text-neutral-50",
         )}
       >
         <header
           className={classNames(
             lato.className,
-            "sticky inset-0 top-0 z-50 border-b border-b-neutral-900 bg-neutral-950/85 shadow-purple-1000 drop-shadow-md backdrop-blur-md sm:p-0",
+            "sticky inset-0 top-0 z-50 bg-neutral-100/85 shadow-purple-1000 drop-shadow-md backdrop-blur-md sm:p-0 dark:border-b dark:border-b-neutral-900 dark:bg-neutral-950/85",
           )}
         >
           <nav
@@ -110,7 +110,7 @@ export default async function RootLayout({
           </nav>
         </header>
         {children}
-        <footer className="h-fit border-t border-t-neutral-800 bg-neutral-900">
+        <footer className="h-fit border-t bg-neutral-100 dark:border-t-neutral-800 dark:bg-neutral-900">
           <menu className="container flex justify-center gap-2 py-2 text-4xl hover:*:scale-125 hover:*:transition-transform">
             <li>
               <ExternalLink href="https://www.linkedin.com/in/halissoncruz/">
