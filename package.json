@@ -1,11 +1,11 @@
 {
   "name": "portfolio",
-  "version": "1.1.0",
+  "version": "2.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev --turbo",
     "build": "next build",
-    "build:schemas": "sanity schema extract --enforce-required-fields && sanity typegen generate",
+    "build:sanity": "sanity schema extract --enforce-required-fields && sanity typegen generate && sanity deploy",
     "start": "next start",
     "lint": "next lint"
   },
@@ -62,7 +62,8 @@
     "postcss": "^8.4.49",
     "prettier": "^3.4.1",
     "prettier-plugin-tailwindcss": "^0.6.9",
-    "tailwindcss": "^3.4.15"
+    "tailwindcss": "^3.4.15",
+    "@types/bun": "latest"
   },
   "prettier": {
     "semi": false,
@@ -70,5 +71,8 @@
       "prettier-plugin-tailwindcss"
     ],
     "tailwindConfig": "./src/config/tailwind.config.ts"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
   }
 }

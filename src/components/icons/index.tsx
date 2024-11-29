@@ -1,19 +1,7 @@
-import { Email } from "./email"
-import { GitHub } from "./github"
-import { HackTheBox } from "./hackthebox"
-import { Lattes } from "./lattes"
-import { Lettermark } from "./lettermark"
-import { LinkedIn } from "./linkedin"
-import { Mascot } from "./mascot"
-import { TryHackMe } from "./tryhackme"
-
-export {
-  Email,
-  GitHub,
-  HackTheBox,
-  Lattes,
-  Lettermark,
-  LinkedIn,
-  Mascot,
-  TryHackMe,
-}
+export { GitHub } from "./github"
+export { HackTheBox } from "./hackthebox"
+export { Lattes } from "./lattes"
+export { Lettermark } from "./lettermark"
+export { LinkedIn } from "./linkedin"
+export { Mascot } from "./mascot"
+export { TryHackMe } from "./tryhackme"

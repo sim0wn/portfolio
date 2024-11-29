@@ -1,7 +1,6 @@
 import type { Metadata } from "next"
 
 import {
-  Email,
   GitHub,
   HackTheBox,
   Lattes,
@@ -15,7 +14,7 @@ import { Toaster } from "@/components/ui/toaster"
 import { getTranslation } from "@/lib/translations.lib"
 import { getLocale, getLocaleDomain } from "@/utils/locale.util"
 import classNames from "classnames"
-import { Library, Newspaper, Send } from "lucide-react"
+import { Library, Mail, Newspaper, Send } from "lucide-react"
 import Link from "next/link"
 import { ReactNode } from "react"
 import { lato, raleway } from "./fonts"
@@ -140,7 +139,7 @@ export default async function RootLayout({
             </li>
             <li>
               <ExternalLink href="mailto:contact@sim0wn.com">
-                <Email />
+                <Mail />
               </ExternalLink>
             </li>
           </menu>
