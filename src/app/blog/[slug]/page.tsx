@@ -1,10 +1,6 @@
 import type { Metadata } from "next"
 
-import { Tags } from "@/components/icons/tags"
 import { portableTextComponents } from "@/components/portable-text-components"
-import { findAllArticles, findArticleBySlug } from "@/lib/articles.lib"
-import { findAuthorById } from "@/lib/authors.lib"
-import { findCategoryById } from "@/lib/categories.lib"
 import { urlFor } from "@/utils/image.util"
 import { getLocale } from "@/utils/locale.util"
 import { formatWithOptions } from "date-fns/fp/formatWithOptions"
@@ -12,22 +8,30 @@ import { parseISO } from "date-fns/fp/parseISO"
 import { enUS } from "date-fns/locale/en-US"
 import { PortableText } from "next-sanity"
 import { notFound } from "next/navigation"
+import { sanityClient } from "@/lib/sanity-client.lib"
+import { ArticleRepository } from "@/repositories/article-repository"
+import { AuthorRepository } from "@/repositories/author-repository"
+import { TagRepository } from "@/repositories/tag-repository"
+import { Tags } from "lucide-react"
 
 type Params = Promise<{ slug: string }>
 
 export async function generateMetadata(props: { params: Params }) {
   const { slug } = await props.params
-  const article = await findArticleBySlug(slug)
+  const locale = await getLocale()
+  const articleRepository = new ArticleRepository(sanityClient)
+  const authorRepository = new AuthorRepository(sanityClient)
+  const tagRepository = new TagRepository(sanityClient)
+  const article = await articleRepository.findBySlug(slug)
   if (article) {
-    const author = await findAuthorById(article.author._ref)
-    const locale = await getLocale()
+    const author = await authorRepository.findById(article.author._ref)
     return {
-      authors: { name: author.name },
-      creator: author.name,
+      authors: { name: author?.name },
+      creator: author?.name,
       description: article.description,
       generator: "Sanity CMS",
-      keywords: article.categories?.map(
-        async ({ _ref }) => (await findCategoryById(_ref)).title,
+      keywords: article.tags?.map(
+        async ({ _ref }) => (await tagRepository.findById(_ref))?.title,
       ),
       publisher: "sim0wn",
       openGraph: {
@@ -47,7 +51,8 @@ export async function generateMetadata(props: { params: Params }) {
 }
 
 export async function generateStaticParams() {
-  const articles = await findAllArticles()
+  const articleRepository = new ArticleRepository(sanityClient)
+  const articles = await articleRepository.findAll()
   return articles.map(({ slug: { current: slug } }) => ({
     params: { slug },
   }))
@@ -55,14 +60,17 @@ export async function generateStaticParams() {
 
 export default async function Article({ params }: { params: Params }) {
   const slug = (await params).slug
-  const article = await findArticleBySlug(slug)
+  const articleRepository = new ArticleRepository(sanityClient)
+  const authorRepository = new AuthorRepository(sanityClient)
+  const tagRepository = new TagRepository(sanityClient)
+  const article = await articleRepository.findBySlug(slug)
   if (!article) notFound()
   return (
     <article className="container prose prose-neutral m-auto mx-auto w-svw divide-y divide-neutral-800 dark:prose-invert">
       <header className="flex flex-col items-center gap-0.5 text-center">
         <h1 className="mb-2">{article.title}</h1>
         <address className="self-end">
-          {(await findAuthorById(article.author._ref)).name}
+          {(await authorRepository.findById(article.author._ref))?.name}
         </address>
         <time className="self-end" dateTime={article.publishedAt}>
           {formatWithOptions(
@@ -80,11 +88,11 @@ export default async function Article({ params }: { params: Params }) {
         />
       </section>
       <footer>
-        {article.categories && (
+        {article.tags && (
           <ul className="flex flex-wrap items-center justify-end gap-1.5">
             <Tags />
-            {article.categories.map(async ({ _ref }) => {
-              const category = await findCategoryById(_ref)
+            {article.tags.map(async ({ _ref }) => {
+              const category = await tagRepository.findById(_ref)
               if (category) {
                 return (
                   <li

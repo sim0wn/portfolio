@@ -62,6 +62,12 @@ export const articleType = defineType({
       type: "blockContent",
       validation: (Rule) => Rule.required().warning("Don't forget the content"),
     }),
+    defineField({
+      name: "locale",
+      type: "string",
+      hidden: true,
+      readOnly: true,
+    }),
   ],
   preview: {
     select: {

@@ -11,11 +11,11 @@ export class ArticleRepository implements Repository<Article> {
     this.db = sanityClient
   }
 
-  async findAll(locale: Locale): Promise<Article[]> {
+  async findAll(locale?: Locale): Promise<Article[]> {
     const query = defineQuery(
-      groq`*[_type == 'article' && locale == $locale] | order(date desc)`,
+      groq`*[_type == 'article' && ((!defined($locale)) || locale == $locale)] | order(date desc)`,
     )
-    return await this.db.fetch<Article[]>(query, { locale })
+    return await this.db.fetch<Article[]>(query, { locale: locale ?? null })
   }
 
   async findById(id: Id): Promise<Article | null> {

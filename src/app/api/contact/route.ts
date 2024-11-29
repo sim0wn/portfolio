@@ -1,7 +1,7 @@
 import { getTranslation } from "@/lib/translations.lib"
-import { formSchema } from "@/schemas"
 import { ContactFormData } from "@/types/contact-form-data.type"
 import { getLocale } from "@/utils/locale.util"
+import { formSchema } from "@/validations"
 import { Resend } from "resend"
 
 export async function POST(request: Request) {

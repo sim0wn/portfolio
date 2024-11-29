@@ -296,6 +296,7 @@ export type Article = {
   }>
   publishedAt: string
   body: BlockContent
+  locale?: string
 }
 
 export type Author = {
