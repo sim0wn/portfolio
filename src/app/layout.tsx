@@ -10,7 +10,6 @@ import {
 } from "@/components/icons"
 import { Button } from "@/components/ui/button"
 import { ExternalLink } from "@/components/ui/external-link"
-import { Toaster } from "@/components/ui/toaster"
 import { getTranslation } from "@/lib/translations.lib"
 import { getLocale, getLocaleDomain } from "@/utils/locale.util"
 import classNames from "classnames"
@@ -19,6 +18,7 @@ import Link from "next/link"
 import { ReactNode } from "react"
 import { lato, raleway } from "./fonts"
 import "./styles.css"
+import { Toaster } from "@/components/ui/toaster"
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale()
@@ -58,13 +58,13 @@ export default async function RootLayout({
       <body
         className={classNames(
           raleway.className,
-          "grid h-dvh grid-rows-[min-content_1fr] gap-4 scroll-smooth bg-neutral-950 text-neutral-50",
+          "flex min-h-svh flex-col scroll-smooth bg-neutral-950 text-neutral-50",
         )}
       >
         <header
           className={classNames(
             lato.className,
-            "w-dvw border-b border-b-neutral-900 bg-inherit bg-opacity-50 backdrop-blur-md sm:p-0",
+            "sticky inset-0 top-0 z-50 border-b border-b-neutral-900 bg-neutral-950/85 shadow-purple-1000 drop-shadow-md backdrop-blur-md sm:p-0",
           )}
         >
           <nav
@@ -139,7 +139,7 @@ export default async function RootLayout({
             </li>
             <li>
               <ExternalLink href="mailto:contact@sim0wn.com">
-                <Mail />
+                <Mail width={"1em"} height={"1em"} />
               </ExternalLink>
             </li>
           </menu>

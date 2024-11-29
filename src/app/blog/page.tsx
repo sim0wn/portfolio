@@ -22,7 +22,7 @@ export default async function Blog() {
   const tagRepository = new TagRepository(sanityClient)
   const articles = await articleRepository.findAll(locale)
   return (
-    <main className="container flex flex-col gap-2">
+    <main className="flex flex-col gap-2 p-2">
       {articles.map(async (article, index) => (
         <Card key={index}>
           <CardHeader>
