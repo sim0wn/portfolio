@@ -78,5 +78,20 @@
     "sr_open_menu_button": "Open main menu",
     "knowledge_base": "Knowledge base",
     "contact": "Contact"
+  },
+  "footer": {
+    "title": "Made with 💜 by sim0wn",
+    "sections": {
+      "social": {
+        "title": "Social"
+      },
+      "links": {
+        "title": "Links",
+        "privacyPolicy": "Privacy Policy",
+        "termsOfService": "Terms of Service",
+        "sourceCode": "Source Code",
+        "switchLanguage": "Portuguese version"
+      }
+    }
   }
 }

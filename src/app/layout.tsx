@@ -13,7 +13,7 @@ import { ExternalLink } from "@/components/ui/external-link"
 import { getTranslation } from "@/lib/translations.lib"
 import { getLocale, getLocaleDomain } from "@/utils/locale.util"
 import classNames from "classnames"
-import { Library, Mail, Newspaper, Send } from "lucide-react"
+import { Code, Globe, Library, Newspaper, Send, Shield } from "lucide-react"
 import Link from "next/link"
 import { ReactNode } from "react"
 import { lato, raleway } from "./fonts"
@@ -110,39 +110,102 @@ export default async function RootLayout({
           </nav>
         </header>
         {children}
-        <footer className="h-fit border-t bg-neutral-100 dark:border-t-neutral-800 dark:bg-neutral-900">
-          <menu className="container flex justify-center gap-2 py-2 text-4xl hover:*:scale-125 hover:*:transition-transform">
-            <li>
-              <ExternalLink href="https://www.linkedin.com/in/halissoncruz/">
-                <LinkedIn />
-              </ExternalLink>
-            </li>
-            <li>
-              <ExternalLink href="http://lattes.cnpq.br/4781391320784524/">
-                <Lattes />
-              </ExternalLink>
-            </li>
-            <li>
-              <ExternalLink href="https://app.hackthebox.com/profile/143157/">
-                <HackTheBox />
-              </ExternalLink>
-            </li>
-            <li>
-              <ExternalLink href="https://github.com/sim0wn/">
-                <GitHub />
-              </ExternalLink>
-            </li>
-            <li>
-              <ExternalLink href="https://tryhackme.com/p/sim0wn/">
-                <TryHackMe />
-              </ExternalLink>
-            </li>
-            <li>
-              <ExternalLink href="mailto:contact@sim0wn.com">
-                <Mail width={"1em"} height={"1em"} />
-              </ExternalLink>
-            </li>
-          </menu>
+        <footer className="grid h-fit grid-cols-2 justify-between gap-y-4 border-t bg-neutral-100 p-2 dark:border-t-neutral-800 dark:bg-neutral-900">
+          <section className="col-span-full w-full p-2 sm:col-span-1">
+            <h1 className="text-center">
+              {translation.footer.sections.social.title}
+            </h1>
+            <menu className="flex flex-col items-start gap-2 *:*:flex *:*:gap-2">
+              <li>
+                <Button asChild variant={"link"}>
+                  <ExternalLink href="https://www.linkedin.com/in/halissoncruz/">
+                    <LinkedIn />
+                    LinkedIn
+                  </ExternalLink>
+                </Button>
+              </li>
+              <li>
+                <Button asChild variant={"link"}>
+                  <ExternalLink href="http://lattes.cnpq.br/4781391320784524/">
+                    <Lattes />
+                    Lattes
+                  </ExternalLink>
+                </Button>
+              </li>
+              <li>
+                <Button asChild variant={"link"}>
+                  <ExternalLink href="https://app.hackthebox.com/profile/143157/">
+                    <HackTheBox />
+                    Hack The Box
+                  </ExternalLink>
+                </Button>
+              </li>
+              <li>
+                <Button asChild variant={"link"}>
+                  <ExternalLink href="https://github.com/sim0wn/">
+                    <GitHub />
+                    GitHub
+                  </ExternalLink>
+                </Button>
+              </li>
+              <li>
+                <Button asChild variant={"link"}>
+                  <ExternalLink href="https://tryhackme.com/p/sim0wn/">
+                    <TryHackMe />
+                    Try Hack Me
+                  </ExternalLink>
+                </Button>
+              </li>
+            </menu>
+          </section>
+          <section className="col-span-full h-full w-full p-2 sm:col-span-1">
+            <h1 className="text-center">
+              {translation.footer.sections.links.title}
+            </h1>
+            <menu className="my-auto flex h-min flex-col items-start gap-2 *:*:flex *:*:gap-2">
+              <li>
+                <Button variant={"link"} asChild>
+                  <Link
+                    href={`https://${
+                      locale === "pt-BR"
+                        ? getLocaleDomain("en-US")
+                        : getLocaleDomain("pt-BR")
+                    }/`}
+                  >
+                    <Globe size={"1em"} />
+                    {translation.footer.sections.links.switchLanguage}
+                  </Link>
+                </Button>
+              </li>
+              <li>
+                <Button variant={"link"} asChild>
+                  <ExternalLink href={"https://github.com/sim0wn/portfolio"}>
+                    <Code size={"1em"} />
+                    {translation.footer.sections.links.sourceCode}
+                  </ExternalLink>
+                </Button>
+              </li>
+              <li>
+                <Button variant={"link"} asChild>
+                  <Link href={"/privacy"}>
+                    <Shield size={"1em"} />
+                    {translation.footer.sections.links.privacyPolicy}
+                  </Link>
+                </Button>
+              </li>
+              <li>
+                <Button variant={"link"} asChild>
+                  <Link href={"/terms"}>
+                    <Library size={"1em"} />
+                    {translation.footer.sections.links.termsOfService}
+                  </Link>
+                </Button>
+              </li>
+            </menu>
+          </section>
+          <p className="col-span-full text-center text-sm">
+            {translation.footer.title}
+          </p>
         </footer>
         <Toaster />
       </body>
