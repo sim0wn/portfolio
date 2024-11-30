@@ -14,6 +14,15 @@ export const skillType = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: "slug",
+      type: "slug",
+      options: {
+        source: "title",
+        maxLength: 96,
+      },
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
       name: "brief",
       title: "Brief",
       type: "text",
@@ -29,6 +38,8 @@ export const skillType = defineType({
       name: "locale",
       title: "Locale",
       type: "string",
+      hidden: true,
+      readOnly: true,
     }),
   ],
 })

@@ -48,8 +48,10 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function RootLayout({
   children,
+  modal,
 }: Readonly<{
   children: ReactNode
+  modal: ReactNode
 }>) {
   const locale = await getLocale()
   const translation = await getTranslation(locale)
@@ -109,13 +111,14 @@ export default async function RootLayout({
             </menu>
           </nav>
         </header>
+        {modal}
         {children}
-        <footer className="grid h-fit grid-cols-2 justify-between gap-y-4 border-t bg-neutral-100 p-2 dark:border-t-neutral-800 dark:bg-neutral-900">
-          <section className="col-span-full w-full p-2 sm:col-span-1">
-            <h1 className="text-center">
+        <footer className="grid h-fit grid-cols-2 justify-between border-t bg-neutral-100 p-2 dark:border-t-neutral-800 dark:bg-neutral-900">
+          <section className="col-span-full flex h-full w-full flex-col p-2 sm:col-span-1">
+            <h1 className="border-b px-2 text-center sm:text-start dark:border-b-neutral-800">
               {translation.footer.sections.social.title}
             </h1>
-            <menu className="flex flex-col items-start gap-2 *:*:flex *:*:gap-2">
+            <menu className="flex w-full flex-1 flex-col place-content-center items-start gap-2 *:*:flex *:*:gap-2">
               <li>
                 <Button asChild variant={"link"}>
                   <ExternalLink href="https://www.linkedin.com/in/halissoncruz/">
@@ -158,11 +161,11 @@ export default async function RootLayout({
               </li>
             </menu>
           </section>
-          <section className="col-span-full h-full w-full p-2 sm:col-span-1">
-            <h1 className="text-center">
+          <section className="col-span-full flex h-full w-full flex-col p-2 sm:col-span-1">
+            <h1 className="border-b px-2 text-center sm:text-start dark:border-b-neutral-800">
               {translation.footer.sections.links.title}
             </h1>
-            <menu className="my-auto flex h-min flex-col items-start gap-2 *:*:flex *:*:gap-2">
+            <menu className="flex w-full flex-1 flex-col place-content-center items-start gap-2 *:*:flex *:*:gap-2">
               <li>
                 <Button variant={"link"} asChild>
                   <Link
@@ -203,7 +206,7 @@ export default async function RootLayout({
               </li>
             </menu>
           </section>
-          <p className="col-span-full text-center text-sm">
+          <p className="col-span-full items-center justify-center text-center text-sm">
             {translation.footer.title}
           </p>
         </footer>

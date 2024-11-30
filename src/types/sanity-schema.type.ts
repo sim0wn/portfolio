@@ -211,6 +211,7 @@ export type Skill = {
   _updatedAt: string
   _rev: string
   title: string
+  slug: Slug
   brief: string
   description: BlockContent
   locale?: string
@@ -234,6 +235,7 @@ export type Highlight = {
     _type: "image"
   }
   title: string
+  slug: Slug
   description: BlockContent
   locale?: string
 }
