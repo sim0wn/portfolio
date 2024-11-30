@@ -7,7 +7,7 @@
     "build": "next build",
     "build:sanity": "sanity schema extract --enforce-required-fields && sanity typegen generate && sanity deploy",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint --config ./src/config/eslint.config.js"
   },
   "dependencies": {
     "@formatjs/intl-localematcher": "^0.5.8",

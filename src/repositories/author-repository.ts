@@ -1,21 +1,22 @@
+import { Database } from "@/interfaces/database"
 import { Repository } from "@/interfaces/repository"
 import { Author } from "@/types/sanity-schema.type"
 import { defineQuery } from "groq"
-import { Id, SanityClient } from "sanity"
+import { Id } from "sanity"
 
 export class AuthorRepository implements Repository<Author> {
-  private db: SanityClient
+  private database: Database
 
-  constructor(sanityClient: any) {
-    this.db = sanityClient
+  constructor(database: Database) {
+    this.database = database
   }
   async findAll(): Promise<Author[]> {
-    return await this.db.fetch<Author[]>(defineQuery("*[_type == 'author']"))
+    const query = defineQuery("*[_type == 'author']")
+    return await this.database.fetch<Author[]>(query)
   }
   async findById(id: Id): Promise<Author | null> {
-    return await this.db.fetch<Author>(
-      defineQuery(`*[_type == 'author' && _id == $id][0]`),
-      { id },
-    )
+    const query = defineQuery(`*[_type == 'author' && _id == $id][0]`)
+    const params = { id }
+    return await this.database.fetch<Author>(query, params)
   }
 }

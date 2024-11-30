@@ -10,16 +10,17 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import { ArticleRepository } from "@/repositories/article-repository"
-import { sanityClient } from "@/lib/sanity-client.lib"
 import { getLocale } from "@/utils"
 import { AuthorRepository } from "@/repositories/author-repository"
 import { TagRepository } from "@/repositories/tag-repository"
+import { SanityDatabase } from "@/lib/sanity-database.lib"
 
 export default async function Blog() {
   const locale = await getLocale()
-  const articleRepository = new ArticleRepository(sanityClient)
-  const authorRepository = new AuthorRepository(sanityClient)
-  const tagRepository = new TagRepository(sanityClient)
+  const database = new SanityDatabase()
+  const articleRepository = new ArticleRepository(database)
+  const authorRepository = new AuthorRepository(database)
+  const tagRepository = new TagRepository(database)
   const articles = await articleRepository.findAll(locale)
   return (
     <main className="flex flex-col gap-2 p-2">

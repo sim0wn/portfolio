@@ -22,7 +22,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
-import { sanityClient } from "@/lib/sanity-client.lib"
+import { SanityDatabase } from "@/lib/sanity-database.lib"
 import { Translation } from "@/lib/translations.lib"
 import { HighlightRepository } from "@/repositories/highlight-repository"
 import { SkillRepository } from "@/repositories/skill-repository"
@@ -34,9 +34,10 @@ import Image from "next/image"
 export async function Features({ translation }: { translation: Translation }) {
   const { landingPage } = translation
   const locale = await getLocale()
-  const highlightRepository = new HighlightRepository(sanityClient)
+  const database = new SanityDatabase()
+  const highlightRepository = new HighlightRepository(database)
+  const skillRepository = new SkillRepository(database)
   const highlights = await highlightRepository.findAll(locale)
-  const skillRepository = new SkillRepository(sanityClient)
   const skills = await skillRepository.findAll(locale)
   return (
     <>

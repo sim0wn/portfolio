@@ -14,13 +14,14 @@ import {
 import { ContactForm } from "./contact-form"
 import { Translation } from "@/lib/translations.lib"
 import { FaqRepository } from "@/repositories/faq-repository"
-import { sanityClient } from "@/lib/sanity-client.lib"
 import { getLocale } from "@/utils"
+import { SanityDatabase } from "@/lib/sanity-database.lib"
 
 export async function Extra({ translation }: { translation: Translation }) {
   const { landingPage } = translation
+  const database = new SanityDatabase()
   const locale = await getLocale()
-  const repository = new FaqRepository(sanityClient)
+  const repository = new FaqRepository(database)
   const faqs = await repository.findAll(locale)
   return (
     <section className="container grid grid-rows-[min-content_1fr] items-center gap-x-12 gap-y-8 py-12 lg:grid-cols-2 lg:grid-rows-1">

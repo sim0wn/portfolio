@@ -1,25 +1,24 @@
+import { Database } from "@/interfaces/database"
 import { Repository } from "@/interfaces/repository"
 import { Testimonial } from "@/types/sanity-schema.type"
 import { defineQuery } from "groq"
-import { Id, SanityClient } from "sanity"
+import { Id } from "sanity"
 
 export class TestimonialRepository implements Repository<Testimonial> {
-  private db: SanityClient
+  private database: Database
 
-  constructor(sanityClient: SanityClient) {
-    this.db = sanityClient
+  constructor(database: Database) {
+    this.database = database
   }
 
   async findAll(): Promise<Testimonial[]> {
-    return await this.db.fetch<Testimonial[]>(
-      defineQuery(`*[_type == 'testimonial']`),
-    )
+    const query = defineQuery(`*[_type == 'testimonial']`)
+    return await this.database.fetch<Testimonial[]>(query)
   }
 
   async findById(id: Id): Promise<Testimonial | null> {
-    return await this.db.fetch<Testimonial>(
-      defineQuery(`*[_type == 'testimonial' && _id == $id]`),
-      { id },
-    )
+    const query = defineQuery(`*[_type == 'testimonial' && _id == $id]`)
+    const params = { id }
+    return await this.database.fetch<Testimonial>(query, params)
   }
 }

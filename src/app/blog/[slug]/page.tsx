@@ -8,21 +8,22 @@ import { parseISO } from "date-fns/fp/parseISO"
 import { enUS } from "date-fns/locale/en-US"
 import { PortableText } from "next-sanity"
 import { notFound } from "next/navigation"
-import { sanityClient } from "@/lib/sanity-client.lib"
 import { ArticleRepository } from "@/repositories/article-repository"
 import { AuthorRepository } from "@/repositories/author-repository"
 import { TagRepository } from "@/repositories/tag-repository"
 import { Tags } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
+import { SanityDatabase } from "@/lib/sanity-database.lib"
 
 type Params = Promise<{ slug: string }>
 
 export async function generateMetadata(props: { params: Params }) {
   const { slug } = await props.params
   const locale = await getLocale()
-  const articleRepository = new ArticleRepository(sanityClient)
-  const authorRepository = new AuthorRepository(sanityClient)
-  const tagRepository = new TagRepository(sanityClient)
+  const database = new SanityDatabase()
+  const articleRepository = new ArticleRepository(database)
+  const authorRepository = new AuthorRepository(database)
+  const tagRepository = new TagRepository(database)
   const article = await articleRepository.findBySlug(slug)
   if (article) {
     const author = await authorRepository.findById(article.author._ref)
@@ -52,7 +53,8 @@ export async function generateMetadata(props: { params: Params }) {
 }
 
 export async function generateStaticParams() {
-  const articleRepository = new ArticleRepository(sanityClient)
+  const database = new SanityDatabase()
+  const articleRepository = new ArticleRepository(database)
   const articles = await articleRepository.findAll()
   return articles.map(({ slug: { current: slug } }) => ({
     params: { slug },
@@ -61,9 +63,10 @@ export async function generateStaticParams() {
 
 export default async function Article({ params }: { params: Params }) {
   const slug = (await params).slug
-  const articleRepository = new ArticleRepository(sanityClient)
-  const authorRepository = new AuthorRepository(sanityClient)
-  const tagRepository = new TagRepository(sanityClient)
+  const database = new SanityDatabase()
+  const articleRepository = new ArticleRepository(database)
+  const authorRepository = new AuthorRepository(database)
+  const tagRepository = new TagRepository(database)
   const article = await articleRepository.findBySlug(slug)
   if (!article) notFound()
   return (

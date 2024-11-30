@@ -1,29 +1,28 @@
+import { Database } from "@/interfaces/database"
 import { Repository } from "@/interfaces/repository"
 import { Locale } from "@/types/locale.type"
 import { Tag } from "@/types/sanity-schema.type"
 import { defineQuery } from "groq"
-import { Id, SanityClient } from "sanity"
+import { Id } from "sanity"
 
 export class TagRepository implements Repository<Tag> {
-  private db: SanityClient
+  private database: Database
 
-  constructor(sanityClient: SanityClient) {
-    this.db = sanityClient
+  constructor(database: Database) {
+    this.database = database
   }
 
   async findAll(locale: Locale): Promise<Tag[]> {
-    return await this.db.fetch<Tag[]>(
-      defineQuery(`*[_type == 'tag'] && locale == $locale | order(title asc)`),
-      { locale },
+    const query = defineQuery(
+      `*[_type == 'tag'] && locale == $locale | order(title asc)`,
     )
+    const params = { locale }
+    return await this.database.fetch<Tag[]>(query, params)
   }
 
   async findById(id: Id): Promise<Tag | null> {
-    return await this.db.fetch<Tag>(
-      defineQuery(`*[_type == 'tag' && _id == $id][0]`),
-      {
-        id,
-      },
-    )
+    const query = defineQuery(`*[_type == 'tag' && _id == $id][0]`)
+    const params = { id }
+    return await this.database.fetch<Tag>(query, params)
   }
 }

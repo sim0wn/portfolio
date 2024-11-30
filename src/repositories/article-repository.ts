@@ -1,32 +1,35 @@
+import { Database } from "@/interfaces/database"
 import { Repository } from "@/interfaces/repository"
 import { Locale } from "@/types/locale.type"
 import { Article } from "@/types/sanity-schema.type"
 import groq, { defineQuery } from "groq"
-import { Id, SanityClient } from "sanity"
+import { Id } from "sanity"
 
 export class ArticleRepository implements Repository<Article> {
-  private db: SanityClient
+  private database: Database
 
-  constructor(sanityClient: SanityClient) {
-    this.db = sanityClient
+  constructor(database: Database) {
+    this.database = database
   }
 
   async findAll(locale?: Locale): Promise<Article[]> {
     const query = defineQuery(
-      groq`*[_type == 'article' && ((!defined($locale)) || locale == $locale)] | order(date desc)`,
+      groq`*[_type == 'article' && locale == coalesce($locale, locale)] | order(date desc)`,
     )
-    return await this.db.fetch<Article[]>(query, { locale: locale ?? null })
+    const params = { locale: locale ?? null }
+    return await this.database.fetch<Article[]>(query, params)
   }
 
   async findById(id: Id): Promise<Article | null> {
     const query = defineQuery(`*[_type == "article" && _id == $id][0]`)
-    return await this.db.fetch<Article>(query, { id })
+    const params = { id }
+    return await this.database.fetch<Article>(query, params)
   }
 
   async findBySlug(slug: string): Promise<Article | null> {
     const query = defineQuery(
       groq`*[_type == 'article' && slug.current == $slug][0]`,
     )
-    return await this.db.fetch<Article>(query, { slug })
+    return await this.database.fetch<Article>(query, { slug })
   }
 }
