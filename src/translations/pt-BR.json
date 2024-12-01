@@ -10,6 +10,22 @@
     "success": "Mensagem enviada com sucesso!",
     "recaptchaError": "Por favor, complete o desafio reCAPTCHA."
   },
+  "bio": "Eu sou um entusiasta em cibersegurança especializado no teste de invasão à aplicações web e desenvolvedor autodidata.",
+  "footer": {
+    "title": "Feito com 💜 por sim0wn",
+    "sections": {
+      "social": {
+        "title": "Redes sociais"
+      },
+      "links": {
+        "title": "Links",
+        "privacyPolicy": "Política de Privacidade",
+        "termsOfService": "Termos de Serviço",
+        "sourceCode": "Código-fonte",
+        "switchLanguage": "Versão em inglês"
+      }
+    }
+  },
   "landingPage": {
     "faq": {
       "title": "Talvez te interesse..."
@@ -55,7 +71,6 @@
       "subTitle": "O que as pessoas estão dizendo sobre o meu trabalho"
     }
   },
-  "bio": "Eu sou um entusiasta em cibersegurança especializado no teste de invasão à aplicações web e desenvolvedor autodidata.",
   "metadata": {
     "applicationName": "Portfólio do sim0wn",
     "description": "Olá, amigo. Eu sou sim0wn, um desenvolvedor e hacker ético especializado em testes de invasão em aplicações web.",
@@ -80,19 +95,9 @@
     "knowledge_base": "Base de conhecimento",
     "contact": "Contato"
   },
-  "footer": {
-    "title": "Feito com 💜 por sim0wn",
-    "sections": {
-      "social": {
-        "title": "Redes sociais"
-      },
-      "links": {
-        "title": "Links",
-        "privacyPolicy": "Política de Privacidade",
-        "termsOfService": "Termos de Serviço",
-        "sourceCode": "Código-fonte",
-        "switchLanguage": "Versão em inglês"
-      }
-    }
+  "pagination": {
+    "current": { "in": "Página", "of": "de" },
+    "previous": "Página anterior",
+    "next": "Próxima página"
   }
 }

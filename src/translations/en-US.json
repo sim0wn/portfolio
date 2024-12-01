@@ -10,6 +10,22 @@
     "success": "Message sent successfully!",
     "recaptchaError": "Please complete the reCAPTCHA challenge."
   },
+  "bio": "I'm a cybersecurity enthusiast specialized in web application penetration testing and self-taught developer.",
+  "footer": {
+    "title": "Made with 💜 by sim0wn",
+    "sections": {
+      "social": {
+        "title": "Social"
+      },
+      "links": {
+        "title": "Links",
+        "privacyPolicy": "Privacy Policy",
+        "termsOfService": "Terms of Service",
+        "sourceCode": "Source Code",
+        "switchLanguage": "Portuguese version"
+      }
+    }
+  },
   "landingPage": {
     "faq": {
       "title": "You might be interested in..."
@@ -55,7 +71,6 @@
       "subTitle": "What people are saying about my work"
     }
   },
-  "bio": "I'm a cybersecurity enthusiast specialized in web application penetration testing and self-taught developer.",
   "metadata": {
     "applicationName": "sim0wn's portfolio",
     "description": "Hello, friend. I'm sim0wn, a developer and ethical hacker specialized in web application vulnerability assessment.",
@@ -79,19 +94,9 @@
     "knowledge_base": "Knowledge base",
     "contact": "Contact"
   },
-  "footer": {
-    "title": "Made with 💜 by sim0wn",
-    "sections": {
-      "social": {
-        "title": "Social"
-      },
-      "links": {
-        "title": "Links",
-        "privacyPolicy": "Privacy Policy",
-        "termsOfService": "Terms of Service",
-        "sourceCode": "Source Code",
-        "switchLanguage": "Portuguese version"
-      }
-    }
+  "pagination": {
+    "current": { "in": "Page", "of": "of" },
+    "previous": "Previous page",
+    "next": "Next page"
   }
 }

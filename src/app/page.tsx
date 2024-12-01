@@ -24,7 +24,6 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import { Mascot } from "@/components/icons"
-import { findAllHacktivity } from "@/lib/hacktivity.lib"
 import { PlatformIcon } from "./components/platform-icon"
 import { ExternalLink } from "@/components/ui/external-link"
 import { ChallengeCategoryIcon } from "./components/challenge-category-icon"
@@ -37,20 +36,44 @@ import {
 } from "@/components/ui/accordion"
 import { ContactForm } from "./components/contact-form"
 import { FaqRepository } from "@/repositories/faq-repository"
-import { ScrollArea } from "@/components/ui/scroll-area"
+import { HacktivityService } from "@/services/hacktivity-service.service"
+import {
+  createSearchParamsCache,
+  parseAsInteger,
+  SearchParams,
+} from "nuqs/server"
+import { ChevronLeft, ChevronRight } from "lucide-react"
+import { redirect } from "next/navigation"
 
-export default async function LandingPage() {
+const searchParamsCache = createSearchParamsCache(
+  {
+    hacktivity: parseAsInteger.withDefault(1),
+  },
+  { urlKeys: { hacktivity: "h" } },
+)
+
+export default async function LandingPage({
+  searchParams,
+}: {
+  searchParams: Promise<SearchParams>
+}) {
   const locale = await getLocale()
-  const translation = await getTranslation(locale)
+  const { landingPage, pagination } = await getTranslation(locale)
+  const { hacktivity: hacktivityPage } =
+    await searchParamsCache.parse(searchParams)
   const database = new SanityDatabase()
   const highlightRepository = new HighlightRepository(database)
   const highlights = await highlightRepository.findAll(locale)
   const skillRepository = new SkillRepository(database)
   const skills = await skillRepository.findAll(locale)
-  const hacktivity = await findAllHacktivity()
   const faqRepository = new FaqRepository(database)
   const faqs = await faqRepository.findAll(locale)
-  const { landingPage } = translation
+  const hacktivity = await HacktivityService.fetchActivities(hacktivityPage, 8)
+  if (hacktivityPage > hacktivity.pagination.totalPages) {
+    redirect(`/?h=${hacktivity.pagination.totalPages}`)
+  } else if (hacktivityPage < 1) {
+    redirect(`/`)
+  }
   return (
     <main className="flex flex-col place-content-center">
       <section className="container grid grid-cols-[1fr_16rem] items-center justify-between gap-x-12 gap-y-8 py-12 md:py-24">
@@ -123,7 +146,7 @@ export default async function LandingPage() {
                   <CardFooter>
                     <Button variant={"link"} asChild className="text-center">
                       <Link scroll={false} href={`/skills/${slug.current}`}>
-                        {translation.landingPage.services.dialogTriggerLabel}
+                        {landingPage.services.dialogTriggerLabel}
                       </Link>
                     </Button>
                   </CardFooter>
@@ -141,36 +164,56 @@ export default async function LandingPage() {
         <h1 className="py-2 text-center text-lg font-semibold">
           {landingPage.hacktivity.title}
         </h1>
-        <ScrollArea className="flex max-h-[28rem] w-full rounded-md border bg-neutral-100 shadow-sm dark:border-neutral-800 dark:bg-neutral-900">
-          <section className="flex h-max flex-1 flex-col gap-2 p-2.5">
-            {hacktivity.map(
-              ({ name, platform, category, date, url }, index) => (
-                <article
-                  className="flex flex-1 items-center gap-2 rounded-md border bg-neutral-50 p-2 shadow-sm dark:border-neutral-800 dark:bg-neutral-950"
-                  key={index}
-                >
-                  <PlatformIcon platform={platform} />
-                  <div className="flex w-full flex-col flex-wrap place-items-start gap-x-2 sm:flex-row sm:items-center">
-                    <Button
-                      asChild
-                      variant={"link"}
-                      className="w-fit text-wrap p-0"
-                    >
-                      <ExternalLink href={url}>{name}</ExternalLink>
-                    </Button>
-                    <ChallengeCategoryIcon category={category} />
-                  </div>
-                  <time
-                    dateTime={date}
-                    className="ml-auto w-fit text-nowrap text-sm"
+        <section className="flex h-min w-full flex-1 flex-col gap-2 rounded-md border bg-neutral-100 p-2.5 shadow-sm dark:border-neutral-800 dark:bg-neutral-900">
+          {hacktivity.data.map(
+            ({ name, platform, category, date, url }, index) => (
+              <article
+                className="flex flex-1 items-center gap-2 rounded-md border bg-neutral-50 p-2 shadow-sm dark:border-neutral-800 dark:bg-neutral-950"
+                key={index}
+              >
+                <PlatformIcon platform={platform.name} />
+                <div className="flex w-full flex-col flex-wrap place-items-start gap-x-2 sm:flex-row sm:items-center">
+                  <Button
+                    asChild
+                    variant={"link"}
+                    className="w-fit text-wrap p-0"
                   >
-                    {intlFormatDistance(date, new Date())}
-                  </time>
-                </article>
-              ),
-            )}
-          </section>
-        </ScrollArea>
+                    <ExternalLink href={url}>{name}</ExternalLink>
+                  </Button>
+                  <ChallengeCategoryIcon category={category} />
+                </div>
+                <time
+                  dateTime={date.toISOString()}
+                  className="ml-auto w-fit text-nowrap text-sm"
+                >
+                  {intlFormatDistance(date, new Date())}
+                </time>
+              </article>
+            ),
+          )}
+          <footer className="flex items-center justify-end gap-2 *:w-fit">
+            <p>
+              {pagination.current.in} {hacktivity.pagination.currentPage}{" "}
+              {pagination.current.of} {hacktivity.pagination.totalPages}
+            </p>
+            <Button asChild variant={"ghost"}>
+              <Link
+                href={`/?h=${hacktivity.pagination.previousPage}`}
+                scroll={false}
+              >
+                <ChevronLeft />
+              </Link>
+            </Button>
+            <Button asChild variant={"ghost"}>
+              <Link
+                href={`/?h=${hacktivity.pagination.nextPage}`}
+                scroll={false}
+              >
+                <ChevronRight />
+              </Link>
+            </Button>
+          </footer>
+        </section>
       </section>
       <section className="container grid grid-rows-[min-content_1fr] items-center gap-x-12 gap-y-8 py-12 lg:grid-cols-2 lg:grid-rows-1">
         <aside>

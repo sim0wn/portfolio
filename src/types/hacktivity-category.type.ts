@@ -1,4 +1,4 @@
-export type ChallengeCategory =
+export type HacktivityCategory =
   | "Stego"
   | "Crypto"
   | "Web"

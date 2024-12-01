@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import { NuqsAdapter } from "nuqs/adapters/next/app"
 
 import {
   GitHub,
@@ -112,7 +113,7 @@ export default async function RootLayout({
           </nav>
         </header>
         {modal}
-        {children}
+        <NuqsAdapter>{children}</NuqsAdapter>
         <footer className="grid h-fit grid-cols-2 justify-between border-t bg-neutral-100 p-2 dark:border-t-neutral-800 dark:bg-neutral-900">
           <section className="col-span-full flex h-full w-full flex-col p-2 sm:col-span-1">
             <h1 className="border-b px-2 text-center sm:text-start dark:border-b-neutral-800">
