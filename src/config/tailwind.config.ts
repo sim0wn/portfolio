@@ -24,6 +24,11 @@ const config: Config = {
       },
     },
     extend: {
+      animation: {
+        "progress-bar": "progress-bar 1.25s ease-in-out infinite",
+        "accordion-down": "accordion-down 0.2s ease-out",
+        "accordion-up": "accordion-up 0.2s ease-out",
+      },
       colors: {
         purple: {
           1000: "#29143E",
@@ -85,10 +90,10 @@ const config: Config = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
-      },
-      animation: {
-        "accordion-down": "accordion-down 0.2s ease-out",
-        "accordion-up": "accordion-up 0.2s ease-out",
+        "progress-bar": {
+          "0%, 100%": { transform: "translateX(0%)" },
+          "50%": { transform: "translateX(100%)" },
+        },
       },
     },
   },
