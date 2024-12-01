@@ -1,4 +1,4 @@
-import { HacktivityCategory } from "@/types/hacktivity-category.type"
+import { HacktivityCategory } from "@/enums/hacktivity-category.enum"
 import { HacktivityType } from "@/types/hacktivity-type.type"
 
 export interface Hacktivity {

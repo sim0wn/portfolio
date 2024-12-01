@@ -22,9 +22,9 @@
     "@radix-ui/react-toast": "^1.2.2",
     "@sanity/client": "^6.22.0",
     "@sanity/document-internationalization": "^3.2.0",
-    "@sanity/icons": "^3.4.0",
+    "@sanity/icons": "^3.5.0",
     "@sanity/image-url": "^1.1.0",
-    "@sanity/vision": "^3.65.0",
+    "@sanity/vision": "^3.65.1",
     "@tanstack/react-table": "^8.20.5",
     "autoprefixer": "^10.4.20",
     "class-variance-authority": "^0.7.1",
@@ -32,18 +32,18 @@
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
     "embla-carousel-react": "^8.5.1",
-    "groq": "^3.58.0",
+    "groq": "^3.65.1",
     "lucide-react": "^0.462.0",
     "negotiator": "^1.0.0",
     "next": "^15.0.3",
-    "next-sanity": "^9.8.18",
+    "next-sanity": "^9.8.19",
     "nuqs": "^2.2.3",
     "react": "^18",
     "react-dom": "^18",
     "react-google-recaptcha-v3": "^1.10.1",
     "react-hook-form": "^7.53.2",
     "resend": "^4.0.1",
-    "sanity": "^3.65.0",
+    "sanity": "^3.65.1",
     "sharp": "^0.33.5",
     "styled-components": "^6.1.13",
     "tailwind-merge": "^2.5.5",
@@ -54,7 +54,7 @@
     "@tailwindcss/typography": "^0.5.15",
     "@types/bun": "latest",
     "@types/negotiator": "^0.6.3",
-    "@types/node": "^22.10.0",
+    "@types/node": "^22.10.1",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
     "eslint": "^9.16.0",
@@ -75,6 +75,6 @@
     "tailwindConfig": "./src/config/tailwind.config.ts"
   },
   "peerDependencies": {
-    "typescript": "^5.0.0"
+    "typescript": "^5.6.2"
   }
 }

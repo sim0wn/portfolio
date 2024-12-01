@@ -1,6 +1,6 @@
+import { HacktivityCategory } from "@/enums/hacktivity-category.enum"
 import { Adapter } from "@/interfaces/adapter"
 import { Hacktivity } from "@/interfaces/hacktivity"
-import { ChallengeCategory } from "@/types/challenge-category.type"
 import { parseISO } from "date-fns"
 
 type HTBActivity = {
@@ -15,7 +15,7 @@ type HTBActivity = {
       name: string
       points: number
       machine_avatar: string
-      challenge_category?: ChallengeCategory
+      challenge_category?: string
     }[]
   }
 }
@@ -33,17 +33,24 @@ export class HTBAdapter implements Adapter {
           id,
           name,
           date,
-          object_type: type,
-          type: category,
-          challenge_category: challengeCategory,
+          object_type: target,
+          type,
+          challenge_category: category,
         } of htbActivities.profile.activity) {
+          const hacktivityCategory = Object.values(HacktivityCategory).includes(
+            category as HacktivityCategory,
+          )
+            ? (category as HacktivityCategory)
+            : null
           activities.push({
-            url: `https://www.hackthebox.com/achievement/${type}/${process.env.HTB_PROFILE_ID}/${id}`,
+            url: `https://www.hackthebox.com/achievement/${target}/${process.env.HTB_PROFILE_ID}/${id}`,
             name,
             date: parseISO(date),
-            type,
+            type: target,
             category:
-              challengeCategory ?? (category === "user" ? "User" : "System"),
+              (hacktivityCategory ?? type === "user")
+                ? HacktivityCategory.User
+                : HacktivityCategory.System,
             platform: {
               name: "Hack The Box",
               url: "https://www.hackthebox.eu/",

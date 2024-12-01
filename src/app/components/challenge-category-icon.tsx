@@ -1,6 +1,6 @@
 import { Badge } from "@/components/ui/badge"
 import { ButtonProps } from "@/components/ui/button"
-import { ChallengeCategory } from "@/types/challenge-category.type"
+import { HacktivityCategory } from "@/enums/hacktivity-category.enum"
 import classNames from "classnames"
 import {
   Brain,
@@ -21,7 +21,7 @@ export async function ChallengeCategoryIcon({
   category,
   className,
 }: {
-  category: ChallengeCategory
+  category: HacktivityCategory
 } & ButtonProps) {
   return (
     <Badge
@@ -48,7 +48,7 @@ const Icon = ({
   category,
   ...props
 }: {
-  category: ChallengeCategory
+  category: HacktivityCategory
 } & LucideProps) => {
   switch (category) {
     case "Web":
