@@ -54,6 +54,8 @@ export class HTBAdapter implements Adapter {
             platform: {
               name: "Hack The Box",
               url: "https://www.hackthebox.eu/",
+              iconUrl: "/icons/hack-the-box.svg",
+              profileUrl: `https://app.hackthebox.com/profile/${process.env.HTB_PROFILE_ID}/`,
             },
           })
         }

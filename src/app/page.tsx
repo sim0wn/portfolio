@@ -24,7 +24,6 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import { Mascot } from "@/components/icons"
-import { PlatformIcon } from "./components/platform-icon"
 import { ExternalLink } from "@/components/ui/external-link"
 import { ChallengeCategoryIcon } from "./components/challenge-category-icon"
 import { intlFormatDistance } from "date-fns"
@@ -42,7 +41,12 @@ import {
   parseAsInteger,
   SearchParams,
 } from "nuqs/server"
-import { ChevronLeft, ChevronRight } from "lucide-react"
+import {
+  ChevronFirst,
+  ChevronLast,
+  ChevronLeft,
+  ChevronRight,
+} from "lucide-react"
 import { redirect } from "next/navigation"
 
 const searchParamsCache = createSearchParamsCache(
@@ -168,10 +172,19 @@ export default async function LandingPage({
           {hacktivity.data.map(
             ({ name, platform, category, date, url }, index) => (
               <article
-                className="flex flex-1 items-center gap-2 rounded-md border bg-neutral-50 p-2 shadow-sm dark:border-neutral-800 dark:bg-neutral-950"
+                className="flex flex-1 items-center justify-stretch gap-2 rounded-md border bg-neutral-50 p-2 shadow-sm dark:border-neutral-800 dark:bg-neutral-950"
                 key={index}
               >
-                <PlatformIcon platform={platform.name} />
+                <Button asChild variant={"ghost"}>
+                  <ExternalLink href={platform.profileUrl}>
+                    <Image
+                      src={platform.iconUrl}
+                      alt={platform.name}
+                      width={35}
+                      height={35}
+                    />
+                  </ExternalLink>
+                </Button>
                 <div className="flex w-full flex-col flex-wrap place-items-start gap-x-2 sm:flex-row sm:items-center">
                   <Button
                     asChild
@@ -191,11 +204,12 @@ export default async function LandingPage({
               </article>
             ),
           )}
-          <footer className="flex items-center justify-end gap-2 *:w-fit">
-            <p>
-              {pagination.current.in} {hacktivity.pagination.currentPage}{" "}
-              {pagination.current.of} {hacktivity.pagination.totalPages}
-            </p>
+          <footer className="flex items-center justify-center gap-2 *:w-fit">
+            <Button asChild variant={"ghost"}>
+              <Link href={`/?h=1`} scroll={false}>
+                <ChevronFirst />
+              </Link>
+            </Button>
             <Button asChild variant={"ghost"}>
               <Link
                 href={`/?h=${hacktivity.pagination.previousPage}`}
@@ -204,12 +218,24 @@ export default async function LandingPage({
                 <ChevronLeft />
               </Link>
             </Button>
+            <p>
+              {pagination.current.in} {hacktivity.pagination.currentPage}{" "}
+              {pagination.current.of} {hacktivity.pagination.totalPages}
+            </p>
             <Button asChild variant={"ghost"}>
               <Link
                 href={`/?h=${hacktivity.pagination.nextPage}`}
                 scroll={false}
               >
                 <ChevronRight />
+              </Link>
+            </Button>
+            <Button asChild variant={"ghost"}>
+              <Link
+                href={`/?h=${hacktivity.pagination.totalPages}`}
+                scroll={false}
+              >
+                <ChevronLast />
               </Link>
             </Button>
           </footer>

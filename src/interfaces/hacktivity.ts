@@ -10,5 +10,7 @@ export interface Hacktivity {
   platform: {
     name: "Hack The Box"
     url: string
+    iconUrl: string
+    profileUrl: string
   }
 }
