@@ -71,7 +71,7 @@ export default async function Article({ params }: { params: Params }) {
   if (!article) notFound()
   return (
     <article className="container prose prose-neutral m-auto mx-auto w-svw p-2 dark:prose-invert">
-      <header className="flex flex-col items-center gap-0.5 rounded-md bg-white p-2 text-center dark:bg-neutral-900">
+      <header className="flex flex-col items-center gap-0.5 rounded-md p-2 text-center">
         <h1 className="mb-2">{article.title}</h1>
         <address className="self-end">
           {(await authorRepository.findById(article.author._ref))?.name}
