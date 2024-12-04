@@ -67,7 +67,7 @@ export default async function RootLayout({
         <header
           className={classNames(
             lato.className,
-            "sticky inset-0 top-0 z-50 bg-neutral-100/85 shadow-purple-1000 drop-shadow-md backdrop-blur-md sm:p-0 dark:border-b dark:border-b-neutral-900 dark:bg-neutral-950/85",
+            "sticky inset-0 top-0 z-40 bg-neutral-100/85 shadow-purple-1000 drop-shadow-md backdrop-blur-md sm:p-0 dark:border-b dark:border-b-neutral-900 dark:bg-neutral-950/85",
           )}
         >
           <nav

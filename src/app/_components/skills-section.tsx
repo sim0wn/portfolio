@@ -50,15 +50,15 @@ export async function SkillsSection({
                 "lg:basis-1/3": skills.length > 2,
               })}
             >
-              <Card>
+              <Card className="flex h-full flex-col">
                 <CardHeader>
                   <CardTitle>{title}</CardTitle>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="flex-1">
                   <p className="text-wrap">{brief}</p>
                 </CardContent>
-                <CardFooter>
-                  <Button variant={"link"} asChild className="text-center">
+                <CardFooter className="flex w-full place-content-center">
+                  <Button variant={"outline"} asChild className="text-center">
                     <Link scroll={false} href={`/skills/${slug.current}`}>
                       {landingPage.services.dialogTriggerLabel}
                     </Link>
