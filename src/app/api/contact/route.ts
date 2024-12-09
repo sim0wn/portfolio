@@ -14,11 +14,11 @@ export async function POST(request: Request) {
   const hCaptchaSecretKey = process.env.HCAPTCHA_SECRET_KEY
 
   if (!parsedData.success) {
-    return {
+    return Response.json({
       success: false,
       errors: parsedData.error.format(),
       message: apiTranslation.error,
-    }
+    })
   }
   const { email, fullName, message, phoneNumber } = parsedData.data
   const { captchaToken } = data
