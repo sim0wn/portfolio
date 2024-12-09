@@ -1,3 +1,1 @@
-import { formSchema } from "./form.validation"
-
-export { formSchema }
+export { contactFormValidation } from "./contact-form.validation"

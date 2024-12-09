@@ -1,4 +1,4 @@
-import { formSchema } from "@/validations"
+import { contactFormValidation } from "@/validations"
 import { z } from "zod"
 
-export type ContactFormData = z.infer<typeof formSchema>
+export type ContactFormData = z.infer<typeof contactFormValidation>

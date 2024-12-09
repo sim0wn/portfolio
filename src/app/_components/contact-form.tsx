@@ -1,13 +1,7 @@
 "use client"
 
-import { useToast } from "@/hooks/use-toast"
-import { formSchema } from "@/validations"
 import { ContactFormData } from "@/types/contact-form-data.type"
 import { zodResolver } from "@hookform/resolvers/zod"
-import {
-  GoogleReCaptchaProvider,
-  useGoogleReCaptcha,
-} from "react-google-recaptcha-v3"
 import { FormProvider, useForm, useFormState } from "react-hook-form"
 import { Button } from "@/components/ui/button"
 import {
@@ -19,68 +13,77 @@ import {
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Translation } from "@/lib/translations.lib"
+import { contactFormValidation } from "@/validations"
+import { useRef, useState, useTransition } from "react"
+import { useToast } from "@/hooks/use-toast"
+import HCaptcha from "@hcaptcha/react-hcaptcha"
 
 export function ContactForm({
   translation,
 }: {
   translation: Translation["landingPage"]
 }) {
-  return (
-    <GoogleReCaptchaProvider
-      reCaptchaKey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY ?? ""}
-    >
-      <Form translation={translation} />
-    </GoogleReCaptchaProvider>
-  )
-}
-
-function Form({ translation }: { translation: Translation["landingPage"] }) {
   const { contactForm } = translation
-  const methods = useForm<ContactFormData>({
-    resolver: zodResolver(formSchema),
-  })
 
+  const methods = useForm<ContactFormData>({
+    resolver: zodResolver(contactFormValidation),
+  })
   const { handleSubmit, control, register } = methods
   const { errors } = useFormState({ control })
 
+  const [isPending, startTransition] = useTransition()
   const { toast } = useToast()
-  const { executeRecaptcha } = useGoogleReCaptcha()
 
-  const onSubmit = async ({
-    fullName,
-    email,
-    phoneNumber,
-    message,
-  }: ContactFormData) => {
-    let recaptchaToken = ""
-    if (executeRecaptcha) {
-      recaptchaToken = await executeRecaptcha("contact")
-    }
-    const response = await fetch("/api/contact", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        fullName,
-        email,
-        phoneNumber,
-        message,
-        recaptchaToken,
-      }),
+  const captchaRef = useRef<HCaptcha | null>(null)
+  const [token, setToken] = useState<string | null>(null)
+
+  const onSubmit = (data: ContactFormData) => {
+    startTransition(async () => {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ...data,
+          captchaToken: token,
+        } as ContactFormData),
+      })
+
+      try {
+        const data = await response.json()
+        if (response.ok) {
+          toast({
+            variant: "default",
+            description: data.message,
+            duration: 10000,
+            title: contactForm.status.success,
+          })
+          methods.reset()
+        } else {
+          toast({
+            variant: "destructive",
+            description: data.message,
+            title: contactForm.status.error,
+            duration: 5000,
+          })
+        }
+      } catch (error) {
+        toast({
+          variant: "destructive",
+          description: "Oops!",
+          duration: 2000,
+          title: contactForm.status.error,
+        })
+      } finally {
+        captchaRef.current?.resetCaptcha()
+      }
     })
-    const data = await response.json()
-    if (response.ok) {
-      toast({ variant: "default", description: data.message })
-    } else {
-      toast({ variant: "destructive", description: data.error })
-    }
   }
 
   return (
     <FormProvider {...methods}>
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-2">
+      <form className="space-y-2" onSubmit={handleSubmit(onSubmit)}>
         <FormItem>
           <FormLabel>{contactForm.fields.fullName}</FormLabel>
           <FormControl>
@@ -118,7 +121,17 @@ function Form({ translation }: { translation: Translation["landingPage"] }) {
             <FormMessage>{errors.message.message}</FormMessage>
           )}
         </FormItem>
-        <Button type="submit">{contactForm.fields.submit}</Button>
+        <footer className="flex flex-col items-center justify-between space-y-2">
+          <HCaptcha
+            sitekey={process.env.NEXT_PUBLIC_HCAPTCHA_SITEKEY || ""}
+            theme={"dark"}
+            onVerify={(token) => setToken(token)}
+            ref={captchaRef}
+          />
+          <Button type="submit" disabled={isPending}>
+            {isPending ? contactForm.status.pending : contactForm.fields.submit}
+          </Button>
+        </footer>
       </form>
     </FormProvider>
   )

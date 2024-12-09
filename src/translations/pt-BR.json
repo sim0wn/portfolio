@@ -8,7 +8,7 @@
   "api": {
     "error": "Ocorreu um erro ao tentar enviar a mensagem. Por favor, tente novamente mais tarde.",
     "success": "Mensagem enviada com sucesso!",
-    "recaptchaError": "Por favor, complete o desafio reCAPTCHA."
+    "captchaError": "Por favor, complete o desafio do captcha."
   },
   "bio": "Eu sou um entusiasta em cibersegurança especializado no teste de invasão à aplicações web e desenvolvedor autodidata.",
   "footer": {
@@ -32,14 +32,19 @@
     },
     "contactForm": {
       "title": "Entre em contato",
-      "subTitle": "Preencha o formulário abaixo e entrarei em contato assim que possível.",
       "fields": {
         "fullName": "Nome Completo",
         "email": "E-mail",
         "phoneNumber": "Número de Telefone",
         "message": "Mensagem",
         "submit": "Enviar"
-      }
+      },
+      "status": {
+        "error": "Erro",
+        "pending": "Enviando...",
+        "success": "Sucesso"
+      },
+      "subTitle": "Preencha o formulário abaixo e entrarei em contato assim que possível."
     },
     "hacktivity": {
       "title": "Hacktividade",

@@ -8,7 +8,7 @@
   "api": {
     "error": "An error occurred while trying to send the message. Please try again later.",
     "success": "Message sent successfully!",
-    "recaptchaError": "Please complete the reCAPTCHA challenge."
+    "captchaError": "Please complete the captcha challenge."
   },
   "bio": "I'm a cybersecurity enthusiast specialized in web application penetration testing and self-taught developer.",
   "footer": {
@@ -32,14 +32,19 @@
     },
     "contactForm": {
       "title": "Contact me",
-      "subTitle": "Fill out the form below and I'll get back to you as soon as possible.",
       "fields": {
         "fullName": "Full Name",
         "email": "Email",
         "phoneNumber": "Phone Number",
         "message": "Message",
         "submit": "Send"
-      }
+      },
+      "status": {
+        "error": "Error",
+        "pending": "Sending...",
+        "success": "Success"
+      },
+      "subTitle": "Fill out the form below and I'll get back to you as soon as possible."
     },
     "hacktivity": {
       "title": "Hacktivity",
