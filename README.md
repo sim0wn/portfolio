@@ -1,8 +1,6 @@
-# My Portfolio
+# Portfolio
 
 Welcome to my personal portfolio repository! This project showcases my work and skills, built using the latest version of the Next.js framework.
-
-![Screenshot of index page](https://github.com/user-attachments/assets/767e8e36-8284-4732-b0fb-5adf4144792f)
 
 ## Table of Contents
 
@@ -10,15 +8,14 @@ Welcome to my personal portfolio repository! This project showcases my work and 
 - [Features](#features)
 - [Getting Started](#getting-started)
 - [Deployment](#deployment)
-- [Contributing](#contributing)
 - [License](#license)
 - [Contact](#contact)
 
 ## Technologies Used
 
-- **Next.js 14**: a powerful React-based framework for building server-rendered applications, ensuring optimal performance and SEO.
-- **TypeScript**: a statically-typed superset of JavaScript that enhances code quality and maintainability by catching errors during development.
-- **Vercel**: the hosting platform for my website, providing seamless integration with Next.js and automatic deployments from GitHub.
+- **Next.js 15**: a powerful React-based framework for building server-rendered applications, ensuring optimal performance and SEO;
+- **TypeScript**: a statically-typed superset of JavaScript that enhances code quality and maintainability by catching errors during development;
+- **Vercel**: the hosting platform for my website, providing seamless integration with Next.js and automatic deployments from GitHub;
 - **Sanity CMS**: a flexible headless CMS for managing and delivering content with real-time collaboration.
 
 ## Features
@@ -51,45 +48,11 @@ npm install
 npm run dev
 ```
 
-4. Open your browser and navigate to `http://localhost:3000` to view the website.
+4. Open your browser and navigate to `http://127.0.0.1:3000` to view the website.
 
 ## Deployment
 
 The website is automatically deployed to Vercel whenever changes are pushed to the main branch of the repository. You can view the live website at [sim0wn.com](https://www.sim0wn.com).
-
-## Contributing
-
-I welcome contributions to my portfolio! If you would like to contribute, please follow these guidelines:
-
-1. **Fork the repository**: click the "Fork" button at the top right of this page to create a copy of the repository in your GitHub account.
-
-2. **Create a new branch**: create a new branch for your feature or bug fix:
-
-```bash
-git checkout -b feature/your-feature-name
-```
-
-3. **Make your changes**: implement your changes and commit them with a clear message:
-
-```bash
-git commit -m ':pencil: article: adding a blog post about the HTTP protocol'
-```
-
-4. **Push to your fork**: push your changes to your forked repository:
-
-```bash
-git push origin feature/your-feature-name
-```
-
-5. **Create a Pull Request**: go to the original repository and click on "New Pull Request" to submit your changes for review.
-
-### Guidelines for Contributions
-
-- Please ensure your code follows the existing style and conventions.
-- Include tests for any new features or changes.
-- Provide a clear description of your changes in the Pull Request.
-
-Thank you for considering contributing to my portfolio!
 
 ## License
 
