@@ -1,5 +1,6 @@
 import { HacktivityCategory } from "@/enums/hacktivity-category.enum"
 import { HacktivityType } from "@/types/hacktivity-type.type"
+import { Platform } from "@/types/platform.type"
 
 export interface Hacktivity {
   url: string
@@ -8,7 +9,7 @@ export interface Hacktivity {
   category: HacktivityCategory
   type: HacktivityType
   platform: {
-    name: "Hack The Box"
+    name: Platform
     url: string
     iconUrl: string
     profileUrl: string
