@@ -48,9 +48,10 @@ export class HTBAdapter implements Adapter {
             date: parseISO(date),
             type: target,
             category:
-              (hacktivityCategory ?? type === "user")
+              hacktivityCategory ??
+              (type === "user"
                 ? HacktivityCategory.User
-                : HacktivityCategory.System,
+                : HacktivityCategory.System),
             platform: {
               name: "Hack The Box",
               url: "https://www.hackthebox.eu/",
