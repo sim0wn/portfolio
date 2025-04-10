@@ -3,9 +3,6 @@ import type { Metadata } from "next"
 import { portableTextComponents } from "@/components/portable-text-components"
 import { urlFor } from "@/utils/image.util"
 import { getLocale } from "@/utils/locale.util"
-import { formatWithOptions } from "date-fns/fp/formatWithOptions"
-import { parseISO } from "date-fns/fp/parseISO"
-import { enUS } from "date-fns/locale/en-US"
 import { PortableText } from "next-sanity"
 import { notFound } from "next/navigation"
 import { ArticleRepository } from "@/repositories/article-repository"
@@ -14,6 +11,9 @@ import { TagRepository } from "@/repositories/tag-repository"
 import { Tags } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { SanityDatabase } from "@/lib/sanity-database.lib"
+import { parseISO } from "date-fns"
+import { enUS } from "date-fns/locale"
+import { formatWithOptions } from "date-fns/fp"
 
 type Params = Promise<{ slug: string }>
 
@@ -70,7 +70,7 @@ export default async function Article({ params }: { params: Params }) {
   const article = await articleRepository.findBySlug(slug)
   if (!article) notFound()
   return (
-    <article className="container prose prose-neutral m-auto mx-auto w-svw p-2 dark:prose-invert">
+    <article className="prose prose-neutral dark:prose-invert container m-auto mx-auto w-svw p-2">
       <header className="flex flex-col items-center gap-0.5 rounded-md p-2 text-center">
         <h1 className="mb-2">{article.title}</h1>
         <address className="self-end">

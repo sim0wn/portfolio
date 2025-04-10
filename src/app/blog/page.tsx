@@ -1,4 +1,3 @@
-import { formatDate } from "date-fns"
 import Link from "next/link"
 
 import { Badge } from "@/components/ui/badge"
@@ -14,6 +13,7 @@ import { getLocale } from "@/utils"
 import { AuthorRepository } from "@/repositories/author-repository"
 import { TagRepository } from "@/repositories/tag-repository"
 import { SanityDatabase } from "@/lib/sanity-database.lib"
+import { format } from "date-fns"
 
 export default async function Blog() {
   const locale = await getLocale()
@@ -35,7 +35,7 @@ export default async function Blog() {
                 {(await authorRepository.findById(article.author._ref))?.name}
               </address>
               <time dateTime={article.publishedAt}>
-                {formatDate(article.publishedAt, "dd'/'MM'/'yyyy")}
+                {format(new Date(article.publishedAt), "dd'/'MM'/'yyyy")}
               </time>
             </aside>
             {article.description && (
