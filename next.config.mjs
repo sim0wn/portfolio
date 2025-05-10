@@ -3,20 +3,9 @@
  */
 
 const nextConfig = {
-  images: {
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "cdn.sanity.io",
-        pathname: "/images/uihbvros/**",
-      },
-    ],
-  },
-  reactStrictMode: true,
   headers: async function headers() {
     return [
       {
-        source: "/api/:path*",
         headers: [
           {
             key: "Access-Control-Allow-Methods",
@@ -27,9 +16,20 @@ const nextConfig = {
             value: "Content-Type, Authorization",
           },
         ],
+        source: "/api/:path*",
       },
     ]
   },
+  images: {
+    remotePatterns: [
+      {
+        hostname: "cdn.sanity.io",
+        pathname: "/images/uihbvros/**",
+        protocol: "https",
+      },
+    ],
+  },
+  reactStrictMode: true,
 }
 
 export default nextConfig
