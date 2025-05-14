@@ -5,6 +5,7 @@ import { getLocale, getLocaleDomain } from "./utils"
 export function middleware(request: NextRequest) {
   const { headers } = request
   const origin = headers.get("origin")
+  const hostname = request.nextUrl.hostname
   const response = NextResponse.next()
 
   if (
@@ -15,22 +16,16 @@ export function middleware(request: NextRequest) {
     response.headers.set("Vary", "Origin")
   }
 
-  // ignore files in `public` directory and non-production requests
-  if (
-    ["/images"].includes(request.nextUrl.pathname) ||
-    process.env.NODE_ENV !== "production"
-  ) {
-    return
-  }
+  if (hostname === "sim0wn.com" || hostname === "sim0wn.com.br") {
+    // get the locale from the request headers
+    const locale = getLocale(headers)
+    const localeDomain = getLocaleDomain(locale)
 
-  // get the locale from the request headers
-  const locale = getLocale(headers)
-  const localeDomain = getLocaleDomain(locale)
-
-  // redirect to the correct domain if the locale domain is different
-  if (request.nextUrl.hostname !== localeDomain) {
-    request.nextUrl.hostname = localeDomain
-    return NextResponse.redirect(request.nextUrl, 301)
+    // redirect to the correct domain if the locale domain is different
+    if (hostname !== localeDomain) {
+      request.nextUrl.hostname = localeDomain
+      return NextResponse.redirect(request.nextUrl, 301)
+    }
   }
 
   // return the modified response
