@@ -1,22 +1,10 @@
-/**
- * @type {import('next').NextConfig}
- */
+import { withPayload } from "@payloadcms/next/withPayload"
 
+/** @type {import('next').NextConfig} */
 const nextConfig = {
-  images: {
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "cdn.sanity.io",
-        pathname: "/images/uihbvros/**",
-      },
-    ],
-  },
-  reactStrictMode: true,
   headers: async function headers() {
     return [
       {
-        source: "/api/:path*",
         headers: [
           {
             key: "Access-Control-Allow-Methods",
@@ -27,9 +15,17 @@ const nextConfig = {
             value: "Content-Type, Authorization",
           },
         ],
+        source: "/api/:path*",
       },
     ]
   },
+  images: {
+    contentDispositionType: "attachment",
+    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
+    dangerouslyAllowSVG: true,
+  },
+  reactStrictMode: true,
+  turbopack: {},
 }
 
-export default nextConfig
+export default withPayload(nextConfig)

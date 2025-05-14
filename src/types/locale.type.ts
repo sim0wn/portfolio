@@ -1,4 +1,4 @@
-import { i18n } from "@/config/i18n.config"
+import { i18n } from "@/config"
 
 /**
  * Represents a locale type derived from the `i18n` object's `locales` array.

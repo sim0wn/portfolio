@@ -3,10 +3,10 @@ import { SVGProps } from "react"
 export function Mascot(props: SVGProps<SVGSVGElement>) {
   return (
     <svg
-      viewBox="0 0 640 640"
-      xmlns="http://www.w3.org/2000/svg"
-      width="1em"
       height="1em"
+      viewBox="0 0 640 640"
+      width="1em"
+      xmlns="http://www.w3.org/2000/svg"
       {...props}
     >
       <path d="M0 320V0h640v640H0Z" fill="#0f0621" />

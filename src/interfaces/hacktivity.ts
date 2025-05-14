@@ -3,15 +3,15 @@ import { HacktivityType } from "@/types/hacktivity-type.type"
 import { Platform } from "@/types/platform.type"
 
 export interface Hacktivity {
-  url: string
-  name: string
-  date: Date
   category: HacktivityCategory
-  type: HacktivityType
+  date: Date
+  name: string
   platform: {
-    name: Platform
-    url: string
     iconUrl: string
+    name: Platform
     profileUrl: string
+    url: string
   }
+  type: HacktivityType
+  url: string
 }

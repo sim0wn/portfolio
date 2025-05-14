@@ -23,11 +23,11 @@ export class HacktivityService {
       data,
       pagination: {
         currentPage: page,
-        totalPages,
-        totalItems,
         itemsPerPage,
         nextPage,
         previousPage,
+        totalItems,
+        totalPages,
       },
     }
   }

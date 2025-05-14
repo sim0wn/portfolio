@@ -3,12 +3,12 @@ import type { SVGProps } from "react"
 export function LinkedIn(props: SVGProps<SVGSVGElement>) {
   return (
     <svg
+      aria-hidden="true"
+      aria-label="LinkedIn"
       height="1em"
       viewBox="0 0 448 512"
       width="0.88em"
       xmlns="http://www.w3.org/2000/svg"
-      aria-label="LinkedIn"
-      aria-hidden="true"
       {...props}
     >
       <path

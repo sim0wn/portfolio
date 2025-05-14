@@ -1,8 +1,10 @@
 import { NextRequest, NextResponse } from "next/server"
 
+import { getLocale, getLocaleDomain } from "./utils"
+
 export function middleware(request: NextRequest) {
-  const { hostname } = request.nextUrl
-  const origin = request.headers.get("origin")
+  const { headers } = request
+  const origin = headers.get("origin")
   const response = NextResponse.next()
 
   if (
@@ -21,11 +23,14 @@ export function middleware(request: NextRequest) {
     return
   }
 
-  // set the locale based on the domain
-  if (hostname.endsWith(".com")) {
-    response.headers.set("Accept-Language", "en-US")
-  } else if (hostname.endsWith(".com.br")) {
-    response.headers.set("Accept-Language", "pt-BR")
+  // get the locale from the request headers
+  const locale = getLocale(headers)
+  const localeDomain = getLocaleDomain(locale)
+
+  // redirect to the correct domain if the locale domain is different
+  if (request.nextUrl.hostname !== localeDomain) {
+    request.nextUrl.hostname = localeDomain
+    return NextResponse.redirect(request.nextUrl, 301)
   }
 
   // return the modified response
