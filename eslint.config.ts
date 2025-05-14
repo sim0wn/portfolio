@@ -17,7 +17,7 @@ const config = [
   prettier,
   {
     files: ["/*.ts", "/*.tsx"],
-    ignores: [".next/**/*", "node_modules/**/*"],
+    ignores: [".next/**/*", "node_modules/**/*", "src/**/importMap.ts"],
     languageOptions: {
       ecmaVersion: "latest",
       sourceType: "module",

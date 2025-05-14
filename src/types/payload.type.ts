@@ -155,7 +155,6 @@ export interface Highlight {
     [k: string]: unknown;
   };
   icon: string | Media;
-  slug?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -237,10 +236,6 @@ export interface Skill {
     };
     [k: string]: unknown;
   };
-  /**
-   * This is the slug used in the URL
-   */
-  slug?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -364,7 +359,6 @@ export interface HighlightsSelect<T extends boolean = true> {
   title?: T;
   description?: T;
   icon?: T;
-  slug?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -376,7 +370,6 @@ export interface SkillsSelect<T extends boolean = true> {
   title?: T;
   brief?: T;
   description?: T;
-  slug?: T;
   updatedAt?: T;
   createdAt?: T;
 }

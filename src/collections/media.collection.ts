@@ -30,8 +30,7 @@ export const mediaCollection: CollectionConfig = {
       ({ args: { data }, operation, req }) => {
         if ((operation === "create" || operation === "update") && req.file) {
           if (data.useAltAsFilename) {
-            // Create a URL-safe filename from the alt text and remove the extension
-            req.file.name = slugify(data.alt).replace(/\.[^/.]+$/, "")
+            req.file.name = slugify(data.alt)
           } else {
             const hasher = new Bun.CryptoHasher("sha256")
             hasher.update(req.file.data)

@@ -1,9 +1,8 @@
-import { generateSlug } from "@/hooks"
 import { CollectionConfig } from "payload"
 
 export const skillCollection: CollectionConfig = {
   admin: {
-    defaultColumns: ["title", "description", "createdAt"],
+    defaultColumns: ["title", "brief", "description"],
     useAsTitle: "title",
   },
   fields: [
@@ -23,7 +22,7 @@ export const skillCollection: CollectionConfig = {
       localized: true,
       name: "brief",
       required: true,
-      type: "textarea",
+      type: "textarea"
     },
     {
       label: "Description",
@@ -31,21 +30,6 @@ export const skillCollection: CollectionConfig = {
       name: "description",
       required: true,
       type: "richText",
-    },
-    {
-      admin: {
-        description: "This is the slug used in the URL",
-        readOnly: true,
-      },
-      hooks: {
-        beforeValidate: [generateSlug],
-      },
-      label: "Slug",
-      localized: true,
-      name: "slug",
-      required: false,
-      type: "text",
-      unique: true,
     },
   ],
   labels: {
