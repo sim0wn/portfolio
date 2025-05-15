@@ -140,7 +140,7 @@ export default async function LandingPage({
               key={id}
               variant={"outline"}
             >
-              <Link href={`/highlights/${slug}`} scroll={false}>
+              <Link className="p-8" href={`/highlights/${slug}`} scroll={false}>
                 <Image
                   alt={(icon as Media).alt}
                   height={0}

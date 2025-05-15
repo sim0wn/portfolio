@@ -4,11 +4,10 @@ import { payload } from "@/lib"
 import { Media } from "@/types"
 import { getLocale } from "@/utils"
 import { RichText } from "@payloadcms/richtext-lexical/react"
+import { Dialog } from "@radix-ui/react-dialog"
 import { headers } from "next/headers"
 import Image from "next/image"
 import { notFound } from "next/navigation"
-
-import { Modal } from "../../_components/modal"
 
 type Params = Promise<{ slug: string }>
 
@@ -38,7 +37,7 @@ export default async function ModalHighlight({ params }: { params: Params }) {
   }
   const [{ description, icon, title }] = highlights
   return (
-    <Modal>
+    <Dialog defaultOpen={true}>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
@@ -52,6 +51,6 @@ export default async function ModalHighlight({ params }: { params: Params }) {
         />
         <RichText data={description} />
       </DialogContent>
-    </Modal>
+    </Dialog>
   )
 }

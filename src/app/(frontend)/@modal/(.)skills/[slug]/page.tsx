@@ -8,10 +8,9 @@ import { i18n } from "@/config"
 import { payload } from "@/lib"
 import { getLocale } from "@/utils"
 import { RichText } from "@payloadcms/richtext-lexical/react"
+import { Dialog } from "@radix-ui/react-dialog"
 import { headers } from "next/headers"
 import { notFound } from "next/navigation"
-
-import { Modal } from "../../_components/modal"
 
 type Params = Promise<{ slug: string }>
 
@@ -42,7 +41,7 @@ export default async function ModalSkill({ params }: { params: Params }) {
   }
   const [{ brief, description, title }] = skills
   return (
-    <Modal>
+    <Dialog defaultOpen={true}>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
@@ -50,6 +49,6 @@ export default async function ModalSkill({ params }: { params: Params }) {
         </DialogHeader>
         <RichText data={description} />
       </DialogContent>
-    </Modal>
+    </Dialog>
   )
 }
