@@ -1,8 +1,9 @@
+import { SlugField } from "@/fields"
 import { CollectionConfig } from "payload"
 
 export const highlightCollection: CollectionConfig = {
   admin: {
-    defaultColumns: ["icon", "title", "description"],
+    defaultColumns: ["icon", "title", "slug", "description"],
     useAsTitle: "title",
   },
   fields: [
@@ -12,6 +13,7 @@ export const highlightCollection: CollectionConfig = {
       required: true,
       type: "text",
     },
+    SlugField,
     {
       label: "Description",
       name: "description",

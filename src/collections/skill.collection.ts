@@ -1,3 +1,4 @@
+import { SlugField } from "@/fields"
 import { CollectionConfig } from "payload"
 
 export const skillCollection: CollectionConfig = {
@@ -13,6 +14,7 @@ export const skillCollection: CollectionConfig = {
       required: true,
       type: "text",
     },
+    SlugField,
     {
       admin: {
         description:
@@ -22,7 +24,7 @@ export const skillCollection: CollectionConfig = {
       localized: true,
       name: "brief",
       required: true,
-      type: "textarea"
+      type: "textarea",
     },
     {
       label: "Description",

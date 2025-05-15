@@ -2,12 +2,13 @@ import { CollectionConfig } from "payload"
 
 export const faqCollection: CollectionConfig = {
   admin: {
-    defaultColumns: ["question"],
+    defaultColumns: ["question", "answer"],
     useAsTitle: "question",
   },
   fields: [
     {
       label: "Question",
+      localized: true,
       name: "question",
       required: true,
       type: "text",

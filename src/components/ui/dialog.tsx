@@ -1,74 +1,137 @@
 "use client"
 
-import classNames from "classnames"
-import { X } from "lucide-react"
-import { useRouter } from "next/navigation"
-import React, { DialogHTMLAttributes, HTMLAttributes } from "react"
+import { cn } from "@/utils/cn.util"
+import * as DialogPrimitive from "@radix-ui/react-dialog"
+import { XIcon } from "lucide-react"
+import * as React from "react"
 
-import { Button } from "./button"
-import { Card, CardContent, CardHeader, CardTitle } from "./card"
+function Dialog({
+  ...props
+}: React.ComponentProps<typeof DialogPrimitive.Root>) {
+  return <DialogPrimitive.Root data-slot="dialog" {...props} />
+}
 
-const Dialog = React.forwardRef<
-  HTMLDialogElement,
-  DialogHTMLAttributes<HTMLDialogElement>
->(({ children, ...props }, ref) => {
+function DialogClose({
+  ...props
+}: React.ComponentProps<typeof DialogPrimitive.Close>) {
+  return <DialogPrimitive.Close data-slot="dialog-close" {...props} />
+}
+
+function DialogContent({
+  children,
+  className,
+  ...props
+}: React.ComponentProps<typeof DialogPrimitive.Content>) {
   return (
-    <dialog
-      className={classNames(
-        "fixed inset-0 z-50", // position
-        "flex place-content-center items-center justify-center", // layout
-        "h-svh w-svw", // sizing
-        "bg-neutral-950/75", // color
-        "p-4 sm:p-8 md:p-24 lg:p-36 xl:p-48", // spacing
+    <DialogPortal data-slot="dialog-portal">
+      <DialogOverlay />
+      <DialogPrimitive.Content
+        className={cn(
+          "data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 fixed top-[50%] left-[50%] z-50 grid w-full max-w-[calc(100%-2rem)] translate-x-[-50%] translate-y-[-50%] gap-4 rounded-lg border border-neutral-200 bg-white p-6 shadow-lg duration-200 sm:max-w-lg dark:border-neutral-800 dark:bg-neutral-950",
+          className,
+        )}
+        data-slot="dialog-content"
+        {...props}
+      >
+        {children}
+        <DialogPrimitive.Close className="absolute top-4 right-4 rounded-xs opacity-70 ring-offset-white transition-opacity hover:opacity-100 focus:ring-2 focus:ring-neutral-950 focus:ring-offset-2 focus:outline-hidden disabled:pointer-events-none data-[state=open]:bg-neutral-100 data-[state=open]:text-neutral-500 dark:ring-offset-neutral-950 dark:focus:ring-neutral-300 dark:data-[state=open]:bg-neutral-800 dark:data-[state=open]:text-neutral-400 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4">
+          <XIcon />
+          <span className="sr-only">Close</span>
+        </DialogPrimitive.Close>
+      </DialogPrimitive.Content>
+    </DialogPortal>
+  )
+}
+
+function DialogDescription({
+  className,
+  ...props
+}: React.ComponentProps<typeof DialogPrimitive.Description>) {
+  return (
+    <DialogPrimitive.Description
+      className={cn(
+        "text-sm text-neutral-500 dark:text-neutral-400",
+        className,
       )}
-      ref={ref}
+      data-slot="dialog-description"
       {...props}
-    >
-      <Card>{children}</Card>
-    </dialog>
+    />
   )
-})
+}
 
-const DialogHeader = React.forwardRef<
-  HTMLDivElement,
-  HTMLAttributes<HTMLDivElement>
->(({ children, ...props }, ref) => {
-  const router = useRouter()
+function DialogFooter({ className, ...props }: React.ComponentProps<"div">) {
   return (
-    <CardHeader className={"flex flex-row"} ref={ref} {...props}>
-      {children}
-      <Button onClick={() => router.back()}>
-        <X />
-      </Button>
-    </CardHeader>
+    <div
+      className={cn(
+        "flex flex-col-reverse gap-2 sm:flex-row sm:justify-end",
+        className,
+      )}
+      data-slot="dialog-footer"
+      {...props}
+    />
   )
-})
+}
 
-const DialogTitle = React.forwardRef<
-  HTMLDivElement,
-  HTMLAttributes<HTMLDivElement>
->(({ children, ...props }, ref) => {
+function DialogHeader({ className, ...props }: React.ComponentProps<"div">) {
   return (
-    <CardTitle className="flex-1" ref={ref} {...props}>
-      {children}
-    </CardTitle>
+    <div
+      className={cn("flex flex-col gap-2 text-center sm:text-left", className)}
+      data-slot="dialog-header"
+      {...props}
+    />
   )
-})
+}
 
-const DialogContent = React.forwardRef<
-  HTMLDivElement,
-  HTMLAttributes<HTMLDivElement>
->(({ children, ...props }, ref) => {
+function DialogOverlay({
+  className,
+  ...props
+}: React.ComponentProps<typeof DialogPrimitive.Overlay>) {
   return (
-    <CardContent className={classNames("w-full")} ref={ref} {...props}>
-      {children}
-    </CardContent>
+    <DialogPrimitive.Overlay
+      className={cn(
+        "data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 fixed inset-0 z-50 bg-black/50",
+        className,
+      )}
+      data-slot="dialog-overlay"
+      {...props}
+    />
   )
-})
+}
 
-Dialog.displayName = "Dialog"
-DialogHeader.displayName = "DialogHeader"
-DialogContent.displayName = "DialogContent"
-DialogTitle.displayName = "DialogTitle"
+function DialogPortal({
+  ...props
+}: React.ComponentProps<typeof DialogPrimitive.Portal>) {
+  return <DialogPrimitive.Portal data-slot="dialog-portal" {...props} />
+}
 
-export { Dialog, DialogContent, DialogHeader, DialogTitle }
+function DialogTitle({
+  className,
+  ...props
+}: React.ComponentProps<typeof DialogPrimitive.Title>) {
+  return (
+    <DialogPrimitive.Title
+      className={cn("text-lg leading-none font-semibold", className)}
+      data-slot="dialog-title"
+      {...props}
+    />
+  )
+}
+
+function DialogTrigger({
+  ...props
+}: React.ComponentProps<typeof DialogPrimitive.Trigger>) {
+  return <DialogPrimitive.Trigger data-slot="dialog-trigger" {...props} />
+}
+
+export {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogOverlay,
+  DialogPortal,
+  DialogTitle,
+  DialogTrigger,
+}

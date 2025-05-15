@@ -1,43 +1,43 @@
 import { Mascot } from "@/components/icons"
 import {
-    Accordion,
-    AccordionContent,
-    AccordionItem,
-    AccordionTrigger,
-    Button,
-    Card,
-    CardContent,
-    CardDescription,
-    CardFooter,
-    CardHeader,
-    CardTitle,
-    Carousel,
-    CarouselContent,
-    CarouselItem,
-    CarouselNext,
-    CarouselPrevious,
-    ExternalLink,
-    Skeleton,
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+  Button,
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+  ExternalLink,
+  Skeleton,
 } from "@/components/ui"
 import { getDictionary, payload } from "@/lib"
 import { HacktivityService } from "@/services/hacktivity-service.service"
 import { Media } from "@/types"
-import { cn, getLocale } from "@/utils"
+import { cn, getLocale, truncateString } from "@/utils"
 import { intlFormatDistance } from "date-fns"
 import {
-    ChevronFirst,
-    ChevronLast,
-    ChevronLeft,
-    ChevronRight,
+  ChevronFirst,
+  ChevronLast,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react"
 import { headers } from "next/headers"
 import Image from "next/image"
 import Link from "next/link"
 import { redirect } from "next/navigation"
 import {
-    createSearchParamsCache,
-    parseAsInteger,
-    SearchParams,
+  createSearchParamsCache,
+  parseAsInteger,
+  SearchParams,
 } from "nuqs/server"
 import { Suspense } from "react"
 
@@ -133,14 +133,14 @@ export default async function LandingPage({
               depth: 1,
               locale,
             })
-          ).docs.map(({ icon, id }) => (
+          ).docs.map(({ icon, id, slug }) => (
             <Button
               asChild
               className="bg-gradient-to-t from-purple-600 to-purple-300 dark:from-[#8A4BCA] dark:to-[#A77BFF]"
               key={id}
               variant={"outline"}
             >
-              <Link href={`/highlights/${id}`} scroll={false}>
+              <Link href={`/highlights/${slug}`} scroll={false}>
                 <Image
                   alt={(icon as Media).alt}
                   height={0}
@@ -185,9 +185,10 @@ export default async function LandingPage({
                   pagination: false,
                   select: { brief: true, id: true, slug: true, title: true },
                 })
-              ).docs.map(({ brief, id, title }, _, self) => (
+              ).docs.map(({ brief, id, slug, title }, _, self) => (
                 <CarouselItem
                   className={cn({
+                    "basis-full": self.length === 1,
                     "lg:basis-1/3": self.length > 2,
                     "md:basis-1/2": self.length <= 2,
                   })}
@@ -197,14 +198,16 @@ export default async function LandingPage({
                     <CardHeader>
                       <CardTitle>{title}</CardTitle>
                     </CardHeader>
-                    <CardContent className="flex-1">{brief}</CardContent>
+                    <CardContent className="flex-1">
+                      {truncateString(brief, 300)}
+                    </CardContent>
                     <CardFooter className="flex w-full place-content-center">
                       <Button
                         asChild
                         className="text-center"
                         variant={"outline"}
                       >
-                        <Link href={`/skills/${id}`} scroll={false}>
+                        <Link href={`/skills/${slug}`} scroll={false}>
                           {landingPage.services.dialogTriggerLabel}
                         </Link>
                       </Button>
