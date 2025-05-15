@@ -23,6 +23,18 @@ const nextConfig = {
     contentDispositionType: "attachment",
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
     dangerouslyAllowSVG: true,
+    remotePatterns: [
+      {
+        hostname: "wrchxs8wpifzrnuk.public.blob.vercel-storage.com",
+        pathname: "/**",
+        protocol: "https",
+      },
+      {
+        hostname: "**.vercel.app",
+        pathname: "/**",
+        protocol: "https",
+      },
+    ],
   },
   reactStrictMode: true,
   turbopack: {},
