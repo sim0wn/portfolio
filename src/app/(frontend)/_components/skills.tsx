@@ -22,8 +22,18 @@ export async function Skills() {
   const {
     landingPage: { services },
   } = await getDictionary(locale)
+  const { docs: skills } = await payload.find({
+    collection: "skills",
+    locale,
+    pagination: false,
+    select: { brief: true, id: true, slug: true, title: true },
+  })
   return (
-    <section className="dark:bg-purple-1000 flex flex-col place-items-center justify-center gap-8 bg-purple-700 pt-8 pb-12 md:px-0">
+    <section
+      className={cn(
+        "flex flex-col place-items-center justify-center gap-8 pt-8 pb-12 md:px-0",
+      )}
+    >
       <h1 className="text-lg font-semibold text-neutral-50">
         {services.title}
       </h1>
@@ -32,14 +42,7 @@ export async function Skills() {
         opts={{ align: "center", loop: true }}
       >
         <CarouselContent>
-          {(
-            await payload.find({
-              collection: "skills",
-              locale,
-              pagination: false,
-              select: { brief: true, id: true, slug: true, title: true },
-            })
-          ).docs.map(({ brief, id, slug, title }, _, self) => (
+          {skills.map(({ brief, id, slug, title }, _, self) => (
             <CarouselItem
               className={cn({
                 "basis-full": self.length === 1,

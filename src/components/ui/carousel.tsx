@@ -1,8 +1,7 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
-import { cn } from "@/utils/cn.util"
-import classNames from "classnames"
+import { cn } from "@/utils"
 import useEmblaCarousel, {
   type UseEmblaCarouselType,
 } from "embla-carousel-react"
@@ -159,12 +158,9 @@ const CarouselContent = React.forwardRef<
   return (
     <div className="overflow-hidden" ref={carouselRef}>
       <div
-        className={classNames(
+        className={cn(
           "flex",
-          {
-            "-ml-4": orientation === "horizontal",
-            "-mt-4 flex-col": orientation === "vertical",
-          },
+          orientation === "horizontal" ? "-ml-4" : "-mt-4 flex-col",
           className,
         )}
         ref={ref}
@@ -205,12 +201,11 @@ const CarouselPrevious = React.forwardRef<
 
   return (
     <Button
-      className={classNames(
-        {
-          "absolute -top-12 left-1/2 -translate-x-1/2 rotate-90":
-            orientation === "vertical",
-        },
-        "rounded-md",
+      className={cn(
+        "absolute h-8 w-8 rounded-full",
+        orientation === "horizontal"
+          ? "top-1/2 -left-12 -translate-y-1/2"
+          : "-top-12 left-1/2 -translate-x-1/2 rotate-90",
         className,
       )}
       disabled={!canScrollPrev}
@@ -235,12 +230,11 @@ const CarouselNext = React.forwardRef<
 
   return (
     <Button
-      className={classNames(
-        "rounded-md",
-        {
-          "absolute -bottom-12 left-1/2 -translate-x-1/2 rotate-90":
-            orientation === "vertical",
-        },
+      className={cn(
+        "absolute h-8 w-8 rounded-full",
+        orientation === "horizontal"
+          ? "top-1/2 -right-12 -translate-y-1/2"
+          : "-bottom-12 left-1/2 -translate-x-1/2 rotate-90",
         className,
       )}
       disabled={!canScrollNext}

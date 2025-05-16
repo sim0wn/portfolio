@@ -253,9 +253,12 @@ export interface Skill {
  */
 export interface Social {
   id: string;
-  url: string;
   label: string;
-  icon: string | Media;
+  url: string;
+  /**
+   * Iconify icon
+   */
+  icon: string;
   updatedAt: string;
   createdAt: string;
 }
@@ -388,8 +391,8 @@ export interface SkillsSelect<T extends boolean = true> {
  * via the `definition` "social_select".
  */
 export interface SocialSelect<T extends boolean = true> {
-  url?: T;
   label?: T;
+  url?: T;
   icon?: T;
   updatedAt?: T;
   createdAt?: T;

@@ -2,20 +2,19 @@ import type { Metadata } from "next"
 
 import { Lettermark } from "@/components/icons"
 import { Button, ExternalLink, Toaster } from "@/components/ui"
-import { getDictionary, payload } from "@/lib"
-import { Media } from "@/types"
+import { getDictionary } from "@/lib"
 import { getLocale, getLocaleDomain } from "@/utils"
 import classNames from "classnames"
 import { Code, Globe, Library, Send, Shield } from "lucide-react"
 import { headers } from "next/headers"
-import Image from "next/image"
-import Link from "next/link"
 
 import "./styles.css"
 
+import Link from "next/link"
 import { NuqsAdapter } from "nuqs/adapters/next/app"
-import { ReactNode } from "react"
+import { ReactNode, Suspense } from "react"
 
+import { Social, SocialFallback } from "./_components/social"
 import { lato, raleway } from "./fonts"
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -105,36 +104,20 @@ export default async function RootLayout({
         <NuqsAdapter>{children}</NuqsAdapter>
         <footer className="grid h-fit grid-cols-2 justify-between border-t bg-neutral-100 p-2 dark:border-t-neutral-800 dark:bg-neutral-900">
           <section className="col-span-full flex h-full w-full flex-col p-2 sm:col-span-1">
-            <h1 className="border-b px-2 text-center sm:text-start dark:border-b-neutral-800">
+            <h1 className="border-b px-2 text-center dark:border-b-neutral-800">
               {dictionary.footer.sections.social.title}
             </h1>
-            <menu className="flex w-full flex-1 flex-col place-content-center items-start gap-2 *:*:flex *:*:gap-2">
-              {(await payload.find({ collection: "social" })).docs.map(
-                (social) => (
-                  <li key={social.id}>
-                    <Button asChild variant={"link"}>
-                      <ExternalLink href={social.url}>
-                        <Image
-                          alt={social.label}
-                          className="text-white dark:invert"
-                          height={0}
-                          src={(social.icon as Media)?.url ?? ""}
-                          unoptimized
-                          width={25}
-                        />
-                        {social.label}
-                      </ExternalLink>
-                    </Button>
-                  </li>
-                ),
-              )}
+            <menu className="flex w-full flex-1 flex-wrap place-content-around items-start gap-2 py-2 *:*:flex *:*:gap-2">
+              <Suspense fallback={<SocialFallback />}>
+                <Social />
+              </Suspense>
             </menu>
           </section>
           <section className="col-span-full flex h-full w-full flex-col p-2 sm:col-span-1">
-            <h1 className="border-b px-2 text-center sm:text-start dark:border-b-neutral-800">
+            <h1 className="border-b px-2 text-center dark:border-b-neutral-800">
               {dictionary.footer.sections.links.title}
             </h1>
-            <menu className="flex w-full flex-1 flex-col place-content-center items-start gap-2 *:*:flex *:*:gap-2">
+            <menu className="flex w-full flex-1 flex-wrap place-content-around items-start gap-2 *:*:flex *:*:gap-2">
               <li>
                 <Button asChild variant={"link"}>
                   <Link

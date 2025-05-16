@@ -3,12 +3,6 @@ import { getDictionary } from "@/lib"
 import { HacktivityService } from "@/services/hacktivity-service.service"
 import { getLocale } from "@/utils"
 import { intlFormatDistance } from "date-fns"
-import {
-  ChevronFirst,
-  ChevronLast,
-  ChevronLeft,
-  ChevronRight,
-} from "lucide-react"
 import { headers } from "next/headers"
 import Image from "next/image"
 import Link from "next/link"
@@ -87,12 +81,12 @@ export async function Hacktivity({
         <footer className="flex items-center justify-center gap-2 *:w-fit">
           <Button asChild variant={"ghost"}>
             <Link href={`/?h=1`} scroll={false}>
-              <ChevronFirst />
+              <span className="icon-[mdi--chevron-left-first] text-3xl"></span>
             </Link>
           </Button>
           <Button asChild variant={"ghost"}>
             <Link href={`/?h=${pagination.previousPage}`} scroll={false}>
-              <ChevronLeft />
+              <span className="icon-[mdi--chevron-left] text-3xl"></span>
             </Link>
           </Button>
           <p>
@@ -101,12 +95,12 @@ export async function Hacktivity({
           </p>
           <Button asChild variant={"ghost"}>
             <Link href={`/?h=${pagination.nextPage}`} scroll={false}>
-              <ChevronRight />
+              <span className="icon-[mdi--chevron-right] text-3xl"></span>
             </Link>
           </Button>
           <Button asChild variant={"ghost"}>
             <Link href={`/?h=${pagination.totalPages}`} scroll={false}>
-              <ChevronLast />
+              <span className="icon-[mdi--chevron-right-last] text-3xl"></span>
             </Link>
           </Button>
         </footer>
