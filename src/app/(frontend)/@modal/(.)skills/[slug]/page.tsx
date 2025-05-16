@@ -1,4 +1,5 @@
 import {
+  Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
@@ -8,7 +9,6 @@ import { i18n } from "@/config"
 import { payload } from "@/lib"
 import { getLocale } from "@/utils"
 import { RichText } from "@payloadcms/richtext-lexical/react"
-import { Dialog } from "@radix-ui/react-dialog"
 import { headers } from "next/headers"
 import { notFound } from "next/navigation"
 
