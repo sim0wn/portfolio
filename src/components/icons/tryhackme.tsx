@@ -3,12 +3,12 @@ import type { SVGProps } from "react"
 export function TryHackMe(props: SVGProps<SVGSVGElement>) {
   return (
     <svg
+      aria-hidden="true"
+      aria-label="TryHackMe"
       height="1em"
       viewBox="0 0 24 24"
       width="1em"
       xmlns="http://www.w3.org/2000/svg"
-      aria-label="TryHackMe"
-      aria-hidden="true"
       {...props}
     >
       <path

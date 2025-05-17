@@ -4,15 +4,15 @@ import { ReactNode } from "react"
 
 export function ExternalLink({
   children,
-  href,
   className,
+  href,
   ...props
-}: Readonly<{
+}: LinkProps &
+  Readonly<{
   children: ReactNode
-  href: string
   className?: string
-}> &
-  LinkProps) {
+  href: string
+}>) {
   return (
     <Link
       href={href}

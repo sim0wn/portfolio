@@ -1,7 +1,6 @@
-/**
- * @type {import('next').NextConfig}
- */
+import { withPayload } from "@payloadcms/next/withPayload";
 
+/** @type {import('next').NextConfig} */
 const nextConfig = {
   headers: async function headers() {
     return [
@@ -18,18 +17,35 @@ const nextConfig = {
         ],
         source: "/api/:path*",
       },
-    ]
+    ];
   },
   images: {
+    contentDispositionType: "attachment",
+    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
+    dangerouslyAllowSVG: true,
+    localPatterns: [
+      {
+        pathname: "/api/media/**",
+      },
+      {
+        pathname: "/icons/**",
+      },
+    ],
     remotePatterns: [
       {
-        hostname: "cdn.sanity.io",
-        pathname: "/images/uihbvros/**",
+        hostname: "wrchxs8wpifzrnuk.public.blob.vercel-storage.com",
+        pathname: "/**",
+        protocol: "https",
+      },
+      {
+        hostname: "*.vercel.app",
+        pathname: "/**",
         protocol: "https",
       },
     ],
   },
   reactStrictMode: true,
-}
+  turbopack: {},
+};
 
-export default nextConfig
+export default withPayload(nextConfig);

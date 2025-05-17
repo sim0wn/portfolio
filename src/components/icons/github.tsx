@@ -3,12 +3,12 @@ import type { SVGProps } from "react"
 export function GitHub(props: SVGProps<SVGSVGElement>) {
   return (
     <svg
+      aria-hidden="true"
+      aria-label="GitHub"
       height="1em"
       viewBox="0 0 496 512"
       width="0.97em"
       xmlns="http://www.w3.org/2000/svg"
-      aria-label="GitHub"
-      aria-hidden="true"
       {...props}
     >
       <path

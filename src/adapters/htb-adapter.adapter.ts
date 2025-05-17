@@ -6,16 +6,16 @@ import { parseISO } from "date-fns"
 type HTBActivity = {
   profile: {
     activity: {
+      challenge_category?: string
       date: string
       date_diff: string
-      object_type: "machine"
-      type: "user" | "root"
       first_blood: boolean
       id: number
-      name: string
-      points: number
       machine_avatar: string
-      challenge_category?: string
+      name: string
+      object_type: "machine"
+      points: number
+      type: "root" | "user"
     }[]
   }
 }
@@ -30,29 +30,29 @@ export class HTBAdapter implements Adapter {
       const htbActivities = (await response.json()) as HTBActivity
       if (htbActivities && "profile" in htbActivities) {
         for (const {
+          challenge_category: category,
+          date,
           id,
           name,
-          date,
           object_type: target,
           type,
-          challenge_category: category,
         } of htbActivities.profile.activity) {
           const hacktivityCategory = getHacktivityCategory(
             category ??
               (type === "user" ? "User" : type === "root" ? "System" : ""),
           )
           activities.push({
-            url: `https://www.hackthebox.com/achievement/${target}/${process.env.HTB_PROFILE_ID}/${id}`,
-            name,
-            date: parseISO(date),
-            type: target,
             category: hacktivityCategory,
+            date: parseISO(date),
+            name,
             platform: {
-              name: "Hack The Box",
-              url: "https://www.hackthebox.eu/",
               iconUrl: "/icons/hack-the-box.svg",
+              name: "Hack The Box",
               profileUrl: `https://app.hackthebox.com/profile/${process.env.HTB_PROFILE_ID}/`,
+              url: "https://www.hackthebox.eu/",
             },
+            type: target,
+            url: `https://www.hackthebox.com/achievement/${target}/${process.env.HTB_PROFILE_ID}/${id}`,
           })
         }
       }

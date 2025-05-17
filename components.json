@@ -10,7 +10,7 @@
   "tsx": true,
   "aliases": {
     "components": "@/components",
-    "utils": "@/utils/cn.util"
+    "utils": "@/utils"
   },
   "style": "default"
 }

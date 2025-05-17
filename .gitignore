@@ -36,6 +36,5 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# sanity
-.sanity
-schema.json
+# payload
+/media
