@@ -102,65 +102,67 @@ export default async function RootLayout({
         </header>
         {modal}
         <NuqsAdapter>{children}</NuqsAdapter>
-        <footer className="grid h-fit grid-cols-2 justify-between border-t bg-neutral-100 p-2 dark:border-t-neutral-800 dark:bg-neutral-900">
-          <section className="col-span-full flex h-full w-full flex-col p-2 sm:col-span-1">
-            <h1 className="border-b px-2 text-center dark:border-b-neutral-800">
-              {dictionary.footer.sections.social.title}
-            </h1>
-            <menu className="flex w-full flex-1 flex-wrap place-content-around items-start gap-2 py-2 *:*:flex *:*:gap-2">
+        <footer className="flex h-fit w-full flex-wrap justify-between border-t px-2 py-4 md:flex-row dark:border-t-neutral-800">
+          <section className="flex flex-col justify-center gap-12 px-8">
+            <span className="flex items-center gap-2">
+              <Lettermark className="text-2xl" />
+            </span>
+            <menu className="flex w-full flex-wrap gap-2 py-2">
               <Suspense fallback={<SocialFallback />}>
                 <Social />
               </Suspense>
             </menu>
           </section>
-          <section className="col-span-full flex h-full w-full flex-col p-2 sm:col-span-1">
-            <h1 className="border-b px-2 text-center dark:border-b-neutral-800">
-              {dictionary.footer.sections.links.title}
-            </h1>
-            <menu className="flex w-full flex-1 flex-wrap place-content-around items-start gap-2 *:*:flex *:*:gap-2">
-              <li>
-                <Button asChild variant={"link"}>
-                  <Link
-                    href={`https://${
-                      locale === "pt-BR"
-                        ? getLocaleDomain("en-US")
-                        : getLocaleDomain("pt-BR")
-                    }/`}
-                  >
-                    <Globe size={"1em"} />
-                    {dictionary.footer.sections.links.switchLanguage}
-                  </Link>
-                </Button>
-              </li>
-              <li>
-                <Button asChild variant={"link"}>
-                  <ExternalLink href={"https://github.com/sim0wn/portfolio"}>
-                    <Code size={"1em"} />
-                    {dictionary.footer.sections.links.sourceCode}
-                  </ExternalLink>
-                </Button>
-              </li>
-              <li>
-                <Button asChild variant={"link"}>
-                  <Link href={"/privacy"}>
-                    <Shield size={"1em"} />
-                    {dictionary.footer.sections.links.privacyPolicy}
-                  </Link>
-                </Button>
-              </li>
-              <li>
-                <Button asChild variant={"link"}>
-                  <Link href={"/terms"}>
-                    <Library size={"1em"} />
-                    {dictionary.footer.sections.links.termsOfService}
-                  </Link>
-                </Button>
-              </li>
-            </menu>
+          <section className="flex gap-8 p-2">
+            <div>
+              <h1 className="font-semibold">Legal</h1>
+              <menu className="flex flex-col items-start gap-2 py-2 *:*:flex *:*:gap-2 *:*:px-0">
+                <li>
+                  <Button asChild variant={"link"}>
+                    <Link href={"/privacy"}>
+                      <Shield size={"1em"} />
+                      {dictionary.footer.sections.links.privacyPolicy}
+                    </Link>
+                  </Button>
+                </li>
+                <li>
+                  <Button asChild variant={"link"}>
+                    <Link href={"/terms"}>
+                      <Library size={"1em"} />
+                      {dictionary.footer.sections.links.termsOfService}
+                    </Link>
+                  </Button>
+                </li>
+              </menu>
+            </div>
+            <div>
+              <h1 className="font-semibold">Misc</h1>
+              <menu className="flex flex-col items-start gap-2 py-2 *:*:flex *:*:gap-2 *:*:px-0">
+                <li>
+                  <Button asChild variant={"link"}>
+                    <Link
+                      href={`https://${
+                        locale === "pt-BR"
+                          ? getLocaleDomain("en-US")
+                          : getLocaleDomain("pt-BR")
+                      }/`}
+                    >
+                      <Globe size={"1em"} />
+                      {dictionary.footer.sections.links.switchLanguage}
+                    </Link>
+                  </Button>
+                </li>
+                <li>
+                  <Button asChild variant={"link"}>
+                    <ExternalLink href={"https://github.com/sim0wn/portfolio"}>
+                      <Code size={"1em"} />
+                      {dictionary.footer.sections.links.sourceCode}
+                    </ExternalLink>
+                  </Button>
+                </li>
+              </menu>
+            </div>
           </section>
-          <p className="col-span-full items-center justify-center text-center text-sm">
-            {dictionary.footer.title}
-          </p>
         </footer>
         <Toaster />
       </body>
