@@ -1,4 +1,10 @@
 import { intlFormatDistance } from "date-fns"
+import {
+  ChevronFirst,
+  ChevronLast,
+  ChevronLeft,
+  ChevronRight,
+} from "lucide-react"
 import { headers } from "next/headers"
 import Image from "next/image"
 import Link from "next/link"
@@ -15,12 +21,6 @@ import { HacktivityService } from "@/services/hacktivity-service.service"
 import { getLocale } from "@/utils"
 
 import { ChallengeCategoryIcon } from "./challenge-category-icon"
-import {
-  ChevronFirst,
-  ChevronLast,
-  ChevronLeft,
-  ChevronRight,
-} from "lucide-react"
 
 export async function Hacktivity({
   searchParams,
