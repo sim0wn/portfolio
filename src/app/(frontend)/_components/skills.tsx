@@ -1,3 +1,6 @@
+import { headers } from "next/headers"
+import Link from "next/link"
+
 import {
   Button,
   Card,
@@ -14,8 +17,6 @@ import {
 } from "@/components/ui"
 import { getDictionary, payload } from "@/lib"
 import { cn, getLocale, truncateString } from "@/utils"
-import { headers } from "next/headers"
-import Link from "next/link"
 
 export async function Skills() {
   const locale = getLocale(await headers())

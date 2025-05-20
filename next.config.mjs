@@ -22,7 +22,6 @@ const nextConfig = {
   images: {
     contentDispositionType: "attachment",
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
-    dangerouslyAllowSVG: true,
     localPatterns: [
       {
         pathname: "/api/media/**",

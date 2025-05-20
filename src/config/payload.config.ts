@@ -1,3 +1,11 @@
+import { mongooseAdapter } from "@payloadcms/db-mongodb"
+import { lexicalEditor } from "@payloadcms/richtext-lexical"
+import { vercelBlobStorage } from "@payloadcms/storage-vercel-blob"
+import path from "path"
+import { buildConfig } from "payload"
+import sharp from "sharp"
+import { fileURLToPath } from "url"
+
 import {
   faqCollection,
   highlightCollection,
@@ -6,13 +14,6 @@ import {
 } from "@/collections"
 import { socialCollection } from "@/collections/social.collection"
 import { environmentConfig } from "@/config"
-import { mongooseAdapter } from "@payloadcms/db-mongodb"
-import { lexicalEditor } from "@payloadcms/richtext-lexical"
-import { vercelBlobStorage } from "@payloadcms/storage-vercel-blob"
-import path from "path"
-import { buildConfig } from "payload"
-import sharp from "sharp"
-import { fileURLToPath } from "url"
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)

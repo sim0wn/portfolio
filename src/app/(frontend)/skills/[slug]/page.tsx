@@ -1,3 +1,7 @@
+import { RichText } from "@payloadcms/richtext-lexical/react"
+import { headers } from "next/headers"
+import { notFound } from "next/navigation"
+
 import {
   Card,
   CardContent,
@@ -8,9 +12,6 @@ import {
 import { i18n } from "@/config"
 import { payload } from "@/lib/payload.lib"
 import { getLocale } from "@/utils"
-import { RichText } from "@payloadcms/richtext-lexical/react"
-import { headers } from "next/headers"
-import { notFound } from "next/navigation"
 
 type Params = Promise<{ slug: string }>
 

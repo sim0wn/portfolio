@@ -1,9 +1,10 @@
+import { headers } from "next/headers"
+import Link from "next/link"
+
 import { Mascot } from "@/components/icons"
 import { Button, Skeleton } from "@/components/ui"
 import { getDictionary } from "@/lib"
 import { getLocale } from "@/utils"
-import { headers } from "next/headers"
-import Link from "next/link"
 
 export async function Hero() {
   const locale = getLocale(await headers())

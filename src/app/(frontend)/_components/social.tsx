@@ -1,6 +1,7 @@
+import { Icon } from "@iconify/react"
+
 import { Button, ExternalLink, Skeleton } from "@/components/ui"
 import { payload } from "@/lib"
-import { Icon } from "@iconify/react"
 
 export async function Social() {
   const { docs: socials } = await payload.find({

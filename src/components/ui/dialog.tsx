@@ -1,10 +1,11 @@
 "use client"
 
-import { cn } from "@/utils/cn.util"
 import * as DialogPrimitive from "@radix-ui/react-dialog"
 import { XIcon } from "lucide-react"
 import { useRouter } from "next/navigation"
 import * as React from "react"
+
+import { cn } from "@/utils/cn.util"
 
 function Dialog({
   ...props

@@ -1,7 +1,8 @@
+import { parseISO } from "date-fns"
+
 import { Adapter } from "@/interfaces/adapter"
 import { Hacktivity } from "@/interfaces/hacktivity"
 import { getHacktivityCategory } from "@/utils/get-hacktivity-category.util"
-import { parseISO } from "date-fns"
 
 type HTBActivity = {
   profile: {
