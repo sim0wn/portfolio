@@ -1,3 +1,8 @@
+import { RichText } from "@payloadcms/richtext-lexical/react"
+import { headers } from "next/headers"
+import Image from "next/image"
+import { notFound } from "next/navigation"
+
 import {
   Dialog,
   DialogContent,
@@ -8,10 +13,6 @@ import { i18n } from "@/config"
 import { payload } from "@/lib"
 import { Media } from "@/types"
 import { getLocale } from "@/utils"
-import { RichText } from "@payloadcms/richtext-lexical/react"
-import { headers } from "next/headers"
-import Image from "next/image"
-import { notFound } from "next/navigation"
 
 type Params = Promise<{ slug: string }>
 

@@ -1,3 +1,5 @@
+import { headers } from "next/headers"
+
 import {
   Accordion,
   AccordionContent,
@@ -12,7 +14,6 @@ import {
 } from "@/components/ui"
 import { getDictionary, payload } from "@/lib"
 import { getLocale } from "@/utils"
-import { headers } from "next/headers"
 
 import { ContactForm } from "./contact-form"
 

@@ -1,6 +1,3 @@
-import { Badge } from "@/components/ui/badge"
-import { ButtonProps } from "@/components/ui/button"
-import { HacktivityCategory } from "@/enums/hacktivity-category.enum"
 import classNames from "classnames"
 import {
   Brain,
@@ -16,6 +13,10 @@ import {
   UsersRound,
   Workflow,
 } from "lucide-react"
+
+import { Badge } from "@/components/ui/badge"
+import { ButtonProps } from "@/components/ui/button"
+import { HacktivityCategory } from "@/enums/hacktivity-category.enum"
 
 export async function ChallengeCategoryIcon({
   category,

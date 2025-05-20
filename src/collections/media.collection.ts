@@ -1,14 +1,18 @@
 import type { CollectionConfig } from "payload"
 
-import { slugify } from "@/utils"
+import slug from "slug"
 
 export const mediaCollection: CollectionConfig = {
+  access: {
+    read: () => true,
+  },
   fields: [
     {
       admin: {
         description: "Alternative text for the image",
       },
       label: "Alt Text",
+      localized: true,
       name: "alt",
       required: true,
       type: "text",
@@ -29,13 +33,15 @@ export const mediaCollection: CollectionConfig = {
     beforeOperation: [
       ({ args: { data }, operation, req }) => {
         if ((operation === "create" || operation === "update") && req.file) {
+          const fileExtension = req.file.name.split(".").pop()
           if (data.useAltAsFilename) {
-            req.file.name = slugify(data.alt)
+            req.file.name = slug(data.alt, {})
           } else {
             const hasher = new Bun.CryptoHasher("sha256")
             hasher.update(req.file.data)
             req.file.name = hasher.digest("hex")
           }
+          req.file.name += `.${fileExtension}`
         }
       },
     ],

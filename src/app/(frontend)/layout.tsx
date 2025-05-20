@@ -1,18 +1,19 @@
 import type { Metadata } from "next"
 
-import { Lettermark } from "@/components/icons"
-import { Button, ExternalLink, Toaster } from "@/components/ui"
-import { getDictionary } from "@/lib"
-import { getLocale, getLocaleDomain } from "@/utils"
 import classNames from "classnames"
 import { Code, Globe, Library, Send, Shield } from "lucide-react"
 import { headers } from "next/headers"
-
-import "./styles.css"
-
 import Link from "next/link"
 import { NuqsAdapter } from "nuqs/adapters/next/app"
 import { ReactNode, Suspense } from "react"
+
+import { Lettermark } from "@/components/icons"
+
+import "./styles.css"
+
+import { Button, ExternalLink, Toaster } from "@/components/ui"
+import { getDictionary } from "@/lib"
+import { getLocale, getLocaleDomain } from "@/utils"
 
 import { Social, SocialFallback } from "./_components/social"
 import { lato, raleway } from "./fonts"
@@ -102,67 +103,71 @@ export default async function RootLayout({
         </header>
         {modal}
         <NuqsAdapter>{children}</NuqsAdapter>
-        <footer className="flex h-fit w-full flex-wrap justify-between border-t px-2 py-4 md:flex-row dark:border-t-neutral-800">
-          <section className="flex flex-col justify-center gap-12 px-8">
-            <span className="flex items-center gap-2">
-              <Lettermark className="text-2xl" />
-            </span>
-            <menu className="flex w-full flex-wrap gap-2 py-2">
-              <Suspense fallback={<SocialFallback />}>
-                <Social />
-              </Suspense>
-            </menu>
-          </section>
-          <section className="flex gap-8 p-2">
-            <div>
-              <h1 className="font-semibold">Legal</h1>
-              <menu className="flex flex-col items-start gap-2 py-2 *:*:flex *:*:gap-2 *:*:px-0">
-                <li>
-                  <Button asChild variant={"link"}>
-                    <Link href={"/privacy"}>
-                      <Shield size={"1em"} />
-                      {dictionary.footer.sections.links.privacyPolicy}
-                    </Link>
-                  </Button>
-                </li>
-                <li>
-                  <Button asChild variant={"link"}>
-                    <Link href={"/terms"}>
-                      <Library size={"1em"} />
-                      {dictionary.footer.sections.links.termsOfService}
-                    </Link>
-                  </Button>
-                </li>
+        <footer className="border-t dark:border-t-neutral-800">
+          <section className="container flex h-fit w-full flex-col flex-wrap justify-between py-4 md:flex-row">
+            <section className="flex flex-col gap-2 md:justify-center md:gap-12">
+              <span className="flex items-center gap-2">
+                <Lettermark className="text-2xl" />
+              </span>
+              <menu className="flex w-full flex-wrap gap-2 py-2">
+                <Suspense fallback={<SocialFallback />}>
+                  <Social />
+                </Suspense>
               </menu>
-            </div>
-            <div>
-              <h1 className="font-semibold">Misc</h1>
-              <menu className="flex flex-col items-start gap-2 py-2 *:*:flex *:*:gap-2 *:*:px-0">
-                <li>
-                  <Button asChild variant={"link"}>
-                    <Link
-                      href={`https://${
-                        locale === "pt-BR"
-                          ? getLocaleDomain("en-US")
-                          : getLocaleDomain("pt-BR")
-                      }/`}
-                    >
-                      <Globe size={"1em"} />
-                      {dictionary.footer.sections.links.switchLanguage}
-                    </Link>
-                  </Button>
-                </li>
-                <li>
-                  <Button asChild variant={"link"}>
-                    <ExternalLink href={"https://github.com/sim0wn/portfolio"}>
-                      <Code size={"1em"} />
-                      {dictionary.footer.sections.links.sourceCode}
-                    </ExternalLink>
-                  </Button>
-                </li>
-              </menu>
-            </div>
-          </section>
+            </section>
+            <section className="flex gap-8 p-2">
+              <div>
+                <h1 className="font-semibold">Legal</h1>
+                <menu className="flex flex-col items-start gap-2 py-2 *:*:flex *:*:gap-2 *:*:px-0">
+                  <li>
+                    <Button asChild variant={"link"}>
+                      <Link href={"/privacy"}>
+                        <Shield size={"1em"} />
+                        {dictionary.footer.sections.links.privacyPolicy}
+                      </Link>
+                    </Button>
+                  </li>
+                  <li>
+                    <Button asChild variant={"link"}>
+                      <Link href={"/terms"}>
+                        <Library size={"1em"} />
+                        {dictionary.footer.sections.links.termsOfService}
+                      </Link>
+                    </Button>
+                  </li>
+                </menu>
+              </div>
+              <div>
+                <h1 className="font-semibold">Misc</h1>
+                <menu className="flex flex-col items-start gap-2 py-2 *:*:flex *:*:gap-2 *:*:px-0">
+                  <li>
+                    <Button asChild variant={"link"}>
+                      <Link
+                        href={`https://${
+                          locale === "pt-BR"
+                            ? getLocaleDomain("en-US")
+                            : getLocaleDomain("pt-BR")
+                        }/`}
+                      >
+                        <Globe size={"1em"} />
+                        {dictionary.footer.sections.links.switchLanguage}
+                      </Link>
+                    </Button>
+                  </li>
+                  <li>
+                    <Button asChild variant={"link"}>
+                      <ExternalLink
+                        href={"https://github.com/sim0wn/portfolio"}
+                      >
+                        <Code size={"1em"} />
+                        {dictionary.footer.sections.links.sourceCode}
+                      </ExternalLink>
+                    </Button>
+                  </li>
+                </menu>
+              </div>
+            </section>
+          </section>{" "}
         </footer>
         <Toaster />
       </body>

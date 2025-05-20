@@ -1,5 +1,6 @@
-import { SlugField } from "@/fields"
 import { CollectionConfig } from "payload"
+
+import { SlugField } from "@/fields"
 
 export const skillCollection: CollectionConfig = {
   admin: {

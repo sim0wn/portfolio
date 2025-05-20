@@ -1,5 +1,5 @@
-import { slugify } from "@/utils"
 import { Field, FieldHookArgs } from "payload"
+import slug from "slug"
 
 export const SlugField: Field = {
   admin: {
@@ -10,7 +10,7 @@ export const SlugField: Field = {
     beforeValidate: [
       ({ data, operation }: FieldHookArgs) => {
         if (operation === "create" || operation === "update") {
-          return slugify(data?.title)
+          return slug(data?.title)
         }
         return data?.slug
       },

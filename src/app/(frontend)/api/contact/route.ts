@@ -1,9 +1,10 @@
+import { verify } from "hcaptcha"
+import { Resend } from "resend"
+
 import { getDictionary } from "@/lib"
 import { ContactFormData } from "@/types/contact-form-data.type"
 import { getLocale } from "@/utils/locale.util"
 import { contactFormValidation } from "@/validations"
-import { verify } from "hcaptcha"
-import { Resend } from "resend"
 
 export async function POST(request: Request) {
   const { headers } = request

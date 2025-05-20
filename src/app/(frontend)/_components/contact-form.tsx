@@ -1,5 +1,10 @@
 "use client"
 
+import HCaptcha from "@hcaptcha/react-hcaptcha"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useRef, useState, useTransition } from "react"
+import { FormProvider, useForm, useFormState } from "react-hook-form"
+
 import {
   Button,
   FormControl,
@@ -13,10 +18,6 @@ import { useToast } from "@/hooks"
 import { Dictionary } from "@/lib"
 import { ContactFormData } from "@/types/contact-form-data.type"
 import { contactFormValidation } from "@/validations"
-import HCaptcha from "@hcaptcha/react-hcaptcha"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useRef, useState, useTransition } from "react"
-import { FormProvider, useForm, useFormState } from "react-hook-form"
 
 export function ContactForm({
   translation,
