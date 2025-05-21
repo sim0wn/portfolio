@@ -81,7 +81,7 @@ export async function Skills() {
 
 export function SkillsFallback() {
   return (
-    <section className="dark:bg-purple-1000 flex flex-col place-items-center justify-center gap-8 bg-purple-700 pt-8 pb-12 md:px-0">
+    <section className="flex flex-col place-items-center justify-center gap-8 pt-8 pb-12 md:px-0">
       <Skeleton className="h-4 w-56" />
       <div className="flex gap-8 *:h-96 *:w-80">
         <Skeleton />

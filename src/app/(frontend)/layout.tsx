@@ -58,17 +58,17 @@ export default async function RootLayout({
       <body
         className={classNames(
           raleway.className,
-          "flex min-h-svh flex-col scroll-smooth bg-neutral-100 text-neutral-950 dark:bg-neutral-950 dark:text-neutral-50",
+          "flex min-h-svh flex-col scroll-smooth bg-neutral-50 text-neutral-950 dark:bg-neutral-950 dark:text-neutral-50",
         )}
       >
         <header
           className={classNames(
             lato.className,
-            "shadow-purple-1000 sticky inset-0 top-0 z-40 bg-neutral-100/85 drop-shadow-md backdrop-blur-md sm:p-0 dark:border-b dark:border-b-neutral-900 dark:bg-neutral-950/85",
+            "shadow-purple-1000 sticky inset-0 top-0 z-50 bg-neutral-50/85 drop-shadow-md backdrop-blur-md dark:border-b dark:border-b-neutral-800 dark:bg-neutral-950/85",
           )}
         >
           <nav
-            className="container flex items-center justify-between py-2"
+            className="container flex items-center justify-between"
             id="navbar"
           >
             <menu className="*:*:text-md flex w-full gap-1.5 *:*:flex *:flex *:*:items-center *:items-center *:*:gap-2">
@@ -103,71 +103,58 @@ export default async function RootLayout({
         </header>
         {modal}
         <NuqsAdapter>{children}</NuqsAdapter>
-        <footer className="border-t dark:border-t-neutral-800">
-          <section className="container flex h-fit w-full flex-col flex-wrap justify-between py-4 md:flex-row">
-            <section className="flex flex-col gap-2 md:justify-center md:gap-12">
-              <span className="flex items-center gap-2">
-                <Lettermark className="text-2xl" />
-              </span>
+        <footer className="border-t border-t-neutral-200 dark:border-t-neutral-800">
+          <section className="container flex h-fit w-full flex-col flex-wrap justify-between md:flex-row">
+            <aside className="flex flex-col gap-2 md:justify-center">
               <menu className="flex w-full flex-wrap gap-2 py-2">
                 <Suspense fallback={<SocialFallback />}>
                   <Social />
                 </Suspense>
               </menu>
+            </aside>
+            <section className="flex gap-4">
+              <menu className="grid grid-cols-2 justify-items-start gap-x-4 *:*:flex *:*:gap-2 *:*:px-0">
+                <li>
+                  <Button asChild variant={"link"}>
+                    <Link href={"/privacy"}>
+                      <Shield size={"1em"} />
+                      {dictionary.footer.sections.links.privacyPolicy}
+                    </Link>
+                  </Button>
+                </li>
+                <li>
+                  <Button asChild variant={"link"}>
+                    <Link href={"/terms"}>
+                      <Library size={"1em"} />
+                      {dictionary.footer.sections.links.termsOfService}
+                    </Link>
+                  </Button>
+                </li>
+                <li>
+                  <Button asChild variant={"link"}>
+                    <Link
+                      href={`https://${
+                        locale === "pt-BR"
+                          ? getLocaleDomain("en-US")
+                          : getLocaleDomain("pt-BR")
+                      }/`}
+                    >
+                      <Globe size={"1em"} />
+                      {dictionary.footer.sections.links.switchLanguage}
+                    </Link>
+                  </Button>
+                </li>
+                <li>
+                  <Button asChild variant={"link"}>
+                    <ExternalLink href={"https://github.com/sim0wn/portfolio"}>
+                      <Code size={"1em"} />
+                      {dictionary.footer.sections.links.sourceCode}
+                    </ExternalLink>
+                  </Button>
+                </li>
+              </menu>
             </section>
-            <section className="flex gap-8 p-2">
-              <div>
-                <h1 className="font-semibold">Legal</h1>
-                <menu className="flex flex-col items-start gap-2 py-2 *:*:flex *:*:gap-2 *:*:px-0">
-                  <li>
-                    <Button asChild variant={"link"}>
-                      <Link href={"/privacy"}>
-                        <Shield size={"1em"} />
-                        {dictionary.footer.sections.links.privacyPolicy}
-                      </Link>
-                    </Button>
-                  </li>
-                  <li>
-                    <Button asChild variant={"link"}>
-                      <Link href={"/terms"}>
-                        <Library size={"1em"} />
-                        {dictionary.footer.sections.links.termsOfService}
-                      </Link>
-                    </Button>
-                  </li>
-                </menu>
-              </div>
-              <div>
-                <h1 className="font-semibold">Misc</h1>
-                <menu className="flex flex-col items-start gap-2 py-2 *:*:flex *:*:gap-2 *:*:px-0">
-                  <li>
-                    <Button asChild variant={"link"}>
-                      <Link
-                        href={`https://${
-                          locale === "pt-BR"
-                            ? getLocaleDomain("en-US")
-                            : getLocaleDomain("pt-BR")
-                        }/`}
-                      >
-                        <Globe size={"1em"} />
-                        {dictionary.footer.sections.links.switchLanguage}
-                      </Link>
-                    </Button>
-                  </li>
-                  <li>
-                    <Button asChild variant={"link"}>
-                      <ExternalLink
-                        href={"https://github.com/sim0wn/portfolio"}
-                      >
-                        <Code size={"1em"} />
-                        {dictionary.footer.sections.links.sourceCode}
-                      </ExternalLink>
-                    </Button>
-                  </li>
-                </menu>
-              </div>
-            </section>
-          </section>{" "}
+          </section>
         </footer>
         <Toaster />
       </body>
