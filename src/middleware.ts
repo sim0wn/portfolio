@@ -1,7 +1,5 @@
 import { NextRequest, NextResponse } from "next/server"
 
-import { getLocale, getLocaleDomain } from "./utils"
-
 export function middleware(request: NextRequest) {
   const { headers } = request
   const origin = headers.get("origin")
@@ -16,23 +14,25 @@ export function middleware(request: NextRequest) {
     response.headers.set("Vary", "Origin")
   }
 
-  if (hostname === "sim0wn.com" || hostname === "sim0wn.com.br") {
-    // get the locale from the request headers
-    const locale = getLocale(headers)
-    const localeDomain = getLocaleDomain(locale)
-
-    // redirect to the correct domain if the locale domain is different
-    if (hostname !== localeDomain) {
-      request.nextUrl.hostname = localeDomain
-      return NextResponse.redirect(request.nextUrl, 301)
-    }
+  // Set the `Accept-Language` header based on the hostname
+  if (hostname.endsWith("sim0wn.com.br")) {
+    response.headers.set("Accept-Language", "pt-BR")
+  } else {
+    response.headers.set("Accept-Language", "en-US")
   }
 
-  // return the modified response
   return response
 }
 
 export const config = {
-  // matcher ignoring `/_next/` and `/api/`
-  matcher: ["/((?!_next/static|_next/image|favicon.ico).*)"],
+  matcher: [
+    /*
+     * Match all request paths except for the ones starting with:
+     * - api (API routes)
+     * - _next/static (static files)
+     * - _next/image (image optimization files)
+     * - favicon.ico, sitemap.xml, robots.txt (metadata files)
+     */
+    "/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt).*)",
+  ],
 }
