@@ -38,43 +38,43 @@ export async function Skills() {
       <h1 className="text-lg font-semibold text-neutral-50">
         {services.title}
       </h1>
-      <Carousel
-        className="mx-2 flex w-full max-w-xs flex-col gap-2 md:max-w-2xl"
-        opts={{ align: "center", loop: true }}
-      >
-        <CarouselContent>
-          {skills.map(({ brief, id, slug, title }, _, self) => (
-            <CarouselItem
-              className={cn({
-                "basis-full": self.length === 1,
-                "lg:basis-1/3": self.length > 2,
-                "md:basis-1/2": self.length <= 2,
-              })}
-              key={id}
-            >
-              <Card className="flex h-full flex-col">
-                <CardHeader>
-                  <CardTitle>{title}</CardTitle>
-                </CardHeader>
-                <CardContent className="flex-1">
-                  {truncateString(brief, 300)}
-                </CardContent>
-                <CardFooter className="flex w-full place-content-center">
-                  <Button asChild className="text-center" variant={"outline"}>
-                    <Link href={`/skills/${slug}`} scroll={false}>
-                      {services.dialogTriggerLabel}
-                    </Link>
-                  </Button>
-                </CardFooter>
-              </Card>
-            </CarouselItem>
-          ))}
-        </CarouselContent>
-        <footer className="flex justify-center gap-2">
-          <CarouselPrevious />
-          <CarouselNext />
-        </footer>
-      </Carousel>
+      <div className="mx-auto w-full px-4 py-10">
+        <Carousel
+          className="mx-auto max-w-5xl"
+          opts={{
+            align: "center",
+            containScroll: "trimSnaps",
+            loop: true,
+          }}
+        >
+          <CarouselContent className="-ml-2 md:-ml-4">
+            {skills.map(({ brief, id, slug, title }) => (
+              <CarouselItem
+                className="h-full pl-2 sm:basis-4/5 md:basis-3/4 md:pl-4 lg:basis-2/3"
+                key={id}
+              >
+                <Card className="max-h-sm overflow-hidden select-none">
+                  <CardHeader>
+                    <CardTitle>{title}</CardTitle>
+                  </CardHeader>
+                  <CardContent className={cn("flex min-h-[250px] items-start")}>
+                    {truncateString(brief, 300)}
+                  </CardContent>
+                  <CardFooter className="flex place-content-center">
+                    <Button asChild className="text-center" variant={"outline"}>
+                      <Link href={`/skills/${slug}`} scroll={false}>
+                        {services.dialogTriggerLabel}
+                      </Link>
+                    </Button>
+                  </CardFooter>
+                </Card>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <CarouselPrevious className="left-2" />
+          <CarouselNext className="right-2" />
+        </Carousel>
+      </div>
     </section>
   )
 }
