@@ -4,7 +4,6 @@ import { vercelBlobStorage } from "@payloadcms/storage-vercel-blob"
 import path from "path"
 import { buildConfig } from "payload"
 import sharp from "sharp"
-import { fileURLToPath } from "url"
 
 import {
   faqCollection,
@@ -15,13 +14,10 @@ import {
 import { socialCollection } from "@/collections/social.collection"
 import { environmentConfig } from "@/config"
 
-const filename = fileURLToPath(import.meta.url)
-const dirname = path.dirname(filename)
-
 export default buildConfig({
   admin: {
     importMap: {
-      baseDir: path.resolve(dirname),
+      baseDir: "@",
     },
   },
   collections: [
