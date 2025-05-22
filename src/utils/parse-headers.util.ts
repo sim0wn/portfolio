@@ -8,8 +8,8 @@ import { ReadonlyHeaders } from "next/dist/server/web/spec-extension/adapters/he
  */
 export function parseHeaders(headers: ReadonlyHeaders): Record<string, string> {
   const negotiatorHeaders: Record<string, string> = {}
-  headers.forEach((value: string, key: string) => {
-    negotiatorHeaders[key] = value
+  headers.forEach((value, key) => {
+    negotiatorHeaders[key.toLowerCase()] = value
   })
   return negotiatorHeaders
 }

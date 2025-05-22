@@ -28,9 +28,8 @@ export async function Highlights() {
             >
               <Image
                 alt={(icon as Media).alt}
-                className="rounded-md bg-gradient-to-t from-purple-600 to-purple-300 p-2 group-hover:from-purple-600/90 group-hover:ring-2 group-hover:ring-neutral-200 dark:from-[#8A4BCA] dark:to-[#A77BFF] group-hover:dark:from-[#8A4BCA]/90 group-hover:dark:ring-neutral-800"
+                className="rounded-md bg-gradient-to-t from-purple-600 to-purple-300 object-contain p-2 group-hover:from-purple-600/90 group-hover:ring-2 group-hover:ring-neutral-200 dark:from-[#8A4BCA] dark:to-[#A77BFF] group-hover:dark:from-[#8A4BCA]/90 group-hover:dark:ring-neutral-800"
                 fill
-                objectFit={"contain"}
                 src={(icon as Media).url ?? ""}
               />
             </Link>

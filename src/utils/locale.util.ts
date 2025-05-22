@@ -8,11 +8,11 @@ import { parseHeaders } from "@/utils"
 
 export function getLocale(headers: Headers) {
   const { defaultLocale, locales: i18nLocales } = i18n
-  const locales = Object.keys(i18nLocales)
+  const supportedLocales = Object.values(i18nLocales)
   const preferredLanguages = new Negotiator({
     headers: parseHeaders(headers),
-  }).languages(locales)
-  return match(preferredLanguages, locales, defaultLocale) as Locale
+  }).languages(supportedLocales)
+  return match(supportedLocales, preferredLanguages, defaultLocale) as Locale
 }
 
 export function getLocaleDomain(locale: Locale) {
