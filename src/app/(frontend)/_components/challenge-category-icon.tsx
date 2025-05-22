@@ -13,15 +13,15 @@ import {
   UsersRound,
   Workflow,
 } from "lucide-react"
+import { ComponentProps } from "react"
 
 import { Badge } from "@/components/ui/badge"
-import { ButtonProps } from "@/components/ui/button"
 import { HacktivityCategory } from "@/enums/hacktivity-category.enum"
 
 export async function ChallengeCategoryIcon({
   category,
   className,
-}: ButtonProps & {
+}: ComponentProps<"button"> & {
   category: HacktivityCategory
 }) {
   return (
