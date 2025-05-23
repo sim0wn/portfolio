@@ -2,7 +2,6 @@
 
 import * as DialogPrimitive from "@radix-ui/react-dialog"
 import { XIcon } from "lucide-react"
-import { useRouter } from "next/navigation"
 import * as React from "react"
 
 import { cn } from "@/utils/cn.util"
@@ -10,17 +9,7 @@ import { cn } from "@/utils/cn.util"
 function Dialog({
   ...props
 }: React.ComponentProps<typeof DialogPrimitive.Root>) {
-  const router = useRouter()
-  const onOpenChange = () => {
-    router.back()
-  }
-  return (
-    <DialogPrimitive.Root
-      data-slot="dialog"
-      {...props}
-      onOpenChange={onOpenChange}
-    />
-  )
+  return <DialogPrimitive.Root data-slot="dialog" {...props} />
 }
 
 function DialogClose({
@@ -145,5 +134,5 @@ export {
   DialogOverlay,
   DialogPortal,
   DialogTitle,
-  DialogTrigger
+  DialogTrigger,
 }

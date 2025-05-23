@@ -139,10 +139,6 @@ export interface Faq {
 export interface Highlight {
   id: string;
   title: string;
-  /**
-   * This is the auto-generated URL slug for the highlight.
-   */
-  slug: string;
   description: {
     root: {
       type: string;
@@ -222,28 +218,9 @@ export interface Skill {
   id: string;
   title: string;
   /**
-   * This is the auto-generated URL slug for the highlight.
+   * This is the description show in the card
    */
-  slug: string;
-  /**
-   * This is the brief description shown in the list of skills
-   */
-  brief: string;
-  description: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  };
+  description: string;
   updatedAt: string;
   createdAt: string;
 }
@@ -368,7 +345,6 @@ export interface FaqSelect<T extends boolean = true> {
  */
 export interface HighlightsSelect<T extends boolean = true> {
   title?: T;
-  slug?: T;
   description?: T;
   icon?: T;
   updatedAt?: T;
@@ -380,8 +356,6 @@ export interface HighlightsSelect<T extends boolean = true> {
  */
 export interface SkillsSelect<T extends boolean = true> {
   title?: T;
-  slug?: T;
-  brief?: T;
   description?: T;
   updatedAt?: T;
   createdAt?: T;

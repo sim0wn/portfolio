@@ -46,10 +46,8 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function RootLayout({
   children,
-  modal,
 }: Readonly<{
   children: ReactNode
-  modal: ReactNode
 }>) {
   const locale = getLocale(await headers())
   const dictionary = await getDictionary(locale)
@@ -101,7 +99,6 @@ export default async function RootLayout({
             </menu>
           </nav>
         </header>
-        {modal}
         <NuqsAdapter>{children}</NuqsAdapter>
         <footer className="border-t border-t-neutral-200 dark:border-t-neutral-800">
           <section className="container flex h-fit w-full flex-col flex-wrap justify-between md:flex-row">

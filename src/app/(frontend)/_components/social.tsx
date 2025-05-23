@@ -10,11 +10,7 @@ export async function Social() {
   })
   return socials.map(({ icon, id, label, url }) => (
     <li key={id}>
-      <Button
-        asChild
-        className="flex w-fit gap-2 px-0 text-3xl"
-        variant={"link"}
-      >
+      <Button asChild className="flex w-fit gap-0 p-0" variant={"ghost"}>
         <ExternalLink href={url}>
           <Icon icon={icon} ssr={true} />
           <span className="sr-only">{label}</span>

@@ -1,11 +1,8 @@
 import { headers } from "next/headers"
-import Link from "next/link"
 
 import {
-  Button,
   Card,
   CardContent,
-  CardFooter,
   CardHeader,
   CardTitle,
   Carousel,
@@ -16,7 +13,7 @@ import {
   Skeleton,
 } from "@/components/ui"
 import { getDictionary, payload } from "@/lib"
-import { cn, getLocale, truncateString } from "@/utils"
+import { cn, getLocale } from "@/utils"
 
 export async function Skills() {
   const locale = getLocale(await headers())
@@ -27,7 +24,6 @@ export async function Skills() {
     collection: "skills",
     locale,
     pagination: false,
-    select: { brief: true, id: true, slug: true, title: true },
   })
   return (
     <section
@@ -48,7 +44,7 @@ export async function Skills() {
           }}
         >
           <CarouselContent className="-ml-2 md:-ml-4">
-            {skills.map(({ brief, id, slug, title }) => (
+            {skills.map(({ description, id, title }) => (
               <CarouselItem
                 className="h-full pl-2 sm:basis-4/5 md:basis-3/4 md:pl-4 lg:basis-2/3"
                 key={id}
@@ -58,15 +54,8 @@ export async function Skills() {
                     <CardTitle>{title}</CardTitle>
                   </CardHeader>
                   <CardContent className={cn("flex min-h-[250px] items-start")}>
-                    {truncateString(brief, 300)}
+                    {description}
                   </CardContent>
-                  <CardFooter className="flex place-content-center">
-                    <Button asChild className="text-center" variant={"outline"}>
-                      <Link href={`/skills/${slug}`} scroll={false}>
-                        {services.dialogTriggerLabel}
-                      </Link>
-                    </Button>
-                  </CardFooter>
                 </Card>
               </CarouselItem>
             ))}
