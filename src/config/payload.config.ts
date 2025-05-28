@@ -1,4 +1,5 @@
 import { mongooseAdapter } from "@payloadcms/db-mongodb"
+import { resendAdapter } from "@payloadcms/email-resend"
 import { lexicalEditor } from "@payloadcms/richtext-lexical"
 import { vercelBlobStorage } from "@payloadcms/storage-vercel-blob"
 import path from "path"
@@ -31,6 +32,11 @@ export default buildConfig({
     url: environmentConfig.databaseUri,
   }),
   editor: lexicalEditor(),
+  email: resendAdapter({
+    apiKey: environmentConfig.resendKey,
+    defaultFromAddress: "payload@sim0wn.com",
+    defaultFromName: "Payload CMS",
+  }),
   localization: {
     defaultLocale: "pt-BR",
     fallback: true,
