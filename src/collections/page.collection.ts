@@ -7,6 +7,8 @@ export const pageCollection: CollectionConfig = {
     useAsTitle: "title",
   },
   defaultPopulate: {
+    book: true,
+    breadcrumbs: { url: true },
     slug: true,
   },
   fields: [
