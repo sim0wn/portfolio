@@ -7,9 +7,9 @@ export const socialCollection: CollectionConfig = {
   },
   fields: [
     { name: "label", required: true, type: "text" },
-    { name: "url", required: true, type: "text" },
+    { label: "URL", name: "url", required: true, type: "text" },
     {
-      admin: { description: "Iconify icon" },
+      admin: { description: { en: "Iconify icon", pt: "Ícone do Iconify" } },
       name: "icon",
       required: true,
       type: "text",

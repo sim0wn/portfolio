@@ -56,13 +56,13 @@ export default async function RootLayout({
       <body
         className={classNames(
           raleway.className,
-          "flex min-h-svh flex-col scroll-smooth bg-neutral-50 text-neutral-950 dark:bg-neutral-950 dark:text-neutral-50",
+          "bg-background flex min-h-svh flex-col scroll-smooth",
         )}
       >
         <header
           className={classNames(
             lato.className,
-            "shadow-purple-1000 sticky inset-0 top-0 z-50 bg-neutral-50/85 drop-shadow-md backdrop-blur-md dark:border-b dark:border-b-neutral-800 dark:bg-neutral-950/85",
+            "bg-background/85 sticky inset-0 top-0 z-50 backdrop-blur-md",
           )}
         >
           <nav
@@ -100,7 +100,7 @@ export default async function RootLayout({
           </nav>
         </header>
         <NuqsAdapter>{children}</NuqsAdapter>
-        <footer className="border-t border-t-neutral-200 dark:border-t-neutral-800">
+        <footer className="border-t">
           <section className="container flex h-fit w-full flex-col flex-wrap justify-between md:flex-row">
             <aside className="flex flex-col gap-2 md:justify-center">
               <menu className="flex w-full flex-wrap gap-2 py-2">

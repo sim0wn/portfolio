@@ -1,7 +1,10 @@
 import { mongooseAdapter } from "@payloadcms/db-mongodb"
 import { resendAdapter } from "@payloadcms/email-resend"
+import { nestedDocsPlugin } from "@payloadcms/plugin-nested-docs"
 import { lexicalEditor } from "@payloadcms/richtext-lexical"
 import { vercelBlobStorage } from "@payloadcms/storage-vercel-blob"
+import { en } from "@payloadcms/translations/languages/en"
+import { pt } from "@payloadcms/translations/languages/pt"
 import path from "path"
 import { buildConfig } from "payload"
 import sharp from "sharp"
@@ -12,6 +15,8 @@ import {
   mediaCollection,
   skillCollection,
 } from "@/collections"
+import { bookCollection } from "@/collections/book.collection"
+import { pageCollection } from "@/collections/page.collection"
 import { socialCollection } from "@/collections/social.collection"
 import { environmentConfig } from "@/config"
 
@@ -22,11 +27,13 @@ export default buildConfig({
     },
   },
   collections: [
+    bookCollection,
     faqCollection,
     highlightCollection,
+    mediaCollection,
+    pageCollection,
     skillCollection,
     socialCollection,
-    mediaCollection,
   ],
   db: mongooseAdapter({
     url: environmentConfig.databaseUri,
@@ -37,6 +44,10 @@ export default buildConfig({
     defaultFromAddress: "payload@sim0wn.com",
     defaultFromName: "Payload CMS",
   }),
+  i18n: {
+    fallbackLanguage: "en",
+    supportedLanguages: { en, pt },
+  },
   localization: {
     defaultLocale: "pt-BR",
     fallback: true,
@@ -52,6 +63,11 @@ export default buildConfig({
     ],
   },
   plugins: [
+    nestedDocsPlugin({
+      collections: ["pages"],
+      generateURL: (docs) =>
+        docs.reduce((url, { slug }) => `${url}/${slug}`, ""),
+    }),
     vercelBlobStorage({
       collections: {
         media: true,

@@ -55,10 +55,10 @@ export async function Hacktivity({
       <h1 className="py-2 text-center text-lg font-semibold">
         {hacktivity.title}
       </h1>
-      <section className="flex h-min w-full flex-1 flex-col gap-2 rounded-md border p-2.5 shadow-sm dark:border-neutral-800">
+      <section className="flex h-min w-full flex-1 flex-col gap-2 rounded-md border p-2.5 shadow-sm">
         {data.map(({ category, date, name, platform, url }, index) => (
           <article
-            className="flex flex-1 items-center justify-stretch gap-2 rounded-md border p-2 shadow-sm dark:border-neutral-800 hover:dark:bg-neutral-900"
+            className="flex flex-1 items-center justify-stretch gap-2 rounded-md border p-2 shadow-sm"
             key={index}
           >
             <Button asChild variant={"ghost"}>
@@ -120,7 +120,7 @@ export function HacktivityFallback() {
   return (
     <section className="container flex h-fit flex-col place-items-center justify-center gap-4 py-16">
       <Skeleton className="h-8 w-32" />
-      <section className="flex h-min w-full flex-col gap-2 rounded-md border bg-neutral-100 p-2.5 shadow-sm dark:border-neutral-800 dark:bg-neutral-900">
+      <section className="flex h-min w-full flex-col gap-2 rounded-md border p-2.5 shadow-sm">
         {Array.from({ length: 8 }).map((_, index) => (
           <Skeleton className="h-12 w-full py-8" key={index} />
         ))}

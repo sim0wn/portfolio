@@ -7,24 +7,34 @@ export const highlightCollection: CollectionConfig = {
   },
   fields: [
     {
-      label: "Title",
+      label: { en: "Title", pt: "Título" },
       name: "title",
       required: true,
       type: "text",
     },
     {
-      label: "Description",
+      label: { en: "Description", pt: "Descrição" },
       name: "description",
       required: true,
       type: "richText",
     },
     {
-      label: "Icon",
+      label: { en: "Icon", pt: "Ícone" },
       name: "icon",
       relationTo: "media",
       required: true,
       type: "upload",
     },
   ],
+  labels: {
+    plural: {
+      en: "Highlights",
+      pt: "Destaques",
+    },
+    singular: {
+      en: "Highlight",
+      pt: "Destaque",
+    },
+  },
   slug: "highlights",
 }

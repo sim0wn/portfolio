@@ -13,7 +13,7 @@ export default async function LandingPage({
   searchParams: Promise<SearchParams>
 }) {
   return (
-    <main className="flex flex-col place-content-center">
+    <main className="flex flex-1 flex-col place-content-center">
       <Suspense fallback={<HeroFallback />}>
         <Hero />
       </Suspense>

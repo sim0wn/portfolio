@@ -65,7 +65,7 @@ export function ContactFallback() {
           ))}
         </section>
       </aside>
-      <article className="flex flex-col gap-8 rounded-md border p-4 dark:border-neutral-800">
+      <article className="flex flex-col gap-8 rounded-md border p-4">
         <section className="flex flex-col gap-2">
           <Skeleton className="h-10 w-48" />
           <Skeleton className="h-2 w-64" />

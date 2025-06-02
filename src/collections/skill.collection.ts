@@ -7,7 +7,7 @@ export const skillCollection: CollectionConfig = {
   },
   fields: [
     {
-      label: "Title",
+      label: { en: "Title", pt: "Título" },
       localized: true,
       name: "title",
       required: true,
@@ -17,7 +17,7 @@ export const skillCollection: CollectionConfig = {
       admin: {
         description: "This is the description show in the card",
       },
-      label: "Description",
+      label: { en: "Description", pt: "Descrição" },
       localized: true,
       name: "description",
       required: true,
@@ -25,8 +25,8 @@ export const skillCollection: CollectionConfig = {
     },
   ],
   labels: {
-    plural: "Skills",
-    singular: "Skill",
+    plural: { en: "Skills", pt: "Habilidades" },
+    singular: { en: "Skill", pt: "Habilidade" },
   },
   slug: "skills",
 }

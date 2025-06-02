@@ -9,9 +9,12 @@ export const mediaCollection: CollectionConfig = {
   fields: [
     {
       admin: {
-        description: "Alternative text for the image",
+        description: {
+          en: "Alternative text for the image",
+          pt: "Texto alternativo para a imagem",
+        },
       },
-      label: "Alt Text",
+      label: { en: "Alt text", pt: "Texto alternativo" },
       localized: true,
       name: "alt",
       required: true,
@@ -19,14 +22,20 @@ export const mediaCollection: CollectionConfig = {
     },
     {
       admin: {
-        description:
-          "Use the normalized alt text as the filename for the image. If this is not checked, the filename will be automatically generated.",
+        description: {
+          en: "Use the normalized alt text as the filename for the image. If this is not checked, the filename will be automatically generated.",
+          pt: "Usar o texto alternativo normalizado como o nome de arquivo da imagem. Se não for selecionado, o nome do arquivo será gerado automaticamente.",
+        },
+        readOnly: true,
       },
       defaultValue: true,
-      label: "Use alt text as filename",
-      name: "useAltAsFilename",
+      hooks: { beforeChange: [() => undefined] },
+      label: {
+        en: "Use alt text as filename",
+        pt: "Usar texto alternativo como nome de arquivo",
+      },
+      name: "useAltTextAsFilename",
       type: "checkbox",
-      virtual: true,
     },
   ],
   hooks: {
@@ -34,8 +43,8 @@ export const mediaCollection: CollectionConfig = {
       ({ args: { data }, operation, req }) => {
         if ((operation === "create" || operation === "update") && req.file) {
           const fileExtension = req.file.name.split(".").pop()
-          if (data.useAltAsFilename) {
-            req.file.name = slug(data.alt, {})
+          if (data.useAltTextAsFilename) {
+            req.file.name = slug(data.alt)
           } else {
             const hasher = new Bun.CryptoHasher("sha256")
             hasher.update(req.file.data)

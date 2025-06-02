@@ -1,5 +1,6 @@
 export * from "./cn.util"
 export * from "./get-initials.util"
+export * from "./get-nested-docs.util"
 export * from "./locale.util"
 export * from "./parse-headers.util"
 export * from "./truncate-string.util"
