@@ -11,6 +11,7 @@ export const pageCollection: CollectionConfig = {
     breadcrumbs: { url: true },
     slug: true,
   },
+  defaultSort: "title",
   fields: [
     {
       label: { en: "Title", pt: "Título" },

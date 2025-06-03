@@ -35,46 +35,47 @@ export default async function Page({ params }: { params: Params }) {
       {page.description && (
         <p className="text-muted-foreground">{page.description}</p>
       )}
-      {page.content ? <RichText data={page.content} /> : <Index child={page} />}
+      {page.content ? <RichText data={page.content} /> : <Index page={page} />}
     </main>
   )
 }
 
-async function Index({ child }: { child: PageCollection }) {
+async function Index({ page }: { page: PageCollection }) {
   const locale = getLocale(await headers())
   const { docs: pages } = await payload.find({
     collection: "pages",
     locale,
     where: {
-      id: {
-        not_equals: child.id,
-      },
-      parent: {
-        equals: child.parent,
+      "parent.id": {
+        equals: page.id,
       },
       type: {
         equals: "page",
       },
     },
   })
-  return pages.map((page) => (
-    <Card key={page.id}>
-      <CardHeader>
-        <CardTitle>
-          <Link
-            href={
-              page.breadcrumbs?.find((breadcrumb) =>
-                breadcrumb.url?.includes(page.slug),
-              )?.url ?? "#"
-            }
-          >
-            {page.title}
-          </Link>
-        </CardTitle>
-        {page.description && (
-          <CardDescription>{page.description}</CardDescription>
-        )}
-      </CardHeader>
-    </Card>
-  ))
+  return (
+    <section className="flex flex-row flex-wrap gap-2">
+      {pages.map((page) => (
+        <Card className="flex-1" key={page.id}>
+          <CardHeader>
+            <CardTitle>
+              <Link
+                href={
+                  page.breadcrumbs?.find((breadcrumb) =>
+                    breadcrumb.url?.includes(page.slug),
+                  )?.url ?? "#"
+                }
+              >
+                {page.title}
+              </Link>
+            </CardTitle>
+            {page.description && (
+              <CardDescription>{page.description}</CardDescription>
+            )}
+          </CardHeader>
+        </Card>
+      ))}
+    </section>
+  )
 }
