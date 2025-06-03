@@ -12,25 +12,13 @@
   },
   "bio": "Eu sou um entusiasta em cibersegurança especializado no teste de invasão à aplicações web e desenvolvedor autodidata.",
   "footer": {
-    "title": "Feito com 💜 por sim0wn",
-    "sections": {
-      "social": {
-        "title": "Redes sociais"
-      },
-      "links": {
-        "title": "Links",
-        "privacyPolicy": "Política de Privacidade",
-        "termsOfService": "Termos de Serviço",
-        "sourceCode": "Código-fonte",
-        "switchLanguage": "Versão em inglês"
-      }
-    }
+    "privacyPolicy": "Política de Privacidade",
+    "termsOfService": "Termos de Serviço",
+    "sourceCode": "Código-fonte",
+    "switchLanguage": "Versão em inglês"
   },
-  "landingPage": {
-    "faq": {
-      "title": "Talvez te interesse..."
-    },
-    "contactForm": {
+  "forms": {
+    "contact": {
       "title": "Entre em contato",
       "fields": {
         "fullName": "Nome Completo",
@@ -45,6 +33,11 @@
         "success": "Sucesso"
       },
       "subTitle": "Preencha o formulário abaixo e entrarei em contato assim que possível."
+    }
+  },
+  "landingPage": {
+    "faq": {
+      "title": "Sobre mim"
     },
     "hacktivity": {
       "title": "Hacktividade",
@@ -70,10 +63,6 @@
     "services": {
       "title": "Sou especialista em...",
       "dialogTriggerLabel": "Saiba mais"
-    },
-    "socialProof": {
-      "title": "Depoimentos",
-      "subTitle": "O que as pessoas estão dizendo sobre o meu trabalho"
     }
   },
   "metadata": {
@@ -96,9 +85,10 @@
     }
   },
   "navigationBar": {
-    "sr_open_menu_button": "Abrir menu principal",
-    "knowledge_base": "Base de conhecimento",
-    "contact": "Contato"
+    "menu": {
+      "knowledge_base": "Base de conhecimento",
+      "contact": "Contato"
+    }
   },
   "pagination": {
     "current": { "in": "Página", "of": "de" },

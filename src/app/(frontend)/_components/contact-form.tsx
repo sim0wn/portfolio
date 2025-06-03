@@ -20,11 +20,11 @@ import { ContactFormData } from "@/types/contact-form-data.type"
 import { contactFormValidation } from "@/validations"
 
 export function ContactForm({
-  translation,
+  formsDictionary,
 }: {
-  translation: Dictionary["landingPage"]
+  formsDictionary: Dictionary["forms"]
 }) {
-  const { contactForm } = translation
+  const { contact } = formsDictionary
 
   const methods = useForm<ContactFormData>({
     resolver: zodResolver(contactFormValidation),
@@ -57,7 +57,7 @@ export function ContactForm({
           toast({
             description: data.message,
             duration: 10000,
-            title: contactForm.status.success,
+            title: contact.status.success,
             variant: "default",
           })
           methods.reset()
@@ -65,7 +65,7 @@ export function ContactForm({
           toast({
             description: data.message,
             duration: 5000,
-            title: contactForm.status.error,
+            title: contact.status.error,
             variant: "destructive",
           })
         }
@@ -73,7 +73,7 @@ export function ContactForm({
         toast({
           description: "Oops!",
           duration: 2000,
-          title: contactForm.status.error,
+          title: contact.status.error,
           variant: "destructive",
         })
       } finally {
@@ -86,7 +86,7 @@ export function ContactForm({
     <FormProvider {...methods}>
       <form className="space-y-2" onSubmit={handleSubmit(onSubmit)}>
         <FormItem>
-          <FormLabel>{contactForm.fields.fullName}</FormLabel>
+          <FormLabel>{contact.fields.fullName}</FormLabel>
           <FormControl>
             <Input placeholder="John Doe" {...register("fullName")} />
           </FormControl>
@@ -95,14 +95,14 @@ export function ContactForm({
           )}
         </FormItem>
         <FormItem>
-          <FormLabel>{contactForm.fields.email}</FormLabel>
+          <FormLabel>{contact.fields.email}</FormLabel>
           <FormControl>
             <Input placeholder="john.doe@ac.me" {...register("email")} />
           </FormControl>
           {errors.email && <FormMessage>{errors.email.message}</FormMessage>}
         </FormItem>
         <FormItem>
-          <FormLabel>{contactForm.fields.phoneNumber}</FormLabel>
+          <FormLabel>{contact.fields.phoneNumber}</FormLabel>
           <FormControl>
             <Input
               placeholder="+55 (11) 11111-1111"
@@ -114,7 +114,7 @@ export function ContactForm({
           )}
         </FormItem>
         <FormItem>
-          <FormLabel>{contactForm.fields.message}</FormLabel>
+          <FormLabel>{contact.fields.message}</FormLabel>
           <FormControl>
             <Textarea placeholder="" {...register("message")} />
           </FormControl>
@@ -130,7 +130,7 @@ export function ContactForm({
             theme={"dark"}
           />
           <Button disabled={isPending} type="submit">
-            {isPending ? contactForm.status.pending : contactForm.fields.submit}
+            {isPending ? contact.status.pending : contact.fields.submit}
           </Button>
         </footer>
       </form>

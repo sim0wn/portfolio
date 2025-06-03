@@ -12,25 +12,13 @@
   },
   "bio": "I'm a cybersecurity enthusiast specialized in web application penetration testing and self-taught developer.",
   "footer": {
-    "title": "Made with 💜 by sim0wn",
-    "sections": {
-      "social": {
-        "title": "Social"
-      },
-      "links": {
-        "title": "Links",
-        "privacyPolicy": "Privacy Policy",
-        "termsOfService": "Terms of Service",
-        "sourceCode": "Source Code",
-        "switchLanguage": "Portuguese version"
-      }
-    }
+    "privacyPolicy": "Privacy Policy",
+    "termsOfService": "Terms of Service",
+    "sourceCode": "Source Code",
+    "switchLanguage": "Portuguese version"
   },
-  "landingPage": {
-    "faq": {
-      "title": "You might be interested in..."
-    },
-    "contactForm": {
+  "forms": {
+    "contact": {
       "title": "Contact me",
       "fields": {
         "fullName": "Full Name",
@@ -45,6 +33,11 @@
         "success": "Success"
       },
       "subTitle": "Fill out the form below and I'll get back to you as soon as possible."
+    }
+  },
+  "landingPage": {
+    "faq": {
+      "title": "About me"
     },
     "hacktivity": {
       "title": "Hacktivity",
@@ -70,10 +63,6 @@
     "services": {
       "title": "I'm a specialist in...",
       "dialogTriggerLabel": "Learn more"
-    },
-    "socialProof": {
-      "title": "Testimonials",
-      "subTitle": "What people are saying about my work"
     }
   },
   "metadata": {
@@ -95,9 +84,10 @@
     }
   },
   "navigationBar": {
-    "sr_open_menu_button": "Open main menu",
-    "knowledge_base": "Knowledge base",
-    "contact": "Contact"
+    "menu": {
+      "books": "Knowledge base",
+      "contact": "Contact"
+    }
   },
   "pagination": {
     "current": { "in": "Page", "of": "of" },

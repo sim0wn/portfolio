@@ -50,7 +50,7 @@ export default async function RootLayout({
   children: ReactNode
 }>) {
   const locale = getLocale(await headers())
-  const dictionary = await getDictionary(locale)
+  const { footer, navigationBar } = await getDictionary(locale)
   return (
     <html lang={locale}>
       <body
@@ -92,7 +92,7 @@ export default async function RootLayout({
                     href={"/#contact"}
                   >
                     <Send width={"1em"} />
-                    {dictionary.navigationBar.contact}
+                    {navigationBar.menu.contact}
                   </Link>
                 </Button>
               </li>
@@ -115,7 +115,7 @@ export default async function RootLayout({
                   <Button asChild variant={"link"}>
                     <Link href={"/privacy"}>
                       <Shield size={"1em"} />
-                      {dictionary.footer.sections.links.privacyPolicy}
+                      {footer.privacyPolicy}
                     </Link>
                   </Button>
                 </li>
@@ -123,7 +123,7 @@ export default async function RootLayout({
                   <Button asChild variant={"link"}>
                     <Link href={"/terms"}>
                       <Library size={"1em"} />
-                      {dictionary.footer.sections.links.termsOfService}
+                      {footer.termsOfService}
                     </Link>
                   </Button>
                 </li>
@@ -137,7 +137,7 @@ export default async function RootLayout({
                       }/`}
                     >
                       <Globe size={"1em"} />
-                      {dictionary.footer.sections.links.switchLanguage}
+                      {footer.switchLanguage}
                     </Link>
                   </Button>
                 </li>
@@ -145,7 +145,7 @@ export default async function RootLayout({
                   <Button asChild variant={"link"}>
                     <ExternalLink href={"https://github.com/sim0wn/portfolio"}>
                       <Code size={"1em"} />
-                      {dictionary.footer.sections.links.sourceCode}
+                      {footer.sourceCode}
                     </ExternalLink>
                   </Button>
                 </li>

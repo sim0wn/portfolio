@@ -19,7 +19,7 @@ import { ContactForm } from "./contact-form"
 
 export async function Contact() {
   const locale = getLocale(await headers())
-  const { landingPage } = await getDictionary(locale)
+  const { forms, landingPage } = await getDictionary(locale)
   return (
     <section className="container grid grid-rows-[min-content_1fr] items-center gap-x-12 gap-y-8 py-12 lg:grid-cols-2 lg:grid-rows-1">
       <aside>
@@ -43,11 +43,11 @@ export async function Contact() {
       </aside>
       <Card id="contact">
         <CardHeader>
-          <CardTitle>{landingPage.contactForm.title}</CardTitle>
-          <CardDescription>{landingPage.contactForm.subTitle}</CardDescription>
+          <CardTitle>{forms.contact.title}</CardTitle>
+          <CardDescription>{forms.contact.subTitle}</CardDescription>
         </CardHeader>
         <CardContent>
-          <ContactForm translation={landingPage} />
+          <ContactForm formsDictionary={forms} />
         </CardContent>
       </Card>
     </section>
