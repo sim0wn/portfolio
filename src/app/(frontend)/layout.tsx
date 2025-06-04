@@ -7,11 +7,10 @@ import Link from "next/link"
 import { NuqsAdapter } from "nuqs/adapters/next/app"
 import { ReactNode, Suspense } from "react"
 
-import { Lettermark } from "@/components/icons"
+import { Button, ExternalLink, Lettermark, Toaster } from "@/components"
 
 import "./styles.css"
 
-import { Button, ExternalLink, Toaster } from "@/components/ui"
 import { getDictionary } from "@/lib"
 import { getLocale, getLocaleDomain } from "@/utils"
 

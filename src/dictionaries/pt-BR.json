@@ -5,12 +5,12 @@
     "github": "Logo do GitHub",
     "linkedin": "Logo do LinkedIn"
   },
-  "api": {
-    "error": "Ocorreu um erro ao tentar enviar a mensagem. Por favor, tente novamente mais tarde.",
-    "success": "Mensagem enviada com sucesso!",
-    "captchaError": "Por favor, complete o desafio do captcha."
-  },
   "bio": "Eu sou um entusiasta em cibersegurança especializado no teste de invasão à aplicações web e desenvolvedor autodidata.",
+  "captcha": {
+    "success": "Captcha validado com sucesso!",
+    "error": "Falha ao validar captcha. Por favor, tente novamente.",
+    "expired": "O captcha expirou. Por favor, recarregue a página e tente novamente."
+  },
   "footer": {
     "privacyPolicy": "Política de Privacidade",
     "termsOfService": "Termos de Serviço",
@@ -27,10 +27,16 @@
         "message": "Mensagem",
         "submit": "Enviar"
       },
-      "status": {
-        "error": "Erro",
-        "pending": "Enviando...",
-        "success": "Sucesso"
+      "messages": {
+        "error": {
+          "title": "Não enviado",
+          "description": "Não foi possível enviar a mensagem. Por favor, tente novamente mais tarde."
+        },
+        "pending": "Enviando mensagem...",
+        "success": {
+          "title": "Enviado!",
+          "description": "Mensagem enviada com sucesso! Eu entrarei em contato assim que possível."
+        }
       },
       "subTitle": "Preencha o formulário abaixo e entrarei em contato assim que possível."
     }

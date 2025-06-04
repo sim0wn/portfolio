@@ -5,12 +5,12 @@
     "github": "GitHub logo",
     "linkedin": "LinkedIn logo"
   },
-  "api": {
-    "error": "An error occurred while trying to send the message. Please try again later.",
-    "success": "Message sent successfully!",
-    "captchaError": "Please complete the captcha challenge."
-  },
   "bio": "I'm a cybersecurity enthusiast specialized in web application penetration testing and self-taught developer.",
+  "captcha": {
+    "success": "Captcha completed successfully!",
+    "error": "Captcha validation failed. Please try again.",
+    "expired": "Captcha has expired. Please refresh the page and try again."
+  },
   "footer": {
     "privacyPolicy": "Privacy Policy",
     "termsOfService": "Terms of Service",
@@ -27,10 +27,16 @@
         "message": "Message",
         "submit": "Send"
       },
-      "status": {
-        "error": "Error",
-        "pending": "Sending...",
-        "success": "Success"
+      "messages": {
+        "error": {
+          "title": "Not sent",
+          "description": "Unable to send the message. Please try again later."
+        },
+        "pending": "Sending message...",
+        "success": {
+          "title": "Sent",
+          "description": "Message sent successfully! I'll get back to you as soon as possible."
+        }
       },
       "subTitle": "Fill out the form below and I'll get back to you as soon as possible."
     }

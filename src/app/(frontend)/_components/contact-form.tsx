@@ -2,9 +2,11 @@
 
 import HCaptcha from "@hcaptcha/react-hcaptcha"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useRef, useState, useTransition } from "react"
+import { useActionState, useEffect, useRef, useState } from "react"
 import { FormProvider, useForm, useFormState } from "react-hook-form"
+import { toast } from "sonner"
 
+import { submitContactForm } from "@/actions"
 import {
   Button,
   FormControl,
@@ -13,80 +15,75 @@ import {
   FormMessage,
   Input,
   Textarea,
-} from "@/components/ui"
-import { useToast } from "@/hooks"
+} from "@/components"
 import { Dictionary } from "@/lib"
-import { ContactFormData } from "@/types/contact-form-data.type"
+import { ContactFormData, ContactFormState } from "@/types"
 import { contactFormValidation } from "@/validations"
 
+const initialState: ContactFormState = { message: "" }
+
 export function ContactForm({
-  formsDictionary,
+  contactFormDictionary,
 }: {
-  formsDictionary: Dictionary["forms"]
+  contactFormDictionary: Dictionary["forms"]["contact"]
 }) {
-  const { contact } = formsDictionary
+  const [state, formAction, isPending] = useActionState(
+    submitContactForm,
+    initialState,
+  )
 
   const methods = useForm<ContactFormData>({
     resolver: zodResolver(contactFormValidation),
   })
-  const { control, handleSubmit, register } = methods
+  const { control, register, reset } = methods
   const { errors } = useFormState({ control })
-
-  const [isPending, startTransition] = useTransition()
-  const { toast } = useToast()
 
   const captchaRef = useRef<HCaptcha | null>(null)
   const [token, setToken] = useState<null | string>(null)
 
-  const onSubmit = (data: ContactFormData) => {
-    startTransition(async () => {
-      const response = await fetch("/api/contact", {
-        body: JSON.stringify({
-          ...data,
-          captchaToken: token,
-        } as ContactFormData),
-        headers: {
-          "Content-Type": "application/json",
-        },
-        method: "POST",
-      })
+  useEffect(() => {
+    if (state.message) {
+      if (state.success) {
+        toast(contactFormDictionary.messages.success.title, {
+          description: state.message,
+          duration: 10000,
+        })
+        reset()
+        setToken(null)
+      } else {
+        toast(contactFormDictionary.messages.error.title, {
+          description: state.message,
+          duration: 5000,
+        })
+      }
+    }
+    captchaRef.current?.resetCaptcha()
+  }, [state, reset, contactFormDictionary])
 
-      try {
-        const data = await response.json()
-        if (response.ok) {
-          toast({
-            description: data.message,
-            duration: 10000,
-            title: contact.status.success,
-            variant: "default",
-          })
-          methods.reset()
-        } else {
-          toast({
-            description: data.message,
-            duration: 5000,
-            title: contact.status.error,
-            variant: "destructive",
+  useEffect(() => {
+    if (state.errors) {
+      Object.entries(state.errors).forEach(([field, messages]) => {
+        if (messages && messages.length > 0 && field !== "captchaToken") {
+          methods.setError(field as keyof ContactFormData, {
+            message: messages[0],
           })
         }
-      } catch {
-        toast({
-          description: "Oops!",
-          duration: 2000,
-          title: contact.status.error,
-          variant: "destructive",
-        })
-      } finally {
-        captchaRef.current?.resetCaptcha()
-      }
-    })
+      })
+    }
+  }, [state.errors, methods])
+
+  const handleSubmit = (formData: FormData) => {
+    if (token) {
+      formData.set("captchaToken", token)
+    }
+    formAction(formData)
   }
 
   return (
     <FormProvider {...methods}>
-      <form className="space-y-2" onSubmit={handleSubmit(onSubmit)}>
+      <form action={handleSubmit} className="space-y-2">
         <FormItem>
-          <FormLabel>{contact.fields.fullName}</FormLabel>
+          <FormLabel>{contactFormDictionary.fields.fullName}</FormLabel>
           <FormControl>
             <Input placeholder="John Doe" {...register("fullName")} />
           </FormControl>
@@ -94,15 +91,17 @@ export function ContactForm({
             <FormMessage>{errors.fullName.message}</FormMessage>
           )}
         </FormItem>
+
         <FormItem>
-          <FormLabel>{contact.fields.email}</FormLabel>
+          <FormLabel>{contactFormDictionary.fields.email}</FormLabel>
           <FormControl>
             <Input placeholder="john.doe@ac.me" {...register("email")} />
           </FormControl>
           {errors.email && <FormMessage>{errors.email.message}</FormMessage>}
         </FormItem>
+
         <FormItem>
-          <FormLabel>{contact.fields.phoneNumber}</FormLabel>
+          <FormLabel>{contactFormDictionary.fields.phoneNumber}</FormLabel>
           <FormControl>
             <Input
               placeholder="+55 (11) 11111-1111"
@@ -113,8 +112,9 @@ export function ContactForm({
             <FormMessage>{errors.phoneNumber.message}</FormMessage>
           )}
         </FormItem>
+
         <FormItem>
-          <FormLabel>{contact.fields.message}</FormLabel>
+          <FormLabel>{contactFormDictionary.fields.message}</FormLabel>
           <FormControl>
             <Textarea placeholder="" {...register("message")} />
           </FormControl>
@@ -122,6 +122,7 @@ export function ContactForm({
             <FormMessage>{errors.message.message}</FormMessage>
           )}
         </FormItem>
+
         <footer className="flex flex-col items-center justify-between space-y-2">
           <HCaptcha
             onVerify={(token) => setToken(token)}
@@ -129,8 +130,14 @@ export function ContactForm({
             sitekey={process.env.NEXT_PUBLIC_HCAPTCHA_SITEKEY || ""}
             theme={"dark"}
           />
-          <Button disabled={isPending} type="submit">
-            {isPending ? contact.status.pending : contact.fields.submit}
+          {state.errors?.captchaToken && (
+            <FormMessage>{state.errors.captchaToken[0]}</FormMessage>
+          )}
+
+          <Button disabled={isPending || !token} type="submit">
+            {isPending
+              ? contactFormDictionary.messages.pending
+              : contactFormDictionary.fields.submit}
           </Button>
         </footer>
       </form>
