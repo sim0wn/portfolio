@@ -5,7 +5,7 @@ import { notFound } from "next/navigation"
 import RichText from "@/components/rich-text"
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui"
 import { payload } from "@/lib"
-import { Page as PageCollection } from "@/types"
+import { Book, Page as PageCollection } from "@/types"
 import { getLocale } from "@/utils"
 
 type Params = Promise<{ slug: string[] }>
@@ -31,7 +31,7 @@ export default async function Page({ params }: { params: Params }) {
   }
   return (
     <main>
-      <h1 className="text-2xl font-bold">{page.title}</h1>
+      <h1 className="text-accent-foreground font-bold">{page.title}</h1>
       {page.description && (
         <p className="text-muted-foreground">{page.description}</p>
       )}
@@ -61,11 +61,11 @@ async function Index({ page }: { page: PageCollection }) {
           <CardHeader>
             <CardTitle>
               <Link
-                href={
+                href={`/books/${(page.book as Book).slug}${
                   page.breadcrumbs?.find((breadcrumb) =>
-                    breadcrumb.url?.includes(page.slug),
+                    breadcrumb.url?.endsWith(page.slug),
                   )?.url ?? "#"
-                }
+                }`}
               >
                 {page.title}
               </Link>
