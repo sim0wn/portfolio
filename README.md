@@ -14,9 +14,10 @@ Welcome to my personal portfolio repository! This project showcases my work and 
 ## Technologies Used
 
 - **Next.js 15**: a powerful React-based framework for building server-rendered applications, ensuring optimal performance and SEO;
-- **TypeScript**: a statically-typed superset of JavaScript that enhances code quality and maintainability by catching errors during development;
+- **Payload CMS**: a headless content management system that allows for easy content management and integration with the Next.js application;
+- **Tailwind CSS**: a utility-first CSS framework that enables rapid UI development with a focus on responsiveness and customization;
+- **TypeScript**: a statically typed superset of JavaScript that enhances code quality and maintainability by catching errors during development;
 - **Vercel**: the hosting platform for my website, providing seamless integration with Next.js and automatic deployments from GitHub;
-- **Sanity CMS**: a flexible headless CMS for managing and delivering content with real-time collaboration.
 
 ## Features
 
@@ -39,13 +40,13 @@ git clone https://github.com/sim0wn/portfolio.git
 
 ```bash
 cd portfolio
-npm install
+bun install
 ```
 
 3. Start the development server:
 
 ```bash
-npm run dev
+bun run dev
 ```
 
 4. Open your browser and navigate to `http://127.0.0.1:3000` to view the website.

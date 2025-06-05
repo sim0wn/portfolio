@@ -4,9 +4,9 @@ export {
   AccordionItem,
   AccordionTrigger,
 } from "./accordion"
-export { Avatar, AvatarFallback, AvatarImage } from "./avatar"
-export { Badge } from "./badge"
-export { Button } from "./button"
+export {Avatar, AvatarFallback, AvatarImage} from "./avatar"
+export {Badge} from "./badge"
+export {Button} from "./button"
 export {
   Card,
   CardAction,
@@ -35,7 +35,7 @@ export {
   DialogTitle,
   DialogTrigger,
 } from "./dialog"
-export { ExternalLink } from "./external-link"
+export {ExternalLink} from "./external-link"
 export {
   Form,
   FormControl,
@@ -46,8 +46,8 @@ export {
   FormMessage,
   useFormField,
 } from "./form"
-export { Input } from "./input"
-export { Label } from "./label"
+export {Input} from "./input"
+export {Label} from "./label"
 export { ScrollArea, ScrollBar } from "./scroll-area"
 export { Skeleton } from "./skeleton"
 export { Toaster } from "./sonner"
@@ -62,3 +62,4 @@ export {
   TableRow,
 } from "./table"
 export { Textarea } from "./textarea"
+

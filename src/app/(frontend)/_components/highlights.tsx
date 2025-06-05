@@ -1,7 +1,6 @@
 import { headers } from "next/headers"
 import Image from "next/image"
 
-import RichText from "@/components/rich-text"
 import {
   Button,
   Dialog,
@@ -9,8 +8,8 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-  Skeleton,
-} from "@/components/ui"
+  RichText, Skeleton
+} from "@/components"
 import { payload } from "@/lib"
 import { Media } from "@/types"
 import { getLocale } from "@/utils"
