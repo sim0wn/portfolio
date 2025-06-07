@@ -2,8 +2,13 @@ import { headers } from "next/headers"
 import Link from "next/link"
 import { notFound } from "next/navigation"
 
-import RichText from "@/components/rich-text"
-import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui"
+import {
+  Card,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+  RichText,
+} from "@/components"
 import { payload } from "@/lib"
 import { Book, Page as PageCollection } from "@/types"
 import { getLocale } from "@/utils"

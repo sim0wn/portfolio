@@ -1,7 +1,0 @@
-export { GitHub } from "./github"
-export { HackTheBox } from "./hackthebox"
-export { Lattes } from "./lattes"
-export { Lettermark } from "./lettermark"
-export { LinkedIn } from "./linkedin"
-export { Mascot } from "./mascot"
-export { TryHackMe } from "./tryhackme"

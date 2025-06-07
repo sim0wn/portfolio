@@ -78,10 +78,10 @@ export default async function RootLayout({
               </li>
               <li>
                 <Button asChild size={"sm"} variant={"link"}>
-                  <ExternalLink href={"https://logs.sim0wn.com.br/"}>
+                  <Link href={"/books"}>
                     <Library width={"1em"} />
-                    GitBook
-                  </ExternalLink>
+                    {navigationBar.menu.books}
+                  </Link>
                 </Button>
               </li>
               <li className="flex-1 place-content-end">
