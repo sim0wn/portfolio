@@ -7,6 +7,7 @@ import {
   LinkJSXConverter,
 } from "@payloadcms/richtext-lexical/react"
 
+import { CodeBlockJSXConverter } from "./code-block"
 import { internalDocToHref } from "./internal-link"
 import { UploadJSXConverter } from "./upload"
 
@@ -18,6 +19,7 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({
   ...defaultConverters,
   ...LinkJSXConverter({ internalDocToHref }),
   ...UploadJSXConverter,
+  blocks: { ...CodeBlockJSXConverter },
 })
 
 export { jsxConverters }

@@ -65,7 +65,9 @@ export interface Config {
   auth: {
     users: UserAuthOperations;
   };
-  blocks: {};
+  blocks: {
+    codeBlock: CodeBlock;
+  };
   collections: {
     books: Book;
     faq: Faq;
@@ -132,6 +134,28 @@ export interface UserAuthOperations {
     email: string;
     password: string;
   };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "codeBlock".
+ */
+export interface CodeBlock {
+  /**
+   * Select the programming language for syntax highlighting.
+   */
+  language: 'cpp' | 'css' | 'java' | 'javascript' | 'json' | 'jsx' | 'plaintext' | 'python' | 'tsx' | 'typescript';
+  /**
+   * Paste your code snippet here.
+   */
+  code: string;
+  filename?: string | null;
+  /**
+   * Display line numbers in the code block.
+   */
+  showLineNumbers?: boolean | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'codeBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

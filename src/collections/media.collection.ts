@@ -1,5 +1,6 @@
 import type { CollectionConfig } from "payload"
 
+import crypto from "crypto"
 import slug from "slug"
 
 export const mediaCollection: CollectionConfig = {
@@ -26,16 +27,18 @@ export const mediaCollection: CollectionConfig = {
           en: "Use the normalized alt text as the filename for the image. If this is not checked, the filename will be automatically generated.",
           pt: "Usar o texto alternativo normalizado como o nome de arquivo da imagem. Se não for selecionado, o nome do arquivo será gerado automaticamente.",
         },
-        readOnly: true,
       },
-      defaultValue: true,
-      hooks: { beforeChange: [() => undefined] },
+      defaultValue: false,
+      hooks: {
+        beforeChange: [() => undefined],
+      },
       label: {
         en: "Use alt text as filename",
         pt: "Usar texto alternativo como nome de arquivo",
       },
       name: "useAltTextAsFilename",
       type: "checkbox",
+      virtual: true,
     },
   ],
   hooks: {
@@ -46,9 +49,10 @@ export const mediaCollection: CollectionConfig = {
           if (data.useAltTextAsFilename) {
             req.file.name = slug(data.alt)
           } else {
-            const hasher = new Bun.CryptoHasher("sha256")
-            hasher.update(req.file.data)
-            req.file.name = hasher.digest("hex")
+            req.file.name = crypto
+              .createHash("sha256")
+              .update(req.file.data)
+              .digest("hex")
           }
           req.file.name += `.${fileExtension}`
         }

@@ -1,7 +1,7 @@
 import { mongooseAdapter } from "@payloadcms/db-mongodb"
 import { resendAdapter } from "@payloadcms/email-resend"
 import { nestedDocsPlugin } from "@payloadcms/plugin-nested-docs"
-import { lexicalEditor } from "@payloadcms/richtext-lexical"
+import { BlocksFeature, lexicalEditor } from "@payloadcms/richtext-lexical"
 import { vercelBlobStorage } from "@payloadcms/storage-vercel-blob"
 import { en } from "@payloadcms/translations/languages/en"
 import { pt } from "@payloadcms/translations/languages/pt"
@@ -9,6 +9,7 @@ import path from "path"
 import { buildConfig } from "payload"
 import sharp from "sharp"
 
+import { CodeBlock } from "@/blocks"
 import {
   faqCollection,
   highlightCollection,
@@ -26,6 +27,7 @@ export default buildConfig({
       baseDir: "@",
     },
   },
+  blocks: [CodeBlock],
   collections: [
     bookCollection,
     faqCollection,
@@ -38,7 +40,12 @@ export default buildConfig({
   db: mongooseAdapter({
     url: environmentConfig.databaseUri,
   }),
-  editor: lexicalEditor(),
+  editor: lexicalEditor({
+    features: ({ defaultFeatures }) => [
+      ...defaultFeatures,
+      BlocksFeature({ blocks: [CodeBlock] }),
+    ],
+  }),
   email: resendAdapter({
     apiKey: environmentConfig.resendKey,
     defaultFromAddress: "payload@sim0wn.com",
