@@ -1,18 +1,5 @@
 import { Block } from "payload"
-
-const languageOptions = {
-  bash: "BASH",
-  cpp: "C++",
-  css: "CSS",
-  java: "Java",
-  javascript: "JavaScript",
-  json: "JSON",
-  jsx: "JSX",
-  plaintext: "Plain Text",
-  python: "Python",
-  tsx: "TSX",
-  typescript: "TypeScript",
-}
+import { bundledLanguagesInfo } from "shiki/langs"
 
 const CodeBlock: Block = {
   admin: {
@@ -25,16 +12,16 @@ const CodeBlock: Block = {
           en: "Select the programming language for syntax highlighting.",
           pt: "Selecione a linguagem de programação para destaque de sintaxe.",
         },
-        isClearable: false,
+        isClearable: true,
       },
-      defaultValue: "javascript",
+      defaultValue: "text",
       label: "Language",
       name: "language",
-      options: Object.entries(languageOptions).map(([value, label]) => ({
-        label,
-        value,
+      options: bundledLanguagesInfo.map(({ id, name }) => ({
+        label: name,
+        value: id,
       })),
-      required: true,
+      required: false,
       type: "select",
     },
     {

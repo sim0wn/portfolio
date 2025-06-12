@@ -86,9 +86,9 @@ export default async function Layout({
     }
   }
   return (
-    <SidebarProvider className="relative min-h-0 flex-1">
+    <SidebarProvider className="relative min-h-0 min-w-0 flex-1">
       <BookSidebar currentPage={currentPage} nestedPages={nestedPages} />
-      <SidebarInset className="flex flex-col gap-2 p-4">
+      <SidebarInset className="flex min-w-0 flex-col gap-2 p-4">
         <header className="flex items-center gap-2 border-b pb-2">
           <SidebarTrigger />
           <Separator
@@ -118,7 +118,7 @@ export default async function Layout({
             </BreadcrumbList>
           </Breadcrumb>
         </header>
-        <main className="overflow-auto">{children}</main>
+        {children}
       </SidebarInset>
     </SidebarProvider>
   )

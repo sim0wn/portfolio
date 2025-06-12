@@ -35,13 +35,17 @@ export default async function Page({ params }: { params: Params }) {
     notFound()
   }
   return (
-    <main>
+    <div>
       <h1 className="text-accent-foreground font-bold">{page.title}</h1>
       {page.description && (
         <p className="text-muted-foreground">{page.description}</p>
       )}
-      {page.content ? <RichText data={page.content} /> : <Index page={page} />}
-    </main>
+      {page.content ? (
+        <RichText className="flex flex-col" data={page.content} />
+      ) : (
+        <Index page={page} />
+      )}
+    </div>
   )
 }
 
