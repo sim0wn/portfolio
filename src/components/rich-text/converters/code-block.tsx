@@ -19,7 +19,7 @@ export type CodeBlockProps = {
 
 /**
  * Renders a themed, accessible code block with a fake terminal UI.
- * - Uses rose-pine-moon for syntax theme.
+ * - Uses rose-pine for syntax theme.
  * - Adaptive to light/dark via Tailwind + CSS vars.
  *
  * @param node - serialized block node with code and meta
@@ -40,14 +40,14 @@ export async function CodeBlockComponent({
     <figure
       aria-label={`Code block: ${language}${filename ? `, file ${filename}` : ""}`}
       className={cn(
-        "not-prose border-border bg-card focus-within:ring-primary flex w-full flex-col overflow-hidden rounded-xl border shadow-lg transition-shadow duration-300 focus-within:ring-2 hover:shadow-2xl",
+        "not-prose bg-card focus-within:ring-primary flex w-full flex-col overflow-hidden rounded-xl border shadow-lg transition-shadow duration-300 focus-within:ring-2 hover:shadow-2xl",
         jetbrains_mono.className,
       )}
       role="region"
       tabIndex={0}
     >
       {/* Header Bar */}
-      <figcaption className="border-border bg-popover flex h-10 items-center justify-between gap-3 border-b px-4 py-2 select-none">
+      <figcaption className="bg-popover flex h-10 items-center justify-between gap-3 border-b px-4 py-2 select-none">
         <div className="flex flex-col justify-center gap-0.5">
           <span className="text-muted-foreground font-mono text-xs">
             Terminal
