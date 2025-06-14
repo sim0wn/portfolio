@@ -19,7 +19,10 @@ import {
 import { bookCollection } from "@/collections/book.collection"
 import { pageCollection } from "@/collections/page.collection"
 import { socialCollection } from "@/collections/social.collection"
-import { environmentConfig } from "@/config"
+
+import { getEnv } from "./env.config"
+
+const env = getEnv()
 
 export default buildConfig({
   admin: {
@@ -38,7 +41,7 @@ export default buildConfig({
     socialCollection,
   ],
   db: mongooseAdapter({
-    url: environmentConfig.databaseUri,
+    url: env.MONGODB_URI,
   }),
   editor: lexicalEditor({
     features: ({ defaultFeatures }) => [
@@ -47,7 +50,7 @@ export default buildConfig({
     ],
   }),
   email: resendAdapter({
-    apiKey: environmentConfig.resendKey,
+    apiKey: env.RESEND_API_KEY,
     defaultFromAddress: "payload@sim0wn.com",
     defaultFromName: "Payload CMS",
   }),
@@ -80,10 +83,10 @@ export default buildConfig({
         media: true,
       },
       enabled: true,
-      token: environmentConfig.vercelBlogStorageToken,
+      token: env.BLOB_READ_WRITE_TOKEN,
     }),
   ],
-  secret: environmentConfig.payloadSecret,
+  secret: env.PAYLOAD_SECRET,
   sharp,
   typescript: {
     outputFile: path.resolve("src/types/payload.type.ts"),

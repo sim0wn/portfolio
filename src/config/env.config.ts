@@ -13,12 +13,26 @@ const envSchema = z.object({
   RESEND_API_KEY: z.string().min(1, "Resend API key is required"),
 })
 
-function validateEnv() {
+type Env = z.infer<typeof envSchema>
+
+let cachedEnv: Env | undefined
+
+/**
+ * Returns validated environment variables.
+ * Caches the result for performance and to prevent double validation.
+ * Throws if validation fails.
+ */
+export function getEnv(): Env {
+  if (cachedEnv) return cachedEnv
   try {
-    return envSchema.parse(process.env)
+    cachedEnv = envSchema.parse(process.env)
+    return cachedEnv
   } catch (error) {
     if (error instanceof z.ZodError) {
-      console.error("Environment variable validation failed:", error.errors)
+      // Print detailed errors in development
+      if (process.env.NODE_ENV !== "production") {
+        console.error("Environment variable validation failed:", error.errors)
+      }
       throw new Error(
         "❌ Invalid environment variables:\n" +
           error.errors.map((e) => `- ${e.message}`).join("\n"),
@@ -27,5 +41,3 @@ function validateEnv() {
     throw error
   }
 }
-
-export const env = validateEnv()
