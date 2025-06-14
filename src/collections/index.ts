@@ -1,4 +1,6 @@
+export { Books } from "./books"
 export * from "./faq.collection"
 export * from "./highlight.collection"
 export * from "./media.collection"
+export { Pages } from "./pages"
 export * from "./skill.collection"
