@@ -1,0 +1,47 @@
+{
+  "Home": {
+    "hero": {
+      "description": "Sou um entusiasta em cibersegurança especializado em segurança ofensiva. Iniciei como programador, tendo meu primeiro contato com a linguagem Java aos 11 anos. Com o tempo, me deparei com a área de segurança da informação, na qual sou um autodidata desde 2018, e sigo uma rotina de estudo e prática constante.",
+      "title": "Bem-vindo ao meu portfólio",
+      "cta": "Entre em contato",
+      "quote": {
+        "message": "Seja curioso, leia amplamente e experimente coisas novas. Para mim, o que as pessoas chamam de inteligência se resume à curiosidade.",
+        "author": "Aaron Swartz"
+      }
+    }
+  },
+  "Layout": {
+    "footer": {
+      "privacyPolicy": "Política de Privacidade",
+      "termsOfService": "Termos de Serviço",
+      "sourceCode": "Código-fonte"
+    },
+    "nav": {
+      "actions": {
+        "changeLocale": "EN",
+        "contact": "Contato"
+      },
+      "menu": {
+        "books": "Livros",
+        "contact": "Contato"
+      }
+    }
+  },
+  "Metadata": {
+    "applicationName": "Portfólio",
+    "defaultTitle": "Bem-vindo | sim0wn",
+    "description": "Olá, amigo. Eu sou sim0wn, um desenvolvedor e entusiasta em cibersegurança especializado em aplicações web",
+    "keywords": [
+      "BASH",
+      "CTF",
+      "Desenvolvedor web",
+      "Hackers do Bem",
+      "Hacker ético",
+      "Linux",
+      "Portfólio",
+      "Python",
+      "Segurança da Informação",
+      "TypeScript"
+    ]
+  }
+}

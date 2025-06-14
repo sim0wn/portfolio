@@ -11,6 +11,8 @@ import { ContactFormState } from "@/types"
 import { getLocale } from "@/utils"
 import { contactFormValidation } from "@/validations"
 
+const env = getEnv()
+
 export async function submitContactForm(
   prevState: ContactFormState,
   formData: FormData,
@@ -48,10 +50,7 @@ export async function submitContactForm(
     }
   }
 
-  const verifiedCaptcha = await verify(
-    getEnv().HCAPTCHA_SECRET_KEY,
-    captchaToken,
-  )
+  const verifiedCaptcha = await verify(env.HCAPTCHA_SECRET_KEY, captchaToken)
   if (!verifiedCaptcha.success) {
     return {
       errors: { captchaToken: [captchaDictionary.expired] },
@@ -61,7 +60,7 @@ export async function submitContactForm(
 
   try {
     // TODO: use a template engine for the email body
-    await new Resend(getEnv().RESEND_API_KEY).emails.send({
+    await new Resend(env.RESEND_API_KEY).emails.send({
       from: "Contact Form <mail@resend.sim0wn.com>",
       html: `<strong>${fullName}</strong> contacted you. Here's the message: <br><br>${message}<br><br>Reply to <a href="mailto:${email}">${email}</a> or call ${phoneNumber}`,
       subject: "Contact Form Submission",

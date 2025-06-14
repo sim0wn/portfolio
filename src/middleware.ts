@@ -1,28 +1,8 @@
-import { NextRequest, NextResponse } from "next/server"
+import createMiddleware from "next-intl/middleware"
 
-export function middleware(request: NextRequest) {
-  const { headers } = request
-  const origin = headers.get("origin")
-  const hostname = request.nextUrl.hostname
-  const response = NextResponse.next()
+import { routing } from "@/i18n"
 
-  if (
-    (origin && /^https:\/\/(sim0wn\.com|sim0wn\.com\.br)$/.test(origin)) ||
-    origin === "http://localhost:3000"
-  ) {
-    response.headers.set("Access-Control-Allow-Origin", origin)
-    response.headers.set("Vary", "Origin")
-  }
-
-  // Set the `Accept-Language` header based on the hostname
-  if (hostname.endsWith("sim0wn.com.br")) {
-    response.headers.set("Accept-Language", "pt-BR")
-  } else {
-    response.headers.set("Accept-Language", "en-US")
-  }
-
-  return response
-}
+export default createMiddleware(routing)
 
 export const config = {
   matcher: [

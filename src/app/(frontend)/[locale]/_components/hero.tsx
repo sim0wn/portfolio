@@ -1,24 +1,26 @@
-import { headers } from "next/headers"
 import Link from "next/link"
 
-import { Mascot } from "@/components/icons"
-import { Button, Skeleton } from "@/components/ui"
-import { getDictionary } from "@/lib"
-import { getLocale } from "@/utils"
+import { Button, Mascot, Skeleton } from "@/components"
 
-export async function Hero() {
-  const locale = getLocale(await headers())
-  const {
-    landingPage: { headline },
-  } = await getDictionary(locale)
+type Props = {
+  cta?: string
+  description?: string
+  quote?: {
+    author: string
+    message: string
+  }
+  title?: string
+}
+
+export async function Hero({ cta, description, quote, title }: Props) {
   return (
     <section className="container grid grid-cols-[1fr_16rem] items-center justify-between gap-x-12 gap-y-8 py-12 md:py-24">
       <aside className="col-span-full flex flex-col gap-2 md:col-span-1">
-        <h1 className="text-3xl font-extrabold">{headline.title}</h1>
-        <p className="pb-4">{headline.subTitle}</p>
+        <h1 className="text-3xl font-extrabold">{title}</h1>
+        <p className="pb-4">{description}</p>
         <Button asChild>
           <Link className="self-center" href="#contact">
-            {headline.contactLink}
+            {cta}
           </Link>
         </Button>
       </aside>
@@ -28,8 +30,8 @@ export async function Hero() {
       </aside>
       {/* Quote */}
       <p className="col-span-full inline-flex w-fit flex-col justify-self-center pt-8">
-        <q className="text-center">{headline.quote.message}</q>
-        <small className="text-end">- {headline.quote.author}</small>
+        <q className="text-center">{quote?.message}</q>
+        <small className="text-end">- {quote?.author}</small>
       </p>
     </section>
   )

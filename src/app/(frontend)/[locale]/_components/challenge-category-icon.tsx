@@ -1,4 +1,3 @@
-import classNames from "classnames"
 import {
   Brain,
   Bug,
@@ -17,6 +16,7 @@ import { ComponentProps } from "react"
 
 import { Badge } from "@/components/ui/badge"
 import { HacktivityCategory } from "@/enums/hacktivity-category.enum"
+import { cn } from "@/utils"
 
 export async function ChallengeCategoryIcon({
   category,
@@ -26,10 +26,7 @@ export async function ChallengeCategoryIcon({
 }) {
   return (
     <Badge
-      className={classNames(
-        "m-0 flex w-fit gap-0.5 text-sm md:text-base",
-        className,
-      )}
+      className={cn("m-0 flex w-fit gap-0.5 text-sm md:text-base", className)}
       title={category}
       variant={"outline"}
     >

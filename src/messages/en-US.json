@@ -1,0 +1,46 @@
+{
+  "Home": {
+    "hero": {
+      "description": "I'm a cybersecurity enthusiast specialized in offensive security. I started as a programmer, having my first contact with the Java language at the age of 11. Over time, I came across the information security area, in which I have been self-taught since 2018, and I follow a routine of constant study and practice.",
+      "title": "Welcome to my portfolio.",
+      "cta": "Reach out",
+      "quote": {
+        "message": "Be curious. Read widely. Try new things. For me, what people call intelligence just boils down to curiosity.",
+        "author": "Aaron Swartz"
+      }
+    }
+  },
+  "Layout": {
+    "footer": {
+      "privacyPolicy": "Privacy Policy",
+      "termsOfService": "Terms of Service",
+      "sourceCode": "Source Code"
+    },
+    "nav": {
+      "actions": {
+        "changeLocale": "PT",
+        "contact": "Contact"
+      },
+      "menu": {
+        "books": "Books",
+        "contact": "Contact"
+      }
+    }
+  },
+  "Metadata": {
+    "applicationName": "Portfolio",
+    "defaultTitle": "Welcome | sim0wn",
+    "description": "Hello, friend. I'm sim0wn, a developer and cybersecurity enthusiast specialized in web applications",
+    "keywords": [
+      "BASH",
+      "CTF",
+      "Web developer",
+      "Ethical hacker",
+      "Linux",
+      "Portfolio",
+      "Python",
+      "Information Security",
+      "TypeScript"
+    ]
+  }
+}
