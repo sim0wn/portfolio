@@ -1,4 +1,5 @@
-import { headers } from "next/headers"
+import { Locale } from "next-intl"
+import { getTranslations } from "next-intl/server"
 
 import {
   Accordion,
@@ -12,22 +13,17 @@ import {
   CardTitle,
   Skeleton,
 } from "@/components/ui"
-import { getDictionary, payload } from "@/lib"
-import { getLocale } from "@/utils"
+import { payload } from "@/lib"
 
 import { ContactForm } from "./contact-form"
 
-export async function Contact() {
-  const locale = getLocale(await headers())
-  const {
-    forms: { contact: contactFormDictionary },
-    landingPage,
-  } = await getDictionary(locale)
+export async function About({ locale }: { locale: Locale }) {
+  const t = await getTranslations("Home.about")
   return (
     <section className="container grid grid-rows-[min-content_1fr] items-center gap-x-12 gap-y-8 py-12 lg:grid-cols-2 lg:grid-rows-1">
       <aside>
         <p className="text-center text-lg font-semibold md:text-start">
-          {landingPage.faq.title}
+          {t("title")}
         </p>
         <Accordion collapsible type="single">
           {(
@@ -46,18 +42,18 @@ export async function Contact() {
       </aside>
       <Card id="contact">
         <CardHeader>
-          <CardTitle>{contactFormDictionary.title}</CardTitle>
-          <CardDescription>{contactFormDictionary.subTitle}</CardDescription>
+          <CardTitle>{t("form.title")}</CardTitle>
+          <CardDescription>{t("form.description")}</CardDescription>
         </CardHeader>
         <CardContent>
-          <ContactForm contactFormDictionary={contactFormDictionary} />
+          <ContactForm />
         </CardContent>
       </Card>
     </section>
   )
 }
 
-export function ContactFallback() {
+export function AboutFallback() {
   return (
     <section className="container grid grid-rows-[min-content_1fr] items-center gap-x-12 gap-y-8 py-12 lg:grid-cols-2 lg:grid-rows-1">
       <aside className="flex flex-col gap-4">

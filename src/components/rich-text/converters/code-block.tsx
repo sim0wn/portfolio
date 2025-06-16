@@ -4,7 +4,7 @@ import { Fragment } from "react"
 import { jsx, jsxs } from "react/jsx-runtime"
 import { codeToHast } from "shiki"
 
-import { jetbrains_mono } from "@/app/(frontend)/fonts"
+import { jetbrains_mono } from "@/app/fonts"
 import { cn } from "@/utils"
 
 /**

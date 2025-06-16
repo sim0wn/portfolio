@@ -1,26 +1,18 @@
+import { getTranslations } from "next-intl/server"
 import Link from "next/link"
 
 import { Button, Mascot, Skeleton } from "@/components"
 
-type Props = {
-  cta?: string
-  description?: string
-  quote?: {
-    author: string
-    message: string
-  }
-  title?: string
-}
-
-export async function Hero({ cta, description, quote, title }: Props) {
+export async function Hero() {
+  const t = await getTranslations("Home.hero")
   return (
     <section className="container grid grid-cols-[1fr_16rem] items-center justify-between gap-x-12 gap-y-8 py-12 md:py-24">
       <aside className="col-span-full flex flex-col gap-2 md:col-span-1">
-        <h1 className="text-3xl font-extrabold">{title}</h1>
-        <p className="pb-4">{description}</p>
+        <h1 className="text-3xl font-extrabold">{t("title")}</h1>
+        <p className="pb-4">{t("description")}</p>
         <Button asChild>
           <Link className="self-center" href="#contact">
-            {cta}
+            {t("cta")}
           </Link>
         </Button>
       </aside>
@@ -30,8 +22,8 @@ export async function Hero({ cta, description, quote, title }: Props) {
       </aside>
       {/* Quote */}
       <p className="col-span-full inline-flex w-fit flex-col justify-self-center pt-8">
-        <q className="text-center">{quote?.message}</q>
-        <small className="text-end">- {quote?.author}</small>
+        <q className="text-center">{t("quote.message")}</q>
+        <small className="text-end">- {t("quote.author")}</small>
       </p>
     </section>
   )

@@ -1,5 +1,4 @@
-import { headers } from "next/headers"
-import Link from "next/link"
+import { Locale } from "next-intl"
 import { notFound } from "next/navigation"
 
 import {
@@ -9,17 +8,17 @@ import {
   CardTitle,
   RichText,
 } from "@/components"
+import { Link } from "@/i18n"
 import { payload } from "@/lib"
 import { Book, Page as PageCollection } from "@/types"
-import { getLocale } from "@/utils"
 
-type Params = Promise<{ slug: string[] }>
+type Props = { params: Promise<{ locale: Locale; slug: string[] }> }
 
-export default async function Page({ params }: { params: Params }) {
+export default async function Page({ params }: Props) {
   const {
+    locale,
     slug: [book, ...slug],
   } = await params
-  const locale = getLocale(await headers())
   const {
     docs: [page],
   } = await payload.find({
@@ -43,14 +42,19 @@ export default async function Page({ params }: { params: Params }) {
       {page.content ? (
         <RichText className="flex flex-col" data={page.content} />
       ) : (
-        <Index page={page} />
+        <Index locale={locale} page={page} />
       )}
     </div>
   )
 }
 
-async function Index({ page }: { page: PageCollection }) {
-  const locale = getLocale(await headers())
+async function Index({
+  locale,
+  page,
+}: {
+  locale: Locale
+  page: PageCollection
+}) {
   const { docs: pages } = await payload.find({
     collection: "pages",
     locale,
@@ -75,6 +79,7 @@ async function Index({ page }: { page: PageCollection }) {
                     breadcrumb.url?.endsWith(page.slug),
                   )?.url ?? "#"
                 }`}
+                locale={locale}
               >
                 {page.title}
               </Link>

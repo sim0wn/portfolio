@@ -2,6 +2,7 @@
 
 import HCaptcha from "@hcaptcha/react-hcaptcha"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { useTranslations } from "next-intl"
 import { useActionState, useEffect, useRef, useState } from "react"
 import { FormProvider, useForm, useFormState } from "react-hook-form"
 import { toast } from "sonner"
@@ -16,17 +17,14 @@ import {
   Input,
   Textarea,
 } from "@/components"
-import { Dictionary } from "@/lib"
 import { ContactFormData, ContactFormState } from "@/types"
 import { contactFormValidation } from "@/validations"
 
 const initialState: ContactFormState = { message: "" }
 
-export function ContactForm({
-  contactFormDictionary,
-}: {
-  contactFormDictionary: Dictionary["forms"]["contact"]
-}) {
+export function ContactForm() {
+  const t = useTranslations("Actions.contact")
+
   const [state, formAction, isPending] = useActionState(
     submitContactForm,
     initialState,
@@ -44,21 +42,21 @@ export function ContactForm({
   useEffect(() => {
     if (state.message) {
       if (state.success) {
-        toast(contactFormDictionary.messages.success.title, {
+        toast(t("messages.success.title"), {
           description: state.message,
           duration: 10000,
         })
         reset()
         setToken(null)
       } else {
-        toast(contactFormDictionary.messages.error.title, {
+        toast(t("messages.error.title"), {
           description: state.message,
           duration: 5000,
         })
       }
     }
     captchaRef.current?.resetCaptcha()
-  }, [state, reset, contactFormDictionary])
+  }, [state, reset, t])
 
   useEffect(() => {
     if (state.errors) {
@@ -83,7 +81,7 @@ export function ContactForm({
     <FormProvider {...methods}>
       <form action={handleSubmit} className="space-y-2">
         <FormItem>
-          <FormLabel>{contactFormDictionary.fields.fullName}</FormLabel>
+          <FormLabel>{t("fields.fullName")}</FormLabel>
           <FormControl>
             <Input placeholder="John Doe" {...register("fullName")} />
           </FormControl>
@@ -93,7 +91,7 @@ export function ContactForm({
         </FormItem>
 
         <FormItem>
-          <FormLabel>{contactFormDictionary.fields.email}</FormLabel>
+          <FormLabel>{t("fields.email")}</FormLabel>
           <FormControl>
             <Input placeholder="john.doe@ac.me" {...register("email")} />
           </FormControl>
@@ -101,7 +99,7 @@ export function ContactForm({
         </FormItem>
 
         <FormItem>
-          <FormLabel>{contactFormDictionary.fields.phoneNumber}</FormLabel>
+          <FormLabel>{t("fields.phoneNumber")}</FormLabel>
           <FormControl>
             <Input
               placeholder="+55 (11) 11111-1111"
@@ -114,7 +112,7 @@ export function ContactForm({
         </FormItem>
 
         <FormItem>
-          <FormLabel>{contactFormDictionary.fields.message}</FormLabel>
+          <FormLabel>{t("fields.message")}</FormLabel>
           <FormControl>
             <Textarea placeholder="" {...register("message")} />
           </FormControl>
@@ -135,9 +133,7 @@ export function ContactForm({
           )}
 
           <Button disabled={isPending || !token} type="submit">
-            {isPending
-              ? contactFormDictionary.messages.pending
-              : contactFormDictionary.fields.submit}
+            {isPending ? t("messages.pending") : t("fields.submit")}
           </Button>
         </footer>
       </form>

@@ -1,13 +1,56 @@
 {
+  "Actions": {
+    "captcha": {
+      "success": "Captcha completed successfully!",
+      "error": "Captcha validation failed. Please try again.",
+      "expired": "Captcha has expired. Please refresh the page and try again."
+    },
+    "contact": {
+      "title": "Contact me",
+      "fields": {
+        "fullName": "Full name",
+        "email": "Email",
+        "phoneNumber": "Phone number",
+        "message": "Message",
+        "submit": "Send"
+      },
+      "messages": {
+        "error": {
+          "title": "Not sent",
+          "description": "Unable to send the message. Please try again later."
+        },
+        "pending": "Sending message...",
+        "success": {
+          "title": "Sent",
+          "description": "Message sent successfully! I'll get back to you as soon as possible."
+        },
+        "subTitle": "Fill out the form below and I'll get back to you as soon as possible."
+      }
+    }
+  },
   "Home": {
+    "about": {
+      "title": "About me",
+      "form": {
+        "title": "Contact me",
+        "description": "Fill out the form below and I'll get back to you as soon as possible."
+      }
+    },
     "hero": {
       "description": "I'm a cybersecurity enthusiast specialized in offensive security. I started as a programmer, having my first contact with the Java language at the age of 11. Over time, I came across the information security area, in which I have been self-taught since 2018, and I follow a routine of constant study and practice.",
-      "title": "Welcome to my portfolio.",
+      "title": "Hello, friend! I'm sim0wn, an ethical hacker.",
       "cta": "Reach out",
       "quote": {
-        "message": "Be curious. Read widely. Try new things. For me, what people call intelligence just boils down to curiosity.",
+        "message": "Be curious. Read widely. Try new things. What people call intelligence just boils down to curiosity.",
         "author": "Aaron Swartz"
       }
+    },
+    "activities": {
+      "title": "Activities",
+      "description": "Here are some of my recent activities and projects."
+    },
+    "skills": {
+      "title": "Skills"
     }
   },
   "Layout": {
@@ -30,17 +73,21 @@
   "Metadata": {
     "applicationName": "Portfolio",
     "defaultTitle": "Welcome | sim0wn",
-    "description": "Hello, friend. I'm sim0wn, a developer and cybersecurity enthusiast specialized in web applications",
+    "description": "Welcome to my portfolio! I'm sim0wn, an ethical hacker and cybersecurity enthusiast. Here you can find my projects, books, and ways to contact me.",
     "keywords": [
       "BASH",
       "CTF",
-      "Web developer",
-      "Ethical hacker",
+      "Hackers do Bem",
+      "Hacker ético",
       "Linux",
-      "Portfolio",
+      "Portfólio",
       "Python",
       "Information Security",
-      "TypeScript"
+      "TypeScript",
+      "cybersecurity",
+      "ethical hacking",
+      "web applications",
+      "programming"
     ]
   }
 }

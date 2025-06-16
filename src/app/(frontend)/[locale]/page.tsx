@@ -1,13 +1,12 @@
 import { Locale } from "next-intl"
-import { getTranslations } from "next-intl/server"
 import { SearchParams } from "nuqs/server"
 import { Suspense } from "react"
 
-import { Contact, ContactFallback } from "./_components/contact"
-import { Hacktivity, HacktivityFallback } from "./_components/hacktivity"
-import { Hero, HeroFallback } from "./_components/hero"
-import { Highlights, HighlightsFallback } from "./_components/highlights"
-import { Skills, SkillsFallback } from "./_components/skills"
+import { About, AboutFallback } from "./components/about"
+import { Hacktivity, HacktivityFallback } from "./components/hacktivity"
+import { Hero, HeroFallback } from "./components/hero"
+import { Highlights, HighlightsFallback } from "./components/highlights"
+import { Skills, SkillsFallback } from "./components/skills"
 
 type Props = {
   params: Promise<{ locale: Locale }>
@@ -16,31 +15,22 @@ type Props = {
 
 export default async function LandingPage({ params, searchParams }: Props) {
   const { locale } = await params
-  const t = await getTranslations({ locale, namespace: "Home" })
   return (
     <main className="flex flex-1 flex-col place-content-center">
       <Suspense fallback={<HeroFallback />}>
-        <Hero
-          cta={t("hero.cta")}
-          description={t("hero.description")}
-          quote={{
-            author: t("hero.quote.author"),
-            message: t("hero.quote.message"),
-          }}
-          title={t("hero.title")}
-        />
+        <Hero />
       </Suspense>
       <Suspense fallback={<HighlightsFallback />}>
-        <Highlights />
+        <Highlights locale={locale} />
       </Suspense>
       <Suspense fallback={<SkillsFallback />}>
-        <Skills />
+        <Skills locale={locale} />
       </Suspense>
       <Suspense fallback={<HacktivityFallback />}>
-        <Hacktivity searchParams={searchParams} />
+        <Hacktivity locale={locale} searchParams={searchParams} />
       </Suspense>
-      <Suspense fallback={<ContactFallback />}>
-        <Contact />
+      <Suspense fallback={<AboutFallback />}>
+        <About locale={locale} />
       </Suspense>
     </main>
   )

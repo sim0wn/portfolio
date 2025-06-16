@@ -1,4 +1,4 @@
-import { headers } from "next/headers"
+import { Locale } from "next-intl"
 import Image from "next/image"
 
 import {
@@ -13,10 +13,8 @@ import {
 } from "@/components"
 import { payload } from "@/lib"
 import { Media } from "@/types"
-import { getLocale } from "@/utils"
 
-export async function Highlights() {
-  const locale = getLocale(await headers())
+export async function Highlights({ locale }: { locale: Locale }) {
   return (
     <section className="border-y">
       <ul className="container my-auto flex justify-center gap-2">

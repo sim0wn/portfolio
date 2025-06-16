@@ -5,7 +5,8 @@ import {
   ChevronLeft,
   ChevronRight,
 } from "lucide-react"
-import { headers } from "next/headers"
+import { Locale } from "next-intl"
+import { getTranslations } from "next-intl/server"
 import Image from "next/image"
 import Link from "next/link"
 import { redirect } from "next/navigation"
@@ -16,17 +17,17 @@ import {
 } from "nuqs/server"
 
 import { Button, ExternalLink, Skeleton } from "@/components/ui"
-import { getDictionary } from "@/lib"
 import { HacktivityService } from "@/services/hacktivity-service.service"
-import { getLocale } from "@/utils"
 
 import { ChallengeCategoryIcon } from "./challenge-category-icon"
 
 export async function Hacktivity({
   searchParams,
 }: {
+  locale: Locale
   searchParams: Promise<SearchParams>
 }) {
+  const t = await getTranslations("Home.activities")
   const searchParamsCache = createSearchParamsCache(
     {
       hacktivity: parseAsInteger.withDefault(1),
@@ -45,16 +46,9 @@ export async function Hacktivity({
   } else if (hacktivityPage < 1) {
     redirect(`/`)
   }
-  const locale = getLocale(await headers())
-  const {
-    landingPage: { hacktivity },
-    pagination: paginationDictionary,
-  } = await getDictionary(locale)
   return (
     <section className="container flex h-fit flex-col place-items-center justify-center py-16">
-      <h1 className="py-2 text-center text-lg font-semibold">
-        {hacktivity.title}
-      </h1>
+      <h1 className="py-2 text-center text-lg font-semibold">{t("title")}</h1>
       <section className="flex h-min w-full flex-1 flex-col gap-2 rounded-md border p-2.5 shadow-sm">
         {data.map(({ category, date, name, platform, url }, index) => (
           <article
@@ -97,8 +91,9 @@ export async function Hacktivity({
             </Link>
           </Button>
           <p>
-            {paginationDictionary.current.in} {pagination.currentPage}{" "}
-            {paginationDictionary.current.of} {pagination.totalPages}
+            {pagination.currentPage}
+            {"/"}
+            {pagination.totalPages}
           </p>
           <Button asChild variant={"ghost"}>
             <Link href={`/?h=${pagination.nextPage}`} scroll={false}>

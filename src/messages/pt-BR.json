@@ -1,5 +1,45 @@
 {
+  "Actions": {
+    "captcha": {
+      "success": "Captcha validado com sucesso!",
+      "error": "Falha ao validar captcha. Por favor, tente novamente.",
+      "expired": "O captcha expirou. Por favor, recarregue a página e tente novamente."
+    },
+    "contact": {
+      "title": "Entre em contato",
+      "fields": {
+        "fullName": "Nome completo",
+        "email": "E-mail",
+        "phoneNumber": "Número de telefone",
+        "message": "Mensagem",
+        "submit": "Enviar"
+      },
+      "messages": {
+        "error": {
+          "title": "Não enviado",
+          "description": "Não foi possível enviar a mensagem. Por favor, tente novamente mais tarde."
+        },
+        "pending": "Enviando mensagem...",
+        "success": {
+          "title": "Enviado!",
+          "description": "Mensagem enviada com sucesso! Eu entrarei em contato assim que possível."
+        },
+        "subTitle": "Mensagem enviada com sucesso! Eu entrarei em contato assim que possível."
+      }
+    }
+  },
   "Home": {
+    "about": {
+      "title": "Sobre mim",
+      "form": {
+        "title": "Entre em contato",
+        "description": "Preencha o formulário abaixo e entrarei em contato assim que possível."
+      }
+    },
+    "activities": {
+      "title": "Atividades",
+      "description": "Aqui estão algumas das minhas atividades e projetos mais recentes."
+    },
     "hero": {
       "description": "Sou um entusiasta em cibersegurança especializado em segurança ofensiva. Iniciei como programador, tendo meu primeiro contato com a linguagem Java aos 11 anos. Com o tempo, me deparei com a área de segurança da informação, na qual sou um autodidata desde 2018, e sigo uma rotina de estudo e prática constante.",
       "title": "Bem-vindo ao meu portfólio",
@@ -8,6 +48,9 @@
         "message": "Seja curioso, leia amplamente e experimente coisas novas. Para mim, o que as pessoas chamam de inteligência se resume à curiosidade.",
         "author": "Aaron Swartz"
       }
+    },
+    "skills": {
+      "title": "Habilidades"
     }
   },
   "Layout": {

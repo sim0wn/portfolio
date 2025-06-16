@@ -1,4 +1,4 @@
-import { headers } from "next/headers"
+import { Locale } from "next-intl"
 import { redirect } from "next/navigation"
 import { Fragment, ReactNode } from "react"
 
@@ -18,23 +18,20 @@ import {
 } from "@/components/ui/sidebar"
 import { payload } from "@/lib"
 import { NestedDocs, Page } from "@/types"
-import { getLocale, getNestedDocs } from "@/utils"
+import { getNestedDocs } from "@/utils"
 
-import BookSidebar from "./_components/book-sidebar"
+import BookSidebar from "./components/book-sidebar"
 
-type Params = Promise<{ slug: string[] }>
-
-export default async function Layout({
-  children,
-  params,
-}: {
+type Props = {
   children: ReactNode
-  params: Params
-}) {
+  params: Promise<{ locale: Locale; slug: string[] }>
+}
+
+export default async function Layout({ children, params }: Props) {
   const {
+    locale,
     slug: [book, ...slug],
   } = await params
-  const locale = getLocale(await headers())
   const { docs: pages } = await payload.find({
     collection: "pages",
     locale,

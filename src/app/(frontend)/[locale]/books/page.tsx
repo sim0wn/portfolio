@@ -1,5 +1,4 @@
-import { headers } from "next/headers"
-import Link from "next/link"
+import { Locale } from "next-intl"
 
 import {
   Button,
@@ -10,11 +9,15 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui"
+import { Link } from "@/i18n"
 import { payload } from "@/lib"
-import { getLocale } from "@/utils"
 
-export default async function Page() {
-  const locale = getLocale(await headers())
+type Props = {
+  params: Promise<{ locale: Locale }>
+}
+
+export default async function Page({ params }: Props) {
+  const { locale } = await params
   const { docs: books } = await payload.find({
     collection: "books",
     locale,
@@ -30,7 +33,9 @@ export default async function Page() {
           <CardContent></CardContent>
           <CardFooter>
             <Button asChild variant={"ghost"}>
-              <Link href={`/books/${slug}`}>Acessar</Link>
+              <Link href={`/books/${slug}`} locale={locale}>
+                Acessar
+              </Link>
             </Button>
           </CardFooter>
         </Card>

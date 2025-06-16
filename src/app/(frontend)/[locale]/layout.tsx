@@ -5,17 +5,14 @@ import { Code, Globe, Library, Shield } from "lucide-react"
 import { hasLocale, Locale, NextIntlClientProvider } from "next-intl"
 import { getMessages, getTranslations } from "next-intl/server"
 import { notFound } from "next/navigation"
-
-import "@/app/(frontend)/styles.css"
-
 import { NuqsAdapter } from "nuqs/adapters/next/app"
 import { ReactNode, Suspense } from "react"
 
-import { lato, raleway } from "@/app/(frontend)/fonts"
+import { lato, raleway } from "@/app/fonts"
 import { Button, ExternalLink, Lettermark, Toaster } from "@/components"
 import { Link, routing } from "@/i18n"
 
-import { Social, SocialFallback } from "./_components/social"
+import { Social, SocialFallback } from "./components/social"
 
 type Props = Readonly<{
   children: ReactNode

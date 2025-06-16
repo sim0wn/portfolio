@@ -1,14 +1,12 @@
 "use server"
 
 import { verify } from "hcaptcha"
+import { getTranslations } from "next-intl/server"
 import { revalidatePath } from "next/cache"
-import { headers } from "next/headers"
 import { Resend } from "resend"
 
 import { getEnv } from "@/config"
-import { getDictionary } from "@/lib"
 import { ContactFormState } from "@/types"
-import { getLocale } from "@/utils"
 import { contactFormValidation } from "@/validations"
 
 const env = getEnv()
@@ -17,13 +15,7 @@ export async function submitContactForm(
   prevState: ContactFormState,
   formData: FormData,
 ): Promise<ContactFormState> {
-  const locale = getLocale(await headers())
-  const {
-    captcha: captchaDictionary,
-    forms: {
-      contact: { messages: contactMessagesDictionary },
-    },
-  } = await getDictionary(locale)
+  const t = await getTranslations("Actions")
   const rawFormData = {
     captchaToken: formData.get("captchaToken"),
     email: formData.get("email"),
@@ -37,7 +29,7 @@ export async function submitContactForm(
   if (!validatedFields.success) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
-      message: contactMessagesDictionary.error.description,
+      message: t("contact.messages.error.description"),
     }
   }
   const { captchaToken, email, fullName, message, phoneNumber } =
@@ -45,16 +37,16 @@ export async function submitContactForm(
 
   if (!captchaToken) {
     return {
-      errors: { captchaToken: [captchaDictionary.error] },
-      message: captchaDictionary.error,
+      errors: { captchaToken: [t("captcha.error")] },
+      message: t("captcha.error"),
     }
   }
 
   const verifiedCaptcha = await verify(env.HCAPTCHA_SECRET_KEY, captchaToken)
   if (!verifiedCaptcha.success) {
     return {
-      errors: { captchaToken: [captchaDictionary.expired] },
-      message: captchaDictionary.expired,
+      errors: { captchaToken: [t("captcha.expired")] },
+      message: t("captcha.expired"),
     }
   }
 
@@ -69,12 +61,12 @@ export async function submitContactForm(
     revalidatePath("/")
 
     return {
-      message: contactMessagesDictionary.success.description,
+      message: t("contact.messages.success.description"),
       success: true,
     }
   } catch {
     return {
-      message: contactMessagesDictionary.error.description,
+      message: t("contact.messages.error.description"),
       success: false,
     }
   }

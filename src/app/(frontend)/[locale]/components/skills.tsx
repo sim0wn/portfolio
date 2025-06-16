@@ -1,4 +1,5 @@
-import { headers } from "next/headers"
+import { Locale } from "next-intl"
+import { getTranslations } from "next-intl/server"
 
 import {
   Card,
@@ -12,14 +13,11 @@ import {
   CarouselPrevious,
   Skeleton,
 } from "@/components/ui"
-import { getDictionary, payload } from "@/lib"
-import { cn, getLocale } from "@/utils"
+import { payload } from "@/lib"
+import { cn } from "@/utils"
 
-export async function Skills() {
-  const locale = getLocale(await headers())
-  const {
-    landingPage: { services },
-  } = await getDictionary(locale)
+export async function Skills({ locale }: { locale: Locale }) {
+  const t = await getTranslations("Home.skills")
   const { docs: skills } = await payload.find({
     collection: "skills",
     locale,
@@ -31,9 +29,7 @@ export async function Skills() {
         "flex flex-col place-items-center justify-center gap-8 pt-8 pb-12 md:px-0",
       )}
     >
-      <h1 className="text-lg font-semibold text-neutral-50">
-        {services.title}
-      </h1>
+      <h1 className="text-lg font-semibold text-neutral-50">{t("title")}</h1>
       <div className="mx-auto w-full px-4 py-10">
         <Carousel
           className="mx-auto max-w-5xl"
