@@ -3,7 +3,7 @@ import { SearchParams } from "nuqs/server"
 import { Suspense } from "react"
 
 import { About, AboutFallback } from "./components/about"
-import { Hacktivity, HacktivityFallback } from "./components/hacktivity"
+import { Activity, ActivityFallback } from "./components/activity"
 import { Hero, HeroFallback } from "./components/hero"
 import { Highlights, HighlightsFallback } from "./components/highlights"
 import { Skills, SkillsFallback } from "./components/skills"
@@ -26,8 +26,8 @@ export default async function LandingPage({ params, searchParams }: Props) {
       <Suspense fallback={<SkillsFallback />}>
         <Skills locale={locale} />
       </Suspense>
-      <Suspense fallback={<HacktivityFallback />}>
-        <Hacktivity locale={locale} searchParams={searchParams} />
+      <Suspense fallback={<ActivityFallback />}>
+        <Activity locale={locale} searchParams={searchParams} />
       </Suspense>
       <Suspense fallback={<AboutFallback />}>
         <About locale={locale} />

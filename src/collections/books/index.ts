@@ -1,1 +1,1 @@
-export { Books } from "./book.collection"
+export { Books } from "./books.collection"

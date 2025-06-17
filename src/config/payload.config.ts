@@ -16,8 +16,10 @@ import {
   highlightCollection,
   mediaCollection,
   Pages,
+  Platforms,
   skillCollection,
 } from "@/collections"
+import { Activities } from "@/collections/activities"
 import { socialCollection } from "@/collections/social.collection"
 
 import { getEnv } from "./env.config"
@@ -32,11 +34,13 @@ export default buildConfig({
   },
   blocks: [CodeBlock],
   collections: [
+    Activities,
     Books,
     faqCollection,
     highlightCollection,
     mediaCollection,
     Pages,
+    Platforms,
     skillCollection,
     socialCollection,
   ],

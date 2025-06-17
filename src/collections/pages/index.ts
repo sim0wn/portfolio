@@ -1,1 +1,1 @@
-export { Pages } from "./page.collection"
+export { Pages } from "./pages.collection"

@@ -69,11 +69,13 @@ export interface Config {
     codeBlock: CodeBlock;
   };
   collections: {
+    activities: Activity;
     books: Book;
     faq: Faq;
     highlights: Highlight;
     media: Media;
     pages: Page;
+    platforms: Platform;
     skills: Skill;
     social: Social;
     users: User;
@@ -84,11 +86,13 @@ export interface Config {
   };
   collectionsJoins: {};
   collectionsSelect: {
+    activities: ActivitiesSelect<false> | ActivitiesSelect<true>;
     books: BooksSelect<false> | BooksSelect<true>;
     faq: FaqSelect<false> | FaqSelect<true>;
     highlights: HighlightsSelect<false> | HighlightsSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     pages: PagesSelect<false> | PagesSelect<true>;
+    platforms: PlatformsSelect<false> | PlatformsSelect<true>;
     skills: SkillsSelect<false> | SkillsSelect<true>;
     social: SocialSelect<false> | SocialSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
@@ -379,6 +383,54 @@ export interface CodeBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'codeBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "activities".
+ */
+export interface Activity {
+  id: string;
+  title: string;
+  category: 'certification' | 'course' | 'ctf' | 'event' | 'lecture' | 'workshop';
+  date: string;
+  /**
+   * The platform, organizer, or provider for this activity.
+   */
+  platform?: (string | null) | Platform;
+  description?: string | null;
+  url?: string | null;
+  attachments?:
+    | {
+        url: string;
+        description?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Add any extra info specific to this activity’s category (optional).
+   */
+  metadata?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "platforms".
+ */
+export interface Platform {
+  id: string;
+  name: string;
+  website?: string | null;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -673,6 +725,10 @@ export interface PayloadLockedDocument {
   id: string;
   document?:
     | ({
+        relationTo: 'activities';
+        value: string | Activity;
+      } | null)
+    | ({
         relationTo: 'books';
         value: string | Book;
       } | null)
@@ -691,6 +747,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'pages';
         value: string | Page;
+      } | null)
+    | ({
+        relationTo: 'platforms';
+        value: string | Platform;
       } | null)
     | ({
         relationTo: 'skills';
@@ -749,6 +809,28 @@ export interface PayloadMigration {
   batch?: number | null;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "activities_select".
+ */
+export interface ActivitiesSelect<T extends boolean = true> {
+  title?: T;
+  category?: T;
+  date?: T;
+  platform?: T;
+  description?: T;
+  url?: T;
+  attachments?:
+    | T
+    | {
+        url?: T;
+        description?: T;
+        id?: T;
+      };
+  metadata?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -859,6 +941,16 @@ export interface PagesSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "platforms_select".
+ */
+export interface PlatformsSelect<T extends boolean = true> {
+  name?: T;
+  website?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
