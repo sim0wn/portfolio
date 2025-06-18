@@ -70,12 +70,13 @@ export interface Config {
   };
   collections: {
     activities: Activity;
+    'activity-categories': ActivityCategory;
+    'activity-platforms': ActivityPlatform;
     books: Book;
     faq: Faq;
     highlights: Highlight;
     media: Media;
     pages: Page;
-    platforms: Platform;
     skills: Skill;
     social: Social;
     users: User;
@@ -87,12 +88,13 @@ export interface Config {
   collectionsJoins: {};
   collectionsSelect: {
     activities: ActivitiesSelect<false> | ActivitiesSelect<true>;
+    'activity-categories': ActivityCategoriesSelect<false> | ActivityCategoriesSelect<true>;
+    'activity-platforms': ActivityPlatformsSelect<false> | ActivityPlatformsSelect<true>;
     books: BooksSelect<false> | BooksSelect<true>;
     faq: FaqSelect<false> | FaqSelect<true>;
     highlights: HighlightsSelect<false> | HighlightsSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     pages: PagesSelect<false> | PagesSelect<true>;
-    platforms: PlatformsSelect<false> | PlatformsSelect<true>;
     skills: SkillsSelect<false> | SkillsSelect<true>;
     social: SocialSelect<false> | SocialSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
@@ -391,12 +393,19 @@ export interface CodeBlock {
 export interface Activity {
   id: string;
   title: string;
-  category: 'certification' | 'course' | 'ctf' | 'event' | 'lecture' | 'workshop';
-  date: string;
+  category: string | ActivityCategory;
+  schedule: {
+    startDate: string;
+    endDate?: string | null;
+    /**
+     * The total workload (in minutes) for this activity.
+     */
+    workload?: number | null;
+  };
   /**
    * The platform, organizer, or provider for this activity.
    */
-  platform?: (string | null) | Platform;
+  platform?: (string | null) | ActivityPlatform;
   description?: string | null;
   url?: string | null;
   attachments?:
@@ -423,9 +432,21 @@ export interface Activity {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "platforms".
+ * via the `definition` "activity-categories".
  */
-export interface Platform {
+export interface ActivityCategory {
+  id: string;
+  name: string;
+  slug: string;
+  description?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "activity-platforms".
+ */
+export interface ActivityPlatform {
   id: string;
   name: string;
   website?: string | null;
@@ -729,6 +750,14 @@ export interface PayloadLockedDocument {
         value: string | Activity;
       } | null)
     | ({
+        relationTo: 'activity-categories';
+        value: string | ActivityCategory;
+      } | null)
+    | ({
+        relationTo: 'activity-platforms';
+        value: string | ActivityPlatform;
+      } | null)
+    | ({
         relationTo: 'books';
         value: string | Book;
       } | null)
@@ -747,10 +776,6 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'pages';
         value: string | Page;
-      } | null)
-    | ({
-        relationTo: 'platforms';
-        value: string | Platform;
       } | null)
     | ({
         relationTo: 'skills';
@@ -817,7 +842,13 @@ export interface PayloadMigration {
 export interface ActivitiesSelect<T extends boolean = true> {
   title?: T;
   category?: T;
-  date?: T;
+  schedule?:
+    | T
+    | {
+        startDate?: T;
+        endDate?: T;
+        workload?: T;
+      };
   platform?: T;
   description?: T;
   url?: T;
@@ -829,6 +860,27 @@ export interface ActivitiesSelect<T extends boolean = true> {
         id?: T;
       };
   metadata?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "activity-categories_select".
+ */
+export interface ActivityCategoriesSelect<T extends boolean = true> {
+  name?: T;
+  slug?: T;
+  description?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "activity-platforms_select".
+ */
+export interface ActivityPlatformsSelect<T extends boolean = true> {
+  name?: T;
+  website?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -941,16 +993,6 @@ export interface PagesSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "platforms_select".
- */
-export interface PlatformsSelect<T extends boolean = true> {
-  name?: T;
-  website?: T;
-  updatedAt?: T;
-  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

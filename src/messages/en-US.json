@@ -47,7 +47,19 @@
     },
     "activities": {
       "title": "Activities",
-      "description": "Here are some of my recent activities and projects."
+      "description": "Here are some of my recent activities and projects.",
+      "tabs": {
+        "ariaLabel": "Activity categories",
+        "ariaActivities": "Activities",
+        "attachments": "Attachments",
+        "platform": "Platform",
+        "no-data": "No activities found in this category.",
+        "workload": {
+          "full": "{hours, plural, one {1 hour} other {# hours}}, {minutes, plural, one {1 minute} other {# minutes}}",
+          "minutes": "{minutes, plural, one {1 minute} other {# minutes}}",
+          "hours": "{hours, plural, one {1 hour} other {# hours}}"
+        }
+      }
     },
     "skills": {
       "title": "Skills"
@@ -65,7 +77,7 @@
         "contact": "Contact"
       },
       "menu": {
-        "books": "Books",
+        "library": "Library",
         "contact": "Contact"
       }
     }

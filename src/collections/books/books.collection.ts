@@ -3,6 +3,7 @@ import slug from "slug"
 
 export const Books: CollectionConfig = {
   admin: {
+    group: { en: "Library", pt: "Biblioteca" },
     useAsTitle: "title",
   },
   fields: [

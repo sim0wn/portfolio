@@ -1,7 +1,7 @@
 import { createSearchParamsCache, parseAsString } from "nuqs/server"
 
 const searchParamsParsers = {
-  tab: parseAsString.withDefault("event"),
+  tab: parseAsString,
 }
 
 export const searchParamsCache = createSearchParamsCache(searchParamsParsers, {

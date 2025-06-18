@@ -38,7 +38,19 @@
     },
     "activities": {
       "title": "Atividades",
-      "description": "Aqui estão algumas das minhas atividades e projetos mais recentes."
+      "description": "Aqui estão algumas das minhas atividades e projetos mais recentes.",
+      "tabs": {
+        "ariaLabel": "Categorias de atividades",
+        "ariaActivities": "Atividades",
+        "attachments": "Anexos",
+        "platform": "Plataforma",
+        "no-data": "Nenhuma atividade encontrada nessa categoria.",
+        "workload": {
+          "full": "{hours, plural, one {1 hora} other {# horas}} e {minutes, plural, one {1 minuto} other {# minutos}}",
+          "minutes": "{minutes, plural, one {1 minuto} other {# minutos}}",
+          "hours": "{hours, plural, one {1 hora} other {# horas}}"
+        }
+      }
     },
     "hero": {
       "description": "Sou um entusiasta em cibersegurança especializado em segurança ofensiva. Iniciei como programador, tendo meu primeiro contato com a linguagem Java aos 11 anos. Com o tempo, me deparei com a área de segurança da informação, na qual sou um autodidata desde 2018, e sigo uma rotina de estudo e prática constante.",
@@ -65,7 +77,7 @@
         "contact": "Contato"
       },
       "menu": {
-        "books": "Livros",
+        "library": "Biblioteca",
         "contact": "Contato"
       }
     }

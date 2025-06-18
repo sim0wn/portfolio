@@ -86,7 +86,7 @@ export default async function LocaleLayout({ children, params }: Props) {
                   <Button asChild size={"sm"} variant={"link"}>
                     <Link href={"/books"}>
                       <Library width={"1em"} />
-                      {t("nav.menu.books")}
+                      {t("nav.menu.library")}
                     </Link>
                   </Button>
                 </li>

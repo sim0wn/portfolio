@@ -11,15 +11,16 @@ import sharp from "sharp"
 
 import { CodeBlock } from "@/blocks"
 import {
+  Activities,
+  ActivityCategories,
+  ActivityPlatforms,
   Books,
   faqCollection,
   highlightCollection,
   mediaCollection,
   Pages,
-  Platforms,
   skillCollection,
 } from "@/collections"
-import { Activities } from "@/collections/activities"
 import { socialCollection } from "@/collections/social.collection"
 
 import { getEnv } from "./env.config"
@@ -35,12 +36,13 @@ export default buildConfig({
   blocks: [CodeBlock],
   collections: [
     Activities,
+    ActivityCategories,
+    ActivityPlatforms,
     Books,
     faqCollection,
     highlightCollection,
     mediaCollection,
     Pages,
-    Platforms,
     skillCollection,
     socialCollection,
   ],

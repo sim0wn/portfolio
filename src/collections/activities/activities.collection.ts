@@ -1,23 +1,25 @@
 import { CollectionConfig } from "payload"
 
-export const activityCategories = [
-  "certification",
-  "course",
-  "ctf",
-  "event",
-  "lecture",
-  "workshop",
-] as const
+import { Activity } from "@/types"
+
+// export const activityCategories = [
+//   "certification",
+//   "course",
+//   "ctf",
+//   "event",
+//   "lecture",
+//   "workshop",
+// ] as const
 
 export const Activities: CollectionConfig = {
   admin: {
+    group: { en: "Activities", pt: "Atividades" },
     useAsTitle: "title",
   },
   fields: [
     {
       index: true,
       label: { en: "Title", pt: "Título" },
-      localized: true,
       name: "title",
       required: true,
       type: "text",
@@ -25,19 +27,68 @@ export const Activities: CollectionConfig = {
     {
       label: { en: "Category", pt: "Categoria" },
       name: "category",
-      options: activityCategories.map((category) => ({
-        label: { en: category, pt: category },
-        value: category,
-      })),
+      relationTo: "activity-categories",
       required: true,
-      type: "select",
+      type: "relationship",
     },
     {
-      admin: { date: { pickerAppearance: "dayOnly" } },
-      index: true,
-      name: "date",
-      required: true,
-      type: "date",
+      fields: [
+        {
+          fields: [
+            {
+              admin: {
+                date: {
+                  displayFormat: "dd/MM/yyyy",
+                  pickerAppearance: "dayOnly",
+                },
+              },
+              index: true,
+              label: { en: "Start date", pt: "Início em" },
+              name: "startDate",
+              required: true,
+              type: "date",
+            },
+            {
+              admin: {
+                date: {
+                  displayFormat: "dd/MM/yyyy",
+                  pickerAppearance: "dayOnly",
+                },
+              },
+              index: true,
+              label: { en: "End date", pt: "Encerramento" },
+              name: "endDate",
+              type: "date",
+              validate: (val, { siblingData }) => {
+                const activity = siblingData as Activity["schedule"]
+                if (val && activity.startDate) {
+                  return new Date(val) > new Date(activity.startDate)
+                    ? true
+                    : "End date must be after start date."
+                }
+                return true
+              },
+            },
+          ],
+          type: "row",
+        },
+        {
+          admin: {
+            description: {
+              en: "The total workload (in minutes) for this activity.",
+              pt: "A carga horária total (em minutos) para esta atividade.",
+            },
+            placeholder: { en: "e.g. 90", pt: "ex: 90" },
+          },
+          label: { en: "Workload", pt: "Carga horária" },
+          min: 1,
+          name: "workload",
+          type: "number",
+        },
+      ],
+      label: { en: "Schedule", pt: "Agenda" },
+      name: "schedule",
+      type: "group",
     },
     {
       admin: {
@@ -46,8 +97,9 @@ export const Activities: CollectionConfig = {
           pt: "A plataforma, organizador ou provedor desta atividade.",
         },
       },
+      label: { en: "Platform", pt: "Plataforma" },
       name: "platform",
-      relationTo: "platforms",
+      relationTo: "activity-platforms",
       required: false,
       type: "relationship",
     },

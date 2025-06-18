@@ -4,6 +4,7 @@ import slug from "slug"
 export const Pages: CollectionConfig = {
   admin: {
     defaultColumns: ["title", "slug", "type", "parent", "content"],
+    group: { en: "Library", pt: "Biblioteca" },
     useAsTitle: "title",
   },
   defaultPopulate: {
