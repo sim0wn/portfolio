@@ -4,8 +4,8 @@ import { Suspense } from "react"
 
 import { About, AboutFallback } from "./components/about"
 import { Activity, ActivityFallback } from "./components/activity"
+import { Featured, FeaturedFallback } from "./components/featured"
 import { Hero, HeroFallback } from "./components/hero"
-import { Highlights, HighlightsFallback } from "./components/highlights"
 import { Skills, SkillsFallback } from "./components/skills"
 
 type Props = {
@@ -20,8 +20,8 @@ export default async function LandingPage({ params, searchParams }: Props) {
       <Suspense fallback={<HeroFallback />}>
         <Hero />
       </Suspense>
-      <Suspense fallback={<HighlightsFallback />}>
-        <Highlights locale={locale} />
+      <Suspense fallback={<FeaturedFallback />}>
+        <Featured locale={locale} />
       </Suspense>
       <Suspense fallback={<SkillsFallback />}>
         <Skills locale={locale} />

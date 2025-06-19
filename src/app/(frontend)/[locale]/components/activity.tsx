@@ -1,21 +1,48 @@
-import { format } from "date-fns"
-import { enUS, ptBR } from "date-fns/locale"
+import {
+  ChevronLeft,
+  ChevronRight,
+  ChevronsLeft,
+  ChevronsRight,
+  Clock,
+  Paperclip,
+} from "lucide-react"
 import { Locale } from "next-intl"
 import { getTranslations } from "next-intl/server"
 import { SearchParams } from "nuqs/server"
+import { Where } from "payload"
 
 import {
+  Badge,
+  Button,
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+  Input,
+  Label,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
   Skeleton,
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
 } from "@/components"
 import { Link } from "@/i18n"
 import { payload } from "@/lib"
 import { cn } from "@/utils"
 
 import { searchParamsCache } from "../search-params"
+
+const PAGE_SIZE = 8
 
 export async function Activity({
   locale,
@@ -25,298 +52,456 @@ export async function Activity({
   searchParams: Promise<SearchParams>
 }) {
   const t = await getTranslations("Home.activities")
-  const { tab } = searchParamsCache.parse(await searchParams)
+  const parsedSearchParams = searchParamsCache.parse(await searchParams)
+  const { category, page, title } = parsedSearchParams
 
-  const { docs: activityCategories } = await payload.find({
-    collection: "activity-categories",
-    locale,
-  })
-  const { docs: activities } = await payload.find({
-    collection: "activities",
-    limit: 8,
-    locale,
-    where: {
-      "category.slug": {
-        equals: tab ?? activityCategories[0].slug,
-      },
+  const activityWhere: Where = {}
+  if (category && category !== "*") {
+    activityWhere["category.slug"] = { equals: category }
+  }
+  if (title) {
+    activityWhere["title"] = { like: title }
+  }
+  const [
+    { docs: activityCategories },
+    {
+      docs: activities,
+      hasNextPage,
+      hasPrevPage,
+      nextPage,
+      page: currentPage,
+      pagingCounter,
+      prevPage,
+      totalDocs,
+      totalPages,
     },
-  })
+  ] = await Promise.all([
+    payload.find({
+      collection: "activity-categories",
+      locale,
+    }),
+    payload.find({
+      collection: "activities",
+      limit: PAGE_SIZE % 2 == 0 ? PAGE_SIZE : PAGE_SIZE + 1, // Ensure even number for grid layout
+      locale,
+      page,
+      pagination: true,
+      where: activityWhere,
+    }),
+  ])
+
+  function buildPageUrl(page: number) {
+    const paramsObj = { ...parsedSearchParams, page, title }
+    return (
+      "?" +
+      Object.entries(paramsObj)
+        .filter(([, v]) => v !== undefined && v !== "")
+        .map(
+          ([k, v]) =>
+            `${encodeURIComponent(k)}=${encodeURIComponent(String(v))}`,
+        )
+        .join("&") +
+      "#activities"
+    )
+  }
+
   return (
     <section
       aria-label={t("title")}
       className="container flex flex-col items-center justify-center py-16"
+      id="activities"
     >
       <h1 className="py-2 text-center text-lg font-semibold">{t("title")}</h1>
-      <section className="flex w-full flex-col gap-2 rounded-md border p-2.5 shadow-sm">
-        <Tabs className="w-full" value={tab ?? activityCategories[0].slug}>
-          <TabsList
-            aria-label={t("tabs.ariaLabel")}
-            className="flex w-full flex-wrap gap-x-4 gap-y-2"
-            role="tablist"
-          >
-            {activityCategories.map((category) => (
-              <TabsTrigger
-                aria-current={tab === category.slug ? "page" : undefined}
-                aria-label={category.name}
-                className={cn(
-                  "rounded-md px-4 py-2 font-medium capitalize transition-colors",
-                  "focus-visible:ring-primary focus-visible:ring-2 focus-visible:outline-none",
-                  "aria-selected:bg-primary aria-selected:text-primary-foreground",
-                )}
-                key={category.id}
-                value={category.slug}
-              >
-                <Link
-                  href={`/?t=${category.slug}`}
-                  locale={locale}
-                  scroll={false}
-                  tabIndex={-1} // Prevents nested link from being focusable, since TabsTrigger is already interactive
-                >
-                  {category.name}
-                </Link>
-              </TabsTrigger>
-            ))}
-          </TabsList>
-          {activityCategories.map((category) => (
-            <TabsContent
-              aria-labelledby={`tab-${category.slug}`}
-              className="focus:outline-none"
-              key={category.id}
-              role="tabpanel"
-              value={category.slug}
+      {/* Filters */}
+      <form
+        action="/#activities"
+        className="mb-6 flex w-full flex-col gap-x-2 gap-y-4 sm:flex-row sm:items-end"
+        method="GET"
+        role="search"
+      >
+        {/* Category Filter */}
+        <div className="flex flex-col gap-1">
+          <Label htmlFor="category">{t("filter.category.label")}</Label>
+          <Select defaultValue={category} name="category">
+            <SelectTrigger
+              aria-label={t("filter.category.label")}
+              id="category"
             >
-              <ul
-                aria-label={t("tabs.ariaActivities", {
-                  category: category.name,
-                })}
-                className={cn(
-                  "grid gap-4",
-                  "grid-cols-1 sm:grid-cols-2 xl:grid-cols-3",
-                )}
-              >
-                {activities.length === 0 ? (
-                  <li className="text-muted-foreground col-span-full py-8 text-center">
-                    {t("tabs.no-data")}
-                  </li>
-                ) : (
-                  activities.map((activity) => (
-                    <li key={activity.id}>
-                      <article
-                        aria-labelledby={`activity-title-${activity.id}`}
-                        className="bg-card hover:ring-primary/30 focus-within:ring-primary/40 rounded-lg border p-4 shadow-sm transition focus-within:ring-2 hover:ring-2"
-                        tabIndex={-1}
-                      >
-                        <header className="mb-2">
-                          <h3
-                            className="mb-1 text-lg leading-tight font-semibold"
-                            id={`activity-title-${activity.id}`}
-                          >
-                            {activity.url ? (
+              <SelectValue placeholder={t("filter.category.placeholder")} />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value={"*"}>
+                {t("filter.category.placeholder")}
+              </SelectItem>
+              {activityCategories.map(({ id, name, slug }) => (
+                <SelectItem key={id} value={slug}>
+                  {name}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+        {/* Text Search */}
+        <div className="flex flex-1 flex-col gap-1">
+          <Label htmlFor="title">{t("filter.title.label")}</Label>
+          <Input
+            aria-label={t("filter.title.label")}
+            autoComplete="off"
+            className="w-full"
+            defaultValue={title}
+            id="title"
+            name="title"
+            placeholder={t("filter.title.placeholder")}
+            type="search"
+          />
+        </div>
+        <Button className="self-end" type="submit">
+          {t("filter.submit.label")}
+        </Button>
+      </form>
+      {/* Results */}
+      <section className="flex w-full flex-col gap-2 rounded-md border p-2.5 shadow-sm">
+        <ul
+          aria-label={t("ariaList")}
+          className={cn(
+            "grid gap-4",
+            "grid-cols-1 lg:grid-cols-2 xl:grid-cols-3",
+          )}
+        >
+          {activities.length === 0 ? (
+            <li className="text-muted-foreground col-span-full py-8 text-center">
+              {t("no-data", {
+                category:
+                  activityCategories.find((ac) => ac.slug === category)?.name ??
+                  category,
+                hasTitle: title && "true",
+                title,
+              })}
+            </li>
+          ) : (
+            activities.map(({ category, platform, ...activity }) => (
+              <li key={activity.id}>
+                <Card
+                  aria-labelledby={`activity-title-${activity.id}`}
+                  className="h-full justify-between"
+                  tabIndex={-1}
+                >
+                  <CardHeader>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <CardTitle
+                          className="truncate overflow-hidden whitespace-nowrap"
+                          id={`activity-title-${activity.id}`}
+                        >
+                          {activity.url ? (
+                            <Link
+                              className="underline focus-visible:outline"
+                              href={activity.url}
+                              rel="noopener noreferrer"
+                              target="_blank"
+                            >
+                              {activity.title}
+                            </Link>
+                          ) : (
+                            activity.title
+                          )}
+                        </CardTitle>
+                      </TooltipTrigger>
+                      <TooltipContent>{activity.title}</TooltipContent>
+                    </Tooltip>
+                    <div className="text-muted-foreground flex flex-wrap items-start gap-2 text-xs">
+                      <span className="flex gap-2">
+                        <Badge>
+                          {typeof category === "object" && category.name}
+                        </Badge>
+                        {platform && typeof platform === "object" && (
+                          <Badge variant="outline">
+                            {platform.website ? (
                               <Link
-                                href={activity.url}
+                                className="underline"
+                                href={platform.website}
                                 rel="noopener noreferrer"
                                 target="_blank"
                               >
-                                {activity.title}
+                                {platform.name}
                               </Link>
                             ) : (
-                              activity.title
+                              platform.name
                             )}
-                          </h3>
-                          <div className="text-muted-foreground mb-1 flex items-center gap-2 text-xs">
-                            <span>
-                              {typeof activity.category === "object" &&
-                                activity.category?.name}
-                            </span>
-                            <span aria-hidden="true">&middot;</span>
-                            {/* If it has a workload (in minutes), show it in hours and minutes */}
-                            {activity.schedule.workload && (
-                              <>
-                                <span>
-                                  {(() => {
-                                    const hours = Math.floor(
-                                      activity.schedule.workload / 60,
-                                    )
-                                    const minutes =
-                                      activity.schedule.workload % 60
-                                    if (minutes === 0) {
-                                      return t("tabs.workload.hours", {
-                                        hours,
-                                      })
-                                    }
-                                    if (hours === 0) {
-                                      return t("tabs.workload.minutes", {
-                                        minutes:
-                                          activity.schedule.workload % 60,
-                                      })
-                                    }
-                                    return t("tabs.workload.full", {
-                                      hours,
-                                      minutes: activity.schedule.workload % 60,
-                                    })
-                                  })()}
-                                </span>
-                                <span aria-hidden="true">&middot;</span>
-                              </>
-                            )}
-                            <time dateTime={activity.schedule.startDate}>
-                              {format(
-                                new Date(activity.schedule.startDate),
-                                "PPP",
-                                {
-                                  locale: locale === "pt-BR" ? ptBR : enUS,
-                                },
-                              )}
-                            </time>
-                            {activity.schedule.endDate && (
-                              <>
-                                <span aria-hidden="true">&middot;</span>
-                                <time dateTime={activity.schedule.endDate}>
-                                  {format(
-                                    new Date(activity.schedule.endDate),
-                                    "PPP",
-                                    {
-                                      locale: locale === "pt-BR" ? ptBR : enUS,
-                                    },
-                                  )}
-                                </time>
-                              </>
-                            )}
-                          </div>
-                          {typeof activity.platform === "object" &&
-                            activity.platform?.name && (
-                              <div className="flex items-center gap-1 text-xs">
-                                <span className="sr-only">
-                                  {t("tabs.platform")}
-                                </span>
-                                {activity.platform.website ? (
-                                  <Link
-                                    className="underline"
-                                    href={activity.platform.website}
-                                    rel="noopener noreferrer"
-                                    target="_blank"
-                                  >
-                                    {activity.platform.name}
-                                  </Link>
-                                ) : (
-                                  activity.platform.name
-                                )}
-                              </div>
-                            )}
-                        </header>
-                        {activity.description && (
-                          <p className="text-foreground/90 mb-2 line-clamp-3 text-sm">
+                          </Badge>
+                        )}
+
+                        {activity.schedule.workload && (
+                          <Badge variant="secondary">
+                            <Clock />
+                            {(() => {
+                              const hours = Math.floor(
+                                activity.schedule.workload / 60,
+                              )
+                              const minutes = activity.schedule.workload % 60
+                              if (minutes === 0) {
+                                return t("schedule.workload.hours", { hours })
+                              }
+                              if (hours === 0) {
+                                return t("schedule.workload.minutes", {
+                                  minutes,
+                                })
+                              }
+                              return t("schedule.workload.full", {
+                                hours,
+                                minutes,
+                              })
+                            })()}
+                          </Badge>
+                        )}
+                      </span>
+                      <span className="flex gap-1">
+                        <Badge variant={"secondary"}>
+                          {!activity.schedule.endDate
+                            ? t("schedule.date.single", {
+                                startDate: new Date(
+                                  activity.schedule.startDate,
+                                ),
+                              })
+                            : t("schedule.date.range", {
+                                endDate: new Date(activity.schedule.endDate),
+                                startDate: new Date(
+                                  activity.schedule.startDate,
+                                ),
+                              })}
+                        </Badge>
+                      </span>
+                    </div>
+                  </CardHeader>
+                  {activity.description && (
+                    <CardContent>
+                      <Dialog>
+                        <DialogTrigger asChild>
+                          <p className="text-foreground/90 cursor-pointer truncate text-sm">
                             {activity.description}
                           </p>
-                        )}
-                        {activity.attachments &&
-                          activity.attachments.length > 0 && (
-                            <ul
-                              aria-label={t("tabs.attachments")}
-                              className="mt-2 space-y-1"
+                        </DialogTrigger>
+                        <DialogContent>
+                          <DialogHeader>
+                            <DialogTitle>{activity.title}</DialogTitle>
+                          </DialogHeader>
+                          {activity.description}
+                        </DialogContent>
+                      </Dialog>
+                    </CardContent>
+                  )}
+                  {activity.attachments && activity.attachments.length > 0 && (
+                    <CardFooter>
+                      <ul aria-label={t("attachments")} className="space-y-1">
+                        {activity.attachments.map((att, i) => (
+                          <li key={i}>
+                            <Link
+                              className="text-accent hover:text-accent-foreground group flex items-center gap-2 rounded px-1 py-0.5 text-sm underline focus-visible:outline"
+                              href={att.url}
+                              rel="noopener noreferrer"
+                              target="_blank"
                             >
-                              {activity.attachments.map((att, i) => (
-                                <li key={i}>
-                                  <Link
-                                    className="text-accent hover:text-accent-foreground rounded px-1 py-0.5 text-sm underline focus-visible:outline"
-                                    href={att.url}
-                                    rel="noopener noreferrer"
-                                    target="_blank"
-                                  >
-                                    {att.description || att.url}
-                                  </Link>
-                                </li>
-                              ))}
-                            </ul>
-                          )}
-                      </article>
-                    </li>
-                  ))
-                )}
-              </ul>
-            </TabsContent>
-          ))}
-        </Tabs>
+                              <Paperclip
+                                aria-label="Anexo"
+                                className={`bg-muted text-accent group-hover:bg-accent group-hover:text-accent-foreground group-focus-visible:bg-accent group-focus-visible:text-accent-foreground mr-1 shrink-0 rounded p-1 shadow-sm transition-all duration-200 group-hover:shadow-lg`}
+                                role="img"
+                                strokeWidth={2}
+                              />
+                              {att.description}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </CardFooter>
+                  )}
+                </Card>
+              </li>
+            ))
+          )}
+        </ul>
+        {/* Pagination */}
+        <nav
+          aria-label={t("pagination.ariaLabel")}
+          className="mt-6 flex flex-col items-stretch gap-4 md:flex-row md:items-center md:justify-between"
+        >
+          <span aria-live="polite" className="text-muted-foreground text-sm">
+            {t("pagination.summary", {
+              from: pagingCounter,
+              to: activities.length + pagingCounter - 1,
+              total: totalDocs,
+            })}
+          </span>
+          <div className="flex items-center justify-end gap-2">
+            <Button
+              aria-label={t("pagination.first")}
+              asChild
+              size="icon"
+              variant="ghost"
+            >
+              {hasPrevPage ? (
+                <Link href={buildPageUrl(1)}>
+                  <ChevronsLeft className="h-4 w-4" />
+                </Link>
+              ) : (
+                <span>
+                  <ChevronsLeft className="h-4 w-4 opacity-50" />
+                </span>
+              )}
+            </Button>
+            <Button
+              aria-label={t("pagination.previous")}
+              asChild
+              size="icon"
+              variant="ghost"
+            >
+              {hasPrevPage ? (
+                <Link href={buildPageUrl(prevPage ?? page)}>
+                  <ChevronLeft className="h-4 w-4" />
+                </Link>
+              ) : (
+                <span>
+                  <ChevronLeft className="h-4 w-4 opacity-50" />
+                </span>
+              )}
+            </Button>
+            <span className="min-w-[64px] text-center text-sm">
+              {t("pagination.label", { page: currentPage ?? page, totalPages })}
+            </span>
+            <Button
+              aria-label={t("pagination.next")}
+              asChild
+              size="icon"
+              variant="ghost"
+            >
+              {hasNextPage ? (
+                <Link href={buildPageUrl(nextPage ?? page)}>
+                  <ChevronRight className="h-4 w-4" />
+                </Link>
+              ) : (
+                <span>
+                  <ChevronRight className="h-4 w-4 opacity-50" />
+                </span>
+              )}
+            </Button>
+            <Button
+              aria-label={t("pagination.last")}
+              asChild
+              disabled={page === totalPages}
+              size="icon"
+              variant="ghost"
+            >
+              {page === totalPages ? (
+                <span>
+                  <ChevronsRight className="h-4 w-4 opacity-50" />
+                </span>
+              ) : (
+                <Link href={buildPageUrl(totalPages)}>
+                  <ChevronsRight className="h-4 w-4" />
+                </Link>
+              )}
+            </Button>
+          </div>
+        </nav>
       </section>
     </section>
   )
 }
 
 export function ActivityFallback() {
-  // Assume 3 categories for skeleton and 3 activities per tab for best loading UX
-  const skeletonCategories = Array.from({ length: 3 })
-  const skeletonCards = Array.from({ length: 3 })
-
   return (
     <section
       aria-busy="true"
-      aria-label="Loading activities"
+      aria-label="Carregando atividades"
       className="container flex flex-col items-center justify-center py-16"
+      id="activities"
     >
-      <h1 className="py-2 text-center text-lg font-semibold">
-        <Skeleton className="mx-auto h-7 w-40 rounded" />
-      </h1>
+      <Skeleton aria-hidden className="mb-4 h-8 w-44 rounded" />
+      {/* Filters skeleton */}
+      <form
+        aria-hidden
+        className="mb-6 flex w-full flex-col gap-x-2 gap-y-4 sm:flex-row sm:items-end"
+        tabIndex={-1}
+      >
+        <div className="flex w-full max-w-xs min-w-[160px] flex-col gap-1">
+          <Skeleton className="mb-1 h-4 w-24 rounded" />
+          <Skeleton className="h-10 w-full rounded" />
+        </div>
+        <div className="flex flex-1 flex-col gap-1">
+          <Skeleton className="mb-1 h-4 w-24 rounded" />
+          <Skeleton className="h-10 w-full rounded" />
+        </div>
+        <Skeleton className="h-10 w-28 self-end rounded" />
+      </form>
+      {/* Cards grid skeleton */}
       <section className="flex w-full flex-col gap-2 rounded-md border p-2.5 shadow-sm">
-        <Tabs className="w-full" value="loading">
-          <TabsList
-            aria-label="Loading activity categories"
-            className="flex w-full flex-wrap gap-x-4 gap-y-2"
-            role="tablist"
-          >
-            {skeletonCategories.map((_, i) => (
-              <TabsTrigger
-                aria-disabled="true"
-                className="rounded-md px-4 py-2 font-medium capitalize transition-colors"
-                disabled
-                key={i}
+        <ul
+          aria-hidden
+          className="grid grid-cols-1 gap-4 lg:grid-cols-2 xl:grid-cols-3"
+        >
+          {Array.from({ length: PAGE_SIZE }).map((_, i) => (
+            <li key={i}>
+              <Card
+                aria-label="Carregando atividade"
+                className="flex h-full animate-pulse flex-col justify-between"
                 tabIndex={-1}
-                value={`loading-${i}`}
               >
-                <Skeleton className="h-5 w-20 rounded" />
-              </TabsTrigger>
-            ))}
-          </TabsList>
-          {skeletonCategories.map((_, i) => (
-            <TabsContent
-              className="focus:outline-none"
-              key={i}
-              role="tabpanel"
-              value={`loading-${i}`}
-            >
-              <ul
-                aria-label="Loading activities"
-                className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3"
-              >
-                {skeletonCards.map((_, j) => (
-                  <li key={j}>
-                    <article
-                      aria-busy="true"
-                      aria-label="Loading activity"
-                      className="bg-card rounded-lg border p-4 shadow-sm"
-                      tabIndex={-1}
-                    >
-                      <header className="mb-2">
-                        <h3 className="mb-1 text-lg font-semibold">
-                          <Skeleton className="h-6 w-32 rounded" />
-                        </h3>
-                        <div className="text-muted-foreground mb-1 flex items-center gap-2 text-xs">
-                          <Skeleton className="h-4 w-20 rounded" />
-                          <span aria-hidden="true">&middot;</span>
-                          <Skeleton className="h-4 w-14 rounded" />
-                        </div>
-                        <div className="flex items-center gap-1 text-xs">
-                          <Skeleton className="h-4 w-16 rounded" />
-                        </div>
-                      </header>
-                      <Skeleton className="mb-2 h-5 w-full rounded" />
-                      <Skeleton className="h-4 w-5/6 rounded" />
-                    </article>
-                  </li>
-                ))}
-              </ul>
-            </TabsContent>
+                <CardHeader>
+                  <CardTitle className="truncate overflow-hidden whitespace-nowrap">
+                    <Skeleton className="h-5 w-4/5 rounded" />
+                  </CardTitle>
+                  <div className="text-muted-foreground mt-2 flex flex-wrap items-center gap-2 text-xs">
+                    <Badge className="h-5 w-20 rounded" variant="outline">
+                      <Skeleton className="h-full w-full" />
+                    </Badge>
+                    <span>&middot;</span>
+                    <Skeleton className="h-4 w-8 rounded" />
+                    <span>&middot;</span>
+                    <Skeleton className="h-4 w-14 rounded" />
+                  </div>
+                  <div className="mt-1 flex items-center gap-1 text-xs">
+                    <Skeleton className="h-4 w-16 rounded" />
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <Skeleton className="mb-2 h-4 w-full rounded" />
+                  <Skeleton className="mb-2 h-4 w-3/4 rounded" />
+                  <Skeleton className="h-4 w-2/3 rounded" />
+                </CardContent>
+                <CardFooter>
+                  <ul aria-hidden className="mt-2 w-full space-y-2">
+                    {[0, 1].map((att) => (
+                      <li className="flex items-center gap-2" key={att}>
+                        <span className="bg-muted text-accent mr-1 shrink-0 rounded p-1 shadow-sm">
+                          <Paperclip
+                            className="opacity-60"
+                            size={18}
+                            strokeWidth={2}
+                          />
+                        </span>
+                        <Skeleton className="h-4 w-24 rounded" />
+                      </li>
+                    ))}
+                  </ul>
+                </CardFooter>
+              </Card>
+            </li>
           ))}
-        </Tabs>
+        </ul>
+        {/* Pagination skeleton */}
+        <nav
+          aria-hidden
+          aria-label="Paginação de atividades (carregando)"
+          className="mt-6 flex flex-col items-stretch gap-4 md:flex-row md:items-center md:justify-between"
+        >
+          <Skeleton className="h-5 w-44 rounded" />
+          <div className="flex items-center justify-end gap-2">
+            <Skeleton className="h-9 w-9 rounded-full" />
+            <Skeleton className="h-9 w-9 rounded-full" />
+            <Skeleton className="h-6 w-16 rounded" />
+            <Skeleton className="h-9 w-9 rounded-full" />
+            <Skeleton className="h-9 w-9 rounded-full" />
+          </div>
+        </nav>
       </section>
     </section>
   )

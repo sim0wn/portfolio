@@ -1,9 +1,13 @@
-import { createSearchParamsCache, parseAsString } from "nuqs/server"
+import {
+  createSearchParamsCache,
+  parseAsInteger,
+  parseAsString,
+} from "nuqs/server"
 
 const searchParamsParsers = {
-  tab: parseAsString,
+  category: parseAsString.withDefault(""),
+  page: parseAsInteger.withDefault(1),
+  title: parseAsString.withDefault(""),
 }
 
-export const searchParamsCache = createSearchParamsCache(searchParamsParsers, {
-  urlKeys: { tab: "t" },
-})
+export const searchParamsCache = createSearchParamsCache(searchParamsParsers)

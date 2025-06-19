@@ -49,6 +49,18 @@ export {
 export { Input } from "./input"
 export { Label } from "./label"
 export { ScrollArea, ScrollBar } from "./scroll-area"
+export {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectScrollDownButton,
+  SelectScrollUpButton,
+  SelectSeparator,
+  SelectTrigger,
+  SelectValue,
+} from "./select"
 export { Skeleton } from "./skeleton"
 export { Toaster } from "./sonner"
 export {
@@ -63,3 +75,9 @@ export {
 } from "./table"
 export { Tabs, TabsContent, TabsList, TabsTrigger } from "./tabs"
 export { Textarea } from "./textarea"
+export {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "./tooltip"

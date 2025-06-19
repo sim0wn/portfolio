@@ -37,20 +37,44 @@
       }
     },
     "activities": {
+      "ariaList": "Listagem de atividades",
       "title": "Atividades",
       "description": "Aqui estão algumas das minhas atividades e projetos mais recentes.",
-      "tabs": {
-        "ariaLabel": "Categorias de atividades",
-        "ariaActivities": "Atividades",
-        "attachments": "Anexos",
-        "platform": "Plataforma",
-        "no-data": "Nenhuma atividade encontrada nessa categoria.",
+      "filter": {
+        "category": {
+          "label": "Categoria",
+          "placeholder": "Todas as categorias"
+        },
+        "title": {
+          "label": "Pesquisar",
+          "placeholder": "Pesquisar atividades"
+        },
+        "submit": {
+          "label": "Filtrar"
+        }
+      },
+      "pagination": {
+        "ariaLabel": "Navegação de paginação",
+        "next": "Próxima página",
+        "previous": "Página anterior",
+        "first": "Primeira página",
+        "last": "Última página",
+        "summary": "Exibindo de {from} a {to} resultados de um total de {total} atividades",
+        "label": "Página {page} de {totalPages}"
+      },
+      "schedule": {
         "workload": {
           "full": "{hours, plural, one {1 hora} other {# horas}} e {minutes, plural, one {1 minuto} other {# minutos}}",
           "minutes": "{minutes, plural, one {1 minuto} other {# minutos}}",
           "hours": "{hours, plural, one {1 hora} other {# horas}}"
+        },
+        "date": {
+          "single": "Em {startDate, date, medium}",
+          "range": "De {startDate, date, medium} à {endDate, date, medium}"
         }
-      }
+      },
+      "no-data": "Nenhuma atividade encontrada na categoria \"{category}\"{hasTitle, select, true { para a busca \"{title}\"} other {}}.",
+      "attachments": "Anexos"
     },
     "hero": {
       "description": "Sou um entusiasta em cibersegurança especializado em segurança ofensiva. Iniciei como programador, tendo meu primeiro contato com a linguagem Java aos 11 anos. Com o tempo, me deparei com a área de segurança da informação, na qual sou um autodidata desde 2018, e sigo uma rotina de estudo e prática constante.",

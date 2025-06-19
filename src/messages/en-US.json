@@ -48,18 +48,42 @@
     "activities": {
       "title": "Activities",
       "description": "Here are some of my recent activities and projects.",
-      "tabs": {
-        "ariaLabel": "Activity categories",
-        "ariaActivities": "Activities",
-        "attachments": "Attachments",
-        "platform": "Platform",
-        "no-data": "No activities found in this category.",
+      "ariaList": "Activity list",
+      "filter": {
+        "category": {
+          "label": "Category",
+          "placeholder": "All categories"
+        },
+        "title": {
+          "label": "Search",
+          "placeholder": "Search activities"
+        },
+        "submit": {
+          "label": "Filter"
+        }
+      },
+      "pagination": {
+        "ariaLabel": "Pagination navigation",
+        "next": "Next page",
+        "previous": "Previous page",
+        "first": "First page",
+        "last": "Last page",
+        "summary": "Showing {from} to {to} of {total} activities",
+        "label": "Page {page} of {totalPages}"
+      },
+      "schedule": {
         "workload": {
-          "full": "{hours, plural, one {1 hour} other {# hours}}, {minutes, plural, one {1 minute} other {# minutes}}",
+          "full": "{hours, plural, one {1 hour} other {# hours}} and {minutes, plural, one {1 minute} other {# minutes}}",
           "minutes": "{minutes, plural, one {1 minute} other {# minutes}}",
           "hours": "{hours, plural, one {1 hour} other {# hours}}"
+        },
+        "date": {
+          "single": "On {startDate, date, medium}",
+          "range": "From {startDate, date, medium} to {endDate, date, medium}"
         }
-      }
+      },
+      "no-data": "No activities found in the \"{category}\" category{hasTitle, select, true { for the search \"{title}\"} other {}}.",
+      "attachments": "Attachments"
     },
     "skills": {
       "title": "Skills"

@@ -2,15 +2,6 @@ import { CollectionConfig } from "payload"
 
 import { Activity } from "@/types"
 
-// export const activityCategories = [
-//   "certification",
-//   "course",
-//   "ctf",
-//   "event",
-//   "lecture",
-//   "workshop",
-// ] as const
-
 export const Activities: CollectionConfig = {
   admin: {
     group: { en: "Activities", pt: "Atividades" },
@@ -18,18 +9,75 @@ export const Activities: CollectionConfig = {
   },
   fields: [
     {
-      index: true,
-      label: { en: "Title", pt: "Título" },
-      name: "title",
-      required: true,
+      fields: [
+        {
+          admin: {
+            description: {
+              en: "The title of the activity.",
+              pt: "O título da atividade.",
+            },
+          },
+          index: true,
+          label: { en: "Title", pt: "Título" },
+          name: "title",
+          required: true,
+          type: "text",
+        },
+        {
+          admin: {
+            description: {
+              en: "The category this activity belongs to.",
+              pt: "A categoria à qual esta atividade pertence.",
+            },
+            width: "25%",
+          },
+          label: { en: "Category", pt: "Categoria" },
+          name: "category",
+          relationTo: "activity-categories",
+          required: true,
+          type: "relationship",
+        },
+        {
+          admin: {
+            description: {
+              en: "The platform, organizer, or provider for this activity.",
+              pt: "A plataforma, organizador ou provedor desta atividade.",
+            },
+            width: "30%",
+          },
+          label: { en: "Platform", pt: "Plataforma" },
+          name: "platform",
+          relationTo: "activity-platforms",
+          required: false,
+          type: "relationship",
+        },
+      ],
+      type: "row",
+    },
+    {
+      admin: { placeholder: "https://activity.platform.com" },
+      label: "Website",
+      name: "url",
+      required: false,
       type: "text",
     },
     {
-      label: { en: "Category", pt: "Categoria" },
-      name: "category",
-      relationTo: "activity-categories",
-      required: true,
-      type: "relationship",
+      name: "description",
+      required: false,
+      type: "textarea",
+    },
+    {
+      admin: {
+        description: {
+          en: "Mark this activity as featured to display it in special sections.",
+          pt: "Marque esta atividade como destaque para exibi-la em seções especiais.",
+        },
+      },
+      defaultValue: false,
+      index: true,
+      label: { en: "Featured", pt: "Destaque" },
+      name: "isFeatured",
+      type: "checkbox",
     },
     {
       fields: [
@@ -89,31 +137,6 @@ export const Activities: CollectionConfig = {
       label: { en: "Schedule", pt: "Agenda" },
       name: "schedule",
       type: "group",
-    },
-    {
-      admin: {
-        description: {
-          en: "The platform, organizer, or provider for this activity.",
-          pt: "A plataforma, organizador ou provedor desta atividade.",
-        },
-      },
-      label: { en: "Platform", pt: "Plataforma" },
-      name: "platform",
-      relationTo: "activity-platforms",
-      required: false,
-      type: "relationship",
-    },
-    {
-      name: "description",
-      required: false,
-      type: "textarea",
-    },
-    {
-      admin: { placeholder: "https://..." },
-      label: "Activity URL",
-      name: "url",
-      required: false,
-      type: "text",
     },
     {
       fields: [

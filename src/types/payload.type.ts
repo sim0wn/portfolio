@@ -392,8 +392,24 @@ export interface CodeBlock {
  */
 export interface Activity {
   id: string;
+  /**
+   * The title of the activity.
+   */
   title: string;
+  /**
+   * The category this activity belongs to.
+   */
   category: string | ActivityCategory;
+  /**
+   * The platform, organizer, or provider for this activity.
+   */
+  platform?: (string | null) | ActivityPlatform;
+  url?: string | null;
+  description?: string | null;
+  /**
+   * Mark this activity as featured to display it in special sections.
+   */
+  isFeatured?: boolean | null;
   schedule: {
     startDate: string;
     endDate?: string | null;
@@ -402,12 +418,6 @@ export interface Activity {
      */
     workload?: number | null;
   };
-  /**
-   * The platform, organizer, or provider for this activity.
-   */
-  platform?: (string | null) | ActivityPlatform;
-  description?: string | null;
-  url?: string | null;
   attachments?:
     | {
         url: string;
@@ -842,6 +852,10 @@ export interface PayloadMigration {
 export interface ActivitiesSelect<T extends boolean = true> {
   title?: T;
   category?: T;
+  platform?: T;
+  url?: T;
+  description?: T;
+  isFeatured?: T;
   schedule?:
     | T
     | {
@@ -849,9 +863,6 @@ export interface ActivitiesSelect<T extends boolean = true> {
         endDate?: T;
         workload?: T;
       };
-  platform?: T;
-  description?: T;
-  url?: T;
   attachments?:
     | T
     | {
