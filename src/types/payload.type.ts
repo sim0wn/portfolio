@@ -74,7 +74,6 @@ export interface Config {
     'activity-platforms': ActivityPlatform;
     books: Book;
     faq: Faq;
-    highlights: Highlight;
     media: Media;
     pages: Page;
     skills: Skill;
@@ -92,7 +91,6 @@ export interface Config {
     'activity-platforms': ActivityPlatformsSelect<false> | ActivityPlatformsSelect<true>;
     books: BooksSelect<false> | BooksSelect<true>;
     faq: FaqSelect<false> | FaqSelect<true>;
-    highlights: HighlightsSelect<false> | HighlightsSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     pages: PagesSelect<false> | PagesSelect<true>;
     skills: SkillsSelect<false> | SkillsSelect<true>;
@@ -544,32 +542,6 @@ export interface Faq {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "highlights".
- */
-export interface Highlight {
-  id: string;
-  title: string;
-  description: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  };
-  icon: string | Media;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "pages".
  */
 export interface Page {
@@ -776,10 +748,6 @@ export interface PayloadLockedDocument {
         value: string | Faq;
       } | null)
     | ({
-        relationTo: 'highlights';
-        value: string | Highlight;
-      } | null)
-    | ({
         relationTo: 'media';
         value: string | Media;
       } | null)
@@ -914,17 +882,6 @@ export interface BooksSelect<T extends boolean = true> {
 export interface FaqSelect<T extends boolean = true> {
   question?: T;
   answer?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "highlights_select".
- */
-export interface HighlightsSelect<T extends boolean = true> {
-  title?: T;
-  description?: T;
-  icon?: T;
   updatedAt?: T;
   createdAt?: T;
 }

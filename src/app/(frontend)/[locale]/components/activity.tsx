@@ -195,7 +195,7 @@ export async function Activity({
                         >
                           {activity.url ? (
                             <Link
-                              className="underline focus-visible:outline"
+                              className="focus-visible:outline"
                               href={activity.url}
                               rel="noopener noreferrer"
                               target="_blank"

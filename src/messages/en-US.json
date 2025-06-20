@@ -86,7 +86,13 @@
       "attachments": "Attachments"
     },
     "skills": {
-      "title": "Skills"
+      "title": "Skills",
+      "carousel": {
+        "ariaLabel": "Skills carousel",
+        "ariaDescription": "Carousel of skills",
+        "next": "Next skill",
+        "previous": "Previous skill"
+      }
     }
   },
   "Layout": {

@@ -86,7 +86,13 @@
       }
     },
     "skills": {
-      "title": "Habilidades"
+      "title": "Habilidades",
+      "carousel": {
+        "ariaLabel": "Carrossel de habilidades",
+        "ariaDescription": "Carrossel de habilidades com informações sobre cada habilidade",
+        "next": "Próxima habilidade",
+        "previous": "Habilidade anterior"
+      }
     }
   },
   "Layout": {
