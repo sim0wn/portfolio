@@ -74,7 +74,7 @@ export interface Config {
     'activity-platforms': ActivityPlatform;
     books: Book;
     faq: Faq;
-    media: Media;
+    images: Image;
     pages: Page;
     skills: Skill;
     social: Social;
@@ -91,7 +91,7 @@ export interface Config {
     'activity-platforms': ActivityPlatformsSelect<false> | ActivityPlatformsSelect<true>;
     books: BooksSelect<false> | BooksSelect<true>;
     faq: FaqSelect<false> | FaqSelect<true>;
-    media: MediaSelect<false> | MediaSelect<true>;
+    images: ImagesSelect<false> | ImagesSelect<true>;
     pages: PagesSelect<false> | PagesSelect<true>;
     skills: SkillsSelect<false> | SkillsSelect<true>;
     social: SocialSelect<false> | SocialSelect<true>;
@@ -473,24 +473,24 @@ export interface Book {
    */
   slug: string;
   description?: string | null;
-  cover?: (string | null) | Media;
+  cover?: (string | null) | Image;
   updatedAt: string;
   createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "media".
+ * via the `definition` "images".
  */
-export interface Media {
+export interface Image {
   id: string;
+  /**
+   * Caption for the image
+   */
+  caption?: string | null;
   /**
    * Alternative text for the image
    */
   alt: string;
-  /**
-   * Use the normalized alt text as the filename for the image. If this is not checked, the filename will be automatically generated.
-   */
-  useAltTextAsFilename?: boolean | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -503,15 +503,7 @@ export interface Media {
   focalX?: number | null;
   focalY?: number | null;
   sizes?: {
-    thumbnail?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
-    card?: {
+    mobile?: {
       url?: string | null;
       width?: number | null;
       height?: number | null;
@@ -748,8 +740,8 @@ export interface PayloadLockedDocument {
         value: string | Faq;
       } | null)
     | ({
-        relationTo: 'media';
-        value: string | Media;
+        relationTo: 'images';
+        value: string | Image;
       } | null)
     | ({
         relationTo: 'pages';
@@ -887,11 +879,11 @@ export interface FaqSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "media_select".
+ * via the `definition` "images_select".
  */
-export interface MediaSelect<T extends boolean = true> {
+export interface ImagesSelect<T extends boolean = true> {
+  caption?: T;
   alt?: T;
-  useAltTextAsFilename?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;
@@ -906,17 +898,7 @@ export interface MediaSelect<T extends boolean = true> {
   sizes?:
     | T
     | {
-        thumbnail?:
-          | T
-          | {
-              url?: T;
-              width?: T;
-              height?: T;
-              mimeType?: T;
-              filesize?: T;
-              filename?: T;
-            };
-        card?:
+        mobile?:
           | T
           | {
               url?: T;

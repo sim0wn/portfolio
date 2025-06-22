@@ -12,7 +12,7 @@ import {
   CarouselNext,
   CarouselPrevious,
   Skeleton,
-} from "@/components/ui"
+} from "@/components"
 import { payload } from "@/lib"
 import { cn } from "@/utils"
 
@@ -55,10 +55,7 @@ export async function Skills({ locale }: { locale: Locale }) {
                 <Card
                   aria-describedby={`skill-desc-${skill.id}`}
                   aria-labelledby={`skill-title-${skill.id}`}
-                  className={cn(
-                    "max-h-sm overflow-hidden select-none",
-                    "focus-within:ring-primary focus-within:ring-2 focus-within:ring-offset-2",
-                  )}
+                  className={cn("max-h-sm overflow-hidden select-none")}
                   tabIndex={0}
                 >
                   <CardHeader>

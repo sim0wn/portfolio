@@ -47,7 +47,7 @@ export const Books: CollectionConfig = {
     {
       label: { en: "Cover", pt: "Capa" },
       name: "cover",
-      relationTo: "media",
+      relationTo: "images",
       type: "upload",
     },
   ],

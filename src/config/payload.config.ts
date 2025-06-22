@@ -16,7 +16,7 @@ import {
   ActivityPlatforms,
   Books,
   faqCollection,
-  mediaCollection,
+  Images,
   Pages,
   skillCollection,
 } from "@/collections"
@@ -28,6 +28,7 @@ const env = getEnv()
 
 export default buildConfig({
   admin: {
+    dateFormat: "dd/MM/yyyy",
     importMap: {
       baseDir: "@",
     },
@@ -39,7 +40,7 @@ export default buildConfig({
     ActivityPlatforms,
     Books,
     faqCollection,
-    mediaCollection,
+    Images,
     Pages,
     skillCollection,
     socialCollection,
@@ -59,7 +60,7 @@ export default buildConfig({
     defaultFromName: "Payload CMS",
   }),
   i18n: {
-    fallbackLanguage: "en",
+    fallbackLanguage: "pt",
     supportedLanguages: { en, pt },
   },
   localization: {
@@ -84,7 +85,7 @@ export default buildConfig({
     }),
     vercelBlobStorage({
       collections: {
-        media: true,
+        images: true,
       },
       enabled: true,
       token: env.BLOB_READ_WRITE_TOKEN,

@@ -1,6 +1,6 @@
 export { Activities, ActivityCategories, ActivityPlatforms } from "./activities"
 export { Books } from "./books"
 export * from "./faq.collection"
-export * from "./media.collection"
+export { Images } from "./images"
 export { Pages } from "./pages"
 export * from "./skill.collection"
