@@ -1,5 +1,7 @@
 import type { Metadata } from "next"
 
+import { Analytics } from "@vercel/analytics/next"
+import { SpeedInsights } from "@vercel/speed-insights/next"
 import classNames from "classnames"
 import { Code, Globe, Library, Shield } from "lucide-react"
 import { hasLocale, Locale, NextIntlClientProvider } from "next-intl"
@@ -158,6 +160,8 @@ export default async function LocaleLayout({ children, params }: Props) {
           </footer>
           <Toaster />
         </NextIntlClientProvider>
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   )
