@@ -8,6 +8,12 @@ export const Books: CollectionConfig = {
   },
   fields: [
     {
+      label: { en: "Cover", pt: "Capa" },
+      name: "cover",
+      relationTo: "images",
+      type: "upload",
+    },
+    {
       label: { en: "Title", pt: "Título" },
       localized: true,
       name: "title",
@@ -43,12 +49,6 @@ export const Books: CollectionConfig = {
       localized: true,
       name: "description",
       type: "textarea",
-    },
-    {
-      label: { en: "Cover", pt: "Capa" },
-      name: "cover",
-      relationTo: "images",
-      type: "upload",
     },
   ],
   labels: {

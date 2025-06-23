@@ -467,13 +467,13 @@ export interface ActivityPlatform {
  */
 export interface Book {
   id: string;
+  cover?: (string | null) | Image;
   title: string;
   /**
    * The identifier that will be part of the URL to access this book.
    */
   slug: string;
   description?: string | null;
-  cover?: (string | null) | Image;
   updatedAt: string;
   createdAt: string;
 }
@@ -538,13 +538,16 @@ export interface Faq {
  */
 export interface Page {
   id: string;
-  title?: string | null;
   /**
-   * The identifier that will be part of the URL to access this page.
+   * The title of the page.
+   */
+  title: string;
+  type: 'page' | 'section';
+  book?: (string | null) | Book;
+  /**
+   * A unique identifier (per hierarchical level) that is human-readable for the page.
    */
   slug: string;
-  book: string | Book;
-  type: 'page' | 'section';
   description?: string | null;
   content?: {
     root: {
@@ -860,10 +863,10 @@ export interface ActivityPlatformsSelect<T extends boolean = true> {
  * via the `definition` "books_select".
  */
 export interface BooksSelect<T extends boolean = true> {
+  cover?: T;
   title?: T;
   slug?: T;
   description?: T;
-  cover?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -926,9 +929,9 @@ export interface ImagesSelect<T extends boolean = true> {
  */
 export interface PagesSelect<T extends boolean = true> {
   title?: T;
-  slug?: T;
-  book?: T;
   type?: T;
+  book?: T;
+  slug?: T;
   description?: T;
   content?: T;
   parent?: T;

@@ -15,16 +15,71 @@ export const Pages: CollectionConfig = {
   defaultSort: "title",
   fields: [
     {
-      label: { en: "Title", pt: "Título" },
-      localized: true,
-      name: "title",
-      type: "text",
+      fields: [
+        {
+          admin: {
+            description: {
+              en: "The title of the page.",
+              pt: "O título da página.",
+            },
+          },
+          label: { en: "Title", pt: "Título" },
+          localized: true,
+          name: "title",
+          required: true,
+          type: "text",
+        },
+        {
+          admin: {
+            width: "30%",
+          },
+          defaultValue: "page",
+          label: { en: "Type", pt: "Tipo" },
+          name: "type",
+          options: [
+            { label: { en: "Page", pt: "Página" }, value: "page" },
+            { label: { en: "Section", pt: "Seção" }, value: "section" },
+          ],
+          required: true,
+          type: "select",
+        },
+      ],
+      type: "row",
+    },
+    {
+      admin: {
+        condition: (data) => !data.parent,
+        position: "sidebar",
+      },
+      hooks: {
+        beforeValidate: [
+          async ({ data, req: { payload }, value }) => {
+            if (data?.parent) {
+              const parent = await payload.findByID({
+                collection: "pages",
+                id: data.parent,
+                select: { book: true },
+              })
+              if (parent.book) {
+                const book = parent.book
+                return typeof book === "object" ? book.id : book
+              }
+            }
+            return value
+          },
+        ],
+      },
+      label: { en: "Book", pt: "Livro" },
+      name: "book",
+      relationTo: "books",
+      required: true,
+      type: "relationship",
     },
     {
       admin: {
         description: {
-          en: "The identifier that will be part of the URL to access this page.",
-          pt: "O identificador que fará parte da URL para acessar esta página.",
+          en: "A unique identifier (per hierarchical level) that is human-readable for the page.",
+          pt: "Um identificador único (por nível hierárquico) e legível por humanos para a página.",
         },
       },
       hooks: {
@@ -34,7 +89,7 @@ export const Pages: CollectionConfig = {
               if ((operation === "create" || !data.slug) && data.title) {
                 return slug(data.title)
               }
-              return data?.slug
+              return slug(data.slug ?? "")
             }
           },
         ],
@@ -43,25 +98,6 @@ export const Pages: CollectionConfig = {
       name: "slug",
       required: true,
       type: "text",
-    },
-
-    {
-      label: { en: "Book", pt: "Livro" },
-      name: "book",
-      relationTo: "books",
-      required: true,
-      type: "relationship",
-    },
-    {
-      defaultValue: "page",
-      label: { en: "Type", pt: "Tipo" },
-      name: "type",
-      options: [
-        { label: { en: "Page", pt: "Página" }, value: "page" },
-        { label: { en: "Section", pt: "Seção" }, value: "section" },
-      ],
-      required: true,
-      type: "select",
     },
     {
       admin: {
