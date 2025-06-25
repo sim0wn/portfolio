@@ -15,7 +15,7 @@ import {
 } from "@/components/ui"
 import { payload } from "@/lib"
 
-import { ContactForm } from "./contact-form"
+import { Contact } from "./contact"
 
 export async function About({ locale }: { locale: Locale }) {
   const t = await getTranslations("Home.about")
@@ -46,7 +46,7 @@ export async function About({ locale }: { locale: Locale }) {
           <CardDescription>{t("form.description")}</CardDescription>
         </CardHeader>
         <CardContent>
-          <ContactForm />
+          <Contact />
         </CardContent>
       </Card>
     </section>

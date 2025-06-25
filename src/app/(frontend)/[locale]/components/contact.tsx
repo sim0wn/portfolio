@@ -1,9 +1,9 @@
 "use client"
 
-import HCaptcha from "@hcaptcha/react-hcaptcha"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useTranslations } from "next-intl"
-import { useActionState, useEffect, useRef, useState } from "react"
+import dynamic from "next/dynamic"
+import { Suspense, useActionState, useEffect, useRef, useState } from "react"
 import { FormProvider, useForm, useFormState } from "react-hook-form"
 import { toast } from "sonner"
 
@@ -15,14 +15,20 @@ import {
   FormLabel,
   FormMessage,
   Input,
+  Skeleton,
   Textarea,
 } from "@/components"
+import { HCaptchaHandlers } from "@/components/hcaptcha"
 import { ContactFormData, ContactFormState } from "@/types"
 import { contactFormValidation } from "@/validations"
 
+const HCaptcha = dynamic(() => import("@/components/hcaptcha"), {
+  ssr: false,
+})
+
 const initialState: ContactFormState = { message: "" }
 
-export function ContactForm() {
+export function Contact() {
   const t = useTranslations("Actions.contact")
 
   const [state, formAction, isPending] = useActionState(
@@ -36,8 +42,11 @@ export function ContactForm() {
   const { control, register, reset } = methods
   const { errors } = useFormState({ control })
 
-  const captchaRef = useRef<HCaptcha | null>(null)
+  const [captchaVisible, setCaptchaVisible] = useState(false)
+  const captchaRef = useRef<HCaptchaHandlers | null>(null)
   const [token, setToken] = useState<null | string>(null)
+
+  const formFooterRef = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
     if (state.message) {
@@ -69,6 +78,25 @@ export function ContactForm() {
       })
     }
   }, [state.errors, methods])
+
+  // IntersectionObserver to lazy load captcha
+  useEffect(() => {
+    if (captchaVisible) return // Already visible, don't observe again
+    const el = formFooterRef.current
+    if (!el) return
+
+    const observer = new window.IntersectionObserver(
+      (entries, obs) => {
+        if (entries[0].isIntersecting) {
+          setCaptchaVisible(true)
+          obs.disconnect()
+        }
+      },
+      { root: null, threshold: 0.1 },
+    )
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [captchaVisible])
 
   const handleSubmit = (formData: FormData) => {
     if (token) {
@@ -121,17 +149,18 @@ export function ContactForm() {
           )}
         </FormItem>
 
-        <footer className="flex flex-col items-center justify-between space-y-2">
-          <HCaptcha
-            onVerify={(token) => setToken(token)}
-            ref={captchaRef}
-            sitekey={process.env.NEXT_PUBLIC_HCAPTCHA_SITEKEY || ""}
-            theme={"dark"}
-          />
+        <footer
+          className="flex flex-col items-center justify-between space-y-2"
+          ref={formFooterRef}
+        >
+          {captchaVisible && (
+            <Suspense fallback={<Skeleton className="bg- h-10 w-full" />}>
+              <HCaptcha onVerify={setToken} ref={captchaRef} theme="dark" />
+            </Suspense>
+          )}
           {state.errors?.captchaToken && (
             <FormMessage>{state.errors.captchaToken[0]}</FormMessage>
           )}
-
           <Button disabled={isPending || !token} type="submit">
             {isPending ? t("messages.pending") : t("fields.submit")}
           </Button>
