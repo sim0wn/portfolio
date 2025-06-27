@@ -18,12 +18,12 @@ import { payload } from "@/lib"
 import { Contact } from "./contact"
 
 export async function About({ locale }: { locale: Locale }) {
-  const t = await getTranslations("Home.about")
+  const t = await getTranslations("Home")
   return (
     <section className="container grid grid-rows-[min-content_1fr] items-center gap-x-12 gap-y-8 py-12 lg:grid-cols-2 lg:grid-rows-1">
       <aside>
         <p className="text-center text-lg font-semibold md:text-start">
-          {t("title")}
+          {t("about.title")}
         </p>
         <Accordion collapsible type="single">
           {(
@@ -42,8 +42,8 @@ export async function About({ locale }: { locale: Locale }) {
       </aside>
       <Card id="contact">
         <CardHeader>
-          <CardTitle>{t("form.title")}</CardTitle>
-          <CardDescription>{t("form.description")}</CardDescription>
+          <CardTitle>{t("about.form.title")}</CardTitle>
+          <CardDescription>{t("about.form.description")}</CardDescription>
         </CardHeader>
         <CardContent>
           <Contact />

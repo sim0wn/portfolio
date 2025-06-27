@@ -17,7 +17,7 @@ import { payload } from "@/lib"
 import { cn } from "@/utils"
 
 export async function Skills({ locale }: { locale: Locale }) {
-  const t = await getTranslations("Home.skills")
+  const t = await getTranslations("Home")
   const { docs: skills } = await payload.find({
     collection: "skills",
     locale,
@@ -35,18 +35,18 @@ export async function Skills({ locale }: { locale: Locale }) {
         id="skills-heading"
         tabIndex={-1}
       >
-        {t("title")}
+        {t("skills.title")}
       </h2>
       <div className="mx-auto w-full px-4 py-10">
         <Carousel
-          aria-label={t("carousel.ariaLabel")}
+          aria-label={t("skills.carousel.ariaLabel")}
           className="mx-auto max-w-5xl"
           opts={{ align: "center", containScroll: "trimSnaps", loop: true }}
         >
           <CarouselContent className="-ml-2 py-0.5 md:-ml-4">
             {skills.map((skill) => (
               <CarouselItem
-                aria-roledescription={t("carousel.ariaDescription", {
+                aria-roledescription={t("skills.carousel.ariaDescription", {
                   default: "Skill card",
                 })}
                 className="h-full pl-2 sm:basis-4/5 md:basis-3/4 md:pl-4 lg:basis-2/3"
@@ -74,10 +74,13 @@ export async function Skills({ locale }: { locale: Locale }) {
             ))}
           </CarouselContent>
           <CarouselPrevious
-            aria-label={t("carousel.previous")}
+            aria-label={t("skills.carousel.previous")}
             className="left-2"
           />
-          <CarouselNext aria-label={t("carousel.next")} className="right-2" />
+          <CarouselNext
+            aria-label={t("skills.carousel.next")}
+            className="right-2"
+          />
         </Carousel>
       </div>
     </section>

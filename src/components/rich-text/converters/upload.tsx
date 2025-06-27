@@ -23,6 +23,9 @@ function ImageWithCaption({ node }: { node: SerializedUploadNode }) {
     <figure className="mx-auto w-fit">
       <NextImage
         alt={alt}
+        blurDataURL={
+          "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8Mvd/PQAILgMRNprRMgAAAABJRU5ErkJggg=="
+        }
         className="rounded-md"
         height={height ?? 0}
         placeholder="blur"

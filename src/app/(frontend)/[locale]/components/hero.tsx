@@ -4,26 +4,32 @@ import Link from "next/link"
 import { Button, Mascot, Skeleton } from "@/components"
 
 export async function Hero() {
-  const t = await getTranslations("Home.hero")
+  const t = await getTranslations("Home")
   return (
-    <section className="container grid grid-cols-[1fr_16rem] items-center justify-between gap-x-12 gap-y-8 py-12 md:py-24">
-      <aside className="col-span-full flex flex-col gap-2 md:col-span-1">
-        <h1 className="text-3xl font-extrabold">{t("title")}</h1>
-        <p className="pb-4">{t("description")}</p>
-        <Button asChild>
-          <Link className="self-center" href="#contact">
-            {t("cta")}
-          </Link>
-        </Button>
-      </aside>
-      {/* Mascot */}
-      <aside className="hidden md:block">
-        <Mascot className="rounded-full text-[16rem]" />
-      </aside>
+    <section className="container flex flex-col items-center justify-between gap-x-12 gap-y-8 py-12 md:py-24">
+      <section className="flex flex-col items-center gap-2 md:flex-row">
+        <aside className="col-span-full flex flex-col gap-2 md:col-span-1">
+          <h1 className="text-3xl font-extrabold">{t("hero.title")}</h1>
+          <p className="pb-4">{t("hero.description")}</p>
+          <Button asChild>
+            <Link className="self-center" href="#contact">
+              {t("hero.cta")}
+            </Link>
+          </Button>
+        </aside>
+        {/* Mascot */}
+        <aside className="order-first md:order-last">
+          <Mascot
+            className="rounded-full text-[16rem]"
+            focusable="false"
+            role="img"
+          />
+        </aside>
+      </section>
       {/* Quote */}
       <p className="col-span-full inline-flex w-fit flex-col justify-self-center pt-8">
-        <q className="text-center">{t("quote.message")}</q>
-        <small className="text-end">- {t("quote.author")}</small>
+        <q className="text-center">{t("hero.quote.message")}</q>
+        <small className="text-end">- {t("hero.quote.author")}</small>
       </p>
     </section>
   )

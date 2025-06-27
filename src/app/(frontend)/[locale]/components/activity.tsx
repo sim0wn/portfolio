@@ -51,7 +51,7 @@ export async function Activity({
   locale: Locale
   searchParams: Promise<SearchParams>
 }) {
-  const t = await getTranslations("Home.activities")
+  const t = await getTranslations("Home")
   const parsedSearchParams = searchParamsCache.parse(await searchParams)
   const { category, page, title } = parsedSearchParams
 
@@ -107,11 +107,13 @@ export async function Activity({
 
   return (
     <section
-      aria-label={t("title")}
+      aria-label={t("activities.title")}
       className="container flex flex-col items-center justify-center py-16"
       id="activities"
     >
-      <h1 className="py-2 text-center text-lg font-semibold">{t("title")}</h1>
+      <h1 className="py-2 text-center text-lg font-semibold">
+        {t("activities.title")}
+      </h1>
       {/* Filters */}
       <form
         action="/#activities"
@@ -121,17 +123,21 @@ export async function Activity({
       >
         {/* Category Filter */}
         <div className="flex flex-col gap-1">
-          <Label htmlFor="category">{t("filter.category.label")}</Label>
+          <Label htmlFor="category">
+            {t("activities.filter.category.label")}
+          </Label>
           <Select defaultValue={category} name="category">
             <SelectTrigger
-              aria-label={t("filter.category.label")}
+              aria-label={t("activities.filter.category.label")}
               id="category"
             >
-              <SelectValue placeholder={t("filter.category.placeholder")} />
+              <SelectValue
+                placeholder={t("activities.filter.category.placeholder")}
+              />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value={"*"}>
-                {t("filter.category.placeholder")}
+                {t("activities.filter.category.placeholder")}
               </SelectItem>
               {activityCategories.map(({ id, name, slug }) => (
                 <SelectItem key={id} value={slug}>
@@ -143,26 +149,26 @@ export async function Activity({
         </div>
         {/* Text Search */}
         <div className="flex flex-1 flex-col gap-1">
-          <Label htmlFor="title">{t("filter.title.label")}</Label>
+          <Label htmlFor="title">{t("activities.filter.title.label")}</Label>
           <Input
-            aria-label={t("filter.title.label")}
+            aria-label={t("activities.filter.title.label")}
             autoComplete="off"
             className="w-full"
             defaultValue={title}
             id="title"
             name="title"
-            placeholder={t("filter.title.placeholder")}
+            placeholder={t("activities.filter.title.placeholder")}
             type="search"
           />
         </div>
         <Button className="self-end" type="submit">
-          {t("filter.submit.label")}
+          {t("activities.filter.submit.label")}
         </Button>
       </form>
       {/* Results */}
       <section className="flex w-full flex-col gap-2 rounded-md border p-2.5 shadow-sm">
         <ul
-          aria-label={t("ariaList")}
+          aria-label={t("activities.ariaList")}
           className={cn(
             "grid gap-4",
             "grid-cols-1 lg:grid-cols-2 xl:grid-cols-3",
@@ -170,7 +176,7 @@ export async function Activity({
         >
           {activities.length === 0 ? (
             <li className="text-muted-foreground col-span-full py-8 text-center">
-              {t("no-data", {
+              {t("activities.no-data", {
                 category:
                   activityCategories.find((ac) => ac.slug === category)?.name ??
                   category,
@@ -240,14 +246,19 @@ export async function Activity({
                               )
                               const minutes = activity.schedule.workload % 60
                               if (minutes === 0) {
-                                return t("schedule.workload.hours", { hours })
-                              }
-                              if (hours === 0) {
-                                return t("schedule.workload.minutes", {
-                                  minutes,
+                                return t("activities.schedule.workload.hours", {
+                                  hours,
                                 })
                               }
-                              return t("schedule.workload.full", {
+                              if (hours === 0) {
+                                return t(
+                                  "activities.schedule.workload.minutes",
+                                  {
+                                    minutes,
+                                  },
+                                )
+                              }
+                              return t("activities.schedule.workload.full", {
                                 hours,
                                 minutes,
                               })
@@ -258,12 +269,12 @@ export async function Activity({
                       <span className="flex gap-1">
                         <Badge variant={"secondary"}>
                           {!activity.schedule.endDate
-                            ? t("schedule.date.single", {
+                            ? t("activities.schedule.date.single", {
                                 startDate: new Date(
                                   activity.schedule.startDate,
                                 ),
                               })
-                            : t("schedule.date.range", {
+                            : t("activities.schedule.date.range", {
                                 endDate: new Date(activity.schedule.endDate),
                                 startDate: new Date(
                                   activity.schedule.startDate,
@@ -292,7 +303,10 @@ export async function Activity({
                   )}
                   {activity.attachments && activity.attachments.length > 0 && (
                     <CardFooter>
-                      <ul aria-label={t("attachments")} className="space-y-1">
+                      <ul
+                        aria-label={t("activities.attachments")}
+                        className="space-y-1"
+                      >
                         {activity.attachments.map((att, i) => (
                           <li key={i}>
                             <Link
@@ -321,11 +335,11 @@ export async function Activity({
         </ul>
         {/* Pagination */}
         <nav
-          aria-label={t("pagination.ariaLabel")}
+          aria-label={t("activities.pagination.ariaLabel")}
           className="mt-6 flex flex-col items-stretch gap-4 md:flex-row md:items-center md:justify-between"
         >
           <span aria-live="polite" className="text-muted-foreground text-sm">
-            {t("pagination.summary", {
+            {t("activities.pagination.summary", {
               from: pagingCounter,
               to: activities.length + pagingCounter - 1,
               total: totalDocs,
@@ -333,7 +347,7 @@ export async function Activity({
           </span>
           <div className="flex items-center justify-end gap-2">
             <Button
-              aria-label={t("pagination.first")}
+              aria-label={t("activities.pagination.first")}
               asChild
               size="icon"
               variant="ghost"
@@ -349,7 +363,7 @@ export async function Activity({
               )}
             </Button>
             <Button
-              aria-label={t("pagination.previous")}
+              aria-label={t("activities.pagination.previous")}
               asChild
               size="icon"
               variant="ghost"
@@ -365,10 +379,13 @@ export async function Activity({
               )}
             </Button>
             <span className="min-w-[64px] text-center text-sm">
-              {t("pagination.label", { page: currentPage ?? page, totalPages })}
+              {t("activities.pagination.label", {
+                page: currentPage ?? page,
+                totalPages,
+              })}
             </span>
             <Button
-              aria-label={t("pagination.next")}
+              aria-label={t("activities.pagination.next")}
               asChild
               size="icon"
               variant="ghost"
@@ -384,7 +401,7 @@ export async function Activity({
               )}
             </Button>
             <Button
-              aria-label={t("pagination.last")}
+              aria-label={t("activities.pagination.last")}
               asChild
               disabled={page === totalPages}
               size="icon"
