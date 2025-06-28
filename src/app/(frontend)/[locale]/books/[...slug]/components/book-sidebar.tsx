@@ -5,8 +5,6 @@ import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@/components/ui/collapsible"
-import {
   Sidebar,
   SidebarContent,
   SidebarGroup,
@@ -17,10 +15,11 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarMenuSub,
-} from "@/components/ui/sidebar"
+} from "@/components"
 import { Book, NestedDocs, Page } from "@/types"
+import { isAncestor } from "@/utils"
 
-export default function BookSidebar({
+function BookSidebar({
   currentPage,
   nestedPages,
 }: {
@@ -28,7 +27,7 @@ export default function BookSidebar({
   nestedPages: NestedDocs<Page>[]
 }) {
   return (
-    <Sidebar className="absolute h-full" variant="inset">
+    <Sidebar className="absolute h-full" variant="sidebar">
       <SidebarContent>
         {nestedPages.map((page) => (
           <SidebarItem currentPage={currentPage} key={page.id} page={page} />
@@ -66,7 +65,12 @@ function SidebarItem({
     return (
       <SidebarMenu>
         <Collapsible
-          defaultOpen={page.id === (currentPage?.parent as Page)?.id}
+          defaultOpen={isAncestor(
+            page,
+            currentPage,
+            (page) => page.children,
+            (page) => page.id,
+          )}
         >
           {/* Render the page itself */}
           <SidebarMenuItem key={page.id}>
@@ -113,3 +117,5 @@ function SidebarItem({
 
   return null
 }
+
+export { BookSidebar as Sidebar }

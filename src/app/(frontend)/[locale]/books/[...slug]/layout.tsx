@@ -9,18 +9,16 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb"
-import { Separator } from "@/components/ui/separator"
-import {
+  Separator,
   SidebarInset,
   SidebarProvider,
   SidebarTrigger,
-} from "@/components/ui/sidebar"
+} from "@/components"
 import { payload } from "@/lib"
 import { NestedDocs, Page } from "@/types"
 import { getNestedDocs } from "@/utils"
 
-import BookSidebar from "./components/book-sidebar"
+import { Sidebar } from "./components/book-sidebar"
 
 type Props = {
   children: ReactNode
@@ -35,6 +33,16 @@ export default async function Layout({ children, params }: Props) {
   const { docs: pages } = await payload.find({
     collection: "pages",
     locale,
+    select: {
+      book: true,
+      breadcrumbs: true,
+      description: true,
+      id: true,
+      parent: true,
+      slug: true,
+      title: true,
+      type: true,
+    },
     where: {
       "book.slug": {
         equals: book,
@@ -84,7 +92,7 @@ export default async function Layout({ children, params }: Props) {
   }
   return (
     <SidebarProvider className="relative min-h-0 min-w-0 flex-1">
-      <BookSidebar currentPage={currentPage} nestedPages={nestedPages} />
+      <Sidebar currentPage={currentPage} nestedPages={nestedPages} />
       <SidebarInset className="flex min-w-0 flex-col gap-2 p-4">
         <header className="flex items-center gap-2 border-b pb-2">
           <SidebarTrigger />

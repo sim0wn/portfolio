@@ -112,6 +112,9 @@
       }
     }
   },
+  "Loading": {
+    "sr": "Loading content"
+  },
   "Metadata": {
     "applicationName": "Portfolio",
     "defaultTitle": "Welcome | sim0wn",

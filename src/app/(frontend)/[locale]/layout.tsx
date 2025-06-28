@@ -10,8 +10,8 @@ import { notFound } from "next/navigation"
 import { NuqsAdapter } from "nuqs/adapters/next/app"
 import { ReactNode, Suspense } from "react"
 
-import { lato, raleway } from "@/app/fonts"
 import { Button, ExternalLink, Lettermark, Toaster } from "@/components"
+import { lato, raleway } from "@/fonts"
 import { Link, routing } from "@/i18n"
 
 import { Social, SocialFallback } from "./components/social"
@@ -69,7 +69,7 @@ export default async function LocaleLayout({ children, params }: Props) {
           <header
             className={classNames(
               lato.className,
-              "bg-background/85 sticky inset-0 top-0 z-50 backdrop-blur-md",
+              "bg-background/85 sticky inset-0 top-0 z-50 border-b backdrop-blur-md",
             )}
           >
             <nav

@@ -34,7 +34,7 @@ export default async function Page({ params }: Props) {
     notFound()
   }
   return (
-    <div>
+    <article>
       <h1 className="text-accent-foreground font-bold">{page.title}</h1>
       {page.description && (
         <p className="text-muted-foreground">{page.description}</p>
@@ -44,7 +44,7 @@ export default async function Page({ params }: Props) {
       ) : (
         <Index locale={locale} page={page} />
       )}
-    </div>
+    </article>
   )
 }
 
@@ -68,7 +68,7 @@ async function Index({
     },
   })
   return (
-    <section className="flex flex-row flex-wrap gap-2">
+    <section className="flex flex-row flex-wrap gap-2 self-end">
       {pages.map((page) => (
         <Card className="flex-1" key={page.id}>
           <CardHeader>

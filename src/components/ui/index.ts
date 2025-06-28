@@ -6,6 +6,15 @@ export {
 } from "./accordion"
 export { Avatar, AvatarFallback, AvatarImage } from "./avatar"
 export { Badge } from "./badge"
+export {
+  Breadcrumb,
+  BreadcrumbEllipsis,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "./breadcrumb"
 export { Button } from "./button"
 export {
   Card,
@@ -23,6 +32,11 @@ export {
   CarouselNext,
   CarouselPrevious,
 } from "./carousel"
+export {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "./collapsible"
 export {
   Dialog,
   DialogClose,
@@ -61,6 +75,33 @@ export {
   SelectTrigger,
   SelectValue,
 } from "./select"
+export { Separator } from "./separator"
+export {
+  Sidebar,
+  SidebarContent,
+  SidebarFooter,
+  SidebarGroup,
+  SidebarGroupAction,
+  SidebarGroupContent,
+  SidebarGroupLabel,
+  SidebarHeader,
+  SidebarInput,
+  SidebarInset,
+  SidebarMenu,
+  SidebarMenuAction,
+  SidebarMenuBadge,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarMenuSkeleton,
+  SidebarMenuSub,
+  SidebarMenuSubButton,
+  SidebarMenuSubItem,
+  SidebarProvider,
+  SidebarRail,
+  SidebarSeparator,
+  SidebarTrigger,
+  useSidebar,
+} from "./sidebar"
 export { Skeleton } from "./skeleton"
 export { Toaster } from "./sonner"
 export {

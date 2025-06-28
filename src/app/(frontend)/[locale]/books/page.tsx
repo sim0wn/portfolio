@@ -4,7 +4,6 @@ import {
   Button,
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
@@ -28,9 +27,8 @@ export default async function Page({ params }: Props) {
         <Card className="h-fit" key={id}>
           <CardHeader>
             <CardTitle>{title}</CardTitle>
-            <CardDescription>{description}</CardDescription>
           </CardHeader>
-          <CardContent></CardContent>
+          <CardContent>{description}</CardContent>
           <CardFooter>
             <Button asChild variant={"ghost"}>
               <Link href={`/books/${slug}`} locale={locale}>
