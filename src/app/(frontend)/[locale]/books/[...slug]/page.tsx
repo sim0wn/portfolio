@@ -1,4 +1,5 @@
 import { Locale } from "next-intl"
+import { setRequestLocale } from "next-intl/server"
 import { notFound } from "next/navigation"
 
 import {
@@ -19,6 +20,7 @@ export default async function Page({ params }: Props) {
     locale,
     slug: [book, ...slug],
   } = await params
+  setRequestLocale(locale)
   const {
     docs: [page],
   } = await payload.find({

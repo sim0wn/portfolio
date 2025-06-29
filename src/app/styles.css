@@ -138,6 +138,22 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+  --font-mono: var(--font-jetbrains-mono);
+  --font-sans: var(--font-lato);
+}
+
+@layer utilities {
+  * {
+    @apply border-border ring-ring;
+  }
+
+  html {
+    @apply bg-background text-foreground;
+  }
+
+  ::selection {
+    @apply bg-accent text-accent-foreground;
+  }
 }
 
 @utility container {
@@ -153,16 +169,11 @@
   }
 }
 
-@layer utilities {
-  * {
-    @apply border-border ring-ring;
-  }
-
-  html {
-    @apply bg-background text-foreground;
-  }
-
-  ::selection {
-    @apply bg-accent text-accent-foreground;
-  }
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-raleway);
 }

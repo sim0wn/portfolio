@@ -1,4 +1,5 @@
 import { Locale } from "next-intl"
+import { setRequestLocale } from "next-intl/server"
 import { SearchParams } from "nuqs/server"
 import { Suspense } from "react"
 
@@ -15,8 +16,9 @@ type Props = {
 
 export default async function LandingPage({ params, searchParams }: Props) {
   const { locale } = await params
+  setRequestLocale(locale)
   return (
-    <main className="flex flex-1 flex-col place-content-center">
+    <>
       <Suspense fallback={<HeroFallback />}>
         <Hero />
       </Suspense>
@@ -32,6 +34,6 @@ export default async function LandingPage({ params, searchParams }: Props) {
       <Suspense fallback={<AboutFallback />}>
         <About locale={locale} />
       </Suspense>
-    </main>
+    </>
   )
 }

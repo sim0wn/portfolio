@@ -1,4 +1,5 @@
 import { Locale } from "next-intl"
+import { setRequestLocale } from "next-intl/server"
 import { redirect } from "next/navigation"
 import { Fragment, ReactNode } from "react"
 
@@ -10,19 +11,51 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
   Separator,
+  Sidebar,
+  SidebarContent,
   SidebarInset,
   SidebarProvider,
   SidebarTrigger,
 } from "@/components"
+import { routing } from "@/i18n"
 import { payload } from "@/lib"
 import { NestedDocs, Page } from "@/types"
 import { getNestedDocs } from "@/utils"
 
-import { Sidebar } from "./components/book-sidebar"
+import { SidebarItem } from "./components/sidebar-item"
 
 type Props = {
   children: ReactNode
   params: Promise<{ locale: Locale; slug: string[] }>
+}
+
+export async function generateStaticParams() {
+  const { docs: pages } = await payload.find({
+    collection: "pages",
+    select: {
+      book: true,
+      breadcrumbs: true,
+      type: true,
+    },
+    where: {
+      type: {
+        equals: "page",
+      },
+    },
+  })
+
+  return pages.flatMap(({ book, breadcrumbs }) => {
+    if (!breadcrumbs || breadcrumbs.length === 0) return []
+
+    const slug = new Set(
+      breadcrumbs.flatMap(({ url }) => url?.split("/").filter(Boolean)),
+    )
+
+    return routing.locales.map((locale) => ({
+      locale,
+      slug: [book && typeof book === "object" ? book.slug : book, ...slug],
+    }))
+  })
 }
 
 export default async function Layout({ children, params }: Props) {
@@ -30,13 +63,13 @@ export default async function Layout({ children, params }: Props) {
     locale,
     slug: [book, ...slug],
   } = await params
+  setRequestLocale(locale)
   const { docs: pages } = await payload.find({
     collection: "pages",
     locale,
     select: {
       book: true,
       breadcrumbs: true,
-      description: true,
       id: true,
       parent: true,
       slug: true,
@@ -49,7 +82,7 @@ export default async function Layout({ children, params }: Props) {
       },
     },
   })
-  const nestedPages = getNestedDocs<Page, string>(
+  const nestedPages = getNestedDocs(
     pages,
     (page) => page.slug,
     (page) =>
@@ -91,8 +124,14 @@ export default async function Layout({ children, params }: Props) {
     }
   }
   return (
-    <SidebarProvider className="relative min-h-0 min-w-0 flex-1">
-      <Sidebar currentPage={currentPage} nestedPages={nestedPages} />
+    <SidebarProvider className="relative h-full min-h-0 min-w-0">
+      <Sidebar className="absolute h-full" variant="sidebar">
+        <SidebarContent>
+          {nestedPages.map((page) => (
+            <SidebarItem currentPage={currentPage} key={page.id} page={page} />
+          ))}
+        </SidebarContent>
+      </Sidebar>
       <SidebarInset className="flex min-w-0 flex-col gap-2 p-4">
         <header className="flex items-center gap-2 border-b pb-2">
           <SidebarTrigger />

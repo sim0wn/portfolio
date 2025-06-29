@@ -20,7 +20,6 @@ import {
   Pages,
   skillCollection,
 } from "@/collections"
-import { socialCollection } from "@/collections/social.collection"
 
 import { getEnv } from "./env.config"
 
@@ -43,7 +42,6 @@ export default buildConfig({
     Images,
     Pages,
     skillCollection,
-    socialCollection,
   ],
   db: mongooseAdapter({
     url: env.MONGODB_URI,

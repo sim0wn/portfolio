@@ -1,13 +1,27 @@
 import { JetBrains_Mono, Lato, Raleway } from "next/font/google"
 
-export const raleway = Raleway({ display: "swap", subsets: ["latin"] })
-export const jetbrains_mono = JetBrains_Mono({
+const jetbrains_mono = JetBrains_Mono({
   display: "swap",
+  fallback: ["system-ui", "monospace"],
   subsets: ["latin"],
+  variable: "--font-jetbrains-mono",
   weight: ["400", "500", "600", "700"],
 })
-export const lato = Lato({
+
+const raleway = Raleway({
   display: "swap",
+  fallback: ["system-ui", "sans-serif"],
   subsets: ["latin"],
-  weight: ["400", "900"],
+  variable: "--font-raleway",
+  weight: ["400", "500", "700", "900"],
 })
+
+const lato = Lato({
+  display: "swap",
+  fallback: ["system-ui", "sans-serif"],
+  subsets: ["latin"],
+  variable: "--font-lato",
+  weight: ["300", "400", "700"],
+})
+
+export { jetbrains_mono, lato, raleway }

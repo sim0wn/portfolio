@@ -77,7 +77,6 @@ export interface Config {
     images: Image;
     pages: Page;
     skills: Skill;
-    social: Social;
     users: User;
     'payload-jobs': PayloadJob;
     'payload-locked-documents': PayloadLockedDocument;
@@ -94,7 +93,6 @@ export interface Config {
     images: ImagesSelect<false> | ImagesSelect<true>;
     pages: PagesSelect<false> | PagesSelect<true>;
     skills: SkillsSelect<false> | SkillsSelect<true>;
-    social: SocialSelect<false> | SocialSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     'payload-jobs': PayloadJobsSelect<false> | PayloadJobsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -593,21 +591,6 @@ export interface Skill {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "social".
- */
-export interface Social {
-  id: string;
-  label: string;
-  url: string;
-  /**
-   * Iconify icon
-   */
-  icon: string;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
 export interface User {
@@ -753,10 +736,6 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'skills';
         value: string | Skill;
-      } | null)
-    | ({
-        relationTo: 'social';
-        value: string | Social;
       } | null)
     | ({
         relationTo: 'users';
@@ -954,17 +933,6 @@ export interface PagesSelect<T extends boolean = true> {
 export interface SkillsSelect<T extends boolean = true> {
   title?: T;
   description?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "social_select".
- */
-export interface SocialSelect<T extends boolean = true> {
-  label?: T;
-  url?: T;
-  icon?: T;
   updatedAt?: T;
   createdAt?: T;
 }

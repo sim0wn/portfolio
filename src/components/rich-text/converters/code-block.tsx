@@ -4,7 +4,6 @@ import { Fragment } from "react"
 import { jsx, jsxs } from "react/jsx-runtime"
 import { codeToHast } from "shiki"
 
-import { jetbrains_mono } from "@/fonts"
 import { cn } from "@/utils"
 
 /**
@@ -40,8 +39,7 @@ export async function CodeBlockComponent({
     <figure
       aria-label={`Code block: ${language}${filename ? `, file ${filename}` : ""}`}
       className={cn(
-        "not-prose bg-card focus-within:ring-primary flex w-full flex-col overflow-hidden rounded-xl border shadow-lg transition-shadow duration-300 focus-within:ring-2 hover:shadow-2xl",
-        jetbrains_mono.className,
+        "not-prose bg-card focus-within:ring-primary flex w-full flex-col overflow-hidden rounded-xl border font-mono shadow-lg transition-shadow duration-300 focus-within:ring-2 hover:shadow-2xl",
       )}
       role="region"
       tabIndex={0}

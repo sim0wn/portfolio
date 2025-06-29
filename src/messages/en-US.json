@@ -112,6 +112,11 @@
       }
     }
   },
+  "Library": {
+    "card": {
+      "button": "Access"
+    }
+  },
   "Loading": {
     "sr": "Loading content"
   },

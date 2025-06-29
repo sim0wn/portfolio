@@ -49,7 +49,6 @@ export {
   DialogTitle,
   DialogTrigger,
 } from "./dialog"
-export { ExternalLink } from "./external-link"
 export {
   Form,
   FormControl,
@@ -76,6 +75,16 @@ export {
   SelectValue,
 } from "./select"
 export { Separator } from "./separator"
+export {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetDescription,
+  SheetFooter,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "./sheet"
 export {
   Sidebar,
   SidebarContent,

@@ -5,8 +5,6 @@ import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-  Sidebar,
-  SidebarContent,
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
@@ -19,25 +17,7 @@ import {
 import { Book, NestedDocs, Page } from "@/types"
 import { isAncestor } from "@/utils"
 
-function BookSidebar({
-  currentPage,
-  nestedPages,
-}: {
-  currentPage?: Page
-  nestedPages: NestedDocs<Page>[]
-}) {
-  return (
-    <Sidebar className="absolute h-full" variant="sidebar">
-      <SidebarContent>
-        {nestedPages.map((page) => (
-          <SidebarItem currentPage={currentPage} key={page.id} page={page} />
-        ))}
-      </SidebarContent>
-    </Sidebar>
-  )
-}
-
-function SidebarItem({
+export function SidebarItem({
   currentPage,
   page,
 }: {
@@ -60,7 +40,6 @@ function SidebarItem({
       </SidebarGroup>
     )
   }
-
   if (page.type === "page") {
     return (
       <SidebarMenu>
@@ -114,8 +93,5 @@ function SidebarItem({
       </SidebarMenu>
     )
   }
-
   return null
 }
-
-export { BookSidebar as Sidebar }
