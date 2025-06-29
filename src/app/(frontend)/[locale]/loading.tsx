@@ -5,10 +5,10 @@ import { Mascot } from "@/components"
 export default async function Loading() {
   const t = await getTranslations("Loading")
   return (
-    <main
+    <div
       aria-busy="true"
       aria-live="polite"
-      className="flex flex-1 flex-col items-center justify-center gap-6"
+      className="flex h-full flex-col items-center justify-center gap-6"
     >
       <div className="relative inline-flex aspect-square h-32 w-32 items-center justify-center md:h-48 md:w-48">
         {/* Spinner */}
@@ -25,6 +25,6 @@ export default async function Loading() {
         />
       </div>
       <span className="sr-only">{t("sr")}</span>
-    </main>
+    </div>
   )
 }

@@ -12,12 +12,14 @@ type RichTextProps = HTMLAttributes<HTMLDivElement> & {
   enableProse?: boolean
 }
 
-export function RichText(props: RichTextProps) {
-  const { className, enableGutter = false, enableProse = true, ...rest } = props
+export function RichText({
+  className,
+  enableGutter = false,
+  enableProse = true,
+  ...props
+}: RichTextProps) {
   return (
     <ConvertedRichText
-      converters={jsxConverters}
-      {...rest}
       className={cn(
         {
           container: enableGutter,
@@ -26,6 +28,8 @@ export function RichText(props: RichTextProps) {
         },
         className,
       )}
+      converters={jsxConverters}
+      {...props}
     />
   )
 }

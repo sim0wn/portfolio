@@ -85,6 +85,11 @@
       "no-data": "No activities found in the \"{category}\" category{hasTitle, select, true { for the search \"{title}\"} other {}}.",
       "attachments": "Attachments"
     },
+    "footer": {
+      "privacyPolicy": "Privacy Policy",
+      "termsOfService": "Terms of Service",
+      "sourceCode": "Source Code"
+    },
     "skills": {
       "title": "Skills",
       "carousel": {
@@ -96,11 +101,6 @@
     }
   },
   "Layout": {
-    "footer": {
-      "privacyPolicy": "Privacy Policy",
-      "termsOfService": "Terms of Service",
-      "sourceCode": "Source Code"
-    },
     "nav": {
       "actions": {
         "changeLocale": "PT",

@@ -17,7 +17,6 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components"
-import { routing } from "@/i18n"
 import { payload } from "@/lib"
 import { NestedDocs, Page } from "@/types"
 import { getNestedDocs } from "@/utils"
@@ -27,35 +26,6 @@ import { SidebarItem } from "./components/sidebar-item"
 type Props = {
   children: ReactNode
   params: Promise<{ locale: Locale; slug: string[] }>
-}
-
-export async function generateStaticParams() {
-  const { docs: pages } = await payload.find({
-    collection: "pages",
-    select: {
-      book: true,
-      breadcrumbs: true,
-      type: true,
-    },
-    where: {
-      type: {
-        equals: "page",
-      },
-    },
-  })
-
-  return pages.flatMap(({ book, breadcrumbs }) => {
-    if (!breadcrumbs || breadcrumbs.length === 0) return []
-
-    const slug = new Set(
-      breadcrumbs.flatMap(({ url }) => url?.split("/").filter(Boolean)),
-    )
-
-    return routing.locales.map((locale) => ({
-      locale,
-      slug: [book && typeof book === "object" ? book.slug : book, ...slug],
-    }))
-  })
 }
 
 export default async function Layout({ children, params }: Props) {
@@ -125,14 +95,17 @@ export default async function Layout({ children, params }: Props) {
   }
   return (
     <SidebarProvider className="relative h-full min-h-0 min-w-0">
-      <Sidebar className="absolute h-full" variant="sidebar">
+      <Sidebar
+        className="fixed top-[calc(--spacing(12)+4px)] h-full"
+        variant="sidebar"
+      >
         <SidebarContent>
           {nestedPages.map((page) => (
             <SidebarItem currentPage={currentPage} key={page.id} page={page} />
           ))}
         </SidebarContent>
       </Sidebar>
-      <SidebarInset className="flex min-w-0 flex-col gap-2 p-4">
+      <SidebarInset className="flex max-w-full min-w-0 flex-col gap-2 p-4">
         <header className="flex items-center gap-2 border-b pb-2">
           <SidebarTrigger />
           <Separator

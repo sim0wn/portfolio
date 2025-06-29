@@ -1,7 +1,11 @@
 import { mongooseAdapter } from "@payloadcms/db-mongodb"
 import { resendAdapter } from "@payloadcms/email-resend"
 import { nestedDocsPlugin } from "@payloadcms/plugin-nested-docs"
-import { BlocksFeature, lexicalEditor } from "@payloadcms/richtext-lexical"
+import {
+  BlocksFeature,
+  HeadingFeature,
+  lexicalEditor,
+} from "@payloadcms/richtext-lexical"
 import { vercelBlobStorage } from "@payloadcms/storage-vercel-blob"
 import { en } from "@payloadcms/translations/languages/en"
 import { pt } from "@payloadcms/translations/languages/pt"
@@ -50,11 +54,12 @@ export default buildConfig({
     features: ({ defaultFeatures }) => [
       ...defaultFeatures,
       BlocksFeature({ blocks: [CodeBlock] }),
+      HeadingFeature({ enabledHeadingSizes: ["h2", "h3", "h4", "h5", "h6"] }),
     ],
   }),
   email: resendAdapter({
     apiKey: env.RESEND_API_KEY,
-    defaultFromAddress: "payload@sim0wn.com",
+    defaultFromAddress: "payload@sim0wn.rocks",
     defaultFromName: "Payload CMS",
   }),
   i18n: {
