@@ -488,7 +488,7 @@ export interface Image {
   /**
    * Alternative text for the image
    */
-  alt: string;
+  alt?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;

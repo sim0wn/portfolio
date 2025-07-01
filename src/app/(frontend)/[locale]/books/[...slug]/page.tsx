@@ -41,28 +41,33 @@ export async function generateMetadata({ params }: Props) {
 export async function generateStaticParams() {
   const { docs: pages } = await payload.find({
     collection: "pages",
+    limit: 0,
+    populate: {
+      books: {
+        slug: true,
+      },
+    },
     select: {
       book: true,
       breadcrumbs: true,
       type: true,
     },
     where: {
-      type: {
-        equals: "page",
-      },
+      slug: { exists: true },
     },
   })
 
   return pages.flatMap(({ book, breadcrumbs }) => {
-    if (!breadcrumbs || breadcrumbs.length === 0) return []
+    if (!breadcrumbs?.length || !book || typeof book !== "object") return []
 
-    const slug = new Set(
-      breadcrumbs.flatMap(({ url }) => url?.split("/").filter(Boolean)),
+    // Flatten breadcrumb URLs, split by '/', filter out empty, preserve order
+    const breadcrumbSlugs = new Set(
+      breadcrumbs.flatMap(({ url }) => url?.split("/").filter(Boolean) || []),
     )
 
     return routing.locales.map((locale) => ({
       locale,
-      slug: [book && typeof book === "object" ? book.slug : book, ...slug],
+      slug: [book.slug, ...breadcrumbSlugs],
     }))
   })
 }
@@ -84,11 +89,11 @@ export default async function Page({ params }: Props) {
       slug: { equals: slug[slug.length - 1] },
     },
   })
-  if (!page || page.type === "section") {
+  if (!page) {
     notFound()
   }
   return (
-    <>
+    <article className="h-full w-full">
       <header>
         <h1 className="text-accent-foreground font-bold">{page.title}</h1>
         {page.description && (
@@ -100,7 +105,7 @@ export default async function Page({ params }: Props) {
       ) : (
         <Index locale={locale} page={page} />
       )}
-    </>
+    </article>
   )
 }
 
@@ -132,9 +137,9 @@ async function Index({
     },
   })
   return (
-    <ul className="flex w-full flex-col flex-wrap justify-center gap-2">
+    <ul className="flex w-full flex-row flex-wrap place-content-center gap-2 py-4 *:w-full">
       {pages.map((page) => (
-        <li className="flex-1" key={page.id}>
+        <li key={page.id}>
           <Card>
             <CardHeader>
               <CardTitle>

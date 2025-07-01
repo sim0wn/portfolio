@@ -9,11 +9,16 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui"
-import { Link } from "@/i18n"
+import { Link, routing } from "@/i18n"
 import { payload } from "@/lib"
+import { getPageURL } from "@/utils"
 
 type Props = {
   params: Promise<{ locale: Locale }>
+}
+
+export async function generateStaticParams() {
+  return routing.locales.map((locale) => ({ locale }))
 }
 
 export default async function Library({ params }: Props) {
@@ -33,23 +38,41 @@ export default async function Library({ params }: Props) {
   ])
   return (
     <ul className="container flex flex-col gap-4">
-      {books.map(({ description, id, slug, title }) => (
-        <li key={id}>
-          <Card className="h-fit">
-            <CardHeader>
-              <CardTitle>{title}</CardTitle>
-            </CardHeader>
-            <CardContent>{description}</CardContent>
-            <CardFooter>
-              <Button asChild variant={"link"}>
-                <Link href={`/books/${slug}`} locale={locale}>
-                  {t("card.button")}
-                </Link>
-              </Button>
-            </CardFooter>
-          </Card>
-        </li>
-      ))}
+      {books.map(async ({ description, id, slug, title }) => {
+        // Get the first page of the book to use for the card link
+        const {
+          docs: [page],
+        } = await payload.find({
+          collection: "pages",
+          limit: 1,
+          locale,
+          select: {
+            breadcrumbs: true,
+          },
+          sort: ["parent.slug", "slug"],
+          where: {
+            "book.slug": { equals: slug },
+            type: {
+              equals: "page",
+            },
+          },
+        })
+        return (
+          <li key={id}>
+            <Card className="h-fit">
+              <CardHeader>
+                <CardTitle>{title}</CardTitle>
+              </CardHeader>
+              <CardContent>{description}</CardContent>
+              <CardFooter>
+                <Button asChild variant={"link"}>
+                  <Link href={getPageURL(page, slug)}>{t("card.button")}</Link>
+                </Button>
+              </CardFooter>
+            </Card>
+          </li>
+        )
+      })}
     </ul>
   )
 }

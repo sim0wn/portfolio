@@ -172,6 +172,7 @@ export async function Activity({
           className={cn(
             "grid gap-4",
             "grid-cols-1 lg:grid-cols-2 xl:grid-cols-3",
+            "max-h-[calc(100vh---spacing(16))] w-full overflow-y-auto md:max-h-full",
           )}
         >
           {activities.length === 0 ? (

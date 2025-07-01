@@ -94,6 +94,7 @@ export const Pages: CollectionConfig = {
           },
         ],
       },
+      index: true,
       label: "Slug",
       name: "slug",
       required: true,

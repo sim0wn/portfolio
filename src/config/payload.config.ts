@@ -83,8 +83,6 @@ export default buildConfig({
   plugins: [
     nestedDocsPlugin({
       collections: ["pages"],
-      generateURL: (docs) =>
-        docs.reduce((url, { slug }) => `${url}/${slug}`, ""),
     }),
     vercelBlobStorage({
       collections: {

@@ -1,5 +1,5 @@
 export { cn } from "./cn.util"
 export { getInitials } from "./get-initials.util"
-export { getNestedDocs, isAncestor } from "./nested-docs.util"
+export { getNestedDocs, getPageURL, isAncestor } from "./nested-docs.util"
 export { parseHeaders } from "./parse-headers.util"
 export { truncateString } from "./truncate-string.util"
