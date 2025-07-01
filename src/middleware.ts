@@ -14,6 +14,6 @@ export const config = {
      * - favicon.ico, sitemap.xml, robots.txt (metadata files)
      * - admin (PayloadCMS admin panel)
      */
-    "/((?!admin|api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt).*)",
+    "/((?!admin|api|favicon.ico|monitoring|robots.txt|sitemap.xml|_next/static|_next/image).*)",
   ],
 }

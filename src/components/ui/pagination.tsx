@@ -8,10 +8,10 @@ import * as React from "react"
 import { Button, buttonVariants } from "@/components/ui/button"
 import { cn } from "@/utils/index"
 
-type PaginationLinkProps = Pick<React.ComponentProps<typeof Button>, "size"> & React.ComponentProps<"a"> &
-  {
-  isActive?: boolean
-}
+type PaginationLinkProps = Pick<React.ComponentProps<typeof Button>, "size"> &
+  React.ComponentProps<"a"> & {
+    isActive?: boolean
+  }
 
 function Pagination({ className, ...props }: React.ComponentProps<"nav">) {
   return (
@@ -73,7 +73,7 @@ function PaginationLink({
           size,
           variant: isActive ? "outline" : "ghost",
         }),
-        className
+        className,
       )}
       data-active={isActive}
       data-slot="pagination-link"

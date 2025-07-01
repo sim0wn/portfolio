@@ -2,7 +2,6 @@ import type { Metadata } from "next"
 
 import { Analytics } from "@vercel/analytics/next"
 import { SpeedInsights } from "@vercel/speed-insights/next"
-import classNames from "classnames"
 import { Globe, Library } from "lucide-react"
 import { hasLocale, Locale, NextIntlClientProvider } from "next-intl"
 import {
@@ -68,7 +67,7 @@ export default async function LocaleLayout({ children, params }: Props) {
   return (
     <html lang={locale}>
       <body
-        className={classNames(
+        className={cn(
           "grid min-h-svh grid-rows-[auto_1fr_auto] scroll-smooth",
           raleway.variable,
           jetbrains_mono.variable,
@@ -77,7 +76,7 @@ export default async function LocaleLayout({ children, params }: Props) {
       >
         <NextIntlClientProvider>
           <header
-            className={classNames(
+            className={cn(
               "bg-background/85 sticky inset-0 top-0 z-50 border-b backdrop-blur-md",
             )}
           >
@@ -104,7 +103,7 @@ export default async function LocaleLayout({ children, params }: Props) {
                 <li className="flex-1 place-content-end">
                   <Button asChild size={"sm"}>
                     <Link
-                      className={classNames("flex items-center gap-2")}
+                      className={cn("flex items-center gap-2")}
                       href={"/#contact"}
                     >
                       {t("nav.actions.contact")}

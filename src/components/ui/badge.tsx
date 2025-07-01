@@ -22,7 +22,7 @@ const badgeVariants = cva(
           "border-transparent bg-secondary text-secondary-foreground [a&]:hover:bg-secondary/90",
       },
     },
-  }
+  },
 )
 
 function Badge({
