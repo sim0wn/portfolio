@@ -24,6 +24,7 @@ import {
   Pages,
   skillCollection,
 } from "@/collections"
+import { syncHackTheBoxActivity } from "@/tasks"
 
 import { getEnv } from "./env.config"
 
@@ -65,6 +66,31 @@ export default buildConfig({
   i18n: {
     fallbackLanguage: "pt",
     supportedLanguages: { en, pt },
+  },
+  jobs: {
+    access: {
+      run: ({ req }): boolean => {
+        // Allow logged in users to execute this endpoint (default)
+        if (req.user) {
+          return true
+        }
+
+        // If there is no logged in user, then check
+        // for the Vercel Cron secret to be present as an
+        // Authorization header:
+        return (
+          req.headers.get("authorization") ===
+          `Bearer ${process.env.CRON_SECRET}`
+        )
+      },
+    },
+    tasks: [
+      {
+        handler: syncHackTheBoxActivity,
+        label: "Synchronize Hack The Box activities",
+        slug: "syncHackTheBoxActivity",
+      },
+    ],
   },
   localization: {
     defaultLocale: "pt-BR",

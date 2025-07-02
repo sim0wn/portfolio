@@ -2,9 +2,9 @@ import { z } from "zod"
 
 const envSchema = z.object({
   BLOB_READ_WRITE_TOKEN: z.string().optional(),
+  HACK_THE_BOX_API: z.string().default("https://www.hackthebox.com/api/v4"),
+  HACK_THE_BOX_PROFILE_ID: z.string().default("143157"),
   HCAPTCHA_SECRET_KEY: z.string().min(1, "HCaptcha secret key is required"),
-  HTB_API: z.string().default("https://www.hackthebox.com/api/v4"),
-  HTB_PROFILE_ID: z.string().default("5833"),
   MONGODB_URI: z.string().url("Invalid MongoDB URI"),
   NEXT_PUBLIC_HCAPTCHA_SITEKEY: z
     .string()

@@ -13,139 +13,130 @@
  * via the `definition` "supportedTimezones".
  */
 export type SupportedTimezones =
-  | "Pacific/Midway"
-  | "Pacific/Niue"
-  | "Pacific/Honolulu"
-  | "Pacific/Rarotonga"
-  | "America/Anchorage"
-  | "Pacific/Gambier"
-  | "America/Los_Angeles"
-  | "America/Tijuana"
-  | "America/Denver"
-  | "America/Phoenix"
-  | "America/Chicago"
-  | "America/Guatemala"
-  | "America/New_York"
-  | "America/Bogota"
-  | "America/Caracas"
-  | "America/Santiago"
-  | "America/Buenos_Aires"
-  | "America/Sao_Paulo"
-  | "Atlantic/South_Georgia"
-  | "Atlantic/Azores"
-  | "Atlantic/Cape_Verde"
-  | "Europe/London"
-  | "Europe/Berlin"
-  | "Africa/Lagos"
-  | "Europe/Athens"
-  | "Africa/Cairo"
-  | "Europe/Moscow"
-  | "Asia/Riyadh"
-  | "Asia/Dubai"
-  | "Asia/Baku"
-  | "Asia/Karachi"
-  | "Asia/Tashkent"
-  | "Asia/Calcutta"
-  | "Asia/Dhaka"
-  | "Asia/Almaty"
-  | "Asia/Jakarta"
-  | "Asia/Bangkok"
-  | "Asia/Shanghai"
-  | "Asia/Singapore"
-  | "Asia/Tokyo"
-  | "Asia/Seoul"
-  | "Australia/Brisbane"
-  | "Australia/Sydney"
-  | "Pacific/Guam"
-  | "Pacific/Noumea"
-  | "Pacific/Auckland"
-  | "Pacific/Fiji"
+  | 'Pacific/Midway'
+  | 'Pacific/Niue'
+  | 'Pacific/Honolulu'
+  | 'Pacific/Rarotonga'
+  | 'America/Anchorage'
+  | 'Pacific/Gambier'
+  | 'America/Los_Angeles'
+  | 'America/Tijuana'
+  | 'America/Denver'
+  | 'America/Phoenix'
+  | 'America/Chicago'
+  | 'America/Guatemala'
+  | 'America/New_York'
+  | 'America/Bogota'
+  | 'America/Caracas'
+  | 'America/Santiago'
+  | 'America/Buenos_Aires'
+  | 'America/Sao_Paulo'
+  | 'Atlantic/South_Georgia'
+  | 'Atlantic/Azores'
+  | 'Atlantic/Cape_Verde'
+  | 'Europe/London'
+  | 'Europe/Berlin'
+  | 'Africa/Lagos'
+  | 'Europe/Athens'
+  | 'Africa/Cairo'
+  | 'Europe/Moscow'
+  | 'Asia/Riyadh'
+  | 'Asia/Dubai'
+  | 'Asia/Baku'
+  | 'Asia/Karachi'
+  | 'Asia/Tashkent'
+  | 'Asia/Calcutta'
+  | 'Asia/Dhaka'
+  | 'Asia/Almaty'
+  | 'Asia/Jakarta'
+  | 'Asia/Bangkok'
+  | 'Asia/Shanghai'
+  | 'Asia/Singapore'
+  | 'Asia/Tokyo'
+  | 'Asia/Seoul'
+  | 'Australia/Brisbane'
+  | 'Australia/Sydney'
+  | 'Pacific/Guam'
+  | 'Pacific/Noumea'
+  | 'Pacific/Auckland'
+  | 'Pacific/Fiji';
 
 export interface Config {
   auth: {
-    users: UserAuthOperations
-  }
+    users: UserAuthOperations;
+  };
   blocks: {
-    codeBlock: CodeBlock
-  }
+    codeBlock: CodeBlock;
+  };
   collections: {
-    activities: Activity
-    "activity-categories": ActivityCategory
-    "activity-platforms": ActivityPlatform
-    books: Book
-    faq: Faq
-    images: Image
-    pages: Page
-    skills: Skill
-    users: User
-    "payload-jobs": PayloadJob
-    "payload-locked-documents": PayloadLockedDocument
-    "payload-preferences": PayloadPreference
-    "payload-migrations": PayloadMigration
-  }
-  collectionsJoins: {}
+    activities: Activity;
+    'activity-categories': ActivityCategory;
+    'activity-platforms': ActivityPlatform;
+    books: Book;
+    faq: Faq;
+    images: Image;
+    pages: Page;
+    skills: Skill;
+    users: User;
+    'payload-jobs': PayloadJob;
+    'payload-locked-documents': PayloadLockedDocument;
+    'payload-preferences': PayloadPreference;
+    'payload-migrations': PayloadMigration;
+  };
+  collectionsJoins: {};
   collectionsSelect: {
-    activities: ActivitiesSelect<false> | ActivitiesSelect<true>
-    "activity-categories":
-      | ActivityCategoriesSelect<false>
-      | ActivityCategoriesSelect<true>
-    "activity-platforms":
-      | ActivityPlatformsSelect<false>
-      | ActivityPlatformsSelect<true>
-    books: BooksSelect<false> | BooksSelect<true>
-    faq: FaqSelect<false> | FaqSelect<true>
-    images: ImagesSelect<false> | ImagesSelect<true>
-    pages: PagesSelect<false> | PagesSelect<true>
-    skills: SkillsSelect<false> | SkillsSelect<true>
-    users: UsersSelect<false> | UsersSelect<true>
-    "payload-jobs": PayloadJobsSelect<false> | PayloadJobsSelect<true>
-    "payload-locked-documents":
-      | PayloadLockedDocumentsSelect<false>
-      | PayloadLockedDocumentsSelect<true>
-    "payload-preferences":
-      | PayloadPreferencesSelect<false>
-      | PayloadPreferencesSelect<true>
-    "payload-migrations":
-      | PayloadMigrationsSelect<false>
-      | PayloadMigrationsSelect<true>
-  }
+    activities: ActivitiesSelect<false> | ActivitiesSelect<true>;
+    'activity-categories': ActivityCategoriesSelect<false> | ActivityCategoriesSelect<true>;
+    'activity-platforms': ActivityPlatformsSelect<false> | ActivityPlatformsSelect<true>;
+    books: BooksSelect<false> | BooksSelect<true>;
+    faq: FaqSelect<false> | FaqSelect<true>;
+    images: ImagesSelect<false> | ImagesSelect<true>;
+    pages: PagesSelect<false> | PagesSelect<true>;
+    skills: SkillsSelect<false> | SkillsSelect<true>;
+    users: UsersSelect<false> | UsersSelect<true>;
+    'payload-jobs': PayloadJobsSelect<false> | PayloadJobsSelect<true>;
+    'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
+    'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
+    'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
+  };
   db: {
-    defaultIDType: string
-  }
-  globals: {}
-  globalsSelect: {}
-  locale: "en-US" | "pt-BR"
+    defaultIDType: string;
+  };
+  globals: {};
+  globalsSelect: {};
+  locale: 'en-US' | 'pt-BR';
   user: User & {
-    collection: "users"
-  }
+    collection: 'users';
+  };
   jobs: {
     tasks: {
-      schedulePublish: TaskSchedulePublish
+      syncHackTheBoxActivity: TaskSyncHackTheBoxActivity;
+      schedulePublish: TaskSchedulePublish;
       inline: {
-        input: unknown
-        output: unknown
-      }
-    }
-    workflows: unknown
-  }
+        input: unknown;
+        output: unknown;
+      };
+    };
+    workflows: unknown;
+  };
 }
 export interface UserAuthOperations {
   forgotPassword: {
-    email: string
-    password: string
-  }
+    email: string;
+    password: string;
+  };
   login: {
-    email: string
-    password: string
-  }
+    email: string;
+    password: string;
+  };
   registerFirstUser: {
-    email: string
-    password: string
-  }
+    email: string;
+    password: string;
+  };
   unlock: {
-    email: string
-    password: string
-  }
+    email: string;
+    password: string;
+  };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -157,886 +148,894 @@ export interface CodeBlock {
    */
   language?:
     | (
-        | "abap"
-        | "actionscript-3"
-        | "ada"
-        | "angular-html"
-        | "angular-ts"
-        | "apache"
-        | "apex"
-        | "apl"
-        | "applescript"
-        | "ara"
-        | "asciidoc"
-        | "asm"
-        | "astro"
-        | "awk"
-        | "ballerina"
-        | "bat"
-        | "beancount"
-        | "berry"
-        | "bibtex"
-        | "bicep"
-        | "blade"
-        | "bsl"
-        | "c"
-        | "cadence"
-        | "cairo"
-        | "clarity"
-        | "clojure"
-        | "cmake"
-        | "cobol"
-        | "codeowners"
-        | "codeql"
-        | "coffee"
-        | "common-lisp"
-        | "coq"
-        | "cpp"
-        | "crystal"
-        | "csharp"
-        | "css"
-        | "csv"
-        | "cue"
-        | "cypher"
-        | "d"
-        | "dart"
-        | "dax"
-        | "desktop"
-        | "diff"
-        | "docker"
-        | "dotenv"
-        | "dream-maker"
-        | "edge"
-        | "elixir"
-        | "elm"
-        | "emacs-lisp"
-        | "erb"
-        | "erlang"
-        | "fennel"
-        | "fish"
-        | "fluent"
-        | "fortran-fixed-form"
-        | "fortran-free-form"
-        | "fsharp"
-        | "gdresource"
-        | "gdscript"
-        | "gdshader"
-        | "genie"
-        | "gherkin"
-        | "git-commit"
-        | "git-rebase"
-        | "gleam"
-        | "glimmer-js"
-        | "glimmer-ts"
-        | "glsl"
-        | "gnuplot"
-        | "go"
-        | "graphql"
-        | "groovy"
-        | "hack"
-        | "haml"
-        | "handlebars"
-        | "haskell"
-        | "haxe"
-        | "hcl"
-        | "hjson"
-        | "hlsl"
-        | "html"
-        | "html-derivative"
-        | "http"
-        | "hxml"
-        | "hy"
-        | "imba"
-        | "ini"
-        | "java"
-        | "javascript"
-        | "jinja"
-        | "jison"
-        | "json"
-        | "json5"
-        | "jsonc"
-        | "jsonl"
-        | "jsonnet"
-        | "jssm"
-        | "jsx"
-        | "julia"
-        | "kotlin"
-        | "kusto"
-        | "latex"
-        | "lean"
-        | "less"
-        | "liquid"
-        | "llvm"
-        | "log"
-        | "logo"
-        | "lua"
-        | "luau"
-        | "make"
-        | "markdown"
-        | "marko"
-        | "matlab"
-        | "mdc"
-        | "mdx"
-        | "mermaid"
-        | "mipsasm"
-        | "mojo"
-        | "move"
-        | "narrat"
-        | "nextflow"
-        | "nginx"
-        | "nim"
-        | "nix"
-        | "nushell"
-        | "objective-c"
-        | "objective-cpp"
-        | "ocaml"
-        | "pascal"
-        | "perl"
-        | "php"
-        | "plsql"
-        | "po"
-        | "polar"
-        | "postcss"
-        | "powerquery"
-        | "powershell"
-        | "prisma"
-        | "prolog"
-        | "proto"
-        | "pug"
-        | "puppet"
-        | "purescript"
-        | "python"
-        | "qml"
-        | "qmldir"
-        | "qss"
-        | "r"
-        | "racket"
-        | "raku"
-        | "razor"
-        | "reg"
-        | "regexp"
-        | "rel"
-        | "riscv"
-        | "rst"
-        | "ruby"
-        | "rust"
-        | "sas"
-        | "sass"
-        | "scala"
-        | "scheme"
-        | "scss"
-        | "sdbl"
-        | "shaderlab"
-        | "shellscript"
-        | "shellsession"
-        | "smalltalk"
-        | "solidity"
-        | "soy"
-        | "sparql"
-        | "splunk"
-        | "sql"
-        | "ssh-config"
-        | "stata"
-        | "stylus"
-        | "svelte"
-        | "swift"
-        | "system-verilog"
-        | "systemd"
-        | "talonscript"
-        | "tasl"
-        | "tcl"
-        | "templ"
-        | "terraform"
-        | "tex"
-        | "toml"
-        | "ts-tags"
-        | "tsv"
-        | "tsx"
-        | "turtle"
-        | "twig"
-        | "typescript"
-        | "typespec"
-        | "typst"
-        | "v"
-        | "vala"
-        | "vb"
-        | "verilog"
-        | "vhdl"
-        | "viml"
-        | "vue"
-        | "vue-html"
-        | "vyper"
-        | "wasm"
-        | "wenyan"
-        | "wgsl"
-        | "wikitext"
-        | "wit"
-        | "wolfram"
-        | "xml"
-        | "xsl"
-        | "yaml"
-        | "zenscript"
-        | "zig"
+        | 'abap'
+        | 'actionscript-3'
+        | 'ada'
+        | 'angular-html'
+        | 'angular-ts'
+        | 'apache'
+        | 'apex'
+        | 'apl'
+        | 'applescript'
+        | 'ara'
+        | 'asciidoc'
+        | 'asm'
+        | 'astro'
+        | 'awk'
+        | 'ballerina'
+        | 'bat'
+        | 'beancount'
+        | 'berry'
+        | 'bibtex'
+        | 'bicep'
+        | 'blade'
+        | 'bsl'
+        | 'c'
+        | 'cadence'
+        | 'cairo'
+        | 'clarity'
+        | 'clojure'
+        | 'cmake'
+        | 'cobol'
+        | 'codeowners'
+        | 'codeql'
+        | 'coffee'
+        | 'common-lisp'
+        | 'coq'
+        | 'cpp'
+        | 'crystal'
+        | 'csharp'
+        | 'css'
+        | 'csv'
+        | 'cue'
+        | 'cypher'
+        | 'd'
+        | 'dart'
+        | 'dax'
+        | 'desktop'
+        | 'diff'
+        | 'docker'
+        | 'dotenv'
+        | 'dream-maker'
+        | 'edge'
+        | 'elixir'
+        | 'elm'
+        | 'emacs-lisp'
+        | 'erb'
+        | 'erlang'
+        | 'fennel'
+        | 'fish'
+        | 'fluent'
+        | 'fortran-fixed-form'
+        | 'fortran-free-form'
+        | 'fsharp'
+        | 'gdresource'
+        | 'gdscript'
+        | 'gdshader'
+        | 'genie'
+        | 'gherkin'
+        | 'git-commit'
+        | 'git-rebase'
+        | 'gleam'
+        | 'glimmer-js'
+        | 'glimmer-ts'
+        | 'glsl'
+        | 'gnuplot'
+        | 'go'
+        | 'graphql'
+        | 'groovy'
+        | 'hack'
+        | 'haml'
+        | 'handlebars'
+        | 'haskell'
+        | 'haxe'
+        | 'hcl'
+        | 'hjson'
+        | 'hlsl'
+        | 'html'
+        | 'html-derivative'
+        | 'http'
+        | 'hxml'
+        | 'hy'
+        | 'imba'
+        | 'ini'
+        | 'java'
+        | 'javascript'
+        | 'jinja'
+        | 'jison'
+        | 'json'
+        | 'json5'
+        | 'jsonc'
+        | 'jsonl'
+        | 'jsonnet'
+        | 'jssm'
+        | 'jsx'
+        | 'julia'
+        | 'kotlin'
+        | 'kusto'
+        | 'latex'
+        | 'lean'
+        | 'less'
+        | 'liquid'
+        | 'llvm'
+        | 'log'
+        | 'logo'
+        | 'lua'
+        | 'luau'
+        | 'make'
+        | 'markdown'
+        | 'marko'
+        | 'matlab'
+        | 'mdc'
+        | 'mdx'
+        | 'mermaid'
+        | 'mipsasm'
+        | 'mojo'
+        | 'move'
+        | 'narrat'
+        | 'nextflow'
+        | 'nginx'
+        | 'nim'
+        | 'nix'
+        | 'nushell'
+        | 'objective-c'
+        | 'objective-cpp'
+        | 'ocaml'
+        | 'pascal'
+        | 'perl'
+        | 'php'
+        | 'plsql'
+        | 'po'
+        | 'polar'
+        | 'postcss'
+        | 'powerquery'
+        | 'powershell'
+        | 'prisma'
+        | 'prolog'
+        | 'proto'
+        | 'pug'
+        | 'puppet'
+        | 'purescript'
+        | 'python'
+        | 'qml'
+        | 'qmldir'
+        | 'qss'
+        | 'r'
+        | 'racket'
+        | 'raku'
+        | 'razor'
+        | 'reg'
+        | 'regexp'
+        | 'rel'
+        | 'riscv'
+        | 'rst'
+        | 'ruby'
+        | 'rust'
+        | 'sas'
+        | 'sass'
+        | 'scala'
+        | 'scheme'
+        | 'scss'
+        | 'sdbl'
+        | 'shaderlab'
+        | 'shellscript'
+        | 'shellsession'
+        | 'smalltalk'
+        | 'solidity'
+        | 'soy'
+        | 'sparql'
+        | 'splunk'
+        | 'sql'
+        | 'ssh-config'
+        | 'stata'
+        | 'stylus'
+        | 'svelte'
+        | 'swift'
+        | 'system-verilog'
+        | 'systemd'
+        | 'talonscript'
+        | 'tasl'
+        | 'tcl'
+        | 'templ'
+        | 'terraform'
+        | 'tex'
+        | 'toml'
+        | 'ts-tags'
+        | 'tsv'
+        | 'tsx'
+        | 'turtle'
+        | 'twig'
+        | 'typescript'
+        | 'typespec'
+        | 'typst'
+        | 'v'
+        | 'vala'
+        | 'vb'
+        | 'verilog'
+        | 'vhdl'
+        | 'viml'
+        | 'vue'
+        | 'vue-html'
+        | 'vyper'
+        | 'wasm'
+        | 'wenyan'
+        | 'wgsl'
+        | 'wikitext'
+        | 'wit'
+        | 'wolfram'
+        | 'xml'
+        | 'xsl'
+        | 'yaml'
+        | 'zenscript'
+        | 'zig'
       )
-    | null
-  filename?: string | null
+    | null;
+  filename?: string | null;
   /**
    * Paste your code snippet here.
    */
-  code: string
+  code: string;
   /**
    * Display line numbers in the code block.
    */
-  showLineNumbers?: boolean | null
-  id?: string | null
-  blockName?: string | null
-  blockType: "codeBlock"
+  showLineNumbers?: boolean | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'codeBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "activities".
  */
 export interface Activity {
-  id: string
+  id: string;
   /**
    * The title of the activity.
    */
-  title: string
+  title: string;
   /**
    * The category this activity belongs to.
    */
-  category: string | ActivityCategory
+  category: string | ActivityCategory;
   /**
    * The platform, organizer, or provider for this activity.
    */
-  platform?: (string | null) | ActivityPlatform
-  url?: string | null
-  description?: string | null
+  platform?: (string | null) | ActivityPlatform;
+  url?: string | null;
+  description?: string | null;
   /**
    * Mark this activity as featured to display it in special sections.
    */
-  isFeatured?: boolean | null
+  isFeatured?: boolean | null;
   schedule: {
-    startDate: string
-    endDate?: string | null
+    startDate: string;
+    endDate?: string | null;
     /**
      * The total workload (in minutes) for this activity.
      */
-    workload?: number | null
-  }
+    workload?: number | null;
+  };
   attachments?:
     | {
-        url: string
-        description?: string | null
-        id?: string | null
+        url: string;
+        description?: string | null;
+        id?: string | null;
       }[]
-    | null
+    | null;
   /**
    * Add any extra info specific to this activity’s category (optional).
    */
   metadata?:
     | {
-        [k: string]: unknown
+        [k: string]: unknown;
       }
     | unknown[]
     | string
     | number
     | boolean
-    | null
-  updatedAt: string
-  createdAt: string
+    | null;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "activity-categories".
  */
 export interface ActivityCategory {
-  id: string
-  name: string
-  slug: string
-  description?: string | null
-  updatedAt: string
-  createdAt: string
+  id: string;
+  name: string;
+  slug: string;
+  description?: string | null;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "activity-platforms".
  */
 export interface ActivityPlatform {
-  id: string
-  name: string
-  website?: string | null
-  updatedAt: string
-  createdAt: string
+  id: string;
+  name: string;
+  website?: string | null;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "books".
  */
 export interface Book {
-  id: string
-  cover?: (string | null) | Image
-  title: string
+  id: string;
+  cover?: (string | null) | Image;
+  title: string;
   /**
    * The identifier that will be part of the URL to access this book.
    */
-  slug: string
-  description?: string | null
-  updatedAt: string
-  createdAt: string
+  slug: string;
+  description?: string | null;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "images".
  */
 export interface Image {
-  id: string
+  id: string;
   /**
    * Caption for the image
    */
-  caption?: string | null
+  caption?: string | null;
   /**
    * Alternative text for the image
    */
-  alt?: string | null
-  updatedAt: string
-  createdAt: string
-  url?: string | null
-  thumbnailURL?: string | null
-  filename?: string | null
-  mimeType?: string | null
-  filesize?: number | null
-  width?: number | null
-  height?: number | null
-  focalX?: number | null
-  focalY?: number | null
+  alt?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
   sizes?: {
     mobile?: {
-      url?: string | null
-      width?: number | null
-      height?: number | null
-      mimeType?: string | null
-      filesize?: number | null
-      filename?: string | null
-    }
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
     tablet?: {
-      url?: string | null
-      width?: number | null
-      height?: number | null
-      mimeType?: string | null
-      filesize?: number | null
-      filename?: string | null
-    }
-  }
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+  };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "faq".
  */
 export interface Faq {
-  id: string
-  question: string
-  answer: string
-  updatedAt: string
-  createdAt: string
+  id: string;
+  question: string;
+  answer: string;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "pages".
  */
 export interface Page {
-  id: string
+  id: string;
   /**
    * The title of the page.
    */
-  title: string
-  type: "page" | "section"
-  book?: (string | null) | Book
+  title: string;
+  type: 'page' | 'section';
+  book?: (string | null) | Book;
   /**
    * A unique identifier (per hierarchical level) that is human-readable for the page.
    */
-  slug: string
-  description?: string | null
+  slug: string;
+  description?: string | null;
   content?: {
     root: {
-      type: string
+      type: string;
       children: {
-        type: string
-        version: number
-        [k: string]: unknown
-      }[]
-      direction: ("ltr" | "rtl") | null
-      format: "left" | "start" | "center" | "right" | "end" | "justify" | ""
-      indent: number
-      version: number
-    }
-    [k: string]: unknown
-  } | null
-  parent?: (string | null) | Page
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  parent?: (string | null) | Page;
   breadcrumbs?:
     | {
-        doc?: (string | null) | Page
-        url?: string | null
-        label?: string | null
-        id?: string | null
+        doc?: (string | null) | Page;
+        url?: string | null;
+        label?: string | null;
+        id?: string | null;
       }[]
-    | null
-  updatedAt: string
-  createdAt: string
-  _status?: ("draft" | "published") | null
+    | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "skills".
  */
 export interface Skill {
-  id: string
-  title: string
+  id: string;
+  title: string;
   /**
    * This is the description show in the card
    */
-  description: string
-  updatedAt: string
-  createdAt: string
+  description: string;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
 export interface User {
-  id: string
-  updatedAt: string
-  createdAt: string
-  email: string
-  resetPasswordToken?: string | null
-  resetPasswordExpiration?: string | null
-  salt?: string | null
-  hash?: string | null
-  loginAttempts?: number | null
-  lockUntil?: string | null
+  id: string;
+  updatedAt: string;
+  createdAt: string;
+  email: string;
+  resetPasswordToken?: string | null;
+  resetPasswordExpiration?: string | null;
+  salt?: string | null;
+  hash?: string | null;
+  loginAttempts?: number | null;
+  lockUntil?: string | null;
   sessions?:
     | {
-        id: string
-        createdAt?: string | null
-        expiresAt: string
+        id: string;
+        createdAt?: string | null;
+        expiresAt: string;
       }[]
-    | null
-  password?: string | null
+    | null;
+  password?: string | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-jobs".
  */
 export interface PayloadJob {
-  id: string
+  id: string;
   /**
    * Input data provided to the job
    */
   input?:
     | {
-        [k: string]: unknown
+        [k: string]: unknown;
       }
     | unknown[]
     | string
     | number
     | boolean
-    | null
+    | null;
   taskStatus?:
     | {
-        [k: string]: unknown
+        [k: string]: unknown;
       }
     | unknown[]
     | string
     | number
     | boolean
-    | null
-  completedAt?: string | null
-  totalTried?: number | null
+    | null;
+  completedAt?: string | null;
+  totalTried?: number | null;
   /**
    * If hasError is true this job will not be retried
    */
-  hasError?: boolean | null
+  hasError?: boolean | null;
   /**
    * If hasError is true, this is the error that caused it
    */
   error?:
     | {
-        [k: string]: unknown
+        [k: string]: unknown;
       }
     | unknown[]
     | string
     | number
     | boolean
-    | null
+    | null;
   /**
    * Task execution log
    */
   log?:
     | {
-        executedAt: string
-        completedAt: string
-        taskSlug: "inline" | "schedulePublish"
-        taskID: string
+        executedAt: string;
+        completedAt: string;
+        taskSlug: 'inline' | 'syncHackTheBoxActivity' | 'schedulePublish';
+        taskID: string;
         input?:
           | {
-              [k: string]: unknown
+              [k: string]: unknown;
             }
           | unknown[]
           | string
           | number
           | boolean
-          | null
+          | null;
         output?:
           | {
-              [k: string]: unknown
+              [k: string]: unknown;
             }
           | unknown[]
           | string
           | number
           | boolean
-          | null
-        state: "failed" | "succeeded"
+          | null;
+        state: 'failed' | 'succeeded';
         error?:
           | {
-              [k: string]: unknown
+              [k: string]: unknown;
             }
           | unknown[]
           | string
           | number
           | boolean
-          | null
-        id?: string | null
+          | null;
+        id?: string | null;
       }[]
-    | null
-  taskSlug?: ("inline" | "schedulePublish") | null
-  queue?: string | null
-  waitUntil?: string | null
-  processing?: boolean | null
-  updatedAt: string
-  createdAt: string
+    | null;
+  taskSlug?: ('inline' | 'syncHackTheBoxActivity' | 'schedulePublish') | null;
+  queue?: string | null;
+  waitUntil?: string | null;
+  processing?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
-  id: string
+  id: string;
   document?:
     | ({
-        relationTo: "activities"
-        value: string | Activity
+        relationTo: 'activities';
+        value: string | Activity;
       } | null)
     | ({
-        relationTo: "activity-categories"
-        value: string | ActivityCategory
+        relationTo: 'activity-categories';
+        value: string | ActivityCategory;
       } | null)
     | ({
-        relationTo: "activity-platforms"
-        value: string | ActivityPlatform
+        relationTo: 'activity-platforms';
+        value: string | ActivityPlatform;
       } | null)
     | ({
-        relationTo: "books"
-        value: string | Book
+        relationTo: 'books';
+        value: string | Book;
       } | null)
     | ({
-        relationTo: "faq"
-        value: string | Faq
+        relationTo: 'faq';
+        value: string | Faq;
       } | null)
     | ({
-        relationTo: "images"
-        value: string | Image
+        relationTo: 'images';
+        value: string | Image;
       } | null)
     | ({
-        relationTo: "pages"
-        value: string | Page
+        relationTo: 'pages';
+        value: string | Page;
       } | null)
     | ({
-        relationTo: "skills"
-        value: string | Skill
+        relationTo: 'skills';
+        value: string | Skill;
       } | null)
     | ({
-        relationTo: "users"
-        value: string | User
+        relationTo: 'users';
+        value: string | User;
       } | null)
     | ({
-        relationTo: "payload-jobs"
-        value: string | PayloadJob
-      } | null)
-  globalSlug?: string | null
+        relationTo: 'payload-jobs';
+        value: string | PayloadJob;
+      } | null);
+  globalSlug?: string | null;
   user: {
-    relationTo: "users"
-    value: string | User
-  }
-  updatedAt: string
-  createdAt: string
+    relationTo: 'users';
+    value: string | User;
+  };
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-preferences".
  */
 export interface PayloadPreference {
-  id: string
+  id: string;
   user: {
-    relationTo: "users"
-    value: string | User
-  }
-  key?: string | null
+    relationTo: 'users';
+    value: string | User;
+  };
+  key?: string | null;
   value?:
     | {
-        [k: string]: unknown
+        [k: string]: unknown;
       }
     | unknown[]
     | string
     | number
     | boolean
-    | null
-  updatedAt: string
-  createdAt: string
+    | null;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-migrations".
  */
 export interface PayloadMigration {
-  id: string
-  name?: string | null
-  batch?: number | null
-  updatedAt: string
-  createdAt: string
+  id: string;
+  name?: string | null;
+  batch?: number | null;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "activities_select".
  */
 export interface ActivitiesSelect<T extends boolean = true> {
-  title?: T
-  category?: T
-  platform?: T
-  url?: T
-  description?: T
-  isFeatured?: T
+  title?: T;
+  category?: T;
+  platform?: T;
+  url?: T;
+  description?: T;
+  isFeatured?: T;
   schedule?:
     | T
     | {
-        startDate?: T
-        endDate?: T
-        workload?: T
-      }
+        startDate?: T;
+        endDate?: T;
+        workload?: T;
+      };
   attachments?:
     | T
     | {
-        url?: T
-        description?: T
-        id?: T
-      }
-  metadata?: T
-  updatedAt?: T
-  createdAt?: T
+        url?: T;
+        description?: T;
+        id?: T;
+      };
+  metadata?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "activity-categories_select".
  */
 export interface ActivityCategoriesSelect<T extends boolean = true> {
-  name?: T
-  slug?: T
-  description?: T
-  updatedAt?: T
-  createdAt?: T
+  name?: T;
+  slug?: T;
+  description?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "activity-platforms_select".
  */
 export interface ActivityPlatformsSelect<T extends boolean = true> {
-  name?: T
-  website?: T
-  updatedAt?: T
-  createdAt?: T
+  name?: T;
+  website?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "books_select".
  */
 export interface BooksSelect<T extends boolean = true> {
-  cover?: T
-  title?: T
-  slug?: T
-  description?: T
-  updatedAt?: T
-  createdAt?: T
+  cover?: T;
+  title?: T;
+  slug?: T;
+  description?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "faq_select".
  */
 export interface FaqSelect<T extends boolean = true> {
-  question?: T
-  answer?: T
-  updatedAt?: T
-  createdAt?: T
+  question?: T;
+  answer?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "images_select".
  */
 export interface ImagesSelect<T extends boolean = true> {
-  caption?: T
-  alt?: T
-  updatedAt?: T
-  createdAt?: T
-  url?: T
-  thumbnailURL?: T
-  filename?: T
-  mimeType?: T
-  filesize?: T
-  width?: T
-  height?: T
-  focalX?: T
-  focalY?: T
+  caption?: T;
+  alt?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  url?: T;
+  thumbnailURL?: T;
+  filename?: T;
+  mimeType?: T;
+  filesize?: T;
+  width?: T;
+  height?: T;
+  focalX?: T;
+  focalY?: T;
   sizes?:
     | T
     | {
         mobile?:
           | T
           | {
-              url?: T
-              width?: T
-              height?: T
-              mimeType?: T
-              filesize?: T
-              filename?: T
-            }
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
         tablet?:
           | T
           | {
-              url?: T
-              width?: T
-              height?: T
-              mimeType?: T
-              filesize?: T
-              filename?: T
-            }
-      }
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+      };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "pages_select".
  */
 export interface PagesSelect<T extends boolean = true> {
-  title?: T
-  type?: T
-  book?: T
-  slug?: T
-  description?: T
-  content?: T
-  parent?: T
+  title?: T;
+  type?: T;
+  book?: T;
+  slug?: T;
+  description?: T;
+  content?: T;
+  parent?: T;
   breadcrumbs?:
     | T
     | {
-        doc?: T
-        url?: T
-        label?: T
-        id?: T
-      }
-  updatedAt?: T
-  createdAt?: T
-  _status?: T
+        doc?: T;
+        url?: T;
+        label?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "skills_select".
  */
 export interface SkillsSelect<T extends boolean = true> {
-  title?: T
-  description?: T
-  updatedAt?: T
-  createdAt?: T
+  title?: T;
+  description?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users_select".
  */
 export interface UsersSelect<T extends boolean = true> {
-  updatedAt?: T
-  createdAt?: T
-  email?: T
-  resetPasswordToken?: T
-  resetPasswordExpiration?: T
-  salt?: T
-  hash?: T
-  loginAttempts?: T
-  lockUntil?: T
+  updatedAt?: T;
+  createdAt?: T;
+  email?: T;
+  resetPasswordToken?: T;
+  resetPasswordExpiration?: T;
+  salt?: T;
+  hash?: T;
+  loginAttempts?: T;
+  lockUntil?: T;
   sessions?:
     | T
     | {
-        id?: T
-        createdAt?: T
-        expiresAt?: T
-      }
+        id?: T;
+        createdAt?: T;
+        expiresAt?: T;
+      };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-jobs_select".
  */
 export interface PayloadJobsSelect<T extends boolean = true> {
-  input?: T
-  taskStatus?: T
-  completedAt?: T
-  totalTried?: T
-  hasError?: T
-  error?: T
+  input?: T;
+  taskStatus?: T;
+  completedAt?: T;
+  totalTried?: T;
+  hasError?: T;
+  error?: T;
   log?:
     | T
     | {
-        executedAt?: T
-        completedAt?: T
-        taskSlug?: T
-        taskID?: T
-        input?: T
-        output?: T
-        state?: T
-        error?: T
-        id?: T
-      }
-  taskSlug?: T
-  queue?: T
-  waitUntil?: T
-  processing?: T
-  updatedAt?: T
-  createdAt?: T
+        executedAt?: T;
+        completedAt?: T;
+        taskSlug?: T;
+        taskID?: T;
+        input?: T;
+        output?: T;
+        state?: T;
+        error?: T;
+        id?: T;
+      };
+  taskSlug?: T;
+  queue?: T;
+  waitUntil?: T;
+  processing?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents_select".
  */
 export interface PayloadLockedDocumentsSelect<T extends boolean = true> {
-  document?: T
-  globalSlug?: T
-  user?: T
-  updatedAt?: T
-  createdAt?: T
+  document?: T;
+  globalSlug?: T;
+  user?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-preferences_select".
  */
 export interface PayloadPreferencesSelect<T extends boolean = true> {
-  user?: T
-  key?: T
-  value?: T
-  updatedAt?: T
-  createdAt?: T
+  user?: T;
+  key?: T;
+  value?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-migrations_select".
  */
 export interface PayloadMigrationsSelect<T extends boolean = true> {
-  name?: T
-  batch?: T
-  updatedAt?: T
-  createdAt?: T
+  name?: T;
+  batch?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TaskSyncHackTheBoxActivity".
+ */
+export interface TaskSyncHackTheBoxActivity {
+  input?: unknown;
+  output?: unknown;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1044,25 +1043,26 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
  */
 export interface TaskSchedulePublish {
   input: {
-    type?: ("publish" | "unpublish") | null
-    locale?: string | null
+    type?: ('publish' | 'unpublish') | null;
+    locale?: string | null;
     doc?: {
-      relationTo: "pages"
-      value: string | Page
-    } | null
-    global?: string | null
-    user?: (string | null) | User
-  }
-  output?: unknown
+      relationTo: 'pages';
+      value: string | Page;
+    } | null;
+    global?: string | null;
+    user?: (string | null) | User;
+  };
+  output?: unknown;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "auth".
  */
 export interface Auth {
-  [k: string]: unknown
+  [k: string]: unknown;
 }
 
-declare module "payload" {
+
+declare module 'payload' {
   export interface GeneratedTypes extends Config {}
 }
