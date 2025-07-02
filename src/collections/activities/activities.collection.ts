@@ -7,6 +7,7 @@ export const Activities: CollectionConfig = {
     group: { en: "Activities", pt: "Atividades" },
     useAsTitle: "title",
   },
+  defaultSort: "-schedule.startDate",
   fields: [
     {
       fields: [
