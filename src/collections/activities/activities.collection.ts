@@ -3,6 +3,9 @@ import { CollectionConfig } from "payload"
 import { Activity } from "@/types"
 
 export const Activities: CollectionConfig = {
+  access: {
+    read: () => true,
+  },
   admin: {
     group: { en: "Activities", pt: "Atividades" },
     useAsTitle: "title",

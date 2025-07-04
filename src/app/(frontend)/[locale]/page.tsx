@@ -53,7 +53,7 @@ const social = [
   },
 ]
 
-export default async function LandingPage({ params, searchParams }: Props) {
+export default async function LandingPage({ params }: Props) {
   const { locale } = await params
   setRequestLocale(locale)
   const t = await getTranslations("Home")
@@ -69,7 +69,7 @@ export default async function LandingPage({ params, searchParams }: Props) {
         <Skills locale={locale} />
       </Suspense>
       <Suspense fallback={<ActivityFallback />}>
-        <Activity locale={locale} searchParams={searchParams} />
+        <Activity />
       </Suspense>
       <Suspense fallback={<AboutFallback />}>
         <About locale={locale} />
