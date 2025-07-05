@@ -1,10 +1,29 @@
 import { CollectionConfig } from "payload"
+import * as z from "zod/v4"
 
 import { Activity } from "@/types"
 
 export const Activities: CollectionConfig = {
   access: {
-    read: () => true,
+    read({ req: { query, user } }) {
+      const schema = z
+        .object({
+          depth: z.literal("1").optional(),
+          limit: z.coerce.number().positive().max(20).optional(),
+          locale: z.string().max(5).optional(),
+          page: z.coerce.number().int().positive().optional(),
+          where: z
+            .object({
+              "category.slug": z
+                .object({ equals: z.string().max(50) })
+                .optional(),
+              title: z.object({ like: z.string().max(255) }).optional(),
+            })
+            .optional(),
+        })
+        .strict()
+      return !!(user || schema.safeParse(query).success)
+    },
   },
   admin: {
     group: { en: "Activities", pt: "Atividades" },

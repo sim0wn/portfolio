@@ -7,6 +7,7 @@ import {
   ChevronsRight,
   Clock,
   Paperclip,
+  Syringe,
 } from "lucide-react"
 import { Locale, useLocale, useTranslations } from "next-intl"
 import { parseAsInteger, parseAsString, useQueryState } from "nuqs"
@@ -16,11 +17,6 @@ import useSWR from "swr"
 import {
   Badge,
   Button,
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
   Dialog,
   DialogContent,
   DialogHeader,
@@ -43,7 +39,6 @@ import { ActivityCategory, Activity as ActivityType } from "@/types"
 import { cn } from "@/utils"
 
 const PAGE_SIZE = 10
-const PAGE_SIZE_EVEN = PAGE_SIZE % 2 === 0 ? PAGE_SIZE : PAGE_SIZE + 1
 
 export function Activity() {
   const locale = useLocale()
@@ -63,7 +58,8 @@ export function Activity() {
 
   const getActivities = async () => {
     const params = new URLSearchParams({
-      limit: PAGE_SIZE_EVEN.toString(),
+      depth: "1",
+      limit: PAGE_SIZE.toString(),
       locale,
       page: page.toString(),
       ...(category && category !== "*"
@@ -71,14 +67,18 @@ export function Activity() {
         : {}),
       ...(title ? { "where[title][like]": title } : {}),
     })
-    const res = await fetch(`/api/activities?${params.toString()}`)
+    const res = await fetch(
+      "/api/activities" + (params ? `?${params.toString()}` : ""),
+    )
     if (!res.ok) throw new Error("Failed to fetch activities")
     return res.json()
   }
 
   const getCategories = async (locale: Locale) => {
     const params = new URLSearchParams({ locale })
-    const res = await fetch(`/api/activity-categories?${params.toString()}`)
+    const res = await fetch(
+      "/api/activity-categories" + (params ? `?${params.toString()}` : ""),
+    )
     if (!res.ok) throw new Error("Failed to fetch categories")
     return res.json()
   }
@@ -123,7 +123,11 @@ export function Activity() {
             defaultValue={category}
             name="category"
             onValueChange={(v) => {
-              setCategory(v)
+              if (v !== "*") {
+                setCategory(v)
+              } else {
+                setCategory(null)
+              }
               setPage(1)
             }}
           >
@@ -174,16 +178,14 @@ export function Activity() {
         <ul
           aria-label={t("activities.ariaList")}
           className={cn(
-            "grid gap-4",
-            "grid-cols-1 lg:grid-cols-2",
-            "w-full overflow-y-auto",
-            "p-0.5",
+            "flex w-full flex-col gap-1 overflow-y-auto p-0.5",
+            "divide-border divide-y",
           )}
         >
           {isLoading ? (
-            <ResultsFallback />
+            <ListFallback />
           ) : activities.length === 0 ? (
-            <li className="text-muted-foreground col-span-full py-8 text-center">
+            <li className="text-muted-foreground w-full py-8 text-center">
               {t("activities.no-data", {
                 category:
                   activityCategories.find((ac) => ac.slug === category)?.name ??
@@ -194,164 +196,178 @@ export function Activity() {
             </li>
           ) : (
             activities.map(
-              ({ category, platform, ...activity }: ActivityType) => (
-                <li key={activity.id}>
-                  <Card
-                    aria-labelledby={`activity-title-${activity.id}`}
-                    className="h-full justify-between"
-                    tabIndex={-1}
-                  >
-                    <CardHeader>
-                      <Tooltip>
-                        <TooltipTrigger asChild>
-                          <CardTitle
-                            className="truncate overflow-hidden whitespace-nowrap"
-                            id={`activity-title-${activity.id}`}
-                          >
-                            {activity.url ? (
-                              <Link
-                                className="focus-visible:outline"
-                                href={activity.url}
-                                rel="noopener noreferrer"
-                                target="_blank"
-                              >
-                                {activity.title}
-                              </Link>
-                            ) : (
-                              activity.title
-                            )}
-                          </CardTitle>
-                        </TooltipTrigger>
-                        <TooltipContent>{activity.title}</TooltipContent>
-                      </Tooltip>
-                      <div className="text-muted-foreground flex flex-wrap items-start gap-2 text-xs">
-                        <span className="flex gap-2">
-                          <Badge>
-                            {typeof category === "object" && category.name}
-                          </Badge>
-                          {platform && typeof platform === "object" && (
-                            <Badge variant="outline">
-                              {platform.website ? (
-                                <Link
-                                  className="underline"
-                                  href={platform.website}
-                                  rel="noopener noreferrer"
-                                  target="_blank"
-                                >
-                                  {platform.name}
-                                </Link>
-                              ) : (
-                                platform.name
-                              )}
-                            </Badge>
+              ({
+                category: activityCategory,
+                platform,
+                ...activity
+              }: ActivityType) => (
+                <li className="flex items-center gap-2 py-1" key={activity.id}>
+                  {/* Title & Link */}
+                  <div className="min-w-0 flex-1 items-start">
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <Button
+                          asChild
+                          className="block truncate px-0 font-medium"
+                          variant={"link"}
+                        >
+                          {activity.url ? (
+                            <Link
+                              className="hover:underline focus-visible:outline"
+                              href={activity.url}
+                              rel="noopener noreferrer"
+                              target="_blank"
+                            >
+                              {activity.title}
+                            </Link>
+                          ) : (
+                            activity.title
                           )}
-
-                          {activity.schedule.workload && (
-                            <Badge variant="secondary">
-                              <Clock />
-                              {(() => {
-                                const hours = Math.floor(
-                                  activity.schedule.workload / 60,
-                                )
-                                const minutes = activity.schedule.workload % 60
-                                if (minutes === 0) {
-                                  return t(
-                                    "activities.schedule.workload.hours",
-                                    {
-                                      hours,
-                                    },
-                                  )
-                                }
-                                if (hours === 0) {
-                                  return t(
-                                    "activities.schedule.workload.minutes",
-                                    {
-                                      minutes,
-                                    },
-                                  )
-                                }
-                                return t("activities.schedule.workload.full", {
-                                  hours,
-                                  minutes,
-                                })
-                              })()}
-                            </Badge>
-                          )}
-                        </span>
-                        <span className="flex gap-1">
-                          <Badge variant={"secondary"}>
-                            {!activity.schedule.endDate
-                              ? t("activities.schedule.date.single", {
-                                  startDate: new Date(
-                                    activity.schedule.startDate,
-                                  ),
-                                })
-                              : t("activities.schedule.date.range", {
-                                  endDate: new Date(activity.schedule.endDate),
-                                  startDate: new Date(
-                                    activity.schedule.startDate,
-                                  ),
-                                })}
-                          </Badge>
-                        </span>
-                      </div>
-                    </CardHeader>
+                        </Button>
+                      </TooltipTrigger>
+                      <TooltipContent>{activity.title}</TooltipContent>
+                    </Tooltip>
+                    {/* Description preview */}
                     {activity.description && (
-                      <CardContent>
-                        <Dialog>
-                          <DialogTrigger asChild>
-                            <p className="text-foreground/90 cursor-pointer truncate text-sm">
-                              {activity.description}
-                            </p>
-                          </DialogTrigger>
-                          <DialogContent>
-                            <DialogHeader>
-                              <DialogTitle>{activity.title}</DialogTitle>
-                            </DialogHeader>
+                      <Dialog>
+                        <DialogTrigger asChild>
+                          <span className="text-muted-foreground block cursor-pointer truncate text-xs">
                             {activity.description}
-                          </DialogContent>
-                        </Dialog>
-                      </CardContent>
+                          </span>
+                        </DialogTrigger>
+                        <DialogContent>
+                          <DialogHeader>
+                            <DialogTitle>{activity.title}</DialogTitle>
+                          </DialogHeader>
+                          {activity.description}
+                        </DialogContent>
+                      </Dialog>
                     )}
+                    {/* Attachments */}
                     {activity.attachments &&
                       activity.attachments.length > 0 && (
-                        <CardFooter>
-                          <ul
-                            aria-label={t("activities.attachments")}
-                            className="space-y-1"
-                          >
-                            {activity.attachments.map(
-                              (
-                                {
-                                  description,
-                                  url,
-                                }: NonNullable<
-                                  ActivityType["attachments"]
-                                >[number],
-                                i: number,
-                              ) => (
-                                <li key={i}>
+                        <ul
+                          aria-label={t("activities.attachments")}
+                          className="flex flex-col gap-1"
+                        >
+                          {activity.attachments.map(
+                            (
+                              {
+                                description,
+                                url,
+                              }: NonNullable<
+                                ActivityType["attachments"]
+                              >[number],
+                              i: number,
+                            ) => (
+                              <li key={i}>
+                                <Button
+                                  asChild
+                                  className="bg-muted text-accent size-fit p-1 shadow-sm"
+                                  size="icon"
+                                  variant="ghost"
+                                >
                                   <Link
-                                    className="text-accent hover:text-accent-foreground group flex items-center gap-2 rounded px-1 py-0.5 text-sm underline focus-visible:outline"
+                                    className="text-accent hover:text-accent-foreground flex items-center gap-1 text-xs underline focus-visible:outline"
                                     href={url}
                                     rel="noopener noreferrer"
                                     target="_blank"
                                   >
                                     <Paperclip
-                                      aria-label="Anexo"
-                                      className={`bg-muted text-accent group-hover:bg-accent group-hover:text-accent-foreground group-focus-visible:bg-accent group-focus-visible:text-accent-foreground mr-1 shrink-0 rounded p-1 shadow-sm transition-all duration-200 group-hover:shadow-lg`}
+                                      aria-label={t("activities.attachment")}
+                                      className="size-4 transition-all duration-200"
                                       role="img"
                                       strokeWidth={2}
                                     />
                                     {description}
                                   </Link>
-                                </li>
-                              ),
-                            )}
-                          </ul>
-                        </CardFooter>
+                                </Button>
+                              </li>
+                            ),
+                          )}
+                        </ul>
                       )}
-                  </Card>
+                  </div>
+                  {/* Badges */}
+                  <div className="flex min-w-max flex-col items-end gap-1">
+                    <div className="flex flex-wrap gap-1">
+                      {typeof activityCategory === "object" && (
+                        <Badge>{activityCategory.name}</Badge>
+                      )}
+                      {typeof activityCategory === "object" &&
+                        typeof platform === "object" &&
+                        activity.metadata &&
+                        typeof activity.metadata === "object" &&
+                        (activityCategory.slug === "lab" ||
+                          activityCategory.slug === "challenge") &&
+                        platform?.name === "Hack The Box" && (
+                          <Badge className="capitalize" variant={"outline"}>
+                            {(activity.metadata as { firstBlood: boolean })
+                              .firstBlood && (
+                              <span title="First blood">
+                                <Syringe className="size-3" />
+                              </span>
+                            )}
+                            {
+                              (activity.metadata as { category: string })
+                                .category
+                            }
+                          </Badge>
+                        )}
+                      {platform && typeof platform === "object" && (
+                        <Badge variant="secondary">
+                          {platform.website ? (
+                            <Link
+                              href={platform.website}
+                              rel="noopener noreferrer"
+                              target="_blank"
+                            >
+                              {platform.name}
+                            </Link>
+                          ) : (
+                            platform.name
+                          )}
+                        </Badge>
+                      )}
+                    </div>
+                    <div className="flex gap-1">
+                      {activity.schedule.workload && (
+                        <Badge variant="secondary">
+                          <Clock className="mr-1 h-3 w-3" />
+                          {(() => {
+                            const hours = Math.floor(
+                              activity.schedule.workload! / 60,
+                            )
+                            const minutes = activity.schedule.workload! % 60
+                            if (minutes === 0) {
+                              return t("activities.schedule.workload.hours", {
+                                hours,
+                              })
+                            }
+                            if (hours === 0) {
+                              return t("activities.schedule.workload.minutes", {
+                                minutes,
+                              })
+                            }
+                            return t("activities.schedule.workload.full", {
+                              hours,
+                              minutes,
+                            })
+                          })()}
+                        </Badge>
+                      )}
+                      <Badge variant="secondary">
+                        {!activity.schedule.endDate
+                          ? t("activities.schedule.date.single", {
+                              startDate: new Date(activity.schedule.startDate),
+                            })
+                          : t("activities.schedule.date.range", {
+                              endDate: new Date(activity.schedule.endDate!),
+                              startDate: new Date(activity.schedule.startDate),
+                            })}
+                      </Badge>
+                    </div>
+                  </div>
                 </li>
               ),
             )
@@ -360,7 +376,7 @@ export function Activity() {
         {/* Pagination */}
         <nav
           aria-label={t("activities.pagination.ariaLabel")}
-          className="mt-6 flex flex-col items-stretch gap-4 md:flex-row md:items-center md:justify-between"
+          className="flex flex-col items-center gap-4 md:flex-row md:justify-between"
         >
           <span aria-live="polite" className="text-muted-foreground text-sm">
             {t("activities.pagination.summary", {
@@ -447,7 +463,7 @@ export function ActivityFallback() {
       {/* Cards grid skeleton */}
       <section className="flex w-full flex-col gap-2 rounded-md border p-2 shadow-sm">
         <ul aria-hidden className="grid grid-cols-1 gap-2 lg:grid-cols-2">
-          <ResultsFallback />
+          <ListFallback />
         </ul>
         {/* Pagination skeleton */}
         <nav
@@ -469,39 +485,44 @@ export function ActivityFallback() {
   )
 }
 
-const ResultsFallback = () =>
-  Array.from({ length: PAGE_SIZE }).map((_, i) => (
-    <li key={i}>
-      <Card
-        aria-label="Carregando atividade"
-        className="flex h-fit animate-pulse flex-col justify-between"
-        tabIndex={-1}
-      >
-        <CardHeader>
-          <CardTitle className="truncate overflow-hidden whitespace-nowrap">
-            <Skeleton className="h-5 w-4/5 rounded" />
-          </CardTitle>
-          <div className="text-muted-foreground mt-2 flex flex-wrap items-center gap-2 text-xs">
-            <Badge className="h-5 w-20 rounded" variant="outline">
-              <Skeleton className="h-full w-full" />
-            </Badge>
-            <Skeleton className="h-4 w-8 rounded" />
-            <Skeleton className="h-4 w-14 rounded" />
-          </div>
-        </CardHeader>
-        <CardContent>
-          <Skeleton className="h-4 w-full rounded" />
-        </CardContent>
-        <CardFooter>
-          <ul aria-hidden className="w-full space-y-2">
-            <li className="flex items-center gap-2">
-              <span className="bg-muted text-accent mr-1 shrink-0 rounded p-1 shadow-sm">
-                <Paperclip className="opacity-60" size={18} strokeWidth={2} />
+const ListFallback = () =>
+  Array.from({ length: PAGE_SIZE - 4 }).map((_, i) => (
+    <li
+      aria-hidden="true"
+      className="flex animate-pulse items-center gap-2 py-1"
+      key={i}
+    >
+      {/* Title & Description */}
+      <div className="flex min-w-0 flex-1 flex-col gap-1">
+        <Skeleton className="h-4 w-32 rounded" />
+        <Skeleton className="h-3 w-48 rounded" />
+        {/* Attachments */}
+        <ul className="mt-1 flex flex-col gap-1">
+          {[...Array(2)].map((_, i) => (
+            <li key={i}>
+              <span className="flex items-center gap-1">
+                <span className="bg-muted text-accent rounded p-1 shadow-sm">
+                  <Paperclip className="size-4 opacity-60" role="img" />
+                </span>
+                <Skeleton className="h-3 w-16 rounded" />
               </span>
-              <Skeleton className="h-4 w-24 rounded" />
             </li>
-          </ul>
-        </CardFooter>
-      </Card>
+          ))}
+        </ul>
+      </div>
+      {/* Badges */}
+      <div className="flex min-w-max flex-col items-end gap-1">
+        <div className="flex flex-wrap gap-1">
+          <Skeleton className="h-5 w-16 rounded" />
+          <Skeleton className="h-5 w-14 rounded" />
+        </div>
+        <div className="mt-1 flex gap-1">
+          <Skeleton className="h-4 w-12 rounded" />
+          <span className="flex items-center gap-1">
+            <Clock className="h-3 w-3 opacity-60" />
+            <Skeleton className="h-4 w-10 rounded" />
+          </span>
+        </div>
+      </div>
     </li>
   ))

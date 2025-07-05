@@ -46,6 +46,7 @@
       }
     },
     "activities": {
+      "attachment": "Attachment",
       "title": "Activities",
       "description": "Here are some of my recent activities and projects.",
       "ariaList": "Activity list",

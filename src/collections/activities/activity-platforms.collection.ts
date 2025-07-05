@@ -1,6 +1,9 @@
 import { CollectionConfig } from "payload"
 
 export const ActivityPlatforms: CollectionConfig = {
+  access: {
+    read: () => true,
+  },
   admin: {
     group: { en: "Activities", pt: "Atividades" },
     useAsTitle: "name",

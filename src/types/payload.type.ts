@@ -563,6 +563,7 @@ export interface Page {
     };
     [k: string]: unknown;
   } | null;
+  slugSegments?: string | null;
   parent?: (string | null) | Page;
   breadcrumbs?:
     | {
@@ -921,6 +922,7 @@ export interface PagesSelect<T extends boolean = true> {
   slug?: T;
   description?: T;
   content?: T;
+  slugSegments?: T;
   parent?: T;
   breadcrumbs?:
     | T

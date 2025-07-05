@@ -53,10 +53,10 @@ export async function submitContactForm(
   try {
     // TODO: use a template engine for the email body
     await new Resend(env.RESEND_API_KEY).emails.send({
-      from: "Contact Form <mail@resend.sim0wn.com>",
+      from: "Contact Form <mail@resend.sim0wn.rocks>",
       html: `<strong>${fullName}</strong> contacted you. Here's the message: <br><br>${message}<br><br>Reply to <a href="mailto:${email}">${email}</a> or call ${phoneNumber}`,
       subject: "Contact Form Submission",
-      to: "contact@sim0wn.com",
+      to: "contact@sim0wn.rocks",
     })
     revalidatePath("/")
 

@@ -26,7 +26,7 @@ type Props = {
   params: Promise<{ locale: Locale; slug: string[] }>
 }
 
-export default async function Layout({ children, params }: Props) {
+export default async function Book({ children, params }: Props) {
   const {
     locale,
     slug: [book, ...slug],
@@ -39,6 +39,7 @@ export default async function Layout({ children, params }: Props) {
     select: {
       book: true,
       breadcrumbs: true,
+      description: true,
       id: true,
       parent: true,
       slug: true,
@@ -87,27 +88,37 @@ export default async function Layout({ children, params }: Props) {
           <Breadcrumb>
             <BreadcrumbList>
               {currentPage?.breadcrumbs?.map(
-                ({ doc, id, label, url }, index, self) => {
-                  return (
-                    <Fragment key={id}>
-                      <BreadcrumbItem>
-                        {doc === currentPage.id ? (
-                          <BreadcrumbPage>{label}</BreadcrumbPage>
-                        ) : (
-                          <BreadcrumbLink href={`/books/${book}${url ?? "/#"}`}>
-                            {label}
-                          </BreadcrumbLink>
-                        )}
-                      </BreadcrumbItem>
-                      {index < self.length - 1 && <BreadcrumbSeparator />}
-                    </Fragment>
-                  )
-                },
+                ({ doc, id, label, url }, index, self) => (
+                  <Fragment key={id}>
+                    <BreadcrumbItem>
+                      {doc === currentPage.id ? (
+                        <BreadcrumbPage>{label}</BreadcrumbPage>
+                      ) : (
+                        <BreadcrumbLink href={`/books/${book}${url ?? "/#"}`}>
+                          {label}
+                        </BreadcrumbLink>
+                      )}
+                    </BreadcrumbItem>
+                    {index < self.length - 1 && <BreadcrumbSeparator />}
+                  </Fragment>
+                ),
               )}
             </BreadcrumbList>
           </Breadcrumb>
         </header>
-        {children}
+        <article>
+          <header>
+            <h1 className="text-accent-foreground font-bold">
+              {currentPage?.title}
+            </h1>
+            {currentPage?.description && (
+              <p className="text-muted-foreground">
+                {currentPage?.description}
+              </p>
+            )}
+          </header>
+          {children}
+        </article>
       </SidebarInset>
     </SidebarProvider>
   )

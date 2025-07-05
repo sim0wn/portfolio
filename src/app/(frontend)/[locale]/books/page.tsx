@@ -8,7 +8,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui"
+} from "@/components"
 import { Link, routing } from "@/i18n"
 import { payload } from "@/lib"
 import { getPageURL } from "@/utils"
@@ -17,11 +17,7 @@ type Props = {
   params: Promise<{ locale: Locale }>
 }
 
-export async function generateStaticParams() {
-  return routing.locales.map((locale) => ({ locale }))
-}
-
-export default async function Library({ params }: Props) {
+export default async function Books({ params }: Props) {
   const { locale } = await params
   setRequestLocale(locale)
   const [t, { docs: books }] = await Promise.all([
@@ -75,4 +71,8 @@ export default async function Library({ params }: Props) {
       })}
     </ul>
   )
+}
+
+export async function generateStaticParams() {
+  return routing.locales.map((locale) => ({ locale }))
 }

@@ -60,7 +60,7 @@ export default buildConfig({
   }),
   email: resendAdapter({
     apiKey: env.RESEND_API_KEY,
-    defaultFromAddress: "payload@sim0wn.rocks",
+    defaultFromAddress: "payload@resend.sim0wn.rocks",
     defaultFromName: "Payload CMS",
   }),
   i18n: {

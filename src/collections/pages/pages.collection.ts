@@ -7,11 +7,6 @@ export const Pages: CollectionConfig = {
     group: { en: "Library", pt: "Biblioteca" },
     useAsTitle: "title",
   },
-  defaultPopulate: {
-    book: true,
-    breadcrumbs: { url: true },
-    slug: true,
-  },
   defaultSort: "title",
   fields: [
     {
@@ -119,6 +114,32 @@ export const Pages: CollectionConfig = {
       localized: true,
       name: "content",
       type: "richText",
+    },
+    {
+      hooks: {
+        afterRead: [
+          ({ data }) => {
+            const slugs = []
+            const breadcrumbs = data?.breadcrumbs
+            for (const locale in data?.breadcrumbs) {
+              for (const breadcrumb of breadcrumbs[locale] || []) {
+                if (breadcrumb.url) {
+                  for (const segment of breadcrumb.url.split("/")) {
+                    if (segment && slugs.indexOf(segment) === -1) {
+                      slugs.push(segment)
+                    }
+                  }
+                }
+              }
+              break
+            }
+            return slugs
+          },
+        ],
+      },
+      name: "slugSegments",
+      type: "text",
+      virtual: true,
     },
   ],
   labels: {

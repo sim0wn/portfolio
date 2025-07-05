@@ -14,6 +14,7 @@ import { payload } from "@/lib"
 import { Book, Page as PageCollection } from "@/types"
 
 type Props = { params: Promise<{ locale: Locale; slug: string[] }> }
+const LOCALES = routing.locales
 
 export async function generateMetadata({ params }: Props) {
   const {
@@ -49,27 +50,23 @@ export async function generateStaticParams() {
     },
     select: {
       book: true,
-      breadcrumbs: true,
-      type: true,
+      breadcrumbs: { url: true },
+      slugSegments: true,
     },
     where: {
       slug: { exists: true },
     },
   })
 
-  return pages.flatMap(({ book, breadcrumbs }) => {
-    if (!breadcrumbs?.length || !book || typeof book !== "object") return []
+  const staticParams = []
 
-    // Flatten breadcrumb URLs, split by '/', filter out empty, preserve order
-    const breadcrumbSlugs = new Set(
-      breadcrumbs.flatMap(({ url }) => url?.split("/").filter(Boolean) || []),
-    )
-
-    return routing.locales.map((locale) => ({
-      locale,
-      slug: [book.slug, ...breadcrumbSlugs],
-    }))
-  })
+  for (const page of pages) {
+    const bookSlug = typeof page.book === "object" && page.book!.slug
+    for (const locale of LOCALES) {
+      staticParams.push({ locale, slug: [bookSlug, ...page.slugSegments!] })
+    }
+  }
+  return staticParams
 }
 
 export default async function Page({ params }: Props) {
@@ -92,20 +89,10 @@ export default async function Page({ params }: Props) {
   if (!page) {
     notFound()
   }
-  return (
-    <article className="h-full w-full">
-      <header>
-        <h1 className="text-accent-foreground font-bold">{page.title}</h1>
-        {page.description && (
-          <p className="text-muted-foreground">{page.description}</p>
-        )}
-      </header>
-      {page.content ? (
-        <RichText className="flex max-w-full flex-col" data={page.content} />
-      ) : (
-        <Index locale={locale} page={page} />
-      )}
-    </article>
+  return page.content ? (
+    <RichText className="flex max-w-full flex-col" data={page.content} />
+  ) : (
+    <Index locale={locale} page={page} />
   )
 }
 

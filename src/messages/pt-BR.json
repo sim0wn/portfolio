@@ -38,6 +38,7 @@
     },
     "activities": {
       "ariaList": "Listagem de atividades",
+      "attachment": "Anexo",
       "title": "Atividades",
       "description": "Aqui estão algumas das minhas atividades e projetos mais recentes.",
       "filter": {
