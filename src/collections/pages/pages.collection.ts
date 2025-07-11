@@ -116,29 +116,54 @@ export const Pages: CollectionConfig = {
       type: "richText",
     },
     {
-      hidden: true,
+      admin: {
+        readOnly: true,
+      },
       hooks: {
         afterRead: [
-          ({ data }) => {
-            const slugs = []
-            const breadcrumbs = data?.breadcrumbs
-            for (const locale in data?.breadcrumbs) {
-              for (const breadcrumb of breadcrumbs[locale] || []) {
-                if (breadcrumb.url) {
+          ({ data, req }) => {
+            const localizedBreadcrumbs = data?.breadcrumbs
+            if (typeof localizedBreadcrumbs !== "object") {
+              return null
+            }
+
+            // Helper to extract unique segments from breadcrumbs
+            const extractSegments = (
+              breadcrumbs: undefined | { url: string }[],
+            ) => {
+              if (!breadcrumbs) return ""
+              const segmentsSet = new Set<string>()
+              for (const breadcrumb of breadcrumbs) {
+                if (breadcrumb?.url) {
                   for (const segment of breadcrumb.url.split("/")) {
-                    if (segment && slugs.indexOf(segment) === -1) {
-                      slugs.push(segment)
+                    if (segment) {
+                      segmentsSet.add(segment)
                     }
                   }
                 }
               }
-              break
+              return Array.from(segmentsSet).join("/")
             }
-            return slugs
+
+            if (!req.locale || req.locale === "all") {
+              const slugs: { [locale: string]: string } = {}
+              for (const [locale, breadcrumbs] of Object.entries(
+                localizedBreadcrumbs,
+              )) {
+                slugs[locale] = extractSegments(
+                  breadcrumbs as { url: string }[],
+                )
+              }
+              return slugs
+            }
+
+            return extractSegments(
+              localizedBreadcrumbs[req.locale] as { url: string }[],
+            )
           },
         ],
       },
-      name: "slugSegments",
+      name: "url",
       type: "text",
       virtual: true,
     },
@@ -151,7 +176,7 @@ export const Pages: CollectionConfig = {
   versions: {
     drafts: {
       autosave: {
-        interval: 100,
+        interval: 1000 * 60 * 5, // 5 minutes
       },
       schedulePublish: true,
     },

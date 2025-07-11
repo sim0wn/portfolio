@@ -14,7 +14,6 @@ import { payload } from "@/lib"
 import { Book, Page as PageCollection } from "@/types"
 
 type Props = { params: Promise<{ locale: Locale; slug: string[] }> }
-const LOCALES = routing.locales
 
 export async function generateMetadata({ params }: Props) {
   const {
@@ -43,6 +42,7 @@ export async function generateStaticParams() {
   const { docs: pages } = await payload.find({
     collection: "pages",
     limit: 0,
+    locale: "all",
     populate: {
       books: {
         slug: true,
@@ -51,22 +51,23 @@ export async function generateStaticParams() {
     select: {
       book: true,
       breadcrumbs: { url: true },
-      slugSegments: true,
+      locale: true,
+      url: true,
     },
     where: {
       slug: { exists: true },
     },
   })
 
-  const staticParams = []
-
-  for (const page of pages) {
-    const bookSlug = typeof page.book === "object" && page.book!.slug
-    for (const locale of LOCALES) {
-      staticParams.push({ locale, slug: [bookSlug, ...page.slugSegments!] })
-    }
-  }
-  return staticParams
+  return pages.flatMap(({ book, ...page }) => {
+    if (!(typeof book === "object" && page.url && typeof page.url === "object"))
+      return null
+    const url = page.url as Record<string, string>
+    return Object.entries(url).map(([locale, path]) => ({
+      locale,
+      slug: [book!.slug, ...path.split("/")],
+    }))
+  })
 }
 
 export default async function Page({ params }: Props) {
