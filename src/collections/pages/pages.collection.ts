@@ -116,6 +116,7 @@ export const Pages: CollectionConfig = {
       type: "richText",
     },
     {
+      hidden: true,
       hooks: {
         afterRead: [
           ({ data }) => {

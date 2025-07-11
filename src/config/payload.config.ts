@@ -24,6 +24,7 @@ import {
   Pages,
   skillCollection,
 } from "@/collections"
+import { AnnotationFeature } from "@/features"
 import { syncHackTheBoxActivity } from "@/tasks"
 
 import { getEnv } from "./env.config"
@@ -54,7 +55,8 @@ export default buildConfig({
   editor: lexicalEditor({
     features: ({ defaultFeatures }) => [
       ...defaultFeatures,
-      BlocksFeature({ blocks: [CodeBlock] }),
+      AnnotationFeature(),
+      BlocksFeature({ blocks: [CodeBlock], inlineBlocks: [] }),
       HeadingFeature({ enabledHeadingSizes: ["h2", "h3", "h4", "h5", "h6"] }),
     ],
   }),
@@ -109,6 +111,8 @@ export default buildConfig({
   plugins: [
     nestedDocsPlugin({
       collections: ["pages"],
+      generateURL: (docs) =>
+        docs.reduce((url, doc) => `${url}/${doc.slug}`, ""),
     }),
     vercelBlobStorage({
       collections: {

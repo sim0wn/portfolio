@@ -13,6 +13,7 @@
   "dependencies": {
     "@hcaptcha/react-hcaptcha": "^1.12.0",
     "@hookform/resolvers": "^5.1.1",
+    "@lexical/utils": "0.28.0",
     "@payloadcms/db-mongodb": "^3.45.0",
     "@payloadcms/email-resend": "^3.45.0",
     "@payloadcms/next": "^3.45.0",
@@ -50,6 +51,7 @@
     "@tanstack/react-table": "^8.21.3",
     "@vercel/analytics": "^1.5.0",
     "@vercel/speed-insights": "^1.2.0",
+    "bson-objectid": "^2.0.4",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cmdk": "^1.1.1",
