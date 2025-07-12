@@ -18,8 +18,7 @@ import "./index.scss"
 import { useAnnotation } from "../hooks"
 import { $isAnnotationNode, AnnotationNode, AnnotationPayload } from "../nodes"
 
-const INSERT_ANNOTATION_COMMAND = createCommand("insertAnnotation")
-const REMOVE_ANNOTATION_COMMAND = createCommand("removeAnnotation")
+const TOGGLE_ANNOTATION_COMMAND = createCommand("toggleAnnotation")
 
 const AnnotationPlugin: PluginComponent = () => {
   const [editor] = useLexicalComposerContext()
@@ -37,8 +36,7 @@ const AnnotationPlugin: PluginComponent = () => {
     left: number
     top: number
   }>(null)
-  const { createAnnotation, removeAnnotation, updateAnnotation } =
-    useAnnotation()
+  const { toggleAnnotation, updateAnnotation } = useAnnotation()
 
   // Register the custom commands
   useEffect(() => {
@@ -61,23 +59,15 @@ const AnnotationPlugin: PluginComponent = () => {
         })
       }),
       editor.registerCommand(
-        INSERT_ANNOTATION_COMMAND,
-        (payload: AnnotationPayload) => {
-          createAnnotation(payload.note)
-          return true
-        },
-        COMMAND_PRIORITY_EDITOR,
-      ),
-      editor.registerCommand(
-        REMOVE_ANNOTATION_COMMAND,
-        () => {
-          removeAnnotation()
+        TOGGLE_ANNOTATION_COMMAND,
+        (payload: AnnotationPayload = { note: "" }) => {
+          toggleAnnotation(payload?.note)
           return true
         },
         COMMAND_PRIORITY_EDITOR,
       ),
     )
-  }, [editor, createAnnotation, removeAnnotation])
+  }, [editor, toggleAnnotation])
 
   useEffect(() => {
     if (!nodeKey) {
@@ -129,7 +119,7 @@ const AnnotationPlugin: PluginComponent = () => {
         <span>{t("lexical:annotation:label")}</span>
         <button
           onClick={() =>
-            editor.dispatchCommand(REMOVE_ANNOTATION_COMMAND, null)
+            editor.dispatchCommand(TOGGLE_ANNOTATION_COMMAND, null)
           }
         >
           <XIcon />
@@ -157,8 +147,4 @@ const AnnotationPlugin: PluginComponent = () => {
   )
 }
 
-export {
-  AnnotationPlugin,
-  INSERT_ANNOTATION_COMMAND,
-  REMOVE_ANNOTATION_COMMAND,
-}
+export { AnnotationPlugin, TOGGLE_ANNOTATION_COMMAND }

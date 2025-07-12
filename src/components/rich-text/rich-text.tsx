@@ -15,7 +15,6 @@ type RichTextProps = HTMLAttributes<HTMLDivElement> & {
 export function RichText({
   className,
   enableGutter = false,
-  enableProse = true,
   ...props
 }: RichTextProps) {
   return (
@@ -24,8 +23,12 @@ export function RichText({
         {
           container: enableGutter,
           "max-w-none": !enableGutter,
-          "prose dark:prose-invert prose-neutral mx-auto": enableProse,
         },
+        [
+          "prose dark:prose-invert prose-neutral",
+          "prose-code:bg-muted/50 prose-code:rounded prose-code:px-1 prose-code:py-0.5 prose-code:font-mono prose-code:transition-colors prose-code:hover:bg-muted/70 hover:prose-code:duration-200 prose-code:after:content-[''] prose-code:before:content-['']",
+        ],
+        "mx-auto",
         className,
       )}
       converters={jsxConverters}

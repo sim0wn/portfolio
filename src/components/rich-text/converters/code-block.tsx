@@ -1,5 +1,6 @@
 import { SerializedBlockNode } from "@payloadcms/richtext-lexical"
 import { toJsxRuntime } from "hast-util-to-jsx-runtime"
+import path from "path"
 import { Fragment } from "react"
 import { jsx, jsxs } from "react/jsx-runtime"
 import { codeToHast } from "shiki"
@@ -34,6 +35,13 @@ export async function CodeBlockComponent({
     themes: { dark: "rose-pine", light: "rose-pine-dawn" },
   })
 
+  const dirname = path.dirname(filename ?? "")
+  const filePath = filename
+    ? dirname.startsWith("/")
+      ? dirname
+      : `~/${dirname}`
+    : "~/"
+
   // Colors and sizing use the design system (8px grid, muted palette).
   return (
     <figure
@@ -51,7 +59,7 @@ export async function CodeBlockComponent({
             Terminal
           </span>
           <span className="text-foreground font-mono text-xs tracking-tight">
-            root@sim0wn.rocks:~
+            root@sim0wn.rocks:{filePath}
           </span>
         </div>
         <span
@@ -102,7 +110,7 @@ export async function CodeBlockComponent({
            main
         </span>
         <span className="border-border bg-popover text-primary flex-1 truncate border-l px-2 py-1 font-semibold">
-          {filename ?? "%"}
+          {path.basename(filename ?? "%")}
         </span>
         <span className="border-border bg-popover text-muted-foreground border-l px-2 py-1">
           Ln 1, Col 1

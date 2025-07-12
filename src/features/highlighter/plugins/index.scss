@@ -1,0 +1,12 @@
+@import '~@payloadcms/ui/scss';
+
+span.highlighter {
+  position: relative;
+  display: inline;
+  background: var(--theme-elevation-50);
+  border-radius: 0.175rem;
+  border: 1px solid var(--theme-border-color);
+  padding-inline: 0.25rem;
+  padding-block: 0.125rem;
+  text-decoration: underline solid var(--color-warning-300);
+}

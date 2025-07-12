@@ -1,5 +1,2 @@
-export {
-  AnnotationFeature,
-  AnnotationNode,
-  type SerializedAnnotationNode,
-} from "./annotation"
+export * from "./annotation"
+export * from "./highlighter"

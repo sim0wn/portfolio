@@ -5,16 +5,17 @@ import {
   createClientFeature,
   getSelectedNode,
   slashMenuBasicGroupWithItems,
-  toolbarFeatureButtonsGroupWithItems,
+  toolbarFormatGroupWithItems,
 } from "@payloadcms/richtext-lexical/client"
 import { $getSelection, $isRangeSelection } from "lexical"
-import { NotebookPen } from "lucide-react"
+import { Highlighter } from "lucide-react"
 
-import { $isAnnotationNode, AnnotationNode } from "../nodes"
-import { AnnotationPlugin, TOGGLE_ANNOTATION_COMMAND } from "../plugins"
+import { $isHighlighterNode, HighlighterNode } from "../nodes"
+import { HighlighterPlugin, TOGGLE_HIGHLIGHTER_COMMAND } from "../plugins"
+import { HighlighterMarkdownTransformer } from "../transformers"
 
 const Icon = () => (
-  <NotebookPen
+  <Highlighter
     aria-hidden="true"
     fill="none"
     height={16}
@@ -28,23 +29,22 @@ const Icon = () => (
   />
 )
 
-export const AnnotationFeatureClient = createClientFeature(() => ({
-  nodes: [AnnotationNode],
-  plugins: [{ Component: AnnotationPlugin, position: "normal" }],
+export const HighlighterFeatureClient = createClientFeature(() => ({
+  markdownTransformers: [HighlighterMarkdownTransformer],
+  nodes: [HighlighterNode],
+  plugins: [{ Component: HighlighterPlugin, position: "normal" }],
   slashMenu: {
     groups: [
       slashMenuBasicGroupWithItems([
         {
           Icon,
-          key: "annotation",
-          keywords: ["annotation", "note"],
+          key: "highlighter",
+          keywords: ["highlight"],
           label: ({ i18n }) => {
-            return i18n.t("lexical:annotation:label")
+            return i18n.t("lexical:highlighter:label")
           },
           onSelect({ editor }) {
-            editor.dispatchCommand(TOGGLE_ANNOTATION_COMMAND, {
-              note: "",
-            })
+            editor.dispatchCommand(TOGGLE_HIGHLIGHTER_COMMAND, {})
           },
         },
       ]),
@@ -52,13 +52,13 @@ export const AnnotationFeatureClient = createClientFeature(() => ({
   },
   toolbarInline: {
     groups: [
-      toolbarFeatureButtonsGroupWithItems([
+      toolbarFormatGroupWithItems([
         {
           ChildComponent: Icon,
           isActive({ selection }) {
             if ($isRangeSelection(selection)) {
               const node = getSelectedNode(selection)
-              const parent = $findMatchingParent(node, $isAnnotationNode)
+              const parent = $findMatchingParent(node, $isHighlighterNode)
               return parent !== null
             }
             return false
@@ -69,16 +69,13 @@ export const AnnotationFeatureClient = createClientFeature(() => ({
               $getSelection()?.getTextContent()?.length
             )
           },
-          key: "annotation",
-          label: ({ i18n }) => i18n.t("lexical:annotation:label"),
+          key: "highlighter",
+          label: ({ i18n }) => i18n.t("lexical:highlighter:label"),
           onSelect({ editor }) {
             editor.getEditorState().read(() => {
               const selection = $getSelection()
               if (selection) {
-                editor.dispatchCommand(TOGGLE_ANNOTATION_COMMAND, {
-                  note: "",
-                  text: selection.getTextContent(),
-                })
+                editor.dispatchCommand(TOGGLE_HIGHLIGHTER_COMMAND, {})
               }
             })
           },

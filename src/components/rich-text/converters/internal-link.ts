@@ -12,6 +12,7 @@ export function internalDocToHref({
   if (typeof value !== "object") {
     throw new Error("Expected value to be an object")
   }
+  console.debug(value)
   const { slug } = value
   switch (relationTo) {
     case "pages":

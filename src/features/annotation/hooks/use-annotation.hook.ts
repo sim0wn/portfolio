@@ -8,17 +8,32 @@ import { $createAnnotationNode, $isAnnotationNode } from "../nodes"
 export function useAnnotation() {
   const [editor] = useLexicalComposerContext()
 
-  const createAnnotation = useCallback(
-    (note: string) => {
+  const toggleAnnotation = useCallback(
+    (note = "") => {
       editor.update(() => {
         const selection = $getSelection()
         if ($isRangeSelection(selection)) {
           const nodes = selection.extract()
-          const annotationNode = $createAnnotationNode(note)
 
           nodes.forEach((node) => {
-            if (!$isAnnotationNode(node)) {
-              $wrapNodeInElement(node, () => annotationNode)
+            const parent = node.getParent()
+            const children = parent?.getChildren()
+            if ($isAnnotationNode(parent)) {
+              children?.forEach((child) => {
+                parent.insertBefore(child)
+              })
+              parent.remove()
+            } else {
+              if (nodes.some($isAnnotationNode)) {
+                if ($isAnnotationNode(node)) {
+                  node.getChildren().forEach((child) => {
+                    node.insertBefore(child)
+                  })
+                  node.remove()
+                }
+              } else {
+                $wrapNodeInElement(node, () => $createAnnotationNode(note))
+              }
             }
           })
         }
@@ -39,29 +54,8 @@ export function useAnnotation() {
     [editor],
   )
 
-  const removeAnnotation = useCallback(() => {
-    editor.update(() => {
-      const selection = $getSelection()
-      const nodes = selection?.getNodes()
-      nodes?.forEach((node) => {
-        const parent = node.getParent()
-
-        if ($isAnnotationNode(parent)) {
-          const children = parent.getChildren()
-
-          children.forEach((child) => {
-            parent.insertBefore(child)
-          })
-
-          parent.remove()
-        }
-      })
-    })
-  }, [editor])
-
   return {
-    createAnnotation,
-    removeAnnotation,
+    toggleAnnotation,
     updateAnnotation,
   }
 }

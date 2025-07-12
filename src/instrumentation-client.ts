@@ -10,6 +10,8 @@ Sentry.init({
 
   dsn: "https://da6f74b530d2c9134cf6ad0caed6dc28@o4509595660648448.ingest.us.sentry.io/4509595663204352",
 
+  enabled: process.env.NODE_ENV !== "development",
+
   // Add optional integrations for additional features
   integrations: [Sentry.replayIntegration()],
 

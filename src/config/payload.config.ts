@@ -24,7 +24,7 @@ import {
   Pages,
   skillCollection,
 } from "@/collections"
-import { AnnotationFeature } from "@/features"
+import { AnnotationFeature, HighlighterFeature } from "@/features"
 import { syncHackTheBoxActivity } from "@/tasks"
 
 import { getEnv } from "./env.config"
@@ -58,6 +58,7 @@ export default buildConfig({
       AnnotationFeature(),
       BlocksFeature({ blocks: [CodeBlock], inlineBlocks: [] }),
       HeadingFeature({ enabledHeadingSizes: ["h2", "h3", "h4", "h5", "h6"] }),
+      HighlighterFeature(),
     ],
   }),
   email: resendAdapter({

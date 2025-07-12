@@ -1,5 +1,5 @@
-import { withSentryConfig } from "@sentry/nextjs"
 import { withPayload } from "@payloadcms/next/withPayload"
+import { withSentryConfig } from "@sentry/nextjs"
 import createNextIntlPlugin from "next-intl/plugin"
 
 const withNextIntl = createNextIntlPlugin("./src/i18n/request.i18n.ts")
@@ -27,17 +27,23 @@ export default withSentryConfig(
     // For all available options, see:
     // https://www.npmjs.com/package/@sentry/webpack-plugin#options
 
-    org: "sim0wn",
-    project: "portfolio",
+    // Enables automatic instrumentation of Vercel Cron Monitors. (Does not yet work with App Router route handlers.)
+    // See the following for more information:
+    // https://docs.sentry.io/product/crons/
+    // https://vercel.com/docs/cron-jobs
+    automaticVercelMonitors: true,
+    // Automatically tree-shake Sentry logger statements to reduce bundle size
+    disableLogger: true,
 
-    // Only print logs for uploading source maps in CI
-    silent: !process.env.CI,
+    org: "sim0wn",
 
     // For all available options, see:
     // https://docs.sentry.io/platforms/javascript/guides/nextjs/manual-setup/
 
-    // Upload a larger set of source maps for prettier stack traces (increases build time)
-    widenClientFileUpload: true,
+    project: "portfolio",
+
+    // Only print logs for uploading source maps in CI
+    silent: !process.env.CI,
 
     // Route browser requests to Sentry through a Next.js rewrite to circumvent ad-blockers.
     // This can increase your server load as well as your hosting bill.
@@ -45,13 +51,7 @@ export default withSentryConfig(
     // side errors will fail.
     tunnelRoute: "/monitoring",
 
-    // Automatically tree-shake Sentry logger statements to reduce bundle size
-    disableLogger: true,
-
-    // Enables automatic instrumentation of Vercel Cron Monitors. (Does not yet work with App Router route handlers.)
-    // See the following for more information:
-    // https://docs.sentry.io/product/crons/
-    // https://vercel.com/docs/cron-jobs
-    automaticVercelMonitors: true,
+    // Upload a larger set of source maps for prettier stack traces (increases build time)
+    widenClientFileUpload: true,
   },
 )
