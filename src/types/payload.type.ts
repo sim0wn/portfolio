@@ -65,14 +65,11 @@ export interface Config {
   auth: {
     users: UserAuthOperations;
   };
-  blocks: {
-    codeBlock: CodeBlock;
-  };
+  blocks: {};
   collections: {
     activities: Activity;
     'activity-categories': ActivityCategory;
     'activity-platforms': ActivityPlatform;
-    books: Book;
     faq: Faq;
     images: Image;
     pages: Page;
@@ -88,7 +85,6 @@ export interface Config {
     activities: ActivitiesSelect<false> | ActivitiesSelect<true>;
     'activity-categories': ActivityCategoriesSelect<false> | ActivityCategoriesSelect<true>;
     'activity-platforms': ActivityPlatformsSelect<false> | ActivityPlatformsSelect<true>;
-    books: BooksSelect<false> | BooksSelect<true>;
     faq: FaqSelect<false> | FaqSelect<true>;
     images: ImagesSelect<false> | ImagesSelect<true>;
     pages: PagesSelect<false> | PagesSelect<true>;
@@ -137,251 +133,6 @@ export interface UserAuthOperations {
     email: string;
     password: string;
   };
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "codeBlock".
- */
-export interface CodeBlock {
-  /**
-   * Select the programming language for syntax highlighting.
-   */
-  language?:
-    | (
-        | 'abap'
-        | 'actionscript-3'
-        | 'ada'
-        | 'angular-html'
-        | 'angular-ts'
-        | 'apache'
-        | 'apex'
-        | 'apl'
-        | 'applescript'
-        | 'ara'
-        | 'asciidoc'
-        | 'asm'
-        | 'astro'
-        | 'awk'
-        | 'ballerina'
-        | 'bat'
-        | 'beancount'
-        | 'berry'
-        | 'bibtex'
-        | 'bicep'
-        | 'blade'
-        | 'bsl'
-        | 'c'
-        | 'cadence'
-        | 'cairo'
-        | 'clarity'
-        | 'clojure'
-        | 'cmake'
-        | 'cobol'
-        | 'codeowners'
-        | 'codeql'
-        | 'coffee'
-        | 'common-lisp'
-        | 'coq'
-        | 'cpp'
-        | 'crystal'
-        | 'csharp'
-        | 'css'
-        | 'csv'
-        | 'cue'
-        | 'cypher'
-        | 'd'
-        | 'dart'
-        | 'dax'
-        | 'desktop'
-        | 'diff'
-        | 'docker'
-        | 'dotenv'
-        | 'dream-maker'
-        | 'edge'
-        | 'elixir'
-        | 'elm'
-        | 'emacs-lisp'
-        | 'erb'
-        | 'erlang'
-        | 'fennel'
-        | 'fish'
-        | 'fluent'
-        | 'fortran-fixed-form'
-        | 'fortran-free-form'
-        | 'fsharp'
-        | 'gdresource'
-        | 'gdscript'
-        | 'gdshader'
-        | 'genie'
-        | 'gherkin'
-        | 'git-commit'
-        | 'git-rebase'
-        | 'gleam'
-        | 'glimmer-js'
-        | 'glimmer-ts'
-        | 'glsl'
-        | 'gnuplot'
-        | 'go'
-        | 'graphql'
-        | 'groovy'
-        | 'hack'
-        | 'haml'
-        | 'handlebars'
-        | 'haskell'
-        | 'haxe'
-        | 'hcl'
-        | 'hjson'
-        | 'hlsl'
-        | 'html'
-        | 'html-derivative'
-        | 'http'
-        | 'hxml'
-        | 'hy'
-        | 'imba'
-        | 'ini'
-        | 'java'
-        | 'javascript'
-        | 'jinja'
-        | 'jison'
-        | 'json'
-        | 'json5'
-        | 'jsonc'
-        | 'jsonl'
-        | 'jsonnet'
-        | 'jssm'
-        | 'jsx'
-        | 'julia'
-        | 'kotlin'
-        | 'kusto'
-        | 'latex'
-        | 'lean'
-        | 'less'
-        | 'liquid'
-        | 'llvm'
-        | 'log'
-        | 'logo'
-        | 'lua'
-        | 'luau'
-        | 'make'
-        | 'markdown'
-        | 'marko'
-        | 'matlab'
-        | 'mdc'
-        | 'mdx'
-        | 'mermaid'
-        | 'mipsasm'
-        | 'mojo'
-        | 'move'
-        | 'narrat'
-        | 'nextflow'
-        | 'nginx'
-        | 'nim'
-        | 'nix'
-        | 'nushell'
-        | 'objective-c'
-        | 'objective-cpp'
-        | 'ocaml'
-        | 'pascal'
-        | 'perl'
-        | 'php'
-        | 'plsql'
-        | 'po'
-        | 'polar'
-        | 'postcss'
-        | 'powerquery'
-        | 'powershell'
-        | 'prisma'
-        | 'prolog'
-        | 'proto'
-        | 'pug'
-        | 'puppet'
-        | 'purescript'
-        | 'python'
-        | 'qml'
-        | 'qmldir'
-        | 'qss'
-        | 'r'
-        | 'racket'
-        | 'raku'
-        | 'razor'
-        | 'reg'
-        | 'regexp'
-        | 'rel'
-        | 'riscv'
-        | 'rst'
-        | 'ruby'
-        | 'rust'
-        | 'sas'
-        | 'sass'
-        | 'scala'
-        | 'scheme'
-        | 'scss'
-        | 'sdbl'
-        | 'shaderlab'
-        | 'shellscript'
-        | 'shellsession'
-        | 'smalltalk'
-        | 'solidity'
-        | 'soy'
-        | 'sparql'
-        | 'splunk'
-        | 'sql'
-        | 'ssh-config'
-        | 'stata'
-        | 'stylus'
-        | 'svelte'
-        | 'swift'
-        | 'system-verilog'
-        | 'systemd'
-        | 'talonscript'
-        | 'tasl'
-        | 'tcl'
-        | 'templ'
-        | 'terraform'
-        | 'tex'
-        | 'toml'
-        | 'ts-tags'
-        | 'tsv'
-        | 'tsx'
-        | 'turtle'
-        | 'twig'
-        | 'typescript'
-        | 'typespec'
-        | 'typst'
-        | 'v'
-        | 'vala'
-        | 'vb'
-        | 'verilog'
-        | 'vhdl'
-        | 'viml'
-        | 'vue'
-        | 'vue-html'
-        | 'vyper'
-        | 'wasm'
-        | 'wenyan'
-        | 'wgsl'
-        | 'wikitext'
-        | 'wit'
-        | 'wolfram'
-        | 'xml'
-        | 'xsl'
-        | 'yaml'
-        | 'zenscript'
-        | 'zig'
-      )
-    | null;
-  filename?: string | null;
-  /**
-   * Paste your code snippet here.
-   */
-  code: string;
-  /**
-   * Display line numbers in the code block.
-   */
-  showLineNumbers?: boolean | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'codeBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -462,17 +213,12 @@ export interface ActivityPlatform {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "books".
+ * via the `definition` "faq".
  */
-export interface Book {
+export interface Faq {
   id: string;
-  cover?: (string | null) | Image;
-  title: string;
-  /**
-   * The identifier that will be part of the URL to access this book.
-   */
-  slug: string;
-  description?: string | null;
+  question: string;
+  answer: string;
   updatedAt: string;
   createdAt: string;
 }
@@ -522,17 +268,6 @@ export interface Image {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "faq".
- */
-export interface Faq {
-  id: string;
-  question: string;
-  answer: string;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "pages".
  */
 export interface Page {
@@ -542,7 +277,6 @@ export interface Page {
    */
   title: string;
   type: 'page' | 'section';
-  book?: (string | null) | Book;
   /**
    * A unique identifier (per hierarchical level) that is human-readable for the page.
    */
@@ -563,7 +297,7 @@ export interface Page {
     };
     [k: string]: unknown;
   } | null;
-  url?: string | null;
+  url: string;
   parent?: (string | null) | Page;
   breadcrumbs?:
     | {
@@ -727,10 +461,6 @@ export interface PayloadLockedDocument {
         value: string | ActivityPlatform;
       } | null)
     | ({
-        relationTo: 'books';
-        value: string | Book;
-      } | null)
-    | ({
         relationTo: 'faq';
         value: string | Faq;
       } | null)
@@ -848,18 +578,6 @@ export interface ActivityPlatformsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "books_select".
- */
-export interface BooksSelect<T extends boolean = true> {
-  cover?: T;
-  title?: T;
-  slug?: T;
-  description?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "faq_select".
  */
 export interface FaqSelect<T extends boolean = true> {
@@ -918,7 +636,6 @@ export interface ImagesSelect<T extends boolean = true> {
 export interface PagesSelect<T extends boolean = true> {
   title?: T;
   type?: T;
-  book?: T;
   slug?: T;
   description?: T;
   content?: T;

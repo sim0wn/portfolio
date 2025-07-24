@@ -1,4 +1,4 @@
-import { Book, NestedDocs, Page } from "@/types"
+import { NestedDocs } from "@/types"
 
 /**
  * Organizes an array of documents into a hierarchical structure (tree).
@@ -41,25 +41,6 @@ function getNestedDocs<T extends object, K>(
 }
 
 /**
- * Generates the URL for a given page within a book context.
- *
- * @param page - A partial Page object containing at least breadcrumbs and optionally a book reference.
- * @param book - (Optional) A Book object, its slug as a string, or null. If not provided, the function attempts to use the book from the page object.
- * @returns The constructed URL string for the page within the book.
- */
-function getPageURL(
-  page: Pick<Page, "book" | "breadcrumbs">,
-  book?: Book | null | string,
-): string {
-  const bookSlug = resolveBookSlug(book, page)
-  if (!bookSlug) {
-    throw new Error("Book slug is required to generate the page URL.")
-  }
-  const lastBreadcrumbUrl = page.breadcrumbs?.at(-1)?.url ?? ""
-  return `/books/${bookSlug}${lastBreadcrumbUrl}`
-}
-
-/**
  * Checks if a given `ancestor` node is an ancestor (or self) of a `descendant` node
  * within a tree structure, using customizable accessors for children and unique IDs.
  *
@@ -98,17 +79,4 @@ function isAncestor<T extends object>(
   )
 }
 
-/**
- * Resolves a book slug from a Book object, string, or (optionally) from the Page object.
- */
-function resolveBookSlug(
-  book: Book | null | string | undefined,
-  page: Partial<Page>,
-): string | undefined {
-  if (typeof book === "string") return book
-  if (book && typeof book === "object") return book.slug
-  if (page.book && typeof page.book === "object") return page.book.slug
-  return undefined
-}
-
-export { getNestedDocs, getPageURL, isAncestor }
+export { getNestedDocs, isAncestor }

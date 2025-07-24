@@ -20,10 +20,11 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({
 }) => ({
   ...defaultConverters,
   ...AnnotationJSXConverter,
+  ...CodeBlockJSXConverter,
   ...HighlighterJSXConverter,
   ...LinkJSXConverter({ internalDocToHref }),
   ...UploadJSXConverter,
-  blocks: { ...CodeBlockJSXConverter },
+  blocks: {},
 })
 
 export { jsxConverters }

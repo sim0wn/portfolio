@@ -1,9 +1,12 @@
 "use client"
 
-import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext"
-import { mergeRegister } from "@lexical/utils"
 import { PluginComponent } from "@payloadcms/richtext-lexical"
-import { COMMAND_PRIORITY_EDITOR, createCommand } from "lexical"
+import {
+  COMMAND_PRIORITY_EDITOR,
+  createCommand,
+} from "@payloadcms/richtext-lexical/lexical"
+import { useLexicalComposerContext } from "@payloadcms/richtext-lexical/lexical/react/LexicalComposerContext"
+import { mergeRegister } from "@payloadcms/richtext-lexical/lexical/utils"
 import { useEffect } from "react"
 
 import "./index.scss"

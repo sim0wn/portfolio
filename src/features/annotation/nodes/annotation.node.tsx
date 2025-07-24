@@ -5,7 +5,7 @@ import {
   NodeKey,
   SerializedElementNode,
   Spread,
-} from "lexical"
+} from "@payloadcms/richtext-lexical/lexical"
 
 type AnnotationPayload = {
   note: string
@@ -21,12 +21,23 @@ class AnnotationNode extends ElementNode {
     this.__note = note
   }
 
-  static clone(node: AnnotationNode) {
+  static override clone(node: AnnotationNode) {
     return new AnnotationNode(node.__note, node.__key)
   }
 
-  static getType() {
+  static override getType() {
     return "annotation"
+  }
+
+  static override importDOM() {
+    return {
+      u: () => ({
+        conversion: (node: HTMLBaseElement) => {
+          const note = node.getAttribute("data-annotation-note") || ""
+          return { node: $createAnnotationNode(note) }
+        },
+      }),
+    }
   }
 
   static importJSON(serializedNode: SerializedAnnotationNode) {
@@ -38,13 +49,21 @@ class AnnotationNode extends ElementNode {
     return node
   }
 
-  createDOM() {
+  override createDOM() {
     const span = document.createElement("span")
     span.className = "annotation"
     return span
   }
 
-  exportJSON(): SerializedAnnotationNode {
+  override exportDOM() {
+    const element = document.createElement("u")
+    const text = document.createTextNode(this.getTextContent())
+    element.append(text)
+    element.setAttribute("data-annotation-note", this.__note)
+    return { element }
+  }
+
+  override exportJSON(): SerializedAnnotationNode {
     return {
       ...super.exportJSON(),
       note: this.__note,
@@ -57,7 +76,7 @@ class AnnotationNode extends ElementNode {
     return this.__note
   }
 
-  isInline() {
+  override isInline() {
     return true
   }
 
@@ -67,7 +86,7 @@ class AnnotationNode extends ElementNode {
     return writable
   }
 
-  updateDOM(prevNode: AnnotationNode) {
+  override updateDOM(prevNode: AnnotationNode) {
     return prevNode.__note !== this.__note
   }
 }

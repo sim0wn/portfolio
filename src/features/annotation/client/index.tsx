@@ -1,13 +1,16 @@
 "use client"
 
-import { $findMatchingParent } from "@lexical/utils"
 import {
   createClientFeature,
   getSelectedNode,
   slashMenuBasicGroupWithItems,
   toolbarFeatureButtonsGroupWithItems,
 } from "@payloadcms/richtext-lexical/client"
-import { $getSelection, $isRangeSelection } from "lexical"
+import {
+  $getSelection,
+  $isRangeSelection,
+} from "@payloadcms/richtext-lexical/lexical"
+import { $findMatchingParent } from "@payloadcms/richtext-lexical/lexical/utils"
 import { NotebookPen } from "lucide-react"
 
 import { $isAnnotationNode, AnnotationNode } from "../nodes"

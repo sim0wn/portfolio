@@ -1,7 +1,4 @@
 import { SerializedLinkNode } from "@payloadcms/richtext-lexical"
-import { Breadcrumb } from "node_modules/@payloadcms/plugin-nested-docs/dist/types"
-
-import { Book } from "@/types"
 
 export function internalDocToHref({
   linkNode,
@@ -12,11 +9,10 @@ export function internalDocToHref({
   if (typeof value !== "object") {
     throw new Error("Expected value to be an object")
   }
-  console.debug(value)
   const { slug } = value
   switch (relationTo) {
     case "pages":
-      return `/books/${(value.book as Book).slug}${(value.breadcrumbs as Breadcrumb[]).find((b) => b.url?.includes(slug as string))?.url || slug}`
+      return `/knowledge-base/${value.url}`
     default:
       return `/${relationTo}/${slug}`
   }

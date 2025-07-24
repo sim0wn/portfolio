@@ -1,2 +1,2 @@
 export { cn } from "./cn.util"
-export { getNestedDocs, getPageURL, isAncestor } from "./nested-docs.util"
+export { getNestedDocs, isAncestor } from "./nested-docs.util"

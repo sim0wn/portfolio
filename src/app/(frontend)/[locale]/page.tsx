@@ -15,7 +15,7 @@ import {
 import { Link } from "@/i18n"
 
 import { About, AboutFallback } from "./components/about"
-import { Activity, ActivityFallback } from "./components/activity"
+import { default as Activity, ActivitySkeleton } from "./components/activity"
 import { Featured, FeaturedFallback } from "./components/featured"
 import { Hero, HeroFallback } from "./components/hero"
 import { Skills, SkillsFallback } from "./components/skills"
@@ -68,7 +68,7 @@ export default async function LandingPage({ params }: Props) {
       <Suspense fallback={<SkillsFallback />}>
         <Skills locale={locale} />
       </Suspense>
-      <Suspense fallback={<ActivityFallback />}>
+      <Suspense fallback={<ActivitySkeleton />}>
         <Activity />
       </Suspense>
       <Suspense fallback={<AboutFallback />}>

@@ -1,6 +1,9 @@
-import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext"
-import { $wrapNodeInElement } from "@lexical/utils"
-import { $getSelection, $isRangeSelection } from "lexical"
+import {
+  $getSelection,
+  $isRangeSelection,
+} from "@payloadcms/richtext-lexical/lexical"
+import { useLexicalComposerContext } from "@payloadcms/richtext-lexical/lexical/react/LexicalComposerContext"
+import { $wrapNodeInElement } from "@payloadcms/richtext-lexical/lexical/utils"
 import { useCallback } from "react"
 
 import { $createHighlighterNode, $isHighlighterNode } from "../nodes"

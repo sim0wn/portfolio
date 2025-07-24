@@ -5,7 +5,7 @@ import {
   NodeKey,
   SerializedElementNode,
   Spread,
-} from "lexical"
+} from "@payloadcms/richtext-lexical/lexical"
 
 type HighlighterPayload = object
 
@@ -19,15 +19,23 @@ class HighlighterNode extends ElementNode {
     super(key)
   }
 
-  static clone(node: HighlighterNode) {
+  static override clone(node: HighlighterNode) {
     return new HighlighterNode(node.__key)
   }
 
-  static getType() {
+  static override getType() {
     return "highlighter"
   }
 
-  static importJSON(serializedNode: SerializedHighlighterNode) {
+  static override importDOM() {
+    return {
+      mark: () => ({
+        conversion: () => ({ node: $createHighlighterNode() }),
+      }),
+    }
+  }
+
+  static override importJSON(serializedNode: SerializedHighlighterNode) {
     const node = $createHighlighterNode()
     node.setFormat(serializedNode.format)
     node.setIndent(serializedNode.indent)
@@ -35,13 +43,20 @@ class HighlighterNode extends ElementNode {
     return node
   }
 
-  createDOM() {
+  override createDOM() {
     const span = document.createElement("span")
     span.className = "highlighter"
     return span
   }
 
-  exportJSON(): SerializedHighlighterNode {
+  override exportDOM() {
+    const element = document.createElement("mark")
+    const text = document.createTextNode(this.getTextContent())
+    element.append(text)
+    return { element }
+  }
+
+  override exportJSON(): SerializedHighlighterNode {
     return {
       ...super.exportJSON(),
       type: "highlighter",

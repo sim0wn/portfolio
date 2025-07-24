@@ -1,11 +1,10 @@
 "use client"
 
-import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext"
-import { mergeRegister } from "@lexical/utils"
 import { PluginComponent } from "@payloadcms/richtext-lexical"
-import { useTranslation, XIcon } from "@payloadcms/ui"
+import { useLexicalComposerContext } from "@payloadcms/richtext-lexical/lexical/react/LexicalComposerContext"
+import { mergeRegister } from "@payloadcms/richtext-lexical/lexical/utils"
+import { useTranslation } from "@payloadcms/ui"
 import {
-  $getNodeByKey,
   $getSelection,
   $isRangeSelection,
   COMMAND_PRIORITY_EDITOR,
@@ -14,24 +13,27 @@ import {
 import { useEffect, useLayoutEffect, useRef, useState } from "react"
 import { createPortal } from "react-dom"
 
-import "./index.scss"
+import "./styles.scss"
 import { useAnnotation } from "../hooks"
 import { $isAnnotationNode, AnnotationNode, AnnotationPayload } from "../nodes"
 
 const TOGGLE_ANNOTATION_COMMAND = createCommand("toggleAnnotation")
+const UPDATE_ANNOTATION_COMMAND = createCommand("updateAnnotation")
 
 const AnnotationPlugin: PluginComponent = () => {
   const [editor] = useLexicalComposerContext()
-  const [note, setNote] = useState("")
-  const [nodeKey, setNodeKey] = useState<null | string>(null)
+  const [node, setNode] = useState<AnnotationNode | null>(null)
+  const [selection, setSelection] = useState<null | {
+    end: number
+    start: number
+  }>(null)
   const { t } = useTranslation<
     object,
     | "lexical:annotation:form:note:label"
     | "lexical:annotation:form:note:placeholder"
-    | "lexical:annotation:form:submit"
-    | "lexical:annotation:label"
   >()
   const dialogRef = useRef<HTMLDivElement>(null)
+  const noteRef = useRef<HTMLTextAreaElement>(null)
   const [position, setPosition] = useState<null | {
     left: number
     top: number
@@ -43,19 +45,23 @@ const AnnotationPlugin: PluginComponent = () => {
     if (!editor.hasNodes([AnnotationNode])) {
       throw new Error("AnnotationPlugin: AnnotationNode not registered.")
     }
+    const updateNode = () => {
+      const selection = $getSelection()
+      if ($isRangeSelection(selection)) {
+        const node = selection.anchor.getNode()
+        const parent = node.getParent()
+        if ($isAnnotationNode(parent)) {
+          setNode(parent)
+        } else {
+          setNode(null)
+        }
+      }
+    }
+    editor.read(() => updateNode())
     return mergeRegister(
       editor.registerUpdateListener(({ editorState }) => {
         editorState.read(() => {
-          const selection = $getSelection()
-          if ($isRangeSelection(selection)) {
-            const node = selection.anchor.getNode()
-            const parent = node.getParent()
-            if ($isAnnotationNode(parent)) {
-              setNodeKey(parent.getKey())
-              return
-            }
-          }
-          setNodeKey(null)
+          updateNode()
         })
       }),
       editor.registerCommand(
@@ -66,28 +72,26 @@ const AnnotationPlugin: PluginComponent = () => {
         },
         COMMAND_PRIORITY_EDITOR,
       ),
+      editor.registerCommand(
+        UPDATE_ANNOTATION_COMMAND,
+        (payload: AnnotationPayload & { nodeKey: string }) => {
+          if (node) {
+            updateAnnotation({ note: payload.note }, node.getKey())
+          }
+          return true
+        },
+        COMMAND_PRIORITY_EDITOR,
+      ),
     )
-  }, [editor, toggleAnnotation])
-
-  useEffect(() => {
-    if (!nodeKey) {
-      return
-    }
-    editor.getEditorState().read(() => {
-      const node = $getNodeByKey(nodeKey)
-      if ($isAnnotationNode(node)) {
-        setNote(node.getNote())
-      }
-    })
-  }, [editor, nodeKey])
+  }, [editor, node, toggleAnnotation, updateAnnotation])
 
   useLayoutEffect(() => {
-    if (!nodeKey) {
+    if (!node) {
       return
     }
     // Aguarda o próximo frame para garantir que o DOM foi atualizado
     requestAnimationFrame(() => {
-      const dom = editor.getElementByKey(nodeKey)
+      const dom = editor.getElementByKey(node.getKey())
       if (dom) {
         const bounding = dom.getBoundingClientRect()
         setPosition({
@@ -96,12 +100,15 @@ const AnnotationPlugin: PluginComponent = () => {
         })
         if (dialogRef.current) {
           dialogRef.current.style.opacity = "1"
+          if (noteRef.current) {
+            noteRef.current.focus({ preventScroll: true })
+          }
         }
       }
     })
-  }, [editor, nodeKey])
+  }, [editor, node])
 
-  if (!nodeKey) return null
+  if (!node || !dialogRef || !noteRef) return null
 
   // Render the UI for editing annotations
   return createPortal(
@@ -115,32 +122,41 @@ const AnnotationPlugin: PluginComponent = () => {
       }}
       tabIndex={-1}
     >
-      <header>
-        <span>{t("lexical:annotation:label")}</span>
-        <button
-          onClick={() =>
-            editor.dispatchCommand(TOGGLE_ANNOTATION_COMMAND, null)
-          }
-        >
-          <XIcon />
-        </button>
-      </header>
-      <div>
-        <div>
-          <label className="annotation-label" htmlFor="annotation-note">
-            {t("lexical:annotation:form:note:label")}
-          </label>
-          <textarea
-            aria-label="Editar anotação"
-            id="annotation-note"
-            onChange={(e) => setNote(e.target.value)}
-            placeholder={t("lexical:annotation:form:note:placeholder")}
-            value={note}
-          />
+      <div className="field-type textarea" style={{ width: "100%" }}>
+        <div className="field-type__wrap">
+          <div className="textarea-outer">
+            <textarea
+              aria-label={t("lexical:annotation:form:note:label")}
+              onChange={(e) => {
+                setSelection({
+                  end: e.target.selectionEnd,
+                  start: e.target.selectionStart,
+                })
+                editor.dispatchCommand(UPDATE_ANNOTATION_COMMAND, {
+                  nodeKey: node.getKey(),
+                  note: e.target.value,
+                })
+              }}
+              onFocus={() => {
+                if (noteRef.current) {
+                  if (selection) {
+                    noteRef.current.setSelectionRange(
+                      selection.start,
+                      selection.end,
+                    )
+                  } else {
+                    const length = node.getNote().length
+                    noteRef.current.setSelectionRange(length, length)
+                  }
+                }
+              }}
+              placeholder={t("lexical:annotation:form:note:placeholder")}
+              ref={noteRef}
+              rows={3}
+              value={node.getNote()}
+            />
+          </div>
         </div>
-        <button onClick={() => updateAnnotation(nodeKey, note)}>
-          {t("lexical:annotation:form:submit")}
-        </button>
       </div>
     </div>,
     document.body,

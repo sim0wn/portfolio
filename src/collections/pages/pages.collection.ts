@@ -43,35 +43,6 @@ export const Pages: CollectionConfig = {
     },
     {
       admin: {
-        condition: (data) => !data.parent,
-        position: "sidebar",
-      },
-      hooks: {
-        beforeValidate: [
-          async ({ data, req: { payload }, value }) => {
-            if (data?.parent) {
-              const parent = await payload.findByID({
-                collection: "pages",
-                id: data.parent,
-                select: { book: true },
-              })
-              if (parent.book) {
-                const book = parent.book
-                return typeof book === "object" ? book.id : book
-              }
-            }
-            return value
-          },
-        ],
-      },
-      label: { en: "Book", pt: "Livro" },
-      name: "book",
-      relationTo: "books",
-      required: true,
-      type: "relationship",
-    },
-    {
-      admin: {
         description: {
           en: "A unique identifier (per hierarchical level) that is human-readable for the page.",
           pt: "Um identificador único (por nível hierárquico) e legível por humanos para a página.",
@@ -164,6 +135,7 @@ export const Pages: CollectionConfig = {
         ],
       },
       name: "url",
+      required: true,
       type: "text",
       virtual: true,
     },

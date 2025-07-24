@@ -108,14 +108,9 @@
         "contact": "Contact"
       },
       "menu": {
-        "library": "Library",
+        "knowledgeBase": "Knowledge base",
         "contact": "Contact"
       }
-    }
-  },
-  "Library": {
-    "card": {
-      "button": "Access"
     }
   },
   "Loading": {

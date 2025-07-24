@@ -1,9 +1,17 @@
-import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext"
-import { $wrapNodeInElement } from "@lexical/utils"
-import { $getNodeByKey, $getSelection, $isRangeSelection } from "lexical"
+import {
+  $getNodeByKey,
+  $getSelection,
+  $isRangeSelection,
+} from "@payloadcms/richtext-lexical/lexical"
+import { useLexicalComposerContext } from "@payloadcms/richtext-lexical/lexical/react/LexicalComposerContext"
+import { $wrapNodeInElement } from "@payloadcms/richtext-lexical/lexical/utils"
 import { useCallback } from "react"
 
-import { $createAnnotationNode, $isAnnotationNode } from "../nodes"
+import {
+  $createAnnotationNode,
+  $isAnnotationNode,
+  AnnotationPayload,
+} from "../nodes"
 
 export function useAnnotation() {
   const [editor] = useLexicalComposerContext()
@@ -43,11 +51,11 @@ export function useAnnotation() {
   )
 
   const updateAnnotation = useCallback(
-    (nodeKey: string, newNote: string) => {
+    ({ note }: AnnotationPayload, nodeKey: string) => {
       editor.update(() => {
         const node = $getNodeByKey(nodeKey)
         if (node && $isAnnotationNode(node)) {
-          node.setNote(newNote)
+          node.setNote(note)
         }
       })
     },

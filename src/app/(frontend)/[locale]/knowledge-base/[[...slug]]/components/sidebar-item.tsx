@@ -14,7 +14,7 @@ import {
   SidebarMenuItem,
   SidebarMenuSub,
 } from "@/components"
-import { Book, NestedDocs, Page } from "@/types"
+import { NestedDocs, Page } from "@/types"
 import { isAncestor } from "@/utils"
 
 export function SidebarItem({
@@ -54,15 +54,7 @@ export function SidebarItem({
           {/* Render the page itself */}
           <SidebarMenuItem key={page.id}>
             <SidebarMenuButton asChild isActive={currentPage?.id === page.id}>
-              <Link
-                href={`/books/${(page.book as Book).slug}${
-                  page.breadcrumbs?.find(
-                    (breadcrumb) => breadcrumb.doc === page.id,
-                  )?.url || ""
-                }`}
-              >
-                {page.title}
-              </Link>
+              <Link href={`/knowledge-base/${page.url}`}>{page.title}</Link>
             </SidebarMenuButton>
             {/* Then, if the page has children, render them */}
             {page.children.length > 0 && (

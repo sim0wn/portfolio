@@ -10,6 +10,7 @@ import {
   Syringe,
 } from "lucide-react"
 import { Locale, useLocale, useTranslations } from "next-intl"
+import dynamic from "next/dynamic"
 import { parseAsInteger, parseAsString, useQueryState } from "nuqs"
 import { useEffect, useState } from "react"
 import useSWR from "swr"
@@ -40,7 +41,7 @@ import { cn } from "@/utils"
 
 const PAGE_SIZE = 10
 
-export function Activity() {
+function Activity() {
   const locale = useLocale()
   const t = useTranslations("Home")
   const [category, setCategory] = useQueryState(
@@ -435,7 +436,7 @@ export function Activity() {
   )
 }
 
-export function ActivityFallback() {
+function ActivitySkeleton() {
   return (
     <section
       aria-busy="true"
@@ -526,3 +527,6 @@ const ListFallback = () =>
       </div>
     </li>
   ))
+
+export default dynamic(() => Promise.resolve(Activity), { ssr: false })
+export { ActivitySkeleton }

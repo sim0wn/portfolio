@@ -13,18 +13,21 @@ import path from "path"
 import { buildConfig } from "payload"
 import sharp from "sharp"
 
-import { CodeBlock } from "@/blocks"
 import {
   Activities,
   ActivityCategories,
   ActivityPlatforms,
-  Books,
   faqCollection,
   Images,
   Pages,
   skillCollection,
 } from "@/collections"
-import { AnnotationFeature, HighlighterFeature } from "@/features"
+import {
+  AiFeature,
+  AnnotationFeature,
+  CodeBlockFeature,
+  HighlighterFeature,
+} from "@/features"
 import { syncHackTheBoxActivity } from "@/tasks"
 
 import { getEnv } from "./env.config"
@@ -38,12 +41,11 @@ export default buildConfig({
       baseDir: "@",
     },
   },
-  blocks: [CodeBlock],
+  blocks: [],
   collections: [
     Activities,
     ActivityCategories,
     ActivityPlatforms,
-    Books,
     faqCollection,
     Images,
     Pages,
@@ -55,8 +57,10 @@ export default buildConfig({
   editor: lexicalEditor({
     features: ({ defaultFeatures }) => [
       ...defaultFeatures,
+      AiFeature(),
       AnnotationFeature(),
-      BlocksFeature({ blocks: [CodeBlock], inlineBlocks: [] }),
+      BlocksFeature({ blocks: [], inlineBlocks: [] }),
+      CodeBlockFeature(),
       HeadingFeature({ enabledHeadingSizes: ["h2", "h3", "h4", "h5", "h6"] }),
       HighlighterFeature(),
     ],
@@ -86,6 +90,14 @@ export default buildConfig({
           `Bearer ${process.env.CRON_SECRET}`
         )
       },
+    },
+    jobsCollectionOverrides: ({ defaultJobsCollection }) => {
+      if (!defaultJobsCollection.admin) {
+        defaultJobsCollection.admin = {}
+      }
+
+      defaultJobsCollection.admin.hidden = false
+      return defaultJobsCollection
     },
     tasks: [
       {

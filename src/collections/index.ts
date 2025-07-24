@@ -1,5 +1,4 @@
 export { Activities, ActivityCategories, ActivityPlatforms } from "./activities"
-export { Books } from "./books"
 export * from "./faq.collection"
 export { Images } from "./images"
 export { Pages } from "./pages"

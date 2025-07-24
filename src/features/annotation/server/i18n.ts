@@ -7,9 +7,7 @@ export const i18n: Partial<GenericLanguages> = {
         label: "Note",
         placeholder: "Enter your note here...",
       },
-      submit: "Save",
     },
-    label: "Annotation",
   },
   pt: {
     form: {
@@ -17,8 +15,6 @@ export const i18n: Partial<GenericLanguages> = {
         label: "Nota",
         placeholder: "Digite sua nota aqui...",
       },
-      submit: "Salvar",
     },
-    label: "Anotação",
   },
 }

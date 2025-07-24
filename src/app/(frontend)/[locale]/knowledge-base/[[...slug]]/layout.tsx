@@ -1,3 +1,4 @@
+import { Metadata } from "next"
 import { Locale } from "next-intl"
 import { setRequestLocale } from "next-intl/server"
 import { Fragment, ReactNode } from "react"
@@ -16,6 +17,7 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components"
+import { routing } from "@/i18n"
 import { payload } from "@/lib"
 import { getNestedDocs } from "@/utils"
 
@@ -26,18 +28,36 @@ type Props = {
   params: Promise<{ locale: Locale; slug: string[] }>
 }
 
-export default async function Book({ children, params }: Props) {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale, slug } = await params
   const {
-    locale,
-    slug: [book, ...slug],
-  } = await params
+    docs: [page],
+  } = await payload.find({
+    collection: "pages",
+    limit: 1,
+    locale:
+      locale === "pt-BR" || locale === "en-US" ? locale : routing.defaultLocale,
+    sort: ["parent.slug", "slug"],
+    ...(slug && {
+      where: {
+        "breadcrumbs.url": { equals: `/${slug.join("/")}` },
+      },
+    }),
+  })
+  return {
+    description: page.description || undefined,
+    title: page.title,
+  }
+}
+
+export default async function KnowledgeBaseLayout({ children, params }: Props) {
+  const { locale, slug } = await params
   setRequestLocale(locale)
   const { docs: pages } = await payload.find({
     collection: "pages",
     limit: 0,
     locale,
     select: {
-      book: true,
       breadcrumbs: true,
       description: true,
       id: true,
@@ -45,13 +65,13 @@ export default async function Book({ children, params }: Props) {
       slug: true,
       title: true,
       type: true,
+      url: true,
     },
-    where: {
-      "book.slug": {
-        equals: book,
-      },
-    },
+    sort: ["parent.slug", "slug"],
   })
+  const currentPage = slug
+    ? pages.find((page) => page.url === (slug ? slug.join("/") : ""))
+    : pages[0]
   const nestedPages = getNestedDocs(
     pages,
     (page) => page.slug,
@@ -59,12 +79,6 @@ export default async function Book({ children, params }: Props) {
       page.parent && typeof page.parent === "object"
         ? page.parent.slug
         : page.parent,
-  )
-  const currentPage = pages.find(
-    (page) =>
-      page.breadcrumbs?.some(
-        (breadcrumb) => `/${slug.join("/")}` === breadcrumb.url,
-      ) && page.slug === slug[slug.length - 1],
   )
   return (
     <SidebarProvider className="relative h-full min-h-0 min-w-0">
@@ -94,7 +108,7 @@ export default async function Book({ children, params }: Props) {
                       {doc === currentPage.id ? (
                         <BreadcrumbPage>{label}</BreadcrumbPage>
                       ) : (
-                        <BreadcrumbLink href={`/books/${book}${url ?? "/#"}`}>
+                        <BreadcrumbLink href={url ?? "/#"}>
                           {label}
                         </BreadcrumbLink>
                       )}
@@ -112,9 +126,7 @@ export default async function Book({ children, params }: Props) {
               {currentPage?.title}
             </h1>
             {currentPage?.description && (
-              <p className="text-muted-foreground">
-                {currentPage?.description}
-              </p>
+              <p className="text-muted-foreground">{currentPage.description}</p>
             )}
           </header>
           {children}

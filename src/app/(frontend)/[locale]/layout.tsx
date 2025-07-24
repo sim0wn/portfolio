@@ -69,8 +69,8 @@ export default async function LocaleLayout({ children, params }: Props) {
       <body
         className={cn(
           "grid min-h-svh grid-rows-[auto_1fr_auto] scroll-smooth",
-          raleway.variable,
           jetbrains_mono.variable,
+          raleway.variable,
           lato.variable,
         )}
       >
@@ -94,9 +94,9 @@ export default async function LocaleLayout({ children, params }: Props) {
                 </li>
                 <li>
                   <Button asChild variant={"link"}>
-                    <Link href={"/books"}>
+                    <Link href={"/knowledge-base"}>
                       <Library width={"1em"} />
-                      {t("nav.menu.library")}
+                      {t("nav.menu.knowledgeBase")}
                     </Link>
                   </Button>
                 </li>
