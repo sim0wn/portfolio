@@ -70,6 +70,7 @@ export interface Config {
     activities: Activity;
     'activity-categories': ActivityCategory;
     'activity-platforms': ActivityPlatform;
+    'contact-submissions': ContactSubmission;
     faq: Faq;
     images: Image;
     pages: Page;
@@ -85,6 +86,7 @@ export interface Config {
     activities: ActivitiesSelect<false> | ActivitiesSelect<true>;
     'activity-categories': ActivityCategoriesSelect<false> | ActivityCategoriesSelect<true>;
     'activity-platforms': ActivityPlatformsSelect<false> | ActivityPlatformsSelect<true>;
+    'contact-submissions': ContactSubmissionsSelect<false> | ContactSubmissionsSelect<true>;
     faq: FaqSelect<false> | FaqSelect<true>;
     images: ImagesSelect<false> | ImagesSelect<true>;
     pages: PagesSelect<false> | PagesSelect<true>;
@@ -210,6 +212,25 @@ export interface ActivityPlatform {
   website?: string | null;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contact-submissions".
+ */
+export interface ContactSubmission {
+  id: string;
+  fullName: string;
+  email: string;
+  /**
+   * Optional phone number for contact.
+   */
+  phoneNumber?: string | null;
+  /**
+   * The message or inquiry from the user.
+   */
+  message: string;
+  createdAt: string;
+  updatedAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -461,6 +482,10 @@ export interface PayloadLockedDocument {
         value: string | ActivityPlatform;
       } | null)
     | ({
+        relationTo: 'contact-submissions';
+        value: string | ContactSubmission;
+      } | null)
+    | ({
         relationTo: 'faq';
         value: string | Faq;
       } | null)
@@ -575,6 +600,18 @@ export interface ActivityPlatformsSelect<T extends boolean = true> {
   website?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contact-submissions_select".
+ */
+export interface ContactSubmissionsSelect<T extends boolean = true> {
+  fullName?: T;
+  email?: T;
+  phoneNumber?: T;
+  message?: T;
+  createdAt?: T;
+  updatedAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

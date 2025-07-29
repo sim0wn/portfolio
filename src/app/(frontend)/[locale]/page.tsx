@@ -1,21 +1,13 @@
-import { Code, Scale, Shield } from "lucide-react"
 import { Locale } from "next-intl"
-import { getTranslations, setRequestLocale } from "next-intl/server"
+import { setRequestLocale } from "next-intl/server"
 import { SearchParams } from "nuqs/server"
 import { Suspense } from "react"
+import { SWRConfig, unstable_serialize } from "swr"
 
-import {
-  Button,
-  GitHub,
-  HackTheBox,
-  Lattes,
-  LinkedIn,
-  TryHackMe,
-} from "@/components"
-import { Link } from "@/i18n"
+import { getActivitiesAction, getActivityCategoriesAction } from "@/actions"
 
 import { About, AboutFallback } from "./components/about"
-import { default as Activity, ActivitySkeleton } from "./components/activity"
+import { Activity, ActivitySkeleton } from "./components/activities"
 import { Featured, FeaturedFallback } from "./components/featured"
 import { Hero, HeroFallback } from "./components/hero"
 import { Skills, SkillsFallback } from "./components/skills"
@@ -25,40 +17,30 @@ type Props = {
   searchParams: Promise<SearchParams>
 }
 
-const social = [
-  {
-    icon: <GitHub />,
-    name: "GitHub",
-    url: "https://github.com/sim0wn/",
-  },
-  {
-    icon: <HackTheBox />,
-    name: "HackTheBox",
-    url: "https://app.hackthebox.com/profile/143157/",
-  },
-  {
-    icon: <Lattes />,
-    name: "Lattes",
-    url: "http://lattes.cnpq.br/4781391320784524/",
-  },
-  {
-    icon: <LinkedIn />,
-    name: "LinkedIn",
-    url: "https://www.linkedin.com/in/halissoncruz/",
-  },
-  {
-    icon: <TryHackMe />,
-    name: "TryHackMe",
-    url: "https://tryhackme.com/p/sim0wn/",
-  },
-]
-
-export default async function LandingPage({ params }: Props) {
+export default async function HomePage({ params }: Props) {
   const { locale } = await params
+
+  // Enable static rendering
   setRequestLocale(locale)
-  const t = await getTranslations("Home")
+
   return (
-    <>
+    <SWRConfig
+      value={{
+        fallback: {
+          [unstable_serialize({
+            category: "",
+            collection: "activities",
+            locale,
+            page: 1,
+            title: "",
+          })]: getActivitiesAction(),
+          [unstable_serialize({ collection: "activity-categories", locale })]:
+            getActivityCategoriesAction(),
+        },
+        keepPreviousData: true,
+        revalidateOnMount: false,
+      }}
+    >
       <Suspense fallback={<HeroFallback />}>
         <Hero />
       </Suspense>
@@ -69,68 +51,11 @@ export default async function LandingPage({ params }: Props) {
         <Skills locale={locale} />
       </Suspense>
       <Suspense fallback={<ActivitySkeleton />}>
-        <Activity />
+        <Activity locale={locale} />
       </Suspense>
       <Suspense fallback={<AboutFallback />}>
         <About locale={locale} />
       </Suspense>
-      <footer className="border-t">
-        <div className="container flex h-fit w-full flex-col items-center justify-between md:flex-row">
-          <menu className="flex w-full justify-center gap-2 py-2 md:justify-start">
-            {social.map(({ icon, name, url }) => (
-              <li key={name}>
-                <Button asChild size={"icon"} variant={"ghost"}>
-                  <Link
-                    href={url}
-                    prefetch={false}
-                    rel="noopener noreferrer"
-                    target="_blank"
-                  >
-                    {icon}
-                    <span className="sr-only">{name}</span>
-                  </Link>
-                </Button>
-              </li>
-            ))}
-          </menu>
-          <menu className="flex w-full flex-wrap justify-center gap-x-2 *:*:flex *:*:gap-2 *:*:px-0">
-            {[
-              {
-                icon: <Shield />,
-                label: t("footer.privacyPolicy"),
-                path: "/legal#privacy",
-              },
-              {
-                icon: <Scale />,
-                label: t("footer.termsOfService"),
-                path: "/legal#terms-of-service",
-              },
-              {
-                external: true,
-                icon: <Code />,
-                label: t("footer.sourceCode"),
-                path: "https://github.com/sim0wn/portfolio",
-              },
-            ].map(({ external, icon, label, path }) => (
-              <li key={label}>
-                <Button asChild variant={"link"}>
-                  <Link
-                    href={path}
-                    {...(external && {
-                      prefetch: false,
-                      rel: "noopener noreferrer",
-                      target: "_blank",
-                    })}
-                  >
-                    {icon}
-                    {label}
-                  </Link>
-                </Button>
-              </li>
-            ))}
-          </menu>
-        </div>
-      </footer>
-    </>
+    </SWRConfig>
   )
 }

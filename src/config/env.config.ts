@@ -1,11 +1,11 @@
-import { z } from "zod"
+import { z } from "zod/v4"
 
 const envSchema = z.object({
   BLOB_READ_WRITE_TOKEN: z.string().optional(),
   HACK_THE_BOX_API: z.string().default("https://www.hackthebox.com/api/v4"),
   HACK_THE_BOX_PROFILE_ID: z.string().default("143157"),
   HCAPTCHA_SECRET_KEY: z.string().min(1, "HCaptcha secret key is required"),
-  MONGODB_URI: z.string().url("Invalid MongoDB URI"),
+  MONGODB_URI: z.url("Invalid MongoDB URI"),
   NEXT_PUBLIC_HCAPTCHA_SITEKEY: z
     .string()
     .min(1, "HCaptcha site key is required"),
@@ -31,11 +31,17 @@ export function getEnv(): Env {
     if (error instanceof z.ZodError) {
       // Print detailed errors in development
       if (process.env.NODE_ENV !== "production") {
-        console.error("Environment variable validation failed:", error.errors)
+        console.error(
+          "Environment variable validation failed:",
+          z.treeifyError(error).errors,
+        )
       }
       throw new Error(
         "❌ Invalid environment variables:\n" +
-          error.errors.map((e) => `- ${e.message}`).join("\n"),
+          z
+            .treeifyError(error)
+            .errors.map((e) => `- ${e}`)
+            .join("\n"),
       )
     }
     throw error

@@ -1,19 +1,22 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+
 @plugin "@tailwindcss/typography";
 
 :root {
   --radius: 0.625rem;
   /* Backgrounds & Foregrounds */
-  --background: oklch(0.99 0.01 320); /* very light violet */
-  --foreground: oklch(0.19 0.04 320); /* very dark violet-gray */
+  --background: oklch(0.99 0.01 320);
+  /* very light violet */
+  --foreground: oklch(0.19 0.04 320);
+  /* very dark violet-gray */
   --card: oklch(0.96 0.03 320);
   --card-foreground: oklch(0.19 0.04 320);
   --popover: oklch(0.98 0.015 320);
   --popover-foreground: oklch(0.19 0.04 320);
 
   /* Primary: Sim0wn Violet */
-  --primary: oklch(0.52 0.21 320); /* #762762 */
+  --primary: oklch(0.52 0.21 320);
   --primary-foreground: oklch(0.99 0.01 320);
 
   /* Secondary */
@@ -29,7 +32,8 @@
   --accent-foreground: oklch(0.19 0.04 320);
 
   /* Destructive */
-  --destructive: oklch(0.59 0.18 25); /* accessible red */
+  --destructive: oklch(0.59 0.18 25);
+  /* accessible red */
   --destructive-foreground: oklch(0.99 0.01 320);
 
   /* Borders, Inputs, Rings */
@@ -43,16 +47,6 @@
   --chart-3: oklch(0.8 0.08 320);
   --chart-4: oklch(0.93 0.15 320);
   --chart-5: oklch(0.62 0.11 320);
-
-  /* Sidebar (optional) */
-  --sidebar: oklch(0.96 0.03 320);
-  --sidebar-foreground: oklch(0.29 0.12 320);
-  --sidebar-primary: oklch(0.52 0.21 320);
-  --sidebar-primary-foreground: oklch(0.99 0.01 320);
-  --sidebar-accent: oklch(0.82 0.17 320);
-  --sidebar-accent-foreground: oklch(0.19 0.04 320);
-  --sidebar-border: oklch(0.88 0.015 320);
-  --sidebar-ring: oklch(0.68 0.15 320);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -82,16 +76,8 @@
     --border: oklch(0.27 0.05 320 / 80%);
     --input: oklch(0.27 0.05 320 / 80%);
     --ring: oklch(0.73 0.14 320);
-
-    --sidebar: oklch(0.24 0.05 320);
-    --sidebar-foreground: oklch(0.96 0.03 320);
-    --sidebar-primary: oklch(0.73 0.14 320);
-    --sidebar-primary-foreground: oklch(0.19 0.04 320);
-    --sidebar-accent: oklch(0.62 0.11 320);
-    --sidebar-accent-foreground: oklch(0.98 0.01 320);
-    --sidebar-border: oklch(0.27 0.05 320 / 80%);
-    --sidebar-ring: oklch(0.73 0.14 320);
   }
+
   .shiki,
   .shiki span {
     color: var(--shiki-dark) !important;
@@ -103,14 +89,6 @@
 }
 
 @theme inline {
-  --color-sidebar: var(--sidebar);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-ring: var(--sidebar-ring);
   --color-chart-5: var(--chart-5);
   --color-chart-4: var(--chart-4);
   --color-chart-3: var(--chart-3);
@@ -138,8 +116,14 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+
+  /* Fonts */
+  --font-display: var(--font-raleway);
   --font-mono: var(--font-jetbrains-mono);
-  --font-sans: var(--font-lato);
+  --font-sans: var(--font-inter);
+
+  /* Layout */
+  --header-height: --spacing(14);
 }
 
 @layer utilities {
@@ -157,14 +141,17 @@
 }
 
 @utility container {
-  @apply mx-auto px-4 py-2;
-  @media (width >= theme(--breakpoint-md)) {
+  @apply mx-auto px-4;
+
+  @media (width >=theme(--breakpoint-md)) {
     @apply px-8;
   }
-  @media (width >= theme(--breakpoint-xl)) {
+
+  @media (width >=theme(--breakpoint-xl)) {
     @apply px-12;
   }
-  @media (width >= theme(--breakpoint-2xl)) {
+
+  @media (width >=theme(--breakpoint-2xl)) {
     @apply px-16;
   }
 }
@@ -176,4 +163,14 @@ h4,
 h5,
 h6 {
   font-family: var(--font-raleway);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
 }

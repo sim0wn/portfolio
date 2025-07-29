@@ -1,1 +1,2 @@
-export { contactFormValidation } from "./contact-form.validation"
+export { getActivitySearchValidation } from "./activity-search.validation"
+export { getContactValidation } from "./contact.validation"

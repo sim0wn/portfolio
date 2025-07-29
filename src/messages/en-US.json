@@ -1,32 +1,66 @@
 {
   "Actions": {
-    "captcha": {
-      "success": "Captcha completed successfully!",
-      "error": "Captcha validation failed. Please try again.",
-      "expired": "Captcha has expired. Please refresh the page and try again."
+    "activitySearch": {
+      "fields": {
+        "category": {
+          "error": "Couldn't validate the category."
+        },
+        "page": {
+          "error": "Should be a positive integer."
+        },
+        "title": {
+          "error": "Couldn't validate the title."
+        }
+      }
     },
     "contact": {
       "title": "Contact me",
       "fields": {
-        "fullName": "Full name",
-        "email": "Email",
-        "phoneNumber": "Phone number",
-        "message": "Message",
-        "submit": "Send"
+        "captcha": {
+          "label": "Captcha",
+          "errors": {
+            "missing": "Please complete the captcha.",
+            "invalid": "Captcha validation failed. Please try again.",
+            "expired": "Captcha has expired. Please refresh the page and try again."
+          }
+        },
+        "fullName": {
+          "label": "Full name",
+          "error": "Please enter your full name"
+        },
+        "email": {
+          "label": "Email",
+          "error": "Please enter a valid email address."
+        },
+        "phoneNumber": {
+          "label": "Phone number"
+        },
+        "message": {
+          "label": "Message",
+          "placeholder": "Write your message here",
+          "error": "Please enter a descriptive message."
+        },
+        "submit": {
+          "label": "Send",
+          "pending": "Sending message..."
+        }
       },
       "messages": {
         "error": {
           "title": "Not sent",
           "description": "Unable to send the message. Please try again later."
         },
-        "pending": "Sending message...",
         "success": {
           "title": "Sent",
           "description": "Message sent successfully! I'll get back to you as soon as possible."
-        },
-        "subTitle": "Fill out the form below and I'll get back to you as soon as possible."
+        }
       }
     }
+  },
+  "Captcha": {
+    "success": "Captcha completed successfully!",
+    "error": "Captcha validation failed. Please try again.",
+    "expired": "Captcha has expired. Please refresh the page and try again."
   },
   "Home": {
     "about": {
@@ -83,13 +117,17 @@
           "range": "From {startDate, date, medium} to {endDate, date, medium}"
         }
       },
-      "no-data": "No activities found in the \"{category}\" category{hasTitle, select, true { for the search \"{title}\"} other {}}.",
+      "messages": {
+        "error": {
+          "title": "Error",
+          "description": "An error occurred while searching for activities. Please try again later."
+        },
+        "noResults": {
+          "title": "No results found",
+          "description": "No activities found in the \"{category}\" category{hasTitle, select, true { for the search \"{title}\"} other {}}."
+        }
+      },
       "attachments": "Attachments"
-    },
-    "footer": {
-      "privacyPolicy": "Privacy Policy",
-      "termsOfService": "Terms of Service",
-      "sourceCode": "Source Code"
     },
     "skills": {
       "title": "Skills",
@@ -101,16 +139,61 @@
       }
     }
   },
+  "KnowledgeBase": {
+    "metadata": {
+      "updatedAt": "Last update "
+    },
+    "navigation": {
+      "prevPage": "Previous",
+      "nextPage": "Next"
+    }
+  },
   "Layout": {
+    "footer": {
+      "about": {
+        "title": "About",
+        "description": "Offensive security enthusiast and full-stack developer."
+      },
+      "location": "Brazil, UTC-3",
+      "quickLinks": {
+        "title": "Quick Links",
+        "ariaLabel": "Site quick navigation"
+      },
+      "social": {
+        "title": "Social Networks",
+        "ariaLabel": "Links to social networks",
+        "openLink": "Open {platform} in new tab"
+      },
+      "tech": {
+        "title": "Technologies",
+        "builtWith": "Built with:"
+      },
+      "copyright": {
+        "rights": "sim0wn. All rights reserved."
+      },
+      "lastUpdated": "Last updated",
+      "legal": {
+        "ariaLabel": "Legal and project links"
+      },
+      "privacyPolicy": "Privacy Policy",
+      "termsOfService": "Terms of Service",
+      "sourceCode": "Source Code",
+      "opensInNewTab": "Opens in new tab"
+    },
     "nav": {
       "actions": {
         "changeLocale": "PT",
         "contact": "Contact"
       },
       "menu": {
-        "knowledgeBase": "Knowledge base",
+        "knowledgeBase": "Knowledge Base",
         "contact": "Contact"
-      }
+      },
+      "home": "Home",
+      "about": "About",
+      "projects": "Projects",
+      "knowledgeBase": "Knowledge Base",
+      "contact": "Contact"
     }
   },
   "Loading": {

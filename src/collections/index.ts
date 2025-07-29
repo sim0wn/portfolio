@@ -1,5 +1,6 @@
 export { Activities, ActivityCategories, ActivityPlatforms } from "./activities"
+export { ContactSubmissions } from "./contact-submissions"
 export * from "./faq.collection"
 export { Images } from "./images"
 export { Pages } from "./pages"
-export * from "./skill.collection"
+export { Skills } from "./skills"

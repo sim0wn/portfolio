@@ -1,32 +1,66 @@
 {
   "Actions": {
-    "captcha": {
-      "success": "Captcha validado com sucesso!",
-      "error": "Falha ao validar captcha. Por favor, tente novamente.",
-      "expired": "O captcha expirou. Por favor, recarregue a página e tente novamente."
+    "activitySearch": {
+      "fields": {
+        "category": {
+          "error": "Não foi possível validar a categoria."
+        },
+        "page": {
+          "error": "Deve ser um número inteiro positivo."
+        },
+        "title": {
+          "error": "Não foi possível validar o título."
+        }
+      }
     },
     "contact": {
       "title": "Entre em contato",
       "fields": {
-        "fullName": "Nome completo",
-        "email": "E-mail",
-        "phoneNumber": "Número de telefone",
-        "message": "Mensagem",
-        "submit": "Enviar"
+        "captcha": {
+          "label": "Captcha",
+          "errors": {
+            "missing": "Por favor, complete o captcha.",
+            "invalid": "Falha na validação do captcha. Por favor, tente novamente.",
+            "expired": "O captcha expirou. Por favor, recarregue a página e tente novamente."
+          }
+        },
+        "fullName": {
+          "label": "Nome completo",
+          "error": "Informe o nome completo, por favor"
+        },
+        "email": {
+          "label": "E-mail",
+          "error": "Informe um e-mail válido."
+        },
+        "phoneNumber": {
+          "label": "Número de telefone"
+        },
+        "message": {
+          "label": "Mensagem",
+          "placeholder": "Escreva sua mensagem aqui",
+          "error": "Por favor, informe uma mensagem descritiva."
+        },
+        "submit": {
+          "label": "Enviar",
+          "pending": "Enviando mensagem..."
+        }
       },
       "messages": {
         "error": {
           "title": "Não enviado",
           "description": "Não foi possível enviar a mensagem. Por favor, tente novamente mais tarde."
         },
-        "pending": "Enviando mensagem...",
         "success": {
           "title": "Enviado!",
           "description": "Mensagem enviada com sucesso! Eu entrarei em contato assim que possível."
-        },
-        "subTitle": "Mensagem enviada com sucesso! Eu entrarei em contato assim que possível."
+        }
       }
     }
+  },
+  "Captcha": {
+    "success": "Captcha validado com sucesso!",
+    "error": "Falha ao validar captcha. Por favor, tente novamente.",
+    "expired": "O captcha expirou. Por favor, recarregue a página e tente novamente."
   },
   "Home": {
     "about": {
@@ -54,6 +88,16 @@
           "label": "Filtrar"
         }
       },
+      "messages": {
+        "error": {
+          "title": "Erro",
+          "description": "Ocorreu um erro ao buscar atividades. Por favor, tente novamente mais tarde."
+        },
+        "noResults": {
+          "title": "Nenhum resultado encontrado",
+          "description": "Nenhuma atividade encontrada na categoria \"{category}\"{hasTitle, select, true { para a busca \"{title}\"} other {}}."
+        }
+      },
       "pagination": {
         "ariaLabel": "Navegação de paginação",
         "next": "Próxima página",
@@ -74,13 +118,7 @@
           "range": "De {startDate, date, medium} à {endDate, date, medium}"
         }
       },
-      "no-data": "Nenhuma atividade encontrada na categoria \"{category}\"{hasTitle, select, true { para a busca \"{title}\"} other {}}.",
       "attachments": "Anexos"
-    },
-    "footer": {
-      "privacyPolicy": "Política de Privacidade",
-      "termsOfService": "Termos de Serviço",
-      "sourceCode": "Código-fonte"
     },
     "hero": {
       "description": "Sou um entusiasta em cibersegurança especializado em segurança ofensiva. Iniciei como programador, tendo meu primeiro contato com a linguagem Java aos 11 anos. Com o tempo, me deparei com a área de segurança da informação, na qual sou um autodidata desde 2018, e sigo uma rotina de estudo e prática constante.",
@@ -101,7 +139,47 @@
       }
     }
   },
+  "KnowledgeBase": {
+    "metadata": {
+      "updatedAt": "Atualizado "
+    },
+    "navigation": {
+      "prevPage": "Anterior",
+      "nextPage": "Próxima"
+    }
+  },
   "Layout": {
+    "footer": {
+      "about": {
+        "title": "Sobre",
+        "description": "Entusiasta em segurança ofensiva e desenvolvedor full-stack."
+      },
+      "location": "Brasil, UTC-3",
+      "quickLinks": {
+        "title": "Links Rápidos",
+        "ariaLabel": "Navegação rápida do site"
+      },
+      "social": {
+        "title": "Redes Sociais",
+        "ariaLabel": "Links para redes sociais",
+        "openLink": "Abrir {platform} em nova aba"
+      },
+      "tech": {
+        "title": "Tecnologias",
+        "builtWith": "Construído com:"
+      },
+      "copyright": {
+        "rights": "sim0wn. Todos os direitos reservados."
+      },
+      "lastUpdated": "Última atualização",
+      "legal": {
+        "ariaLabel": "Links legais e do projeto"
+      },
+      "privacyPolicy": "Política de Privacidade",
+      "termsOfService": "Termos de Serviço",
+      "sourceCode": "Código Fonte",
+      "opensInNewTab": "Abre em nova aba"
+    },
     "nav": {
       "actions": {
         "changeLocale": "EN",
@@ -110,7 +188,12 @@
       "menu": {
         "knowledgeBase": "Base de conhecimento",
         "contact": "Contato"
-      }
+      },
+      "home": "Início",
+      "about": "Sobre",
+      "projects": "Projetos",
+      "knowledgeBase": "Base de conhecimento",
+      "contact": "Contato"
     }
   },
   "Loading": {

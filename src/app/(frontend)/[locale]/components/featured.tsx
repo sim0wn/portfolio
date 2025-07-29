@@ -27,7 +27,7 @@ export async function Featured({ locale }: { locale: Locale }) {
     },
   })
   return (
-    <section className="border-y">
+    <section className="border-y py-4">
       <ul className={cn("container my-auto justify-center gap-2", "flex")}>
         {starredActivities.map(
           ({ category, description, id, platform, title }) => (

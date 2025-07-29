@@ -4,168 +4,147 @@ import HCaptcha from "@hcaptcha/react-hcaptcha"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useTranslations } from "next-intl"
 import dynamic from "next/dynamic"
-import { useActionState, useEffect, useRef, useState } from "react"
-import { FormProvider, useForm, useFormState } from "react-hook-form"
+import { useActionState, useEffect, useRef } from "react"
+import { FormProvider, useForm } from "react-hook-form"
 import { toast } from "sonner"
+import { z } from "zod/v4"
 
-import { submitContactForm } from "@/actions"
+import { contactSubmissionAction } from "@/actions"
 import {
   Button,
   FormControl,
+  FormField,
   FormItem,
   FormLabel,
   FormMessage,
   Input,
-  Skeleton,
   Textarea,
 } from "@/components"
-import { ContactFormData, ContactFormState } from "@/types"
-import { contactFormValidation } from "@/validations"
+import { getContactValidation } from "@/validations"
 
 const HCaptchaWrapper = dynamic(() => import("@/components/hcaptcha-wrapper"), {
   ssr: false,
 })
 
-const initialState: ContactFormState = { message: "" }
-
 export function Contact() {
-  const t = useTranslations("Actions")
+  const t = useTranslations("Actions.contact")
+  const contactFormValidation = getContactValidation({
+    captcha: { error: t("fields.captcha.errors.missing") },
+    email: { error: t("fields.email.error") },
+    fullName: {
+      error: t("fields.fullName.error"),
+    },
+    message: { error: t("fields.message.error") },
+  })
 
   const [state, formAction, isPending] = useActionState(
-    submitContactForm,
-    initialState,
+    contactSubmissionAction,
+    { errors: {}, success: false },
   )
-
-  const methods = useForm<ContactFormData>({
+  const form = useForm<z.infer<typeof contactFormValidation>>({
+    defaultValues: {
+      captcha: "",
+      email: "",
+      fullName: "",
+      message: "",
+      phoneNumber: "",
+    },
+    mode: "onBlur",
     resolver: zodResolver(contactFormValidation),
   })
-  const { control, register, reset } = methods
-  const { errors } = useFormState({ control })
-
-  const [captchaVisible, setCaptchaVisible] = useState(false)
   const captchaRef = useRef<HCaptcha>(null)
-  const [token, setToken] = useState<null | string>(null)
-
-  const formFooterRef = useRef<HTMLDivElement | null>(null)
+  const { control, formState, reset } = form
 
   useEffect(() => {
     if (state.message) {
       if (state.success) {
-        toast(t("contact.messages.success.title"), {
-          description: state.message,
-          duration: 10000,
+        toast.success(state.message.title, {
+          description: state.message.description,
         })
+        captchaRef.current?.resetCaptcha()
         reset()
-        setToken(null)
       } else {
-        toast(t("contact.messages.error.title"), {
-          description: state.message,
-          duration: 5000,
+        toast.error(state.message.title, {
+          description: state.message.description,
         })
       }
     }
-    captchaRef.current?.resetCaptcha()
-  }, [state, reset, t])
-
-  useEffect(() => {
-    if (state.errors) {
-      Object.entries(state.errors).forEach(([field, messages]) => {
-        if (messages && messages.length > 0 && field !== "captchaToken") {
-          methods.setError(field as keyof ContactFormData, {
-            message: messages[0],
-          })
-        }
-      })
-    }
-  }, [state.errors, methods])
-
-  // IntersectionObserver to lazy load captcha
-  useEffect(() => {
-    const el = formFooterRef.current
-    if (captchaVisible || !el) {
-      return
-    }
-
-    const observer = new window.IntersectionObserver(
-      (entries, obs) => {
-        if (entries[0].isIntersecting) {
-          setCaptchaVisible(true)
-          obs.disconnect()
-        }
-      },
-      { root: null, threshold: 0.1 },
-    )
-    observer.observe(el)
-    return () => observer.disconnect()
-  }, [captchaVisible])
-
-  const handleSubmit = (formData: FormData) => {
-    if (token) {
-      formData.set("captchaToken", token)
-    }
-    formAction(formData)
-  }
+  }, [state, reset])
 
   return (
-    <FormProvider {...methods}>
-      <form action={handleSubmit} className="space-y-2">
-        <FormItem>
-          <FormLabel>{t("contact.fields.fullName")}</FormLabel>
-          <FormControl>
-            <Input placeholder="John Doe" {...register("fullName")} />
-          </FormControl>
-          {errors.fullName && (
-            <FormMessage>{errors.fullName.message}</FormMessage>
+    <FormProvider {...form}>
+      <form action={formAction} className="space-y-2">
+        <FormField
+          control={control}
+          name="fullName"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>{t("fields.fullName.label")}</FormLabel>
+              <FormControl>
+                <Input placeholder="John Doe" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
           )}
-        </FormItem>
-
-        <FormItem>
-          <FormLabel>{t("contact.fields.email")}</FormLabel>
-          <FormControl>
-            <Input placeholder="john.doe@ac.me" {...register("email")} />
-          </FormControl>
-          {errors.email && <FormMessage>{errors.email.message}</FormMessage>}
-        </FormItem>
-
-        <FormItem>
-          <FormLabel>{t("contact.fields.phoneNumber")}</FormLabel>
-          <FormControl>
-            <Input
-              placeholder="+55 (11) 11111-1111"
-              {...register("phoneNumber")}
-            />
-          </FormControl>
-          {errors.phoneNumber && (
-            <FormMessage>{errors.phoneNumber.message}</FormMessage>
+        />
+        <FormField
+          control={control}
+          name="email"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>{t("fields.email.label")}</FormLabel>
+              <FormControl>
+                <Input placeholder="john.doe@ac.me" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
           )}
-        </FormItem>
-
-        <FormItem>
-          <FormLabel>{t("contact.fields.message")}</FormLabel>
-          <FormControl>
-            <Textarea placeholder="" {...register("message")} />
-          </FormControl>
-          {errors.message && (
-            <FormMessage>{errors.message.message}</FormMessage>
+        />
+        <FormField
+          control={control}
+          name="phoneNumber"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>{t("fields.phoneNumber.label")}</FormLabel>
+              <FormControl>
+                <Input placeholder="+55 (11) 11111-1111" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
           )}
-        </FormItem>
-
-        <footer
-          className="flex flex-col items-center justify-between space-y-2"
-          ref={formFooterRef}
-        >
-          {captchaVisible ? (
-            <HCaptchaWrapper onVerify={setToken} ref={captchaRef} />
-          ) : (
-            <Skeleton className="h-18 w-full" />
+        />
+        <FormField
+          control={control}
+          name="message"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>{t("fields.message.label")}</FormLabel>
+              <FormControl>
+                <Textarea
+                  placeholder={t("fields.message.placeholder")}
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
           )}
-          {state.errors?.captchaToken && (
-            <FormMessage>{state.errors.captchaToken[0]}</FormMessage>
+        />
+        <footer className="flex flex-col items-center space-y-2">
+          {formState.isDirty && (
+            <FormItem>
+              <HCaptchaWrapper ref={captchaRef} />
+              {formState.errors.captcha && (
+                <FormMessage>{formState.errors.captcha.message}</FormMessage>
+              )}
+            </FormItem>
           )}
-          <Button disabled={isPending || !token} type="submit">
-            {isPending
-              ? t("contact.messages.pending")
-              : t("contact.fields.submit")}
+          <Button
+            disabled={
+              isPending || !formState.isValid || !form.getFieldState("captcha")
+            }
+            type="submit"
+          >
+            {isPending ? t("fields.submit.pending") : t("fields.submit.label")}
           </Button>
         </footer>
       </form>

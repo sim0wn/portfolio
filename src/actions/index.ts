@@ -1,1 +1,5 @@
-export { submitContactForm } from "./submit-contact-form.action"
+export {
+  getActivitiesAction,
+  getActivityCategoriesAction,
+} from "./activities.action"
+export { contactSubmissionAction } from "./contact-submission.action"

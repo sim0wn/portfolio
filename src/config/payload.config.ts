@@ -17,10 +17,11 @@ import {
   Activities,
   ActivityCategories,
   ActivityPlatforms,
+  ContactSubmissions,
   faqCollection,
   Images,
   Pages,
-  skillCollection,
+  Skills,
 } from "@/collections"
 import {
   AiFeature,
@@ -46,10 +47,11 @@ export default buildConfig({
     Activities,
     ActivityCategories,
     ActivityPlatforms,
+    ContactSubmissions,
     faqCollection,
     Images,
     Pages,
-    skillCollection,
+    Skills,
   ],
   db: mongooseAdapter({
     url: env.MONGODB_URI,

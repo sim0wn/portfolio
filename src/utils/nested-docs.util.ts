@@ -1,6 +1,23 @@
 import { NestedDocs } from "@/types"
 
 /**
+ * Recursively flattens an array of nested document objects into a single-level array.
+ *
+ * Each document may contain a `children` property, which is an array of nested documents.
+ * This function traverses all levels of nesting and returns a flat array containing all documents.
+ *
+ * @template T - The type of the document object.
+ * @param {NestedDocs<T>[]} docs - The array of nested document objects to flatten.
+ * @returns {T[]} A flat array containing all documents from all levels of nesting.
+ */
+function flattenNestedDocs<T extends object>(docs: NestedDocs<T>[]): T[] {
+  return docs.flatMap((doc) => [
+    doc,
+    ...(doc.children ? flattenNestedDocs(doc.children) : []),
+  ])
+}
+
+/**
  * Organizes an array of documents into a hierarchical structure (tree).
  *
  * @param docs - Array of generic documents.
@@ -79,4 +96,4 @@ function isAncestor<T extends object>(
   )
 }
 
-export { getNestedDocs, isAncestor }
+export { flattenNestedDocs, getNestedDocs, isAncestor }

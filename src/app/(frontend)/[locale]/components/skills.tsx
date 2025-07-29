@@ -29,6 +29,7 @@ export async function Skills({ locale }: { locale: Locale }) {
       className={cn(
         "flex flex-col items-center justify-center gap-8 pt-8 pb-12 md:px-0",
       )}
+      id="skills"
     >
       <h2
         className="text-lg font-semibold text-neutral-50"

@@ -40,7 +40,7 @@ export function Lettermark(props: SVGProps<SVGSVGElement>) {
         />
       </defs>
       <g
-        fontFamily="Lato"
+        fontFamily="Inter"
         fontSize={392.027}
         fontWeight={900}
         paintOrder="stroke fill markers"

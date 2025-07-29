@@ -23,9 +23,6 @@ export async function generateStaticParams() {
       breadcrumbs: true,
       url: true,
     },
-    where: {
-      slug: { exists: true },
-    },
   })
 
   return pages.flatMap(({ url }) => {
@@ -39,7 +36,10 @@ export async function generateStaticParams() {
 
 export default async function Page({ params }: Props) {
   const { locale, slug } = await params
+
+  // Enable static rendering
   setRequestLocale(locale)
+
   const {
     docs: [page],
   } = await payload.find({
@@ -78,7 +78,7 @@ export default async function Page({ params }: Props) {
       },
     })
     return (
-      <ul className="flex w-full flex-row flex-wrap place-content-center gap-2 py-4 *:w-full">
+      <ul className="flex h-full flex-col gap-2 py-4 *:w-full">
         {pages.map((page) => (
           <li key={page.id}>
             <Card>
@@ -96,5 +96,7 @@ export default async function Page({ params }: Props) {
       </ul>
     )
   }
-  return <RichText className="flex max-w-full flex-col" data={page.content} />
+  return (
+    <RichText className="flex max-w-full flex-1 flex-col" data={page.content} />
+  )
 }

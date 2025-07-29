@@ -4,7 +4,7 @@ import slug from "slug"
 export const Pages: CollectionConfig = {
   admin: {
     defaultColumns: ["title", "slug", "type", "parent", "content"],
-    group: { en: "Library", pt: "Biblioteca" },
+    group: { en: "Knowledge base", pt: "Base de conhecimento" },
     useAsTitle: "title",
   },
   defaultSort: "title",

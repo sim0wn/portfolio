@@ -1,6 +1,10 @@
+import { formatDistanceToNow } from "date-fns"
+import { enUS, ptBR } from "date-fns/locale"
+import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react"
 import { Metadata } from "next"
 import { Locale } from "next-intl"
-import { setRequestLocale } from "next-intl/server"
+import { getTranslations, setRequestLocale } from "next-intl/server"
+import { notFound } from "next/navigation"
 import { Fragment, ReactNode } from "react"
 
 import {
@@ -10,6 +14,11 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
+  Card,
+  CardAction,
+  CardDescription,
+  CardHeader,
+  CardTitle,
   Separator,
   Sidebar,
   SidebarContent,
@@ -17,9 +26,9 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components"
-import { routing } from "@/i18n"
+import { Link } from "@/i18n"
 import { payload } from "@/lib"
-import { getNestedDocs } from "@/utils"
+import { cn, flattenNestedDocs, getNestedDocs } from "@/utils"
 
 import { SidebarItem } from "./components/sidebar-item"
 
@@ -35,12 +44,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   } = await payload.find({
     collection: "pages",
     limit: 1,
-    locale:
-      locale === "pt-BR" || locale === "en-US" ? locale : routing.defaultLocale,
+    locale,
+    select: {
+      description: true,
+      title: true,
+      url: true,
+    },
     sort: ["parent.slug", "slug"],
     ...(slug && {
       where: {
-        "breadcrumbs.url": { equals: `/${slug.join("/")}` },
+        "breadcrumbs.url": { equals: "/" + slug.join("/") },
       },
     }),
   })
@@ -52,7 +65,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function KnowledgeBaseLayout({ children, params }: Props) {
   const { locale, slug } = await params
+
+  // Enable static rendering
   setRequestLocale(locale)
+
+  const t = await getTranslations("KnowledgeBase")
+
   const { docs: pages } = await payload.find({
     collection: "pages",
     limit: 0,
@@ -65,6 +83,7 @@ export default async function KnowledgeBaseLayout({ children, params }: Props) {
       slug: true,
       title: true,
       type: true,
+      updatedAt: true,
       url: true,
     },
     sort: ["parent.slug", "slug"],
@@ -72,6 +91,10 @@ export default async function KnowledgeBaseLayout({ children, params }: Props) {
   const currentPage = slug
     ? pages.find((page) => page.url === (slug ? slug.join("/") : ""))
     : pages[0]
+  if (!currentPage) {
+    notFound()
+  }
+
   const nestedPages = getNestedDocs(
     pages,
     (page) => page.slug,
@@ -80,58 +103,148 @@ export default async function KnowledgeBaseLayout({ children, params }: Props) {
         ? page.parent.slug
         : page.parent,
   )
+
+  const flatPages = flattenNestedDocs(nestedPages)
+  const currentIndex = flatPages.findIndex((page) => page.id === currentPage.id)
+
+  const prevPage = currentIndex > 0 ? flatPages[currentIndex - 1] : null
+  const nextPage =
+    currentIndex < flatPages.length - 1 ? flatPages[currentIndex + 1] : null
+
   return (
-    <SidebarProvider className="relative h-full min-h-0 min-w-0">
-      <Sidebar
-        className="fixed top-[calc(--spacing(12)+4px)] h-full"
-        variant="sidebar"
-      >
-        <SidebarContent>
-          {nestedPages.map((page) => (
-            <SidebarItem currentPage={currentPage} key={page.id} page={page} />
-          ))}
-        </SidebarContent>
-      </Sidebar>
-      <SidebarInset className="flex max-w-full min-w-0 flex-col gap-2 p-4">
-        <header className="flex items-center gap-2 border-b pb-2">
-          <SidebarTrigger />
-          <Separator
-            className="data-[orientation=vertical]:h-4"
-            orientation="vertical"
-          />
-          <Breadcrumb>
-            <BreadcrumbList>
-              {currentPage?.breadcrumbs?.map(
-                ({ doc, id, label, url }, index, self) => (
-                  <Fragment key={id}>
-                    <BreadcrumbItem>
-                      {doc === currentPage.id ? (
-                        <BreadcrumbPage>{label}</BreadcrumbPage>
-                      ) : (
-                        <BreadcrumbLink href={url ?? "/#"}>
-                          {label}
-                        </BreadcrumbLink>
-                      )}
-                    </BreadcrumbItem>
-                    {index < self.length - 1 && <BreadcrumbSeparator />}
-                  </Fragment>
-                ),
-              )}
-            </BreadcrumbList>
-          </Breadcrumb>
-        </header>
-        <article>
-          <header>
-            <h1 className="text-accent-foreground font-bold">
-              {currentPage?.title}
-            </h1>
-            {currentPage?.description && (
-              <p className="text-muted-foreground">{currentPage.description}</p>
-            )}
+    <SidebarProvider className="min-h-[calc(100vh-var(--header-height))]">
+      <div className="container flex">
+        <Sidebar
+          className={cn(
+            "sticky top-[var(--header-height)]",
+            "h-[calc(100svh-var(--header-height))] min-h-0",
+            "[--sidebar-width:--spacing(72)]",
+          )}
+        >
+          <SidebarContent>
+            {nestedPages.map((page) => (
+              <SidebarItem
+                currentPage={currentPage}
+                key={page.id}
+                page={page}
+              />
+            ))}
+          </SidebarContent>
+        </Sidebar>
+        <SidebarInset className="max-w-full min-w-0 flex-col gap-2 p-4">
+          <header className="flex items-center gap-2 border-b pb-2">
+            <div className="flex items-center md:hidden">
+              <SidebarTrigger />
+              <Separator
+                className="data-[orientation=vertical]:h-4"
+                orientation="vertical"
+              />
+            </div>
+            <Breadcrumb>
+              <BreadcrumbList>
+                {currentPage?.breadcrumbs?.map(
+                  ({ doc, id, label, url }, index, self) => (
+                    <Fragment key={id}>
+                      <BreadcrumbItem>
+                        {doc === currentPage.id ? (
+                          <BreadcrumbPage>{label}</BreadcrumbPage>
+                        ) : (
+                          <BreadcrumbLink href={"/knowledge-base" + url}>
+                            {label}
+                          </BreadcrumbLink>
+                        )}
+                      </BreadcrumbItem>
+                      {index < self.length - 1 && <BreadcrumbSeparator />}
+                    </Fragment>
+                  ),
+                )}
+              </BreadcrumbList>
+            </Breadcrumb>
           </header>
-          {children}
-        </article>
-      </SidebarInset>
+          <article className="flex h-full flex-col">
+            <header>
+              <h1 className="text-accent-foreground text-lg font-bold">
+                {currentPage?.title}
+              </h1>
+              {currentPage?.description && (
+                <p className="text-muted-foreground">
+                  {currentPage.description}
+                </p>
+              )}
+            </header>
+            {children}
+            <footer>
+              {currentPage?.updatedAt && (
+                <span className="text-muted-foreground mt-2 text-xs">
+                  {t("metadata.updatedAt")}
+                  {formatDistanceToNow(new Date(currentPage.updatedAt), {
+                    addSuffix: true,
+                    locale: locale === "pt-BR" ? ptBR : enUS,
+                  })}
+                </span>
+              )}
+              <nav className="flex flex-row gap-4">
+                {prevPage && (
+                  <Card className="group flex-1">
+                    <CardHeader>
+                      <CardTitle>
+                        <Link
+                          href={"/knowledge-base/" + prevPage.url}
+                          rel="prev"
+                        >
+                          {prevPage.title}
+                        </Link>
+                      </CardTitle>
+                      <CardDescription className="justify-self-end">
+                        {t("navigation.prevPage")}
+                      </CardDescription>
+                      <CardAction className="col-start-1 my-auto justify-self-start">
+                        <Link
+                          href={"/knowledge-base/" + prevPage.url}
+                          rel="prev"
+                        >
+                          <ChevronLeftIcon
+                            aria-hidden
+                            className="text-muted-foreground group-hover:text-accent-foreground"
+                          />
+                        </Link>
+                      </CardAction>
+                    </CardHeader>
+                  </Card>
+                )}
+                {nextPage && (
+                  <Card className="group flex-1">
+                    <CardHeader>
+                      <CardTitle>
+                        <Link
+                          href={"/knowledge-base/" + nextPage.url}
+                          rel="next"
+                        >
+                          {nextPage.title}
+                        </Link>
+                      </CardTitle>
+                      <CardDescription>
+                        {t("navigation.nextPage")}
+                      </CardDescription>
+                      <CardAction className="my-auto">
+                        <Link
+                          href={"/knowledge-base/" + nextPage.url}
+                          rel="next"
+                        >
+                          <ChevronRightIcon
+                            aria-hidden
+                            className="text-muted-foreground group-hover:text-accent-foreground"
+                          />
+                        </Link>
+                      </CardAction>
+                    </CardHeader>
+                  </Card>
+                )}
+              </nav>
+            </footer>
+          </article>
+        </SidebarInset>
+      </div>
     </SidebarProvider>
   )
 }
