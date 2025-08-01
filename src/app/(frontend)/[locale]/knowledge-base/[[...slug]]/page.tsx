@@ -9,7 +9,7 @@ import {
   CardTitle,
   RichText,
 } from "@/components"
-import { Link } from "@/i18n"
+import { Link, routing } from "@/i18n"
 import { payload } from "@/lib"
 
 type Props = { params: Promise<{ locale: Locale; slug: string[] }> }
@@ -25,13 +25,19 @@ export async function generateStaticParams() {
     },
   })
 
-  return pages.flatMap(({ url }) => {
-    if (!(url && typeof url === "object")) return null
-    return Object.entries(url).map(([locale, slugs]) => ({
+  return [
+    ...pages.flatMap(({ url }) => {
+      if (!(url && typeof url === "object")) return null
+      return Object.entries(url).map(([locale, slugs]) => ({
+        locale,
+        slug: (slugs as string).split("/"),
+      }))
+    }),
+    routing.locales.map((locale) => ({
       locale,
-      slug: (slugs as string).split("/"),
-    }))
-  })
+      slug: [],
+    })),
+  ]
 }
 
 export default async function Page({ params }: Props) {
