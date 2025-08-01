@@ -4,9 +4,9 @@ import { Slot } from "@radix-ui/react-slot"
 import { cva, VariantProps } from "class-variance-authority"
 import { ComponentProps, CSSProperties, useMemo } from "react"
 
+import { Skeleton, Tooltip, TooltipContent, TooltipTrigger } from "@/components"
 import { cn } from "@/utils"
 
-import { Tooltip, TooltipContent, TooltipTrigger } from "../tooltip"
 import { useSidebar } from "./provider"
 
 const buttonVariants = cva(
@@ -175,12 +175,12 @@ function SidebarMenuSkeleton({
       {...props}
     >
       {showIcon && (
-        <SidebarMenuSkeleton
+        <Skeleton
           className="size-4 rounded-md"
           data-sidebar="menu-skeleton-icon"
         />
       )}
-      <SidebarMenuSkeleton
+      <Skeleton
         className="h-4 max-w-(--skeleton-width) flex-1"
         data-sidebar="menu-skeleton-text"
         style={
@@ -196,7 +196,7 @@ function SidebarMenuSub({ className, ...props }: ComponentProps<"ul">) {
   return (
     <ul
       className={cn(
-        "mx-3.5 flex min-w-0 translate-x-px flex-col gap-1 border-l px-2.5 py-0.5",
+        "border-border mx-3.5 flex min-w-0 translate-x-px flex-col gap-1 border-l px-2.5 py-0.5",
         "group-data-[collapsible=icon]:hidden",
         className,
       )}

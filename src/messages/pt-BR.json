@@ -181,13 +181,24 @@
       "opensInNewTab": "Abre em nova aba"
     },
     "nav": {
-      "actions": {
-        "changeLocale": "EN",
-        "contact": "Contato"
-      },
       "menu": {
         "knowledgeBase": "Base de conhecimento",
-        "contact": "Contato"
+        "home": "Início",
+        "contact": "Contato",
+        "locale": "EN"
+      },
+      "skipToMain": "Pular para o conteúdo principal",
+      "brand": {
+        "name": "Portfólio",
+        "ariaLabel": "Ir para página inicial"
+      },
+      "main": {
+        "ariaLabel": "Navegação principal"
+      },
+      "mobile": {
+        "ariaLabel": "Menu de navegação móvel",
+        "openMenu": "Abrir menu de navegação",
+        "closeMenu": "Fechar menu de navegação"
       },
       "home": "Início",
       "about": "Sobre",

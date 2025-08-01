@@ -1,11 +1,17 @@
 @import "tailwindcss";
 @import "tw-animate-css";
-
 @plugin "@tailwindcss/typography";
 
+/* Design Tokens: Root */
 :root {
+  /* Radius */
   --radius: 0.625rem;
-  /* Backgrounds & Foregrounds */
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  /* Colors - Light */
   --background: oklch(0.99 0.01 320);
   /* very light violet */
   --foreground: oklch(0.19 0.04 320);
@@ -15,69 +21,104 @@
   --popover: oklch(0.98 0.015 320);
   --popover-foreground: oklch(0.19 0.04 320);
 
-  /* Primary: Sim0wn Violet */
   --primary: oklch(0.52 0.21 320);
   --primary-foreground: oklch(0.99 0.01 320);
 
-  /* Secondary */
   --secondary: oklch(0.93 0.08 320);
   --secondary-foreground: oklch(0.29 0.12 320);
 
-  /* Muted (for subtle backgrounds) */
   --muted: oklch(0.93 0.04 320);
   --muted-foreground: oklch(0.35 0.09 320);
 
-  /* Accent */
   --accent: oklch(0.82 0.17 320);
   --accent-foreground: oklch(0.19 0.04 320);
 
-  /* Destructive */
   --destructive: oklch(0.59 0.18 25);
   /* accessible red */
   --destructive-foreground: oklch(0.99 0.01 320);
 
-  /* Borders, Inputs, Rings */
   --border: oklch(0.88 0.015 320);
   --input: oklch(0.88 0.015 320);
   --ring: oklch(0.68 0.15 320);
 
-  /* Chart colors (optional) */
-  --chart-1: oklch(0.52 0.21 320);
-  --chart-2: oklch(0.68 0.15 320);
-  --chart-3: oklch(0.8 0.08 320);
-  --chart-4: oklch(0.93 0.15 320);
-  --chart-5: oklch(0.62 0.11 320);
+  /* Motion */
+  --duration-fast: 150ms;
+  --duration-normal: 250ms;
+  --duration-slow: 400ms;
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* States */
+  --focus: oklch(0.52 0.21 320 / 0.8);
+  --hover: oklch(0.52 0.21 320 / 0.6);
+  --active: oklch(0.52 0.21 320 / 1);
+
+  /* Typography */
+  --font-display: var(--font-raleway, "Raleway", "Inter", Arial, sans-serif);
+  --font-mono: var(
+    --font-jetbrains-mono,
+    "JetBrains Mono",
+    "Fira Mono",
+    "Menlo",
+    "monospace"
+  );
+  --font-sans: var(--font-inter, "Inter", Arial, sans-serif);
+  --font-weight-normal: 400;
+  --font-weight-bold: 700;
+
+  /* Container widths */
+  --container-sm: 640px;
+  --container-md: 768px;
+  --container-lg: 1024px;
+  --container-xl: 1280px;
+  --container-2xl: 1536px;
+
+  /* Layout */
+  --header-height: 56px;
 }
 
+/* Dark Mode: Consistent with Light Mode */
 @media (prefers-color-scheme: dark) {
   :root {
+    /* Backgrounds */
     --background: oklch(0.19 0.04 320);
+    /* dark violet */
     --foreground: oklch(0.98 0.01 320);
+    /* light foreground */
     --card: oklch(0.24 0.05 320);
     --card-foreground: oklch(0.98 0.01 320);
     --popover: oklch(0.23 0.05 320);
     --popover-foreground: oklch(0.98 0.01 320);
 
+    /* Primary */
     --primary: oklch(0.73 0.14 320);
+    /* lighter violet for contrast */
     --primary-foreground: oklch(0.23 0.05 320);
 
+    /* Secondary */
     --secondary: oklch(0.33 0.11 320);
     --secondary-foreground: oklch(0.96 0.03 320);
 
+    /* Muted */
     --muted: oklch(0.27 0.06 320);
     --muted-foreground: oklch(0.78 0.13 320);
 
+    /* Accent */
     --accent: oklch(0.62 0.11 320);
     --accent-foreground: oklch(0.98 0.01 320);
 
+    /* Destructive */
     --destructive: oklch(0.65 0.13 25);
     --destructive-foreground: oklch(0.98 0.01 320);
 
+    /* Borders, Inputs, Rings */
     --border: oklch(0.27 0.05 320 / 80%);
     --input: oklch(0.27 0.05 320 / 80%);
     --ring: oklch(0.73 0.14 320);
+
+    /* Motion, States, Typography, Layout, Container remain unchanged */
   }
 
+  /* Shiki syntax highlighting override for dark */
   .shiki,
   .shiki span {
     color: var(--shiki-dark) !important;
@@ -88,12 +129,8 @@
   }
 }
 
+/* Theme Inline Tokens */
 @theme inline {
-  --color-chart-5: var(--chart-5);
-  --color-chart-4: var(--chart-4);
-  --color-chart-3: var(--chart-3);
-  --color-chart-2: var(--chart-2);
-  --color-chart-1: var(--chart-1);
   --color-ring: var(--ring);
   --color-input: var(--input);
   --color-border: var(--border);
@@ -112,65 +149,87 @@
   --color-card: var(--card);
   --color-foreground: var(--foreground);
   --color-background: var(--background);
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
+  --radius-xl: var(--radius-xl);
 
   /* Fonts */
-  --font-display: var(--font-raleway);
-  --font-mono: var(--font-jetbrains-mono);
-  --font-sans: var(--font-inter);
+  --font-display: var(--font-display);
+  --font-mono: var(--font-mono);
+  --font-sans: var(--font-sans);
 
   /* Layout */
-  --header-height: --spacing(14);
+  --header-height: var(--header-height);
+
+  /* Motion */
+  --duration-fast: var(--duration-fast);
+  --duration-normal: var(--duration-normal);
+  --duration-slow: var(--duration-slow);
+  --ease: var(--ease);
+
+  /* States */
+  --focus: var(--focus);
+  --hover: var(--hover);
+  --active: var(--active);
+
+  /* Typography */
+  --font-weight-normal: var(--font-weight-normal);
+  --font-weight-bold: var(--font-weight-bold);
 }
 
+/* Utility Layer */
 @layer utilities {
-  * {
-    @apply border-border ring-ring;
-  }
-
   html {
     @apply bg-background text-foreground;
   }
 
   ::selection {
-    @apply bg-accent text-accent-foreground;
+    @apply bg-accent accent-foreground;
   }
 }
 
+/* Box Sizing for Layout Consistency */
+html {
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+/* Responsive Container Utility */
 @utility container {
-  @apply mx-auto px-4;
-
-  @media (width >=theme(--breakpoint-md)) {
-    @apply px-8;
-  }
-
-  @media (width >=theme(--breakpoint-xl)) {
-    @apply px-12;
-  }
-
-  @media (width >=theme(--breakpoint-2xl)) {
-    @apply px-16;
-  }
+  @apply mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12;
+  @apply max-w-screen-sm sm:max-w-screen-md md:max-w-screen-lg lg:max-w-screen-xl xl:max-w-screen-2xl;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: var(--font-raleway);
-}
-
-@layer base {
+/* Motion Preferences */
+@media (prefers-reduced-motion: reduce) {
   * {
-    @apply border-border outline-ring/50;
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Base Layer */
+@layer base {
+  body {
+    @apply bg-background text-foreground font-sans;
   }
 
-  body {
-    @apply bg-background text-foreground;
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-display);
+    font-weight: var(--font-weight-bold);
+    letter-spacing: 0.01em;
+    line-height: 1.2;
   }
 }

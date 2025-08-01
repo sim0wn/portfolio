@@ -1,33 +1,37 @@
 @import '~@payloadcms/ui/scss';
 
+// Annotation inline
 span.annotation {
   position: relative;
   display: inline-block;
   cursor: help;
-  text-decoration: underline dotted var(--color-blue-200);
+  text-decoration: underline dotted var(--primary, #7c3aed);
   text-underline-offset: 2px;
-  background: var(--theme-elevation-50);
+  background: var(--popover, #232339);
   border-radius: 0.175rem;
-  border: 1px solid var(--theme-border-color);
+  border: 1px solid var(--border, #39395b);
   transition: box-shadow 0.2s;
   padding-inline: 0.25rem;
 }
 
+// Annotation popover
 div.annotation[role="dialog"] {
-  align-items: center;
-  border: 1px solid var(--theme-border-color);
-  border-radius: 0.5rem;
-  display: flex;
-  min-width: 300px;
-  margin-top: 0.5rem;
-  opacity: 0;
   position: absolute;
+  z-index: 1000;
+  min-width: 260px;
+  max-width: 350px;
+  background: var(--popover, #232339);
+  color: var(--popover-foreground, #f3f3fa);
+  border-radius: var(--radius-md, 10px);
+  box-shadow: 0 4px 16px rgba(32, 32, 32, 0.32);
+  border: 1px solid var(--border, #39395b);
   padding: 0.5rem 0.75rem;
+  transition: box-shadow 0.15s var(--ease, cubic-bezier(0.4, 0, 0.2, 1));
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
   transform: translateX(-50%);
-  transition-property: opacity;
-  transition-duration: 0.2s;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  background: var(--theme-elevation-0);
   white-space: pre-line;
   will-change: transform, opacity;
   z-index: 50;
@@ -36,4 +40,69 @@ div.annotation[role="dialog"] {
   textarea {
     --rows: 3;
   }
+}
+
+.annotation__footer,
+.annotation__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.annotation__label {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--foreground, #f3f3fa);
+}
+
+.annotation__remove-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  padding: 6px;
+  margin-left: 8px;
+  border-radius: var(--radius-sm, 6px);
+  cursor: pointer;
+  transition: background 0.2s var(--ease, cubic-bezier(0.4, 0, 0.2, 1));
+}
+
+.annotation__remove-btn:hover,
+.annotation__remove-btn:focus {
+  background: var(--destructive, #e53e3e);
+  outline: 2px solid var(--destructive, #e53e3e);
+}
+
+.annotation__remove-icon {
+  color: var(--destructive, #e53e3e);
+  width: 18px;
+  height: 18px;
+  pointer-events: none;
+}
+
+.annotation__field,
+.annotation__field-wrap,
+.annotation__textarea-outer {
+  width: 100%;
+}
+
+.annotation__textarea {
+  width: 100%;
+  min-height: 60px;
+  font-size: 0.95rem;
+  border-radius: var(--radius-sm, 6px);
+  border: 1px solid var(--input, #39395b);
+  background: var(--card, #2a2a42);
+  color: var(--foreground, #f3f3fa);
+  padding: 8px;
+  resize: vertical;
+  transition: border-color 0.15s var(--ease, cubic-bezier(0.4, 0, 0.2, 1));
+}
+
+.annotation__textarea:focus {
+  outline: none;
+  border-color: var(--primary, #7c3aed);
+  box-shadow: 0 0 0 2px var(--ring, #4338ca);
 }

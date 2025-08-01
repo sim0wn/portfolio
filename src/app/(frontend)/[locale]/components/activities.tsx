@@ -148,7 +148,7 @@ function Activity({ locale }: { locale: Locale }) {
         </form>
       </header>
       {/* Results */}
-      <section className="flex w-full flex-col gap-2 rounded-md border p-2 shadow-sm">
+      <section className="border-border flex w-full flex-col gap-2 rounded-md border p-2 shadow-sm">
         <ul
           aria-label={t("activities.ariaList")}
           className={cn(
@@ -428,7 +428,7 @@ function ActivitySkeleton() {
         <Skeleton className="h-10 w-28 self-end rounded" />
       </form>
       {/* Cards grid skeleton */}
-      <section className="flex w-full flex-col gap-2 rounded-md border p-2 shadow-sm">
+      <section className="divide-border flex w-full flex-col gap-2 divide-y rounded-md p-2 shadow-sm">
         <ul
           aria-hidden
           className={cn(

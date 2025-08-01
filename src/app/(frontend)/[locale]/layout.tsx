@@ -8,6 +8,7 @@ import {
   Library,
   MailIcon,
   MapPinIcon,
+  Menu,
   Scale,
   Shield,
 } from "lucide-react"
@@ -29,6 +30,12 @@ import {
   Lettermark,
   LinkedIn,
   Separator,
+  Sheet,
+  SheetContent,
+  SheetFooter,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
   Toaster,
   TryHackMe,
 } from "@/components"
@@ -125,6 +132,19 @@ export default async function LocaleLayout({ children, params }: Props) {
     },
   ] as const
 
+  const navItems = [
+    {
+      href: "/",
+      icon: <Lettermark className="text-xl" />,
+      label: t("nav.menu.home"),
+    },
+    {
+      href: "/knowledge-base",
+      icon: <Library className="h-4 w-4" />,
+      label: t("nav.menu.knowledgeBase"),
+    },
+  ]
+
   const projectLinks = [
     {
       external: true,
@@ -156,44 +176,144 @@ export default async function LocaleLayout({ children, params }: Props) {
         )}
       >
         <NextIntlClientProvider>
+          {/* Skip to main content */}
+          <Link
+            className="bg-primary text-primary-foreground sr-only z-[100] rounded-md px-4 py-2 focus:not-sr-only focus:absolute focus:top-4 focus:left-4"
+            href="#main-content"
+          >
+            {t("nav.skipToMain")}
+          </Link>
           <header
             className={cn(
-              "bg-background/85 sticky inset-0 top-0 z-50 h-[var(--header-height)] border-b py-2 backdrop-blur-md",
+              "border-border bg-background/85 sticky top-0 z-50 w-full border-b backdrop-blur-md",
+              "h-[var(--header-height)] transition-colors duration-200",
             )}
+            role="banner"
           >
-            <nav
-              className="container flex items-center justify-between"
-              id="navbar"
-            >
-              <menu className="*:*:text-md flex w-full gap-1.5 *:*:flex *:flex *:*:items-center *:items-center *:*:gap-2">
-                <li>
-                  <Button asChild size={"sm"} variant={"ghost"}>
-                    <Link href={"/"}>
-                      <Lettermark className="text-xl" />
-                    </Link>
-                  </Button>
-                </li>
-                <li>
-                  <Button asChild variant={"link"}>
-                    <Link href={"/knowledge-base"}>
-                      <Library width={"1em"} />
-                      {t("nav.menu.knowledgeBase")}
-                    </Link>
-                  </Button>
-                </li>
-                <li className="ml-auto">
-                  <Button asChild variant={"link"}>
-                    <Link
-                      href={"/"}
-                      locale={locale === "pt-BR" ? "en-US" : "pt-BR"}
+            <div className="container flex h-full items-center justify-between">
+              {/* Logo/Brand */}
+              <div className="flex items-center">
+                <Button
+                  aria-label={t("nav.brand.ariaLabel")}
+                  asChild
+                  className="mr-2 p-2"
+                  size="sm"
+                  variant="ghost"
+                >
+                  <Link className="flex items-center gap-2" href="/">
+                    <Lettermark className="text-xl" />
+                    <span className="sr-only">{t("nav.brand.name")}</span>
+                  </Link>
+                </Button>
+              </div>
+
+              {/* Desktop Navigation */}
+              <nav
+                aria-label={t("nav.main.ariaLabel")}
+                className="hidden md:flex md:items-center md:space-x-1"
+                role="navigation"
+              >
+                <ul className="flex items-center space-x-1">
+                  {navItems.slice(1).map(({ href, icon, label }) => (
+                    <li key={href}>
+                      <Button
+                        asChild
+                        className={cn("gap-2 transition-colors duration-200")}
+                        size="sm"
+                        variant={"link"}
+                      >
+                        <Link className="flex items-center" href={href}>
+                          {icon}
+                          {label}
+                        </Link>
+                      </Button>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+
+              {/* Actions */}
+              <div className="flex items-center space-x-2">
+                {/* Language Toggle */}
+                <Button
+                  aria-label={t("nav.menu.locale")}
+                  asChild
+                  className="gap-2 max-md:hidden"
+                  size="sm"
+                  variant="ghost"
+                >
+                  <Link
+                    className="flex items-center"
+                    href={"/"}
+                    locale={locale == "en-US" ? "pt-BR" : "en-US"}
+                  >
+                    <Globe className="h-4 w-4" />
+                    <span>{t("nav.menu.locale")}</span>
+                  </Link>
+                </Button>
+
+                {/* Mobile Menu Trigger */}
+                <Sheet>
+                  <SheetTrigger asChild>
+                    <Button
+                      aria-label={t("nav.mobile.openMenu")}
+                      className="md:hidden"
+                      size="sm"
+                      variant="outline"
                     >
-                      <Globe size={"1em"} />
-                      {t("nav.actions.changeLocale")}
-                    </Link>
-                  </Button>
-                </li>
-              </menu>
-            </nav>
+                      <Menu className="h-5 w-5" />
+                    </Button>
+                  </SheetTrigger>
+                  <SheetContent className="w-80" side="right">
+                    <SheetHeader>
+                      <SheetTitle>{t("nav.main.ariaLabel")}</SheetTitle>
+                    </SheetHeader>
+                    <div className="flex flex-col space-y-4 px-2">
+                      {/* Mobile Navigation */}
+                      <nav
+                        aria-label={t("nav.mobile.ariaLabel")}
+                        role="navigation"
+                      >
+                        <ul className="space-y-2">
+                          {navItems.map(({ href, icon, label }) => (
+                            <li key={href}>
+                              <Button
+                                asChild
+                                className="w-full justify-start gap-2"
+                                size="sm"
+                                variant={"ghost"}
+                              >
+                                <Link className="flex items-center" href={href}>
+                                  {icon}
+                                  {label}
+                                </Link>
+                              </Button>
+                            </li>
+                          ))}
+                        </ul>
+                      </nav>
+                    </div>
+                    <SheetFooter>
+                      {/* Mobile Language Toggle */}
+                      <Button
+                        asChild
+                        className="w-full gap-2"
+                        size="sm"
+                        variant="outline"
+                      >
+                        <Link
+                          href={"/"}
+                          locale={locale === "en-US" ? "pt-BR" : "en-US"}
+                        >
+                          <Globe className="h-4 w-4" />
+                          {t("nav.menu.locale")}
+                        </Link>
+                      </Button>
+                    </SheetFooter>
+                  </SheetContent>
+                </Sheet>
+              </div>
+            </div>
           </header>
           <main
             className={cn("@container mx-auto w-full font-sans")}
@@ -202,7 +322,10 @@ export default async function LocaleLayout({ children, params }: Props) {
           >
             <NuqsAdapter>{children}</NuqsAdapter>
           </main>
-          <footer className={"bg-muted/30 border-t"} role="contentinfo">
+          <footer
+            className={"bg-muted/30 border-border border-t"}
+            role="contentinfo"
+          >
             <div className="container py-8">
               {/* Main Footer Content */}
               <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
@@ -293,12 +416,12 @@ export default async function LocaleLayout({ children, params }: Props) {
                   </h3>
                   <div className="text-muted-foreground space-y-2 text-sm">
                     <p>{t("footer.tech.builtWith")}</p>
-                    <ul className="space-y-1">
-                      <li>• Next.js 15</li>
-                      <li>• React 19</li>
-                      <li>• TypeScript</li>
-                      <li>• Tailwind CSS</li>
-                      <li>• PayloadCMS</li>
+                    <ul className="space-y-1 *:before:content-['•']">
+                      <li>Next.js 15</li>
+                      <li>React 19</li>
+                      <li>TypeScript</li>
+                      <li>Tailwind CSS</li>
+                      <li>PayloadCMS</li>
                     </ul>
                   </div>
                 </div>

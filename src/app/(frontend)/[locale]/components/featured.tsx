@@ -27,7 +27,7 @@ export async function Featured({ locale }: { locale: Locale }) {
     },
   })
   return (
-    <section className="border-y py-4">
+    <section className="border-border border-y py-4">
       <ul className={cn("container my-auto justify-center gap-2", "flex")}>
         {starredActivities.map(
           ({ category, description, id, platform, title }) => (
@@ -71,7 +71,7 @@ export function FeaturedFallback() {
     <section
       aria-busy="true"
       aria-label="Carregando atividades em destaque"
-      className="border-y"
+      className="border-border border-y py-4"
     >
       <ul className="container my-auto flex justify-center gap-2">
         {Array.from({ length: 3 }).map((_, i) => (

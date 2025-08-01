@@ -1,3 +1,4 @@
+import { revalidatePath } from "next/cache"
 import { CollectionConfig } from "payload"
 
 import { Activity } from "@/types"
@@ -181,6 +182,16 @@ export const Activities: CollectionConfig = {
       type: "json",
     },
   ],
+  hooks: {
+    afterChange: [
+      (args) => {
+        if (args.previousDoc === null || args.previousDoc !== args.doc) {
+          const locale = args.req.locale
+          revalidatePath("/" + locale)
+        }
+      },
+    ],
+  },
   labels: {
     plural: { en: "Activities", pt: "Atividades" },
     singular: { en: "Activity", pt: "Atividade" },

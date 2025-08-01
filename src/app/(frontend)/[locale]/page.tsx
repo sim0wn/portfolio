@@ -12,12 +12,12 @@ import { Featured, FeaturedFallback } from "./components/featured"
 import { Hero, HeroFallback } from "./components/hero"
 import { Skills, SkillsFallback } from "./components/skills"
 
-type Props = {
+export default async function HomePage({
+  params,
+}: {
   params: Promise<{ locale: Locale }>
   searchParams: Promise<SearchParams>
-}
-
-export default async function HomePage({ params }: Props) {
+}) {
   const { locale } = await params
 
   // Enable static rendering
@@ -38,7 +38,10 @@ export default async function HomePage({ params }: Props) {
             getActivityCategoriesAction(),
         },
         keepPreviousData: true,
+        // Disable revalidation since I'm doing manual revalidation
+        revalidateOnFocus: false,
         revalidateOnMount: false,
+        revalidateOnReconnect: false,
       }}
     >
       <Suspense fallback={<HeroFallback />}>

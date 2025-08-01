@@ -181,13 +181,24 @@
       "opensInNewTab": "Opens in new tab"
     },
     "nav": {
-      "actions": {
-        "changeLocale": "PT",
-        "contact": "Contact"
-      },
       "menu": {
         "knowledgeBase": "Knowledge Base",
-        "contact": "Contact"
+        "contact": "Contact",
+        "home": "Home",
+        "locale": "PT"
+      },
+      "skipToMain": "Skip to the main content",
+      "brand": {
+        "name": "Portfolio",
+        "ariaLabel": "Go to homepage"
+      },
+      "mobile": {
+        "ariaLabel": "Mobile navigation menu",
+        "openMenu": "Open navigation menu",
+        "closeMenu": "Close navigation menu"
+      },
+      "main": {
+        "ariaLabel": "Main navigation"
       },
       "home": "Home",
       "about": "About",

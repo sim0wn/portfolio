@@ -1,4 +1,5 @@
 import { JSXConverters } from "@payloadcms/richtext-lexical/react"
+import { randomInt } from "crypto"
 import { toJsxRuntime } from "hast-util-to-jsx-runtime"
 import { Fragment } from "react"
 import { jsx, jsxs } from "react/jsx-runtime"
@@ -23,11 +24,10 @@ const CodeBlockJSXConverter: JSXConverters<SerializedCodeBlockNode> = {
       themes: { dark: "rose-pine", light: "rose-pine-dawn" },
     })
 
-    // Colors and sizing use the design system (8px grid, muted palette).
     return (
       <article
         className={cn(
-          "not-prose bg-card focus-within:ring-primary flex w-full flex-col overflow-hidden rounded-xl border font-mono shadow-lg transition-shadow duration-300 focus-within:ring-2 hover:shadow-2xl",
+          "not-prose bg-card border-border focus-within:ring-primary flex w-full flex-col overflow-hidden rounded-xl border font-mono shadow-lg transition-shadow duration-300 focus-within:ring-2 hover:shadow-2xl",
         )}
         role="region"
         tabIndex={0}
@@ -40,25 +40,26 @@ const CodeBlockJSXConverter: JSXConverters<SerializedCodeBlockNode> = {
                 {...props}
                 className={cn(
                   props.className,
-                  "focus-visible:ring-primary block overflow-x-auto p-2 text-sm leading-relaxed whitespace-pre transition-shadow duration-200 outline-none focus-visible:ring-2",
+                  "text-card focus-visible:ring-primary block p-2 text-sm leading-relaxed whitespace-pre transition-shadow duration-200 outline-none focus-visible:ring-2",
                 )}
                 tabIndex={0}
-              >
-                <ScrollArea className="max-h-[60vh] w-full">
-                  {props.children}
-                </ScrollArea>
-              </code>
+              />
             ),
             pre: (props) => (
               <pre
                 {...props}
                 className={cn(
                   props.className,
+                  // Remove default margin, provide flex sizing, no border.
                   "m-0 max-w-full min-w-0 flex-1 border-0 p-0 outline-none",
                 )}
                 data-custom-codeblock
                 tabIndex={-1}
-              />
+              >
+                <ScrollArea className="h-full max-h-[80vh]">
+                  {props.children}
+                </ScrollArea>
+              </pre>
             ),
           },
           Fragment,
@@ -67,33 +68,33 @@ const CodeBlockJSXConverter: JSXConverters<SerializedCodeBlockNode> = {
         })}
 
         {/* Status Bar */}
-        <footer className="bg-muted flex items-center border-t font-mono text-xs select-none">
-          <span className="bg-chart-4 text-card rounded-bl px-3 py-1 font-bold">
+        <footer className="bg-muted border-border flex items-center border-t font-mono text-xs select-none">
+          <span className="bg-secondary text-secondary-foreground rounded-bl px-3 py-1 font-bold">
             NORMAL
           </span>
-          <span className="bg-popover text-muted-foreground border-l px-2 py-1">
+          <span className="bg-popover text-popover-foreground border-border border-l px-2 py-1">
             main
           </span>
           {path && (
-            <span className="bg-popover text-primary flex-1 truncate border-l px-2 py-1 font-semibold">
+            <span className="bg-popover text-primary border-border flex-1 truncate border-l px-2 py-1 font-semibold">
               {path}
             </span>
           )}
-          <span className="bg-popover text-muted-foreground flex-1 border-l px-2 py-1"></span>
-          <span className="bg-popover text-muted-foreground border-l px-2 py-1">
+          <span className="bg-popover text-muted-foreground border-border flex-1 border-l px-2 py-1"></span>
+          <span className="bg-popover text-popover-foreground border-border border-l px-2 py-1">
             utf-8
           </span>
-          <span className="bg-popover text-muted-foreground border-l px-2 py-1">
+          <span className="bg-popover text-popover-foreground border-border border-l px-2 py-1">
             LF
           </span>
-          <span className="bg-popover text-primary border-l px-2 py-1">
+          <span className="bg-popover text-primary border-border border-l px-2 py-1">
             {language}
           </span>
-          <span className="bg-destructive px-3 py-1 font-semibold text-white">
+          <span className="bg-destructive text-destructive-foreground px-3 py-1 font-semibold">
             100%
           </span>
-          <span className="bg-popover text-muted-foreground border-l px-2 py-1">
-            {code.length}:{code.length}
+          <span className="bg-popover text-popover-foreground border-border border-l px-2 py-1">
+            {randomInt(code.length)}:{randomInt(code.length)}
           </span>
         </footer>
       </article>

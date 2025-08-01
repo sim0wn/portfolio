@@ -50,7 +50,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title: true,
       url: true,
     },
-    sort: ["parent.slug", "slug"],
+    sort: ["parent.title", "title"],
     ...(slug && {
       where: {
         "breadcrumbs.url": { equals: "/" + slug.join("/") },
@@ -86,7 +86,7 @@ export default async function KnowledgeBaseLayout({ children, params }: Props) {
       updatedAt: true,
       url: true,
     },
-    sort: ["parent.slug", "slug"],
+    sort: ["parent.title", "title"],
   })
   const currentPage = slug
     ? pages.find((page) => page.url === (slug ? slug.join("/") : ""))
@@ -131,8 +131,8 @@ export default async function KnowledgeBaseLayout({ children, params }: Props) {
             ))}
           </SidebarContent>
         </Sidebar>
-        <SidebarInset className="max-w-full min-w-0 flex-col gap-2 p-4">
-          <header className="flex items-center gap-2 border-b pb-2">
+        <SidebarInset className="flex max-w-full min-w-0 flex-col gap-2">
+          <header className="bg-background/85 top-[var(--header-height)] z-10 flex h-[var(--header-height)] items-center gap-2 px-2 backdrop-blur-md max-md:sticky">
             <div className="flex items-center md:hidden">
               <SidebarTrigger />
               <Separator
@@ -161,9 +161,9 @@ export default async function KnowledgeBaseLayout({ children, params }: Props) {
               </BreadcrumbList>
             </Breadcrumb>
           </header>
-          <article className="flex h-full flex-col">
+          <article className="flex h-full flex-col p-4">
             <header>
-              <h1 className="text-accent-foreground text-lg font-bold">
+              <h1 className="text-accent-foreground text-3xl font-bold">
                 {currentPage?.title}
               </h1>
               {currentPage?.description && (

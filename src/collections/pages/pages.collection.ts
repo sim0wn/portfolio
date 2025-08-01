@@ -1,3 +1,4 @@
+import { revalidatePath } from "next/cache"
 import { CollectionConfig, FieldHookArgs } from "payload"
 import slug from "slug"
 
@@ -135,11 +136,23 @@ export const Pages: CollectionConfig = {
         ],
       },
       name: "url",
-      required: true,
+      required: false,
       type: "text",
       virtual: true,
     },
   ],
+  hooks: {
+    afterChange: [
+      (args) => {
+        if (
+          (!args.previousDoc || args.previousDoc !== args.doc) &&
+          args.doc._status === "published"
+        ) {
+          revalidatePath(`/${args.req.locale}/knowledge-base/${args.doc.url}`)
+        }
+      },
+    ],
+  },
   labels: {
     plural: { en: "Pages", pt: "Páginas" },
     singular: { en: "Page", pt: "Página" },

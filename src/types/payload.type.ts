@@ -318,7 +318,7 @@ export interface Page {
     };
     [k: string]: unknown;
   } | null;
-  url: string;
+  url?: string | null;
   parent?: (string | null) | Page;
   breadcrumbs?:
     | {

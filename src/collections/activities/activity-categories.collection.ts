@@ -1,9 +1,7 @@
+import { revalidatePath } from "next/cache"
 import { CollectionConfig } from "payload"
 
 export const ActivityCategories: CollectionConfig = {
-  access: {
-    read: () => true,
-  },
   admin: {
     group: { en: "Activities", pt: "Atividades" },
     useAsTitle: "name",
@@ -32,6 +30,16 @@ export const ActivityCategories: CollectionConfig = {
       type: "textarea",
     },
   ],
+  hooks: {
+    afterChange: [
+      (args) => {
+        if (args.previousDoc === null || args.previousDoc !== args.doc) {
+          const locale = args.req.locale
+          revalidatePath("/" + locale)
+        }
+      },
+    ],
+  },
   labels: {
     plural: { en: "Categories", pt: "Categorias" },
     singular: { en: "Category", pt: "Categoria" },

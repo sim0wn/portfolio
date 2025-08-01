@@ -46,7 +46,7 @@ export default async function Page({ params }: Props) {
     collection: "pages",
     limit: 1,
     locale,
-    sort: ["parent.slug", "slug"],
+    sort: ["parent.title", "title"],
     ...(slug && {
       where: {
         "breadcrumbs.url": { equals: `/${slug.join("/")}` },
