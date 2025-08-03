@@ -5,7 +5,6 @@ import { Fragment } from "react"
 import { jsx, jsxs } from "react/jsx-runtime"
 import { codeToHast } from "shiki"
 
-import { ScrollArea } from "@/components/ui"
 import { SerializedCodeBlockNode } from "@/features"
 import { cn } from "@/utils"
 
