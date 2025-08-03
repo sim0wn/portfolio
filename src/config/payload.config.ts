@@ -26,6 +26,7 @@ import {
 import {
   AiFeature,
   AnnotationFeature,
+  CalloutFeature,
   CodeBlockFeature,
   HighlighterFeature,
 } from "@/features"
@@ -62,6 +63,7 @@ export default buildConfig({
       AiFeature(),
       AnnotationFeature(),
       BlocksFeature({ blocks: [], inlineBlocks: [] }),
+      CalloutFeature(),
       CodeBlockFeature(),
       HeadingFeature({ enabledHeadingSizes: ["h2", "h3", "h4", "h5", "h6"] }),
       HighlighterFeature(),

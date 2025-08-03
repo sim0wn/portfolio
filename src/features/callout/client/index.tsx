@@ -11,14 +11,14 @@ import {
   $isRangeSelection,
 } from "@payloadcms/richtext-lexical/lexical"
 import { $findMatchingParent } from "@payloadcms/richtext-lexical/lexical/utils"
-import { Braces } from "lucide-react"
+import { MessageSquare } from "lucide-react"
 
-import { CodeBlockMarkdownTransformer } from "../markdown-transformer"
-import { $isCodeBlockNode, CodeBlockNode } from "../nodes"
-import { CodeBlockPlugin, CREATE_CODE_BLOCK_COMMAND } from "../plugins"
+import { CalloutMarkdownTransformer } from "../markdown-transformer"
+import { $isCalloutNode, CalloutNode } from "../nodes"
+import { CalloutPlugin, CREATE_CALLOUT_COMMAND } from "../plugins"
 
 const Icon = () => (
-  <Braces
+  <MessageSquare
     aria-hidden="true"
     fill="none"
     height={16}
@@ -32,20 +32,20 @@ const Icon = () => (
   />
 )
 
-export const CodeBlockFeatureClient = createClientFeature({
-  markdownTransformers: [CodeBlockMarkdownTransformer],
-  nodes: [CodeBlockNode],
-  plugins: [{ Component: CodeBlockPlugin, position: "normal" }],
+export const CalloutFeatureClient = createClientFeature({
+  markdownTransformers: [CalloutMarkdownTransformer],
+  nodes: [CalloutNode],
+  plugins: [{ Component: CalloutPlugin, position: "normal" }],
   slashMenu: {
     groups: [
       slashMenuBasicGroupWithItems([
         {
           Icon,
-          key: "codeBlock",
-          keywords: ["code", "snippet"],
-          label: ({ i18n }) => i18n.t("lexical:codeBlock:label"),
+          key: "callout",
+          keywords: ["alert", "callout"],
+          label: ({ i18n }) => i18n.t("lexical:callout:label"),
           onSelect({ editor }) {
-            editor.dispatchCommand(CREATE_CODE_BLOCK_COMMAND, null)
+            editor.dispatchCommand(CREATE_CALLOUT_COMMAND, null)
           },
         },
       ]),
@@ -59,7 +59,7 @@ export const CodeBlockFeatureClient = createClientFeature({
           isActive({ selection }) {
             if ($isRangeSelection(selection)) {
               const node = getSelectedNode(selection)
-              const parent = $findMatchingParent(node, $isCodeBlockNode)
+              const parent = $findMatchingParent(node, $isCalloutNode)
               return parent !== null
             }
             return false
@@ -70,10 +70,10 @@ export const CodeBlockFeatureClient = createClientFeature({
               $getSelection()?.getTextContent()?.length
             )
           },
-          key: "codeBlock",
-          label: ({ i18n }) => i18n.t("lexical:codeBlock:label"),
+          key: "callout",
+          label: ({ i18n }) => i18n.t("lexical:callout:label"),
           onSelect({ editor }) {
-            editor.dispatchCommand(CREATE_CODE_BLOCK_COMMAND, null)
+            editor.dispatchCommand(CREATE_CALLOUT_COMMAND, null)
           },
         },
       ]),

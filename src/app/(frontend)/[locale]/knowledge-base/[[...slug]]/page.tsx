@@ -98,7 +98,5 @@ export default async function Page({ params }: Props) {
       </ul>
     )
   }
-  return (
-    <RichText className="flex max-w-full flex-1 flex-col" data={page.content} />
-  )
+  return <RichText className="flex flex-1 flex-col" data={page.content} />
 }

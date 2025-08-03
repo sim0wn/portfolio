@@ -5,12 +5,12 @@ import {
 import { useLexicalComposerContext } from "@payloadcms/richtext-lexical/lexical/react/LexicalComposerContext"
 import { useCallback } from "react"
 
-import { $createCodeBlockNode } from "../nodes"
+import { $createCalloutNode } from "../nodes"
 
-export function useCode() {
+export function useCallout() {
   const [editor] = useLexicalComposerContext()
 
-  const createCode = useCallback(() => {
+  const createCallout = useCallback(() => {
     editor.update(() => {
       const selection = $getSelection()
       if ($isRangeSelection(selection)) {
@@ -18,8 +18,8 @@ export function useCode() {
         // If no nodes are selected, do nothing
         if (nodes.length === 0) return true
         nodes[0].insertAfter(
-          $createCodeBlockNode({
-            code: nodes.map((node) => node.getTextContent()).join(""),
+          $createCalloutNode({
+            message: nodes.map((node) => node.getTextContent()).join(""),
           }),
         )
         nodes.forEach((node) => {
@@ -29,5 +29,5 @@ export function useCode() {
     })
   }, [editor])
 
-  return { createCode }
+  return { createCallout }
 }

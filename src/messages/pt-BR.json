@@ -57,6 +57,13 @@
       }
     }
   },
+  "Callout": {
+    "ariaLabel": "Nota em destaque",
+    "info": "Esta é uma mensagem informativa.",
+    "warning": "Esta é uma mensagem de aviso.",
+    "error": "Esta é uma mensagem de erro.",
+    "success": "Esta é uma mensagem de sucesso."
+  },
   "Captcha": {
     "success": "Captcha validado com sucesso!",
     "error": "Falha ao validar captcha. Por favor, tente novamente.",

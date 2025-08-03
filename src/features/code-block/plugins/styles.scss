@@ -1,20 +1,29 @@
-div.code-block[data-lexical-decorator=true] {
+.code-block {
+  background-color: var(--theme-elevation-50);
+  box-shadow: 0 4px 16px rgba(32, 32, 32, 0.08);
   display: flex;
+  padding: 4px;
   flex-direction: column;
-  gap: 8px;
-  padding: 8px;
-  border: 1px solid var(--theme-border-color);
+  gap: 16px;
   width: 100%;
-  margin-block: 8px;
 }
 
-header.code-block {
+.code-block__header {
   display: flex;
   flex-direction: row;
+  align-items: center;
   gap: 8px;
-  justify-content: space-between;
+  width: 100%;
 }
 
-.code-block.react-select {
-  width: 30%;
+.code-block__input {
+  flex: 1 1 auto;
+}
+
+.code-block__select {
+  min-width: 30%;
+}
+
+.code-block__editor {
+  width: 100%;
 }

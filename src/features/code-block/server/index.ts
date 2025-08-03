@@ -1,7 +1,7 @@
 import { createServerFeature } from "@payloadcms/richtext-lexical"
 
+import { CodeBlockMarkdownTransformer } from "../markdown-transformer"
 import { CodeBlockNode } from "../nodes"
-import { CodeBlockMarkdownTransformer } from "../transformers"
 import { i18n } from "./i18n"
 
 export const CodeBlockFeature = createServerFeature({

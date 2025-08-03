@@ -39,11 +39,15 @@ const CodeBlockPlugin: PluginComponent = () => {
           editor.update(() => {
             const codeBlockNode = $getNodeByKey(payload.nodeKey)
             if ($isCodeBlockNode(codeBlockNode)) {
-              codeBlockNode.setCode(payload.code ?? codeBlockNode.getCode())
-              codeBlockNode.setLanguage(
-                payload.language ?? codeBlockNode.getLanguage(),
-              )
-              codeBlockNode.setPath(payload.path ?? codeBlockNode.getPath())
+              if (payload.code) {
+                codeBlockNode.setCode(payload.code)
+              }
+              if (payload.language) {
+                codeBlockNode.setLanguage(payload.language)
+              }
+              if (payload.path) {
+                codeBlockNode.setPath(payload.path)
+              }
             }
           })
           return true

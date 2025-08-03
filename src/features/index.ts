@@ -1,4 +1,5 @@
 export * from "./ai"
 export * from "./annotation"
+export * from "./callout"
 export * from "./code-block"
 export * from "./highlighter"

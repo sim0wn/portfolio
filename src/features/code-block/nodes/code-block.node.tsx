@@ -7,8 +7,8 @@ import {
 } from "@payloadcms/richtext-lexical/lexical"
 import { lazy, ReactElement } from "react"
 
-const CodeBlockComponent = lazy(() =>
-  import("../components").then((mod) => ({ default: mod.CodeBlockComponent })),
+const CodeBlock = lazy(() =>
+  import("../components").then(({ CodeBlock }) => ({ default: CodeBlock })),
 )
 
 type CodeBlockPayload = {
@@ -25,7 +25,7 @@ class CodeBlockNode extends DecoratorNode<ReactElement> {
   private __path: string
 
   constructor(
-    { code = "", language = "", path = "" }: CodeBlockPayload,
+    { code = "", language = "text", path = "" }: CodeBlockPayload,
     key?: string,
   ) {
     super(key)
@@ -65,7 +65,7 @@ class CodeBlockNode extends DecoratorNode<ReactElement> {
   }
 
   override decorate() {
-    return <CodeBlockComponent nodeKey={this.getKey()} />
+    return <CodeBlock nodeKey={this.getKey()} />
   }
 
   override exportJSON() {
@@ -101,7 +101,7 @@ class CodeBlockNode extends DecoratorNode<ReactElement> {
     return writable
   }
 
-  setLanguage(newLanguage: CodeBlockPayload["language"] = "") {
+  setLanguage(newLanguage: CodeBlockPayload["language"] = "text") {
     const writable = this.getWritable()
     writable.__language = newLanguage
     return writable

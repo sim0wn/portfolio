@@ -8,6 +8,7 @@ import {
 } from "@payloadcms/richtext-lexical/react"
 
 import { AnnotationJSXConverter } from "./annotation"
+import { CalloutJSXConverter } from "./callout"
 import { CodeBlockJSXConverter } from "./code-block"
 import { HighlighterJSXConverter } from "./highlighter"
 import { internalDocToHref } from "./internal-link"
@@ -20,6 +21,7 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({
 }) => ({
   ...defaultConverters,
   ...AnnotationJSXConverter,
+  ...CalloutJSXConverter,
   ...CodeBlockJSXConverter,
   ...HighlighterJSXConverter,
   ...LinkJSXConverter({ internalDocToHref }),
