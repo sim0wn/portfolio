@@ -416,7 +416,7 @@ export default async function LocaleLayout({ children, params }: Props) {
                   </h3>
                   <div className="text-muted-foreground space-y-2 text-sm">
                     <p>{t("footer.tech.builtWith")}</p>
-                    <ul className="space-y-1 *:before:content-['•']">
+                    <ul className="space-y-1 *:before:content-['•_']">
                       <li>Next.js 15</li>
                       <li>React 19</li>
                       <li>TypeScript</li>

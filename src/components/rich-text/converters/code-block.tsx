@@ -13,6 +13,7 @@ import { cn } from "@/utils"
  * Renders a themed, accessible code block with a fake Vim UI.
  * - Uses rose-pine for syntax theme.
  * - Adaptive to light/dark via Tailwind + CSS vars.
+ * - Prevents overflow beyond parent container.
  *
  * @param node - serialized code node with code and meta
  */
@@ -27,7 +28,7 @@ const CodeBlockJSXConverter: JSXConverters<SerializedCodeBlockNode> = {
     return (
       <article
         className={cn(
-          "not-prose bg-card border-border focus-within:ring-primary flex w-full flex-col overflow-hidden rounded-xl border font-mono shadow-lg transition-shadow duration-300 focus-within:ring-2 hover:shadow-2xl",
+          "not-prose bg-card border-border focus-within:ring-primary flex h-auto w-full flex-col overflow-hidden rounded-xl border font-mono shadow-lg transition-shadow duration-300 focus-within:ring-2 hover:shadow-2xl",
         )}
         role="region"
         tabIndex={0}
@@ -43,23 +44,21 @@ const CodeBlockJSXConverter: JSXConverters<SerializedCodeBlockNode> = {
                   "text-card focus-visible:ring-primary block p-2 text-sm leading-relaxed whitespace-pre transition-shadow duration-200 outline-none focus-visible:ring-2",
                 )}
                 tabIndex={0}
-              />
+              >
+                {props.children}
+              </code>
             ),
             pre: (props) => (
               <pre
                 {...props}
                 className={cn(
                   props.className,
-                  // Remove default margin, provide flex sizing, no border.
-                  "m-0 max-w-full min-w-0 flex-1 border-0 p-0 outline-none",
+                  // Remove default margin, provide flex sizing, no border, limit width/height.
+                  "m-0 max-h-[80vh] w-full max-w-full min-w-0 flex-1 overflow-scroll border-0 p-0 outline-none",
                 )}
                 data-custom-codeblock
                 tabIndex={-1}
-              >
-                <ScrollArea className="h-full max-h-[80vh]">
-                  {props.children}
-                </ScrollArea>
-              </pre>
+              />
             ),
           },
           Fragment,
@@ -68,7 +67,7 @@ const CodeBlockJSXConverter: JSXConverters<SerializedCodeBlockNode> = {
         })}
 
         {/* Status Bar */}
-        <footer className="bg-muted border-border flex items-center border-t font-mono text-xs select-none">
+        <footer className="bg-muted border-border flex w-full items-center border-t font-mono text-xs select-none">
           <span className="bg-secondary text-secondary-foreground rounded-bl px-3 py-1 font-bold">
             NORMAL
           </span>

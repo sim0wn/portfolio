@@ -80,10 +80,10 @@ export default async function Page({ params }: Props) {
       },
     })
     return (
-      <ul className="flex h-full flex-col gap-2 py-4 *:w-full">
+      <ul className="not-prose flex h-full w-full flex-col gap-2">
         {pages.map((page) => (
-          <li key={page.id}>
-            <Card>
+          <li className="w-full" key={page.id}>
+            <Card className="w-full">
               <CardHeader>
                 <CardTitle>
                   <Link href={`/knowledge-base/${page.url}`}>{page.title}</Link>
@@ -98,5 +98,5 @@ export default async function Page({ params }: Props) {
       </ul>
     )
   }
-  return <RichText className="flex flex-1 flex-col" data={page.content} />
+  return <RichText data={page.content} />
 }
