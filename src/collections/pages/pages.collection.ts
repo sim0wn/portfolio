@@ -148,7 +148,10 @@ export const Pages: CollectionConfig = {
           (!args.previousDoc || args.previousDoc !== args.doc) &&
           args.doc._status === "published"
         ) {
-          revalidatePath(`/${args.req.locale}/knowledge-base/${args.doc.url}`)
+          revalidatePath(
+            "/(frontend)/[locale]/knowledge-base/[[...slug]]",
+            "layout",
+          )
         }
       },
     ],
