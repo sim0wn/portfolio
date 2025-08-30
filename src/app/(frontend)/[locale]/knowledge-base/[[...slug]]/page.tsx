@@ -1,4 +1,4 @@
-import { Locale } from "next-intl"
+import { hasLocale } from "next-intl"
 import { setRequestLocale } from "next-intl/server"
 import { notFound } from "next/navigation"
 
@@ -9,10 +9,8 @@ import {
   CardTitle,
   RichText,
 } from "@/components"
-import { Link } from "@/i18n"
+import { Link, routing } from "@/i18n"
 import { payload } from "@/lib"
-
-type Props = { params: Promise<{ locale: Locale; slug: string[] }> }
 
 export const dynamicParams = true
 
@@ -28,16 +26,21 @@ export async function generateStaticParams() {
   })
 
   return pages.flatMap(({ url }) => {
-    if (!(url && typeof url === "object")) return null
-    return Object.entries(url).map(([locale, slugs]) => ({
-      locale,
-      slug: (slugs as string).split("/"),
-    }))
+    if (url && typeof url === "object") {
+      return Object.entries(url).map(([locale, slugs]) => ({
+        locale,
+        slug: (slugs as string).split("/"),
+      }))
+    }
   })
 }
 
-export default async function Page({ params }: Props) {
+export default async function Page({
+  params,
+}: PageProps<"/[locale]/knowledge-base/[[...slug]]">) {
   const { locale, slug } = await params
+
+  if (!hasLocale(routing.locales, locale)) notFound()
 
   // Enable static rendering
   setRequestLocale(locale)
@@ -47,7 +50,7 @@ export default async function Page({ params }: Props) {
   } = await payload.find({
     collection: "pages",
     limit: 1,
-    locale,
+    locale: locale,
     sort: ["parent.title", "title"],
     ...(slug && {
       where: {
@@ -61,7 +64,7 @@ export default async function Page({ params }: Props) {
   if (!page.content) {
     const { docs: pages } = await payload.find({
       collection: "pages",
-      locale,
+      locale: locale,
       select: {
         breadcrumbs: true,
         description: true,

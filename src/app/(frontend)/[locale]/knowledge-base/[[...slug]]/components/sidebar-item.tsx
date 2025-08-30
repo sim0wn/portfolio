@@ -1,5 +1,4 @@
 import { ChevronRight } from "lucide-react"
-import Link from "next/link"
 
 import {
   Collapsible,
@@ -16,6 +15,7 @@ import {
   SidebarMenuSubButton,
   SidebarMenuSubItem,
 } from "@/components"
+import { Link } from "@/i18n"
 import { NestedDocs, Page } from "@/types"
 import { isAncestor } from "@/utils"
 
@@ -73,7 +73,7 @@ export function SidebarItem({
     if (level > 0) {
       return (
         <SidebarMenuSubItem>
-          <SidebarMenuSubButton asChild isActive={isActive}>
+          <SidebarMenuSubButton isActive={isActive}>
             <Link href={`/knowledge-base/${page.url}`}>{page.title}</Link>
           </SidebarMenuSubButton>
           {hasChildren && (

@@ -1,10 +1,11 @@
-import { Locale } from "next-intl"
+import { hasLocale } from "next-intl"
 import { setRequestLocale } from "next-intl/server"
-import { SearchParams } from "nuqs/server"
+import { notFound } from "next/navigation"
 import { Suspense } from "react"
 import { SWRConfig, unstable_serialize } from "swr"
 
 import { getActivitiesAction, getActivityCategoriesAction } from "@/actions"
+import { routing } from "@/i18n"
 
 import { About, AboutFallback } from "./components/about"
 import { Activity, ActivitySkeleton } from "./components/activities"
@@ -12,13 +13,10 @@ import { Featured, FeaturedFallback } from "./components/featured"
 import { Hero, HeroFallback } from "./components/hero"
 import { Skills, SkillsFallback } from "./components/skills"
 
-export default async function HomePage({
-  params,
-}: {
-  params: Promise<{ locale: Locale }>
-  searchParams: Promise<SearchParams>
-}) {
+export default async function HomePage({ params }: PageProps<"/[locale]">) {
   const { locale } = await params
+
+  if (!hasLocale(routing.locales, locale)) notFound()
 
   // Enable static rendering
   setRequestLocale(locale)

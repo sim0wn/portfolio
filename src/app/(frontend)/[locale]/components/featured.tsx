@@ -28,10 +28,16 @@ export async function Featured({ locale }: { locale: Locale }) {
   })
   return (
     <section className="border-border border-y py-4">
-      <ul className={cn("container my-auto justify-center gap-2", "flex")}>
+      <ul
+        className={cn(
+          "container my-auto",
+          "flex flex-col justify-center gap-2 md:flex-row md:gap-4",
+          // "overflow-x-auto",
+        )}
+      >
         {starredActivities.map(
           ({ category, description, id, platform, title }) => (
-            <li className="w-md" key={id}>
+            <li className="w-full flex-1 md:max-w-md" key={id}>
               <Dialog>
                 <DialogTrigger asChild>
                   <Card className="flex cursor-pointer flex-col *:flex-1">
@@ -41,7 +47,9 @@ export async function Featured({ locale }: { locale: Locale }) {
                           {typeof category === "object" && category.name}
                         </Badge>
                         {platform && typeof platform === "object" && (
-                          <Badge variant={"outline"}>{platform.name}</Badge>
+                          <Badge className="truncate" variant={"outline"}>
+                            {platform.name}
+                          </Badge>
                         )}
                       </span>
                       <CardTitle className="text-md">{title}</CardTitle>

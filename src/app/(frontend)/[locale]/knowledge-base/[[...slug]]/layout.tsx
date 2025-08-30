@@ -2,10 +2,10 @@ import { formatDistanceToNow } from "date-fns"
 import { enUS, ptBR } from "date-fns/locale"
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react"
 import { Metadata } from "next"
-import { Locale } from "next-intl"
+import { hasLocale, Locale } from "next-intl"
 import { getTranslations, setRequestLocale } from "next-intl/server"
 import { notFound } from "next/navigation"
-import { Fragment, ReactNode } from "react"
+import { Fragment } from "react"
 
 import {
   Breadcrumb,
@@ -26,25 +26,22 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components"
-import { Link } from "@/i18n"
+import { Link, routing } from "@/i18n"
 import { payload } from "@/lib"
 import { cn, flattenNestedDocs, getNestedDocs } from "@/utils"
 
 import { SidebarItem } from "./components/sidebar-item"
 
-type Props = {
-  children: ReactNode
-  params: Promise<{ locale: Locale; slug: string[] }>
-}
-
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: LayoutProps<"/[locale]/knowledge-base/[[...slug]]">): Promise<Metadata> {
   const { locale, slug } = await params
   const {
     docs: [page],
   } = await payload.find({
     collection: "pages",
     limit: 1,
-    locale,
+    locale: locale as Locale,
     select: {
       description: true,
       title: true,
@@ -63,8 +60,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 }
 
-export default async function KnowledgeBaseLayout({ children, params }: Props) {
+export default async function KnowledgeBaseLayout({
+  children,
+  params,
+}: LayoutProps<"/[locale]/knowledge-base/[[...slug]]">) {
   const { locale, slug } = await params
+
+  if (!hasLocale(routing.locales, locale)) notFound()
 
   // Enable static rendering
   setRequestLocale(locale)
@@ -74,7 +76,7 @@ export default async function KnowledgeBaseLayout({ children, params }: Props) {
   const { docs: pages } = await payload.find({
     collection: "pages",
     limit: 0,
-    locale,
+    locale: locale,
     select: {
       breadcrumbs: true,
       description: true,
