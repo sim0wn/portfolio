@@ -1,3 +1,4 @@
+export { Credly } from "./credly"
 export { GitHub } from "./github"
 export { HackTheBox } from "./hackthebox"
 export { Lattes } from "./lattes"

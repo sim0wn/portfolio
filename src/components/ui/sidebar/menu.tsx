@@ -2,7 +2,13 @@
 
 import { Slot } from "@radix-ui/react-slot"
 import { cva, VariantProps } from "class-variance-authority"
-import { ComponentProps, CSSProperties, useMemo } from "react"
+import {
+  ComponentProps,
+  CSSProperties,
+  useEffect,
+  useMemo,
+  useState,
+} from "react"
 
 import { Skeleton, Tooltip, TooltipContent, TooltipTrigger } from "@/components"
 import { cn } from "@/utils"
@@ -163,9 +169,10 @@ function SidebarMenuSkeleton({
   showIcon?: boolean
 }) {
   // Random width between 50 to 90%.
+  const [random] = useState(() => Math.random())
   const width = useMemo(() => {
-    return `${Math.floor(Math.random() * 40) + 50}%`
-  }, [])
+    return `${Math.floor(random * 40) + 50}%`
+  }, [random])
 
   return (
     <div

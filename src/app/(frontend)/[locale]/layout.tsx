@@ -24,6 +24,7 @@ import { ReactNode } from "react"
 
 import {
   Button,
+  Credly,
   GitHub,
   HackTheBox,
   Lattes,
@@ -73,6 +74,11 @@ const socialLinks = [
     icon: <TryHackMe />,
     name: "TryHackMe",
     url: "https://tryhackme.com/p/sim0wn/",
+  },
+  {
+    icon: <Credly />,
+    name: "Credly",
+    url: "https://www.credly.com/users/halissoncruz",
   },
 ]
 
