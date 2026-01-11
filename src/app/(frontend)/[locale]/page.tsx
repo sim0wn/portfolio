@@ -9,6 +9,7 @@ import { routing } from "@/i18n"
 
 import { About, AboutFallback } from "./components/about"
 import { Activity, ActivitySkeleton } from "./components/activities"
+import { Career } from "./components/career"
 import { Featured, FeaturedFallback } from "./components/featured"
 import { Hero, HeroFallback } from "./components/hero"
 import { Skills, SkillsFallback } from "./components/skills"
@@ -51,6 +52,7 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
       <Suspense fallback={<SkillsFallback />}>
         <Skills locale={locale} />
       </Suspense>
+      <Career locale={locale} />
       <Suspense fallback={<ActivitySkeleton />}>
         <Activity locale={locale} />
       </Suspense>

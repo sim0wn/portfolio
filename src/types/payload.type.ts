@@ -71,6 +71,8 @@ export interface Config {
     'activity-categories': ActivityCategory;
     'activity-platforms': ActivityPlatform;
     'contact-submissions': ContactSubmission;
+    experiences: Experience;
+    educations: Education;
     faq: Faq;
     images: Image;
     pages: Page;
@@ -88,6 +90,8 @@ export interface Config {
     'activity-categories': ActivityCategoriesSelect<false> | ActivityCategoriesSelect<true>;
     'activity-platforms': ActivityPlatformsSelect<false> | ActivityPlatformsSelect<true>;
     'contact-submissions': ContactSubmissionsSelect<false> | ContactSubmissionsSelect<true>;
+    experiences: ExperiencesSelect<false> | ExperiencesSelect<true>;
+    educations: EducationsSelect<false> | EducationsSelect<true>;
     faq: FaqSelect<false> | FaqSelect<true>;
     images: ImagesSelect<false> | ImagesSelect<true>;
     pages: PagesSelect<false> | PagesSelect<true>;
@@ -103,8 +107,12 @@ export interface Config {
     defaultIDType: string;
   };
   fallbackLocale: ('false' | 'none' | 'null') | false | null | ('en-US' | 'pt-BR') | ('en-US' | 'pt-BR')[];
-  globals: {};
-  globalsSelect: {};
+  globals: {
+    overview: Overview;
+  };
+  globalsSelect: {
+    overview: OverviewSelect<false> | OverviewSelect<true>;
+  };
   locale: 'en-US' | 'pt-BR';
   user: User & {
     collection: 'users';
@@ -234,6 +242,44 @@ export interface ContactSubmission {
   message: string;
   createdAt: string;
   updatedAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "experiences".
+ */
+export interface Experience {
+  id: string;
+  organization: {
+    name: string;
+    website?: string | null;
+  };
+  duration: {
+    startDate: string;
+    endDate?: string | null;
+    currentPosition: boolean;
+  };
+  position: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "educations".
+ */
+export interface Education {
+  id: string;
+  institution: {
+    name: string;
+    website?: string | null;
+  };
+  course: string;
+  degree: 'master' | 'doctorate' | 'specialization' | 'associate' | 'bachelor' | 'technical';
+  duration: {
+    startDate: string;
+    endDate: string;
+  };
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -506,6 +552,14 @@ export interface PayloadLockedDocument {
         value: string | ContactSubmission;
       } | null)
     | ({
+        relationTo: 'experiences';
+        value: string | Experience;
+      } | null)
+    | ({
+        relationTo: 'educations';
+        value: string | Education;
+      } | null)
+    | ({
         relationTo: 'faq';
         value: string | Faq;
       } | null)
@@ -628,6 +682,50 @@ export interface ContactSubmissionsSelect<T extends boolean = true> {
   message?: T;
   createdAt?: T;
   updatedAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "experiences_select".
+ */
+export interface ExperiencesSelect<T extends boolean = true> {
+  organization?:
+    | T
+    | {
+        name?: T;
+        website?: T;
+      };
+  duration?:
+    | T
+    | {
+        startDate?: T;
+        endDate?: T;
+        currentPosition?: T;
+      };
+  position?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "educations_select".
+ */
+export interface EducationsSelect<T extends boolean = true> {
+  institution?:
+    | T
+    | {
+        name?: T;
+        website?: T;
+      };
+  course?: T;
+  degree?: T;
+  duration?:
+    | T
+    | {
+        startDate?: T;
+        endDate?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -808,6 +906,44 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   batch?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "overview".
+ */
+export interface Overview {
+  id: string;
+  aboutMe?: {
+    headline?: string | null;
+    summary?: string | null;
+  };
+  quotation?: {
+    phrase?: string | null;
+    author?: string | null;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "overview_select".
+ */
+export interface OverviewSelect<T extends boolean = true> {
+  aboutMe?:
+    | T
+    | {
+        headline?: T;
+        summary?: T;
+      };
+  quotation?:
+    | T
+    | {
+        phrase?: T;
+        author?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

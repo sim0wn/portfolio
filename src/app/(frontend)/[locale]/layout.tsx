@@ -25,6 +25,7 @@ import { ReactNode } from "react"
 import {
   Button,
   Credly,
+  Emblem,
   GitHub,
   HackTheBox,
   Lattes,
@@ -187,7 +188,7 @@ export default async function LocaleLayout({
         <NextIntlClientProvider>
           {/* Skip to main content */}
           <Link
-            className="bg-primary text-primary-foreground sr-only z-[100] rounded-md px-4 py-2 focus:not-sr-only focus:absolute focus:top-4 focus:left-4"
+            className="bg-primary text-primary-foreground sr-only z-100 rounded-md px-4 py-2 focus:not-sr-only focus:absolute focus:top-4 focus:left-4"
             href="#main-content"
           >
             {t("nav.skipToMain")}
@@ -195,7 +196,7 @@ export default async function LocaleLayout({
           <header
             className={cn(
               "border-border bg-background/85 sticky top-0 z-50 w-full border-b backdrop-blur-md",
-              "h-[var(--header-height)] transition-colors duration-200",
+              "h-(--header-height) transition-colors duration-200",
             )}
             role="banner"
           >
@@ -205,12 +206,12 @@ export default async function LocaleLayout({
                 <Button
                   aria-label={t("nav.brand.ariaLabel")}
                   asChild
-                  className="mr-2 p-2"
+                  className="p-2 text-9xl"
                   size="sm"
                   variant="ghost"
                 >
                   <Link className="flex items-center gap-2" href="/">
-                    <Lettermark className="text-xl" />
+                    <Emblem />
                     <span className="sr-only">{t("nav.brand.name")}</span>
                   </Link>
                 </Button>
@@ -426,7 +427,7 @@ export default async function LocaleLayout({
                   <div className="text-muted-foreground space-y-2 text-sm">
                     <p>{t("footer.tech.builtWith")}</p>
                     <ul className="space-y-1 *:before:content-['•_']">
-                      <li>Next.js 15</li>
+                      <li>Next.js 16</li>
                       <li>React 19</li>
                       <li>TypeScript</li>
                       <li>Tailwind CSS</li>

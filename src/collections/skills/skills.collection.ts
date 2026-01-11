@@ -2,7 +2,7 @@ import { CollectionConfig } from "payload"
 
 export const Skills: CollectionConfig = {
   admin: {
-    defaultColumns: ["title", "brief", "description"],
+    defaultColumns: ["title", "description"],
     useAsTitle: "title",
   },
   fields: [

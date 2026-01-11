@@ -2,15 +2,19 @@ import { getTranslations } from "next-intl/server"
 import Link from "next/link"
 
 import { Button, Mascot, Skeleton } from "@/components"
+import { payload } from "@/lib"
 
 export async function Hero() {
   const t = await getTranslations("Home")
+  const overview = await payload.findGlobal({ slug: "overview" })
   return (
     <section className="container flex flex-col items-center justify-between gap-x-12 gap-y-8 py-12 md:py-24">
       <section className="flex flex-col items-center gap-2 md:flex-row">
         <aside className="col-span-full flex flex-col gap-2 md:col-span-1">
-          <h1 className="text-3xl font-extrabold">{t("hero.title")}</h1>
-          <p className="pb-4">{t("hero.description")}</p>
+          <h1 className="text-3xl font-extrabold uppercase">
+            {overview.aboutMe?.headline}
+          </h1>
+          <p className="pb-4">{overview.aboutMe?.summary}</p>
           <Button asChild>
             <Link className="self-center" href="#contact">
               {t("hero.cta")}
@@ -26,10 +30,10 @@ export async function Hero() {
           />
         </aside>
       </section>
-      {/* Quote */}
+      {/* Quotation */}
       <p className="col-span-full inline-flex w-fit flex-col justify-self-center pt-8">
-        <q className="text-center">{t("hero.quote.message")}</q>
-        <small className="text-end">- {t("hero.quote.author")}</small>
+        <q className="text-center">{overview.quotation?.phrase}</q>
+        <small className="text-end">- {overview.quotation?.author}</small>
       </p>
     </section>
   )
@@ -46,7 +50,7 @@ export function HeroFallback() {
         <Skeleton className="mt-4 h-10 w-32 self-center" />
       </aside>
       <aside className="hidden md:block">
-        <Skeleton className="h-[16rem] w-[16rem] rounded-full" />
+        <Skeleton className="h-64 w-[16rem] rounded-full" />
       </aside>
       <footer className="col-span-full flex w-full flex-col items-end justify-center gap-2 justify-self-center px-8 pt-8">
         <Skeleton className="h-4 w-full" />
