@@ -78,13 +78,7 @@
       }
     },
     "hero": {
-      "description": "I'm a cybersecurity enthusiast specialized in offensive security. I started as a programmer, having my first contact with the Java language at the age of 11. Over time, I came across the information security area, in which I have been self-taught since 2018, and I follow a routine of constant study and practice.",
-      "title": "Hello, friend! I'm sim0wn, an ethical hacker.",
-      "cta": "Reach out",
-      "quote": {
-        "message": "Be curious. Read widely. Try new things. What people call intelligence just boils down to curiosity.",
-        "author": "Aaron Swartz"
-      }
+      "cta": "Reach out"
     },
     "activities": {
       "attachment": "Attachment",
@@ -136,6 +130,11 @@
       },
       "attachments": "Attachments"
     },
+    "career": {
+      "experience": {
+        "currentPosition": "Present"
+      }
+    },
     "skills": {
       "title": "Skills",
       "carousel": {
@@ -144,6 +143,11 @@
         "next": "Next skill",
         "previous": "Previous skill"
       }
+    }
+  },
+  "Components": {
+    "Timeline": {
+      "onGoing": "Present"
     }
   },
   "KnowledgeBase": {
@@ -196,7 +200,7 @@
       },
       "skipToMain": "Skip to the main content",
       "brand": {
-        "name": "Portfolio",
+        "name": "Overview",
         "ariaLabel": "Go to homepage"
       },
       "mobile": {

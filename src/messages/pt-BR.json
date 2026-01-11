@@ -69,6 +69,11 @@
     "error": "Falha ao validar captcha. Por favor, tente novamente.",
     "expired": "O captcha expirou. Por favor, recarregue a página e tente novamente."
   },
+  "Components": {
+    "Timeline": {
+      "onGoing": "Presente"
+    }
+  },
   "Home": {
     "about": {
       "title": "Sobre mim",
@@ -127,14 +132,13 @@
       },
       "attachments": "Anexos"
     },
-    "hero": {
-      "description": "Sou um entusiasta em cibersegurança especializado em segurança ofensiva. Iniciei como programador, tendo meu primeiro contato com a linguagem Java aos 11 anos. Com o tempo, me deparei com a área de segurança da informação, na qual sou um autodidata desde 2018, e sigo uma rotina de estudo e prática constante.",
-      "title": "Bem-vindo ao meu portfólio",
-      "cta": "Entre em contato",
-      "quote": {
-        "message": "Seja curioso, leia amplamente e experimente coisas novas. Para mim, o que as pessoas chamam de inteligência se resume à curiosidade.",
-        "author": "Aaron Swartz"
+    "career": {
+      "experience": {
+        "currentPosition": "Presente"
       }
+    },
+    "hero": {
+      "cta": "Entre em contato"
     },
     "skills": {
       "title": "Habilidades",
@@ -196,7 +200,7 @@
       },
       "skipToMain": "Pular para o conteúdo principal",
       "brand": {
-        "name": "Portfólio",
+        "name": "Visão geral",
         "ariaLabel": "Ir para página inicial"
       },
       "main": {

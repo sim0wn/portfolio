@@ -101,6 +101,7 @@ export {
 } from "./table"
 export { Tabs, TabsContent, TabsList, TabsTrigger } from "./tabs"
 export { Textarea } from "./textarea"
+export { Timeline } from "./timeline"
 export {
   Tooltip,
   TooltipContent,

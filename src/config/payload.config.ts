@@ -18,6 +18,8 @@ import {
   ActivityCategories,
   ActivityPlatforms,
   ContactSubmissions,
+  Educations,
+  Experiences,
   faqCollection,
   Images,
   Pages,
@@ -30,6 +32,7 @@ import {
   CodeBlockFeature,
   HighlighterFeature,
 } from "@/features"
+import { Overview } from "@/globals"
 import { syncHackTheBoxActivity } from "@/tasks"
 
 import { getEnv } from "./env.config"
@@ -42,6 +45,21 @@ export default buildConfig({
     importMap: {
       baseDir: "@",
     },
+    livePreview: {
+      collections: [""],
+      globals: ["overview"],
+      url({ collectionConfig, globalConfig, locale }) {
+        const baseUrl =
+          process.env.NODE_ENV === "development"
+            ? "https://dev.sim0wn.rocks"
+            : "https://www.sim0wn.rocks"
+        const localizedBaseUrl = new URL(locale.code, baseUrl).href
+        const livePreviewUrl = (globalConfig || collectionConfig)?.admin
+          ?.livePreview?.url
+        const url = new URL(livePreviewUrl?.toString() ?? "/", localizedBaseUrl)
+        return url.href
+      },
+    },
   },
   blocks: [],
   collections: [
@@ -49,6 +67,8 @@ export default buildConfig({
     ActivityCategories,
     ActivityPlatforms,
     ContactSubmissions,
+    Experiences,
+    Educations,
     faqCollection,
     Images,
     Pages,
@@ -74,6 +94,7 @@ export default buildConfig({
     defaultFromAddress: "payload@resend.sim0wn.rocks",
     defaultFromName: "Payload CMS",
   }),
+  globals: [Overview],
   i18n: {
     fallbackLanguage: "pt",
     supportedLanguages: { en, pt },

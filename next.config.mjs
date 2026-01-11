@@ -7,6 +7,7 @@ const withNextIntl = createNextIntlPlugin("./src/i18n/request.i18n.ts")
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  allowedDevOrigins: ["dev.sim0wn.rocks"],
   images: {
     contentDispositionType: "attachment",
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
