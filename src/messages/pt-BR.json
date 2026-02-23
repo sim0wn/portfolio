@@ -150,7 +150,7 @@
       }
     }
   },
-  "KnowledgeBase": {
+  "Notes": {
     "metadata": {
       "updatedAt": "Atualizado "
     },
@@ -193,7 +193,7 @@
     },
     "nav": {
       "menu": {
-        "knowledgeBase": "Base de conhecimento",
+        "notes": "Notas",
         "home": "Início",
         "contact": "Contato",
         "locale": "EN"

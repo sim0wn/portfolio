@@ -150,7 +150,7 @@
       "onGoing": "Present"
     }
   },
-  "KnowledgeBase": {
+  "Notes": {
     "metadata": {
       "updatedAt": "Last update "
     },
@@ -193,7 +193,7 @@
     },
     "nav": {
       "menu": {
-        "knowledgeBase": "Knowledge Base",
+        "notes": "Notes",
         "contact": "Contact",
         "home": "Home",
         "locale": "PT"

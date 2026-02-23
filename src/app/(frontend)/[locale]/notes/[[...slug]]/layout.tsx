@@ -19,28 +19,39 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
   Separator,
   Sidebar,
   SidebarContent,
+  SidebarGroup,
+  SidebarGroupContent,
+  SidebarGroupLabel,
   SidebarInset,
+  SidebarMenu,
+  SidebarMenuAction,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarMenuSub,
+  SidebarMenuSubButton,
+  SidebarMenuSubItem,
   SidebarProvider,
   SidebarTrigger,
 } from "@/components"
 import { Link, routing } from "@/i18n"
 import { payload } from "@/lib"
-import { cn, flattenNestedDocs, getNestedDocs } from "@/utils"
-
-import { SidebarItem } from "./components/sidebar-item"
+import { NestedDocs, Note } from "@/types"
+import { cn, NestedDocsTree } from "@/utils"
 
 export async function generateMetadata({
   params,
-}: LayoutProps<"/[locale]/knowledge-base/[[...slug]]">): Promise<Metadata> {
+}: LayoutProps<"/[locale]/notes/[[...slug]]">): Promise<Metadata> {
   const { locale, slug } = await params
   const {
     docs: [page],
   } = await payload.find({
-    collection: "pages",
-    limit: 1,
+    collection: "notes",
     locale: locale as Locale,
     select: {
       description: true,
@@ -50,20 +61,20 @@ export async function generateMetadata({
     sort: ["parent.title", "title"],
     ...(slug && {
       where: {
-        "breadcrumbs.url": { equals: "/" + slug.join("/") },
+        url: { equals: `/notes/${slug.join("/")}` },
       },
     }),
   })
   return {
-    description: page.description || undefined,
+    ...(page.description && { description: page.description }),
     title: page.title,
   }
 }
 
-export default async function KnowledgeBaseLayout({
+export default async function NotesLayout({
   children,
   params,
-}: LayoutProps<"/[locale]/knowledge-base/[[...slug]]">) {
+}: LayoutProps<"/[locale]/notes/[[...slug]]">) {
   const { locale, slug } = await params
 
   if (!hasLocale(routing.locales, locale)) notFound()
@@ -71,10 +82,10 @@ export default async function KnowledgeBaseLayout({
   // Enable static rendering
   setRequestLocale(locale)
 
-  const t = await getTranslations("KnowledgeBase")
+  const t = await getTranslations("Notes")
 
-  const { docs: pages } = await payload.find({
-    collection: "pages",
+  const { docs: notes } = await payload.find({
+    collection: "notes",
     limit: 0,
     locale: locale,
     select: {
@@ -90,42 +101,35 @@ export default async function KnowledgeBaseLayout({
     },
     sort: ["parent.title", "title"],
   })
-  const currentPage = slug
-    ? pages.find((page) => page.url === (slug ? slug.join("/") : ""))
-    : pages[0]
-  if (!currentPage) {
-    notFound()
-  }
-
-  const nestedPages = getNestedDocs(
-    pages,
-    (page) => page.slug,
-    (page) =>
-      page.parent && typeof page.parent === "object"
-        ? page.parent.slug
-        : page.parent,
+  const nestedDocsTree = new NestedDocsTree(
+    notes,
+    (note) => note.slug,
+    (note) =>
+      note.parent && typeof note.parent === "object"
+        ? note.parent.slug
+        : note.parent,
   )
+  const currentPage = slug
+    ? nestedDocsTree.findByPredicate(
+        (note) => note.url === (slug ? `/notes/${slug.join("/")}` : ""),
+      )
+    : notes[0]
+  if (!currentPage) notFound()
 
-  const flatPages = flattenNestedDocs(nestedPages)
-  const currentIndex = flatPages.findIndex((page) => page.id === currentPage.id)
-
-  const prevPage = currentIndex > 0 ? flatPages[currentIndex - 1] : null
-  const nextPage =
-    currentIndex < flatPages.length - 1 ? flatPages[currentIndex + 1] : null
+  const prevPage = nestedDocsTree.getPrevious(currentPage.id, (doc) => doc.id)
+  const nextPage = nestedDocsTree.getNext(currentPage.id, (doc) => doc.id)
 
   return (
     <SidebarProvider className="container flex min-h-[calc(100vh-var(--header-height))]">
       <Sidebar
         className={cn(
-          "sticky top-[var(--header-height)]",
+          "sticky top-(--header-height)",
           "h-[calc(100svh-var(--header-height))] min-h-0",
           "[--sidebar-width:--spacing(72)]",
         )}
       >
         <SidebarContent>
-          {nestedPages.map((page) => (
-            <SidebarItem currentPage={currentPage} key={page.id} page={page} />
-          ))}
+          {renderItems(currentPage, nestedDocsTree)}
         </SidebarContent>
       </Sidebar>
       <SidebarInset className="flex w-full min-w-0 flex-col gap-2 max-lg:px-2">
@@ -137,7 +141,7 @@ export default async function KnowledgeBaseLayout({
           )}
         >
           <header>
-            <nav className="not-prose flex h-[var(--header-height)] items-center gap-2">
+            <nav className="not-prose flex h-(--header-height) items-center gap-2">
               <div className="flex items-center md:hidden">
                 <SidebarTrigger />
                 <Separator
@@ -154,7 +158,7 @@ export default async function KnowledgeBaseLayout({
                           {doc === currentPage.id ? (
                             <BreadcrumbPage>{label}</BreadcrumbPage>
                           ) : (
-                            <BreadcrumbLink href={"/knowledge-base" + url}>
+                            <BreadcrumbLink href={url ?? "#"}>
                               {label}
                             </BreadcrumbLink>
                           )}
@@ -187,7 +191,7 @@ export default async function KnowledgeBaseLayout({
                 <Card className="group flex-1">
                   <CardHeader>
                     <CardTitle>
-                      <Link href={"/knowledge-base/" + prevPage.url} rel="prev">
+                      <Link href={prevPage.url} rel="prev">
                         {prevPage.title}
                       </Link>
                     </CardTitle>
@@ -195,7 +199,10 @@ export default async function KnowledgeBaseLayout({
                       {t("navigation.prevPage")}
                     </CardDescription>
                     <CardAction className="col-start-1 my-auto justify-self-start">
-                      <Link href={"/knowledge-base/" + prevPage.url} rel="prev">
+                      <Link
+                        href={prevPage.breadcrumbs?.at(-1)?.url as string}
+                        rel="prev"
+                      >
                         <ChevronLeftIcon
                           aria-hidden
                           className="text-muted-foreground group-hover:text-accent-foreground"
@@ -209,7 +216,7 @@ export default async function KnowledgeBaseLayout({
                 <Card className="group flex-1">
                   <CardHeader>
                     <CardTitle>
-                      <Link href={"/knowledge-base/" + nextPage.url} rel="next">
+                      <Link href={nextPage.url} rel="next">
                         {nextPage.title}
                       </Link>
                     </CardTitle>
@@ -217,7 +224,7 @@ export default async function KnowledgeBaseLayout({
                       {t("navigation.nextPage")}
                     </CardDescription>
                     <CardAction className="my-auto">
-                      <Link href={"/knowledge-base/" + nextPage.url} rel="next">
+                      <Link href={nextPage.url} rel="next">
                         <ChevronRightIcon
                           aria-hidden
                           className="text-muted-foreground group-hover:text-accent-foreground"
@@ -233,4 +240,118 @@ export default async function KnowledgeBaseLayout({
       </SidebarInset>
     </SidebarProvider>
   )
+}
+
+function renderItems(currentNote: Note, nestedNotesTree: NestedDocsTree<Note>) {
+  const Item = ({
+    currentPage,
+    level = 0,
+    page,
+  }: {
+    currentPage: Note
+    level: number
+    page: NestedDocs<Note>
+  }) => {
+    const isActive = currentPage?.id === page.id
+
+    // Seção: renderiza como grupo com label e conteúdo
+    if (page.type === "section") {
+      return (
+        <SidebarGroup>
+          <SidebarGroupLabel>{page.title}</SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              {page.children.map((child) => (
+                <Item
+                  currentPage={currentPage}
+                  key={child.id}
+                  level={level + 1}
+                  page={child}
+                />
+              ))}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+      )
+    }
+
+    // Página: renderiza como item de menu com possível submenu colapsável
+    if (page.type === "page") {
+      const hasChildren = page.children.length > 0
+      const isOpen = hasChildren
+        ? nestedNotesTree.isAncestor(page, currentPage, (note) => note.id)
+        : false
+
+      // Para níveis mais profundos (submenu), usa SidebarMenuSubItem
+      if (level > 0) {
+        return (
+          <SidebarMenuSubItem>
+            <SidebarMenuSubButton isActive={isActive}>
+              <Link href={page.url}>{page.title}</Link>
+            </SidebarMenuSubButton>
+            {hasChildren && (
+              <Collapsible defaultOpen={isOpen}>
+                <CollapsibleTrigger asChild>
+                  <SidebarMenuAction className="data-[state=open]:rotate-90">
+                    <ChevronRightIcon aria-hidden />
+                    <span className="sr-only">Expandir submenu</span>
+                  </SidebarMenuAction>
+                </CollapsibleTrigger>
+                <CollapsibleContent className="w-full">
+                  <SidebarMenuSub className="mx-0 ml-3.5 px-0 pl-2.5">
+                    {page.children.map((child) => (
+                      <Item
+                        currentPage={currentPage}
+                        key={child.id}
+                        level={level + 1}
+                        page={child}
+                      />
+                    ))}
+                  </SidebarMenuSub>
+                </CollapsibleContent>
+              </Collapsible>
+            )}
+          </SidebarMenuSubItem>
+        )
+      }
+
+      // Para o primeiro nível, usa SidebarMenuItem
+      return (
+        <SidebarMenuItem>
+          <SidebarMenuButton asChild isActive={isActive}>
+            <Link href={page.url}>{page.title}</Link>
+          </SidebarMenuButton>
+          {hasChildren && (
+            <Collapsible defaultOpen={isOpen}>
+              <CollapsibleTrigger asChild>
+                <SidebarMenuAction className="data-[state=open]:rotate-90">
+                  <ChevronRightIcon aria-hidden />
+                  <span className="sr-only">Expandir submenu</span>
+                </SidebarMenuAction>
+              </CollapsibleTrigger>
+              <CollapsibleContent>
+                <SidebarMenuSub>
+                  {page.children.map((child) => (
+                    <Item
+                      currentPage={currentPage}
+                      key={child.id}
+                      level={level + 1}
+                      page={child}
+                    />
+                  ))}
+                </SidebarMenuSub>
+              </CollapsibleContent>
+            </Collapsible>
+          )}
+        </SidebarMenuItem>
+      )
+    }
+
+    return null
+  }
+  return nestedNotesTree
+    .getRoots()
+    .map((note) => (
+      <Item currentPage={currentNote} key={note.id} level={0} page={note} />
+    ))
 }

@@ -1,11 +1,12 @@
 import { revalidatePath } from "next/cache"
+import { Breadcrumb } from "node_modules/@payloadcms/plugin-nested-docs/dist/types"
 import { CollectionConfig, FieldHookArgs } from "payload"
 import slug from "slug"
 
-export const Pages: CollectionConfig = {
+export const Notes: CollectionConfig = {
   admin: {
     defaultColumns: ["title", "slug", "type", "parent", "content"],
-    group: { en: "Knowledge base", pt: "Base de conhecimento" },
+    group: { en: "Content", pt: "Conteúdo" },
     useAsTitle: "title",
   },
   defaultSort: "title",
@@ -69,6 +70,34 @@ export const Pages: CollectionConfig = {
     },
     {
       admin: {
+        readOnly: true,
+      },
+      hooks: {
+        beforeValidate: [
+          (args) => {
+            const breadcrumbs =
+              args.data?.breadcrumbs ?? args.originalDoc.breadcrumbs
+            if (breadcrumbs) {
+              return breadcrumbs
+                .map((breadcrumb: Breadcrumb) => breadcrumb.url)
+                .reduce(
+                  (previousUrl: string, url: string) =>
+                    url.length > previousUrl.length ? url : previousUrl,
+                  "",
+                )
+            }
+            return args.value
+          },
+        ],
+      },
+      label: "URL",
+      name: "url",
+      required: true,
+      type: "text",
+      unique: true,
+    },
+    {
+      admin: {
         condition: (data) => data.type !== "section",
       },
       label: { en: "Description", pt: "Descrição" },
@@ -87,59 +116,6 @@ export const Pages: CollectionConfig = {
       name: "content",
       type: "richText",
     },
-    {
-      admin: {
-        readOnly: true,
-      },
-      hooks: {
-        afterRead: [
-          ({ data, req }) => {
-            const localizedBreadcrumbs = data?.breadcrumbs
-            if (typeof localizedBreadcrumbs !== "object") {
-              return null
-            }
-
-            // Helper to extract unique segments from breadcrumbs
-            const extractSegments = (
-              breadcrumbs: undefined | { url: string }[],
-            ) => {
-              if (!breadcrumbs) return ""
-              const segmentsSet = new Set<string>()
-              for (const breadcrumb of breadcrumbs) {
-                if (breadcrumb?.url) {
-                  for (const segment of breadcrumb.url.split("/")) {
-                    if (segment) {
-                      segmentsSet.add(segment)
-                    }
-                  }
-                }
-              }
-              return Array.from(segmentsSet).join("/")
-            }
-
-            if (!req.locale || req.locale === "all") {
-              const slugs: { [locale: string]: string } = {}
-              for (const [locale, breadcrumbs] of Object.entries(
-                localizedBreadcrumbs,
-              )) {
-                slugs[locale] = extractSegments(
-                  breadcrumbs as { url: string }[],
-                )
-              }
-              return slugs
-            }
-
-            return extractSegments(
-              localizedBreadcrumbs[req.locale] as { url: string }[],
-            )
-          },
-        ],
-      },
-      name: "url",
-      required: false,
-      type: "text",
-      virtual: true,
-    },
   ],
   hooks: {
     afterChange: [
@@ -149,7 +125,7 @@ export const Pages: CollectionConfig = {
           args.doc._status === "published"
         ) {
           revalidatePath(
-            "/(frontend)/[locale]/knowledge-base/[[...slug]]",
+            `/(frontend)/[locale]/${args.collection.slug}/[[...slug]]`,
             "layout",
           )
         }
@@ -157,10 +133,10 @@ export const Pages: CollectionConfig = {
     ],
   },
   labels: {
-    plural: { en: "Pages", pt: "Páginas" },
-    singular: { en: "Page", pt: "Página" },
+    plural: { en: "Notes", pt: "Notas" },
+    singular: { en: "Note", pt: "Nota" },
   },
-  slug: "pages",
+  slug: "notes",
   versions: {
     drafts: {
       autosave: {

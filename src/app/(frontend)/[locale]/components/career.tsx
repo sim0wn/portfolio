@@ -21,7 +21,7 @@ export async function Career({ locale }: { locale: Locale }) {
       locale: locale === "pt-BR" ? pt : enUS,
     })
   return (
-    <section className="flex w-full flex-col place-content-center gap-8 *:w-fit md:flex-row md:gap-16">
+    <section className="flex w-full flex-col place-content-center gap-8 px-2 *:w-fit md:flex-row md:gap-16 md:px-0">
       <Timeline data-orientation="vertical">
         {educations.map((education) => (
           <Timeline.Item key={education.id}>

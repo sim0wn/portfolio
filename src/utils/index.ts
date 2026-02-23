@@ -1,6 +1,2 @@
 export { cn } from "./cn.util"
-export {
-  flattenNestedDocs,
-  getNestedDocs,
-  isAncestor,
-} from "./nested-docs.util"
+export { NestedDocsTree } from "./nested-docs.util"

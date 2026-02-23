@@ -65,7 +65,7 @@ export async function Skills({ locale }: { locale: Locale }) {
                     </CardTitle>
                   </CardHeader>
                   <CardContent
-                    className={cn("flex min-h-[250px] items-start")}
+                    className={cn("flex min-h-62.5 items-start")}
                     id={`skill-desc-${skill.id}`}
                   >
                     {skill.description}

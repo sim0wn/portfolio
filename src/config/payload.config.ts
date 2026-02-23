@@ -17,12 +17,11 @@ import {
   Activities,
   ActivityCategories,
   ActivityPlatforms,
-  ContactSubmissions,
   Educations,
   Experiences,
   faqCollection,
   Images,
-  Pages,
+  Notes,
   Skills,
 } from "@/collections"
 import {
@@ -66,12 +65,11 @@ export default buildConfig({
     Activities,
     ActivityCategories,
     ActivityPlatforms,
-    ContactSubmissions,
     Experiences,
     Educations,
     faqCollection,
     Images,
-    Pages,
+    Notes,
     Skills,
   ],
   db: mongooseAdapter({
@@ -148,9 +146,13 @@ export default buildConfig({
   },
   plugins: [
     nestedDocsPlugin({
-      collections: ["pages"],
-      generateURL: (docs) =>
-        docs.reduce((url, doc) => `${url}/${doc.slug}`, ""),
+      collections: ["notes"],
+      generateURL(docs, _currentDoc, collection) {
+        return docs.reduce(
+          (url, doc) => `${url}/${doc.slug}`,
+          `/${collection.slug}`,
+        )
+      },
     }),
     vercelBlobStorage({
       collections: {

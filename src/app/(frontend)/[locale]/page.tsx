@@ -11,7 +11,6 @@ import { About, AboutFallback } from "./components/about"
 import { Activity, ActivitySkeleton } from "./components/activities"
 import { Career } from "./components/career"
 import { Featured, FeaturedFallback } from "./components/featured"
-import { Hero, HeroFallback } from "./components/hero"
 import { Skills, SkillsFallback } from "./components/skills"
 
 export default async function HomePage({ params }: PageProps<"/[locale]">) {
@@ -43,8 +42,8 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
         revalidateOnReconnect: false,
       }}
     >
-      <Suspense fallback={<HeroFallback />}>
-        <Hero />
+      <Suspense fallback={<AboutFallback />}>
+        <About />
       </Suspense>
       <Suspense fallback={<FeaturedFallback />}>
         <Featured locale={locale} />
@@ -55,9 +54,6 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
       <Career locale={locale} />
       <Suspense fallback={<ActivitySkeleton />}>
         <Activity locale={locale} />
-      </Suspense>
-      <Suspense fallback={<AboutFallback />}>
-        <About locale={locale} />
       </Suspense>
     </SWRConfig>
   )

@@ -371,7 +371,7 @@ function Activity({ locale }: { locale: Locale }) {
               >
                 <ChevronLeft className="h-4 w-4" />
               </Button>
-              <span className="min-w-[64px] text-center text-sm">
+              <span className="min-w-16 text-center text-sm">
                 {t("activities.pagination.label", {
                   page: currentPage ?? page,
                   totalPages: totalPages ?? 0,
@@ -417,7 +417,7 @@ function ActivitySkeleton() {
         className="mb-6 flex w-full flex-col gap-x-2 gap-y-4 sm:flex-row sm:items-end"
         tabIndex={-1}
       >
-        <div className="flex w-full max-w-xs min-w-[160px] flex-col gap-1">
+        <div className="flex w-full max-w-xs min-w-40 flex-col gap-1">
           <Skeleton className="mb-1 h-4 w-24 rounded" />
           <Skeleton className="h-10 w-full rounded" />
         </div>

@@ -11,7 +11,7 @@ export default function Loading() {
       {/* Sidebar */}
       <aside
         aria-label="Sidebar navigation loading"
-        className="sticky top-[var(--header-height)] flex h-[calc(100svh-var(--header-height))] min-h-0 w-72 flex-col gap-2 pr-2 max-md:hidden"
+        className="sticky top-(--header-height) flex h-[calc(100svh-var(--header-height))] min-h-0 w-72 flex-col gap-2 pr-2 max-md:hidden"
       >
         {Array.from({ length: 5 }).map((_, index) => (
           <SidebarMenuSkeleton key={index} />

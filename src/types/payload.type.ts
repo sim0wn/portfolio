@@ -70,12 +70,11 @@ export interface Config {
     activities: Activity;
     'activity-categories': ActivityCategory;
     'activity-platforms': ActivityPlatform;
-    'contact-submissions': ContactSubmission;
     experiences: Experience;
     educations: Education;
     faq: Faq;
     images: Image;
-    pages: Page;
+    notes: Note;
     skills: Skill;
     'payload-kv': PayloadKv;
     users: User;
@@ -89,12 +88,11 @@ export interface Config {
     activities: ActivitiesSelect<false> | ActivitiesSelect<true>;
     'activity-categories': ActivityCategoriesSelect<false> | ActivityCategoriesSelect<true>;
     'activity-platforms': ActivityPlatformsSelect<false> | ActivityPlatformsSelect<true>;
-    'contact-submissions': ContactSubmissionsSelect<false> | ContactSubmissionsSelect<true>;
     experiences: ExperiencesSelect<false> | ExperiencesSelect<true>;
     educations: EducationsSelect<false> | EducationsSelect<true>;
     faq: FaqSelect<false> | FaqSelect<true>;
     images: ImagesSelect<false> | ImagesSelect<true>;
-    pages: PagesSelect<false> | PagesSelect<true>;
+    notes: NotesSelect<false> | NotesSelect<true>;
     skills: SkillsSelect<false> | SkillsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
@@ -114,9 +112,7 @@ export interface Config {
     overview: OverviewSelect<false> | OverviewSelect<true>;
   };
   locale: 'en-US' | 'pt-BR';
-  user: User & {
-    collection: 'users';
-  };
+  user: User;
   jobs: {
     tasks: {
       syncHackTheBoxActivity: TaskSyncHackTheBoxActivity;
@@ -226,25 +222,6 @@ export interface ActivityPlatform {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "contact-submissions".
- */
-export interface ContactSubmission {
-  id: string;
-  fullName: string;
-  email: string;
-  /**
-   * Optional phone number for contact.
-   */
-  phoneNumber?: string | null;
-  /**
-   * The message or inquiry from the user.
-   */
-  message: string;
-  createdAt: string;
-  updatedAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "experiences".
  */
 export interface Experience {
@@ -338,9 +315,9 @@ export interface Image {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "pages".
+ * via the `definition` "notes".
  */
-export interface Page {
+export interface Note {
   id: string;
   /**
    * The title of the page.
@@ -351,6 +328,7 @@ export interface Page {
    * A unique identifier (per hierarchical level) that is human-readable for the page.
    */
   slug: string;
+  url: string;
   description?: string | null;
   content?: {
     root: {
@@ -367,11 +345,11 @@ export interface Page {
     };
     [k: string]: unknown;
   } | null;
-  url?: string | null;
-  parent?: (string | null) | Page;
+  locale?: string | null;
+  parent?: (string | null) | Note;
   breadcrumbs?:
     | {
-        doc?: (string | null) | Page;
+        doc?: (string | null) | Note;
         url?: string | null;
         label?: string | null;
         id?: string | null;
@@ -435,6 +413,7 @@ export interface User {
       }[]
     | null;
   password?: string | null;
+  collection: 'users';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -548,10 +527,6 @@ export interface PayloadLockedDocument {
         value: string | ActivityPlatform;
       } | null)
     | ({
-        relationTo: 'contact-submissions';
-        value: string | ContactSubmission;
-      } | null)
-    | ({
         relationTo: 'experiences';
         value: string | Experience;
       } | null)
@@ -568,8 +543,8 @@ export interface PayloadLockedDocument {
         value: string | Image;
       } | null)
     | ({
-        relationTo: 'pages';
-        value: string | Page;
+        relationTo: 'notes';
+        value: string | Note;
       } | null)
     | ({
         relationTo: 'skills';
@@ -673,18 +648,6 @@ export interface ActivityPlatformsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "contact-submissions_select".
- */
-export interface ContactSubmissionsSelect<T extends boolean = true> {
-  fullName?: T;
-  email?: T;
-  phoneNumber?: T;
-  message?: T;
-  createdAt?: T;
-  updatedAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "experiences_select".
  */
 export interface ExperiencesSelect<T extends boolean = true> {
@@ -782,15 +745,16 @@ export interface ImagesSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "pages_select".
+ * via the `definition` "notes_select".
  */
-export interface PagesSelect<T extends boolean = true> {
+export interface NotesSelect<T extends boolean = true> {
   title?: T;
   type?: T;
   slug?: T;
+  url?: T;
   description?: T;
   content?: T;
-  url?: T;
+  locale?: T;
   parent?: T;
   breadcrumbs?:
     | T
@@ -962,8 +926,8 @@ export interface TaskSchedulePublish {
     type?: ('publish' | 'unpublish') | null;
     locale?: string | null;
     doc?: {
-      relationTo: 'pages';
-      value: string | Page;
+      relationTo: 'notes';
+      value: string | Note;
     } | null;
     global?: string | null;
     user?: (string | null) | User;

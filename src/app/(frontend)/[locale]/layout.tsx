@@ -149,9 +149,9 @@ export default async function LocaleLayout({
       label: t("nav.menu.home"),
     },
     {
-      href: "/knowledge-base",
+      href: "/notes",
       icon: <Library className="h-4 w-4" />,
-      label: t("nav.menu.knowledgeBase"),
+      label: t("nav.menu.notes"),
     },
   ]
 
@@ -169,8 +169,8 @@ export default async function LocaleLayout({
     { label: t("nav.about"), path: "/#skills" },
     { label: t("nav.projects"), path: "/#activities" },
     {
-      label: t("nav.menu.knowledgeBase"),
-      path: "/knowledge-base",
+      label: t("nav.menu.notes"),
+      path: "/notes",
     },
     { label: t("nav.contact"), path: "/#contact" },
   ] as const

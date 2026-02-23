@@ -15,8 +15,8 @@ import { payload } from "@/lib"
 export const dynamicParams = true
 
 export async function generateStaticParams() {
-  const { docs: pages } = await payload.find({
-    collection: "pages",
+  const { docs: notes } = await payload.find({
+    collection: "notes",
     limit: 0,
     locale: "all",
     select: {
@@ -25,19 +25,22 @@ export async function generateStaticParams() {
     },
   })
 
-  return pages.flatMap(({ url }) => {
-    if (url && typeof url === "object") {
-      return Object.entries(url).map(([locale, slugs]) => ({
+  return notes.reduce((params: any, { breadcrumbs, url }) => {
+    Object.entries(breadcrumbs as unknown as object).forEach(([locale]) => {
+      params.push({
         locale,
-        slug: (slugs as string).split("/"),
-      }))
-    }
-  })
+        slug: url
+          .split("/")
+          .filter((segment) => segment !== "notes" && segment.length > 0),
+      })
+    })
+    return params
+  }, [])
 }
 
-export default async function Page({
+export default async function Notes({
   params,
-}: PageProps<"/[locale]/knowledge-base/[[...slug]]">) {
+}: PageProps<"/[locale]/notes/[[...slug]]">) {
   const { locale, slug } = await params
 
   if (!hasLocale(routing.locales, locale)) notFound()
@@ -46,27 +49,24 @@ export default async function Page({
   setRequestLocale(locale)
 
   const {
-    docs: [page],
+    docs: [note],
   } = await payload.find({
-    collection: "pages",
+    collection: "notes",
     limit: 1,
     locale: locale,
     sort: ["parent.title", "title"],
     ...(slug && {
       where: {
-        "breadcrumbs.url": { equals: `/${slug.join("/")}` },
+        url: { equals: `/notes/${slug.join("/")}` },
       },
     }),
   })
-  if (!page) {
-    notFound()
-  }
-  if (!page.content) {
-    const { docs: pages } = await payload.find({
-      collection: "pages",
+  if (!note) notFound()
+  if (!note.content) {
+    const { docs: notes } = await payload.find({
+      collection: "notes",
       locale: locale,
       select: {
-        breadcrumbs: true,
         description: true,
         id: true,
         slug: true,
@@ -75,7 +75,7 @@ export default async function Page({
       },
       where: {
         "parent.id": {
-          equals: page.id,
+          equals: note.id,
         },
         type: {
           equals: "page",
@@ -84,15 +84,15 @@ export default async function Page({
     })
     return (
       <ul className="not-prose flex h-full w-full flex-col gap-2">
-        {pages.map((page) => (
-          <li className="w-full" key={page.id}>
+        {notes.map((note) => (
+          <li className="w-full" key={note.id}>
             <Card className="w-full">
               <CardHeader>
                 <CardTitle>
-                  <Link href={`/knowledge-base/${page.url}`}>{page.title}</Link>
+                  <Link href={note.url}>{note.title}</Link>
                 </CardTitle>
-                {page.description && (
-                  <CardDescription>{page.description}</CardDescription>
+                {note.description && (
+                  <CardDescription>{note.description}</CardDescription>
                 )}
               </CardHeader>
             </Card>
@@ -101,5 +101,5 @@ export default async function Page({
       </ul>
     )
   }
-  return <RichText data={page.content} />
+  return <RichText data={note.content} />
 }
