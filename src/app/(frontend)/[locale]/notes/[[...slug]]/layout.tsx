@@ -103,10 +103,10 @@ export default async function NotesLayout({
   })
   const nestedDocsTree = new NestedDocsTree(
     notes,
-    (note) => note.slug,
+    (note) => note.id,
     (note) =>
       note.parent && typeof note.parent === "object"
-        ? note.parent.slug
+        ? note.parent.id
         : note.parent,
   )
   const currentPage = slug
@@ -286,8 +286,8 @@ function renderItems(currentNote: Note, nestedNotesTree: NestedDocsTree<Note>) {
       if (level > 0) {
         return (
           <SidebarMenuSubItem>
-            <SidebarMenuSubButton isActive={isActive}>
-              <Link href={page.url}>{page.title}</Link>
+            <SidebarMenuSubButton href={page.url} isActive={isActive}>
+              {page.title}
             </SidebarMenuSubButton>
             {hasChildren && (
               <Collapsible defaultOpen={isOpen}>

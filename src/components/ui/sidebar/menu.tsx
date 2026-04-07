@@ -2,13 +2,7 @@
 
 import { Slot } from "@radix-ui/react-slot"
 import { cva, VariantProps } from "class-variance-authority"
-import {
-  ComponentProps,
-  CSSProperties,
-  useEffect,
-  useMemo,
-  useState,
-} from "react"
+import { ComponentProps, CSSProperties, useMemo, useState } from "react"
 
 import { Skeleton, Tooltip, TooltipContent, TooltipTrigger } from "@/components"
 import { cn } from "@/utils"
