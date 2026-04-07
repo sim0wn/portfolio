@@ -1,7 +1,9 @@
 import {
+  $addUpdateTag,
   $getNodeByKey,
   $getSelection,
   $isRangeSelection,
+  SKIP_DOM_SELECTION_TAG,
 } from "@payloadcms/richtext-lexical/lexical"
 import { useLexicalComposerContext } from "@payloadcms/richtext-lexical/lexical/react/LexicalComposerContext"
 import { $wrapNodeInElement } from "@payloadcms/richtext-lexical/lexical/utils"
@@ -53,6 +55,7 @@ export function useAnnotation() {
   const updateAnnotation = useCallback(
     ({ note }: AnnotationPayload, nodeKey: string) => {
       editor.update(() => {
+        $addUpdateTag(SKIP_DOM_SELECTION_TAG)
         const node = $getNodeByKey(nodeKey)
         if (node && $isAnnotationNode(node)) {
           node.setNote(note)

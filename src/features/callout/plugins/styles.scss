@@ -1,59 +1,65 @@
+@import '~@payloadcms/ui/scss';
+
 .callout {
   background-color: var(--theme-elevation-50);
   color: var(--card-foreground);
-  border-radius: var(--radius-md, 10px);
-  border: 1px solid var(--border);
-  box-shadow: 0 4px 16px rgba(32, 32, 32, 0.08);
+  border-radius: $style-radius-m;
+  border: 1px solid var(--theme-border-color);
   display: flex;
-  align-items: flex-start;
+  flex-direction: column;
   padding: 8px;
-  gap: 16px;
+  gap: 0.5em;
   width: 100%;
   min-width: 0;
-  transition: box-shadow var(--duration-normal) var(--ease), border-color var(--duration-fast) var(--ease);
-}
+  user-select: none;
 
-.callout__row {
-  display: flex;
-  gap: 8px;
-  margin-block: auto;
-  width: 100%;
-}
+  &>header {
+    display: flex;
+    justify-content: center;
+    padding: 0.125em 0em;
+    background-color: var(--theme-elevation-100);
 
-.callout__variant {
-  display: flex;
-  flex-direction: column;
-  min-width: 140px;
-  height: 20px;
-  padding: 0px;
-}
+    h1 {
+      font-size: 1em;
+      font-weight: bold;
+    }
 
-.callout__variant_item {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  width: 100%;
-  font-size: 1rem;
-  border-radius: var(--radius-sm);
-  transition: background-color var(--duration-fast) var(--ease);
-}
+    button {
+      margin: 0px;
+    }
 
-.callout__variant_item:focus,
-.callout__variant_item:hover {
-  background-color: var(--muted);
-  outline: none;
-}
+    &>div {
+      display: flex;
+    }
+  }
 
-.callout__main {
-  flex: 1 1 0%;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  min-width: 0;
-}
+  &>div {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.5em;
 
-.callout__title {
-  width: 100%;
+    &>div.field-type {
+      width: 100%;
+    }
+  }
+
+  .callout-variant {
+    min-width: 150px;
+  }
+
+  .callout-variant__icon {
+    height: 1em;
+    font-size: 1.5em;
+  }
+
+  .callout-variant_item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    font-size: 1rem;
+    border-radius: var(--radius-sm);
+  }
 }
 
 @media (max-width: 640px) {

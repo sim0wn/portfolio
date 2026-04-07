@@ -5,7 +5,7 @@ import {
   SerializedElementNode,
   Spread,
 } from "@payloadcms/richtext-lexical/lexical"
-import { lazy, ReactElement } from "react"
+import { JSX, lazy } from "react"
 
 const Callout = lazy(() =>
   import("../components").then(({ Callout }) => ({ default: Callout })),
@@ -19,7 +19,7 @@ type CalloutPayload = {
 
 type SerializedCalloutNode = Spread<CalloutPayload, SerializedElementNode>
 
-class CalloutNode extends DecoratorNode<ReactElement> {
+class CalloutNode extends DecoratorNode<JSX.Element> {
   private __message: CalloutPayload["message"]
   private __title: CalloutPayload["title"]
   private __variant: CalloutPayload["variant"]
@@ -49,13 +49,12 @@ class CalloutNode extends DecoratorNode<ReactElement> {
     return "callout"
   }
 
-  static override importJSON({
-    message,
-    title,
-    variant,
-  }: SerializedCalloutNode) {
-    const node = $createCalloutNode({ message, title, variant })
-    return node
+  static override importJSON(serializedNode: SerializedCalloutNode) {
+    return $createCalloutNode({
+      message: serializedNode.message,
+      title: serializedNode.title,
+      variant: serializedNode.variant,
+    }).updateFromJSON(serializedNode)
   }
 
   override createDOM() {
@@ -73,22 +72,20 @@ class CalloutNode extends DecoratorNode<ReactElement> {
       ...super.exportJSON(),
       message: this.__message,
       title: this.__title,
-      type: "callout",
       variant: this.__variant,
-      version: 1,
     }
   }
 
   getMessage() {
-    return this.__message ?? ""
+    return this.getLatest().__message ?? ""
   }
 
   getTitle() {
-    return this.__title ?? ""
+    return this.getLatest().__title ?? ""
   }
 
   getVariant() {
-    return this.__variant ?? ""
+    return this.getLatest().__variant ?? ""
   }
 
   override isInline() {

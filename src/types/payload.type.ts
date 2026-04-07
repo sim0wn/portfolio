@@ -112,6 +112,9 @@ export interface Config {
     overview: OverviewSelect<false> | OverviewSelect<true>;
   };
   locale: 'en-US' | 'pt-BR';
+  widgets: {
+    collections: CollectionsWidget;
+  };
   user: User;
   jobs: {
     tasks: {
@@ -345,7 +348,6 @@ export interface Note {
     };
     [k: string]: unknown;
   } | null;
-  locale?: string | null;
   parent?: (string | null) | Note;
   breadcrumbs?:
     | {
@@ -754,7 +756,6 @@ export interface NotesSelect<T extends boolean = true> {
   url?: T;
   description?: T;
   content?: T;
-  locale?: T;
   parent?: T;
   breadcrumbs?:
     | T
@@ -908,6 +909,16 @@ export interface OverviewSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "collections_widget".
+ */
+export interface CollectionsWidget {
+  data?: {
+    [k: string]: unknown;
+  };
+  width: 'full';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

@@ -50,9 +50,9 @@ class AnnotationNode extends ElementNode {
   }
 
   override createDOM() {
-    const span = document.createElement("span")
-    span.className = "annotation"
-    return span
+    const u = document.createElement("u")
+    u.className = "popup-button popup--size-small"
+    return u
   }
 
   override exportDOM() {

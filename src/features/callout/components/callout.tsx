@@ -1,31 +1,26 @@
 "use client"
 
-import { $getNodeByKey } from "@payloadcms/richtext-lexical/lexical"
+import {
+  $getNodeByKey,
+  mergeRegister,
+} from "@payloadcms/richtext-lexical/lexical"
 import { useLexicalComposerContext } from "@payloadcms/richtext-lexical/lexical/react/LexicalComposerContext"
-import {
-  Select,
-  ShimmerEffect,
-  TextInput,
-  useTranslation,
-} from "@payloadcms/ui"
+import { Button, Select, ShimmerEffect, useTranslation } from "@payloadcms/ui"
 import { AlertTriangle, CheckCircle, Info, XCircle } from "lucide-react"
-import {
-  SyntheticEvent,
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-} from "react"
+import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 
 import { $isCalloutNode, CalloutNode, CalloutPayload } from "../nodes"
-import { UPDATE_CALLOUT_COMMAND } from "../plugins"
+import { REMOVE_CALLOUT_COMMAND, UPDATE_CALLOUT_COMMAND } from "../plugins"
 
 export function Callout({ nodeKey }: { nodeKey: string }) {
   const [editor] = useLexicalComposerContext()
   const { t } = useTranslation<
     object,
-    | "lexical:callout:messagePlaceholder"
-    | "lexical:callout:titlePlaceholder"
+    | "lexical:callout:label"
+    | "lexical:callout:message:label"
+    | "lexical:callout:message:placeholder"
+    | "lexical:callout:title:label"
+    | "lexical:callout:title:placeholder"
     | "lexical:callout:variant"
     | "lexical:callout:variant:error"
     | "lexical:callout:variant:info"
@@ -34,99 +29,118 @@ export function Callout({ nodeKey }: { nodeKey: string }) {
     | "lexical:callout:variant:warning"
   >()
   const [node, setNode] = useState<CalloutNode | null>(null)
-  const [message, setMessage] = useState<string>("")
-  const [title, setTitle] = useState<string>("")
-  const [variant, setVariant] = useState<string>("")
+  const [variant, setVariant] = useState<CalloutPayload["variant"]>()
 
-  const variantOptions = useMemo(() => {
-    const variants = {
-      error: { icon: <XCircle />, label: t("lexical:callout:variant:error") },
-      info: { icon: <Info />, label: t("lexical:callout:variant:info") },
-      success: {
-        icon: <CheckCircle />,
-        label: t("lexical:callout:variant:success"),
-      },
-      warning: {
-        icon: <AlertTriangle />,
-        label: t("lexical:callout:variant:warning"),
-      },
-    }
-    return Object.entries(variants).map(([key, { icon, label }]) => ({
-      label: (
-        <div className="callout__variant_item">
-          {icon}
-          {label}
-        </div>
-      ),
-      value: key,
-    }))
-  }, [t])
+  const titleRef = useRef<HTMLInputElement>(null)
+  const messageRef = useRef<HTMLInputElement>(null)
+
+  const variantOptions = useMemo(
+    () =>
+      Object.entries({
+        error: {
+          icon: <XCircle className="callout-variant__icon" />,
+          label: t("lexical:callout:variant:error"),
+        },
+        info: {
+          icon: <Info className="callout-variant__icon" />,
+          label: t("lexical:callout:variant:info"),
+        },
+        success: {
+          icon: <CheckCircle className="callout-variant__icon" />,
+          label: t("lexical:callout:variant:success"),
+        },
+        warning: {
+          icon: <AlertTriangle className="callout-variant__icon" />,
+          label: t("lexical:callout:variant:warning"),
+        },
+      }).map(([key, { icon, label }]) => ({
+        label: (
+          <div className="callout-variant_item">
+            {icon}
+            {label}
+          </div>
+        ),
+        value: key,
+      })),
+    [t],
+  )
 
   const updateNode = useCallback(() => {
     const n = $getNodeByKey(nodeKey)
     if ($isCalloutNode(n)) {
       setNode(n)
-      setMessage(n.getMessage())
-      setTitle(n.getTitle())
-      setVariant(n.getVariant())
     }
   }, [nodeKey])
 
-  useEffect(() => {
-    editor.read(() => updateNode())
-    return editor.registerUpdateListener(({ editorState }) => {
-      editorState.read(() => {
-        updateNode()
+  const updateCallout = useCallback(
+    (payload: Partial<CalloutPayload>) => {
+      editor.dispatchCommand(UPDATE_CALLOUT_COMMAND, {
+        nodeKey,
+        ...payload,
       })
-    })
+    },
+    [editor, nodeKey],
+  )
+
+  useEffect(() => {
+    editor.read(updateNode)
+    return mergeRegister(
+      editor.registerUpdateListener(({ editorState }) => {
+        editorState.read(updateNode)
+      }),
+    )
   }, [editor, nodeKey, updateNode])
 
-  const onChangeTitle = (newTitle: CalloutPayload["title"]) => {
-    if (newTitle) {
-      setTitle(newTitle)
-      editor.dispatchCommand(UPDATE_CALLOUT_COMMAND, {
-        nodeKey,
-        title: newTitle,
-      })
-    }
-  }
-
-  const onChangeVariant = (newVariant: string) => {
-    if (newVariant) {
-      setVariant(newVariant)
-      editor.dispatchCommand(UPDATE_CALLOUT_COMMAND, {
-        nodeKey,
-        variant: newVariant,
-      })
-    }
-  }
-
-  const onChangeMessage = (newMessage: CalloutPayload["message"]) => {
-    if (newMessage) {
-      setMessage(newMessage)
-      editor.dispatchCommand(UPDATE_CALLOUT_COMMAND, {
-        message: newMessage,
-        nodeKey,
-      })
-    }
-  }
+  useEffect(() => {
+    editor.read(() => {
+      if (!node) return
+      if (titleRef.current) {
+        titleRef.current.value = node.getTitle()
+      }
+      if (messageRef.current) {
+        messageRef.current.value = node.getMessage()
+      }
+    })
+  }, [editor, node, titleRef])
 
   if (!node) return <ShimmerEffect />
 
   return (
-    <div className="callout">
-      <section className="callout__main">
-        <div className="callout__row">
+    <>
+      <header>
+        <div>
+          <h1>{t("lexical:callout:label")}</h1>
+          <Button
+            buttonStyle="error"
+            icon="x"
+            onClick={() => {
+              editor.dispatchCommand(REMOVE_CALLOUT_COMMAND, {
+                nodeKey: node.getKey(),
+              })
+            }}
+            size="xsmall"
+            tooltip={t("general:remove")}
+          />
+        </div>
+      </header>
+      <div>
+        <div>
+          <label
+            className="field-label"
+            htmlFor={`callout-variant-${node.getKey()}`}
+          >
+            {t("lexical:callout:title:label")}
+          </label>
           <Select
             aria-label={t("lexical:callout:variant:placeholder")}
-            className="callout__variant"
+            className="callout-variant"
             id={`callout-variant-${nodeKey}`}
             isClearable={false}
             isMulti={false}
             isSearchable={false}
             onChange={(option) => {
               if (Array.isArray(option)) return
-              onChangeVariant(option?.value as string)
+              setVariant(option?.value as CalloutPayload["variant"])
             }}
             options={variantOptions}
             placeholder={t("lexical:callout:variant:placeholder")}
@@ -134,29 +148,42 @@ export function Callout({ nodeKey }: { nodeKey: string }) {
               (variantOption) => variantOption.value === variant,
             )}
           />
-          <TextInput
-            aria-label={t("lexical:callout:titlePlaceholder")}
-            className="callout__title"
-            htmlAttributes={{ autoComplete: "off" }}
-            onChange={(e: SyntheticEvent<HTMLInputElement>) =>
-              onChangeTitle(e.currentTarget.value)
+        </div>
+        <div className="field-type text">
+          <label
+            className="field-label"
+            htmlFor={`callout-title-${node.getKey()}`}
+          >
+            {t("lexical:callout:title:label")}
+          </label>
+          <input
+            id={`callout-title-${node.getKey()}`}
+            onBlur={(event) =>
+              updateCallout({ title: event.currentTarget.value })
             }
-            path={`callout-${nodeKey}`}
-            placeholder={t("lexical:callout:titlePlaceholder")}
-            value={title}
+            placeholder={t("lexical:callout:title:placeholder")}
+            ref={titleRef}
           />
         </div>
-        <TextInput
-          aria-label={t("lexical:callout:messagePlaceholder")}
-          htmlAttributes={{ autoComplete: "off" }}
-          onChange={(e: SyntheticEvent<HTMLInputElement>) =>
-            onChangeMessage(e.currentTarget.value)
-          }
-          path={`callout-path-${nodeKey}`}
-          placeholder={t("lexical:callout:messagePlaceholder")}
-          value={message}
-        />
-      </section>
-    </div>
+      </div>
+      <div>
+        <div className="field-type text">
+          <label
+            className="field-label"
+            htmlFor={`callout-message-${node.getKey()}`}
+          >
+            {t("lexical:callout:message:label")}
+          </label>
+          <input
+            id={`callout-message-${node.getKey()}`}
+            onBlur={(event) =>
+              updateCallout({ message: event.currentTarget.value })
+            }
+            placeholder={t("lexical:callout:message:placeholder")}
+            ref={messageRef}
+          />
+        </div>
+      </div>
+    </>
   )
 }

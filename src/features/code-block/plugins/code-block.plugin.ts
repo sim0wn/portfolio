@@ -2,9 +2,11 @@
 
 import { PluginComponent } from "@payloadcms/richtext-lexical"
 import {
+  $addUpdateTag,
   $getNodeByKey,
   COMMAND_PRIORITY_EDITOR,
   createCommand,
+  SKIP_DOM_SELECTION_TAG,
 } from "@payloadcms/richtext-lexical/lexical"
 import { useLexicalComposerContext } from "@payloadcms/richtext-lexical/lexical/react/LexicalComposerContext"
 import { mergeRegister } from "@payloadcms/richtext-lexical/lexical/utils"
@@ -37,6 +39,7 @@ const CodeBlockPlugin: PluginComponent = () => {
         UPDATE_CODE_BLOCK_COMMAND,
         (payload: CodeBlockPayload & { nodeKey: string }) => {
           editor.update(() => {
+            $addUpdateTag(SKIP_DOM_SELECTION_TAG)
             const codeBlockNode = $getNodeByKey(payload.nodeKey)
             if ($isCodeBlockNode(codeBlockNode)) {
               if (payload.code) {
