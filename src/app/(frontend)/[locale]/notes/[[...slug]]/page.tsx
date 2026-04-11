@@ -25,17 +25,21 @@ export async function generateStaticParams() {
     },
   })
 
-  return notes.reduce((params: any, { breadcrumbs, url }) => {
-    Object.entries(breadcrumbs as unknown as object).forEach(([locale]) => {
-      params.push({
-        locale,
-        slug: url
-          .split("/")
-          .filter((segment) => segment !== "notes" && segment.length > 0),
+  return notes.reduce(
+    (params: { locale: string; slug: string[] }[], { breadcrumbs, url }) => {
+      Object.entries(breadcrumbs as unknown as object).forEach(([locale]) => {
+        if (!url) return
+        params.push({
+          locale,
+          slug: url
+            .split("/")
+            .filter((segment) => segment !== "notes" && segment.length > 0),
+        })
       })
-    })
-    return params
-  }, [])
+      return params
+    },
+    [],
+  )
 }
 
 export default async function Notes({
