@@ -1,10 +1,7 @@
-import { getTranslations } from "next-intl/server"
-
 import { Skeleton } from "@/components"
 import { payload } from "@/lib"
 
 export async function About() {
-  const t = await getTranslations("Home")
   const overview = await payload.findGlobal({ slug: "overview" })
   return (
     <section className="container flex flex-col items-center justify-between gap-x-12 gap-y-8 py-12 md:py-24">

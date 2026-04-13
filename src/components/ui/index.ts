@@ -17,6 +17,11 @@ export {
 } from "./breadcrumb"
 export { Button } from "./button"
 export {
+  ButtonGroup,
+  ButtonGroupSeparator,
+  ButtonGroupText,
+} from "./button-group"
+export {
   Card,
   CardAction,
   CardContent,
@@ -50,6 +55,18 @@ export {
   DialogTrigger,
 } from "./dialog"
 export {
+  Field,
+  FieldContent,
+  FieldDescription,
+  FieldError,
+  FieldGroup,
+  FieldLabel,
+  FieldLegend,
+  FieldSeparator,
+  FieldSet,
+  FieldTitle,
+} from "./field"
+export {
   Form,
   FormControl,
   FormDescription,
@@ -60,6 +77,26 @@ export {
   useFormField,
 } from "./form"
 export { Input } from "./input"
+export {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupButton,
+  InputGroupInput,
+  InputGroupText,
+  InputGroupTextarea,
+} from "./input-group"
+export {
+  Item,
+  ItemActions,
+  ItemContent,
+  ItemDescription,
+  ItemFooter,
+  ItemGroup,
+  ItemHeader,
+  ItemMedia,
+  ItemSeparator,
+  ItemTitle,
+} from "./item"
 export { Label } from "./label"
 export { ScrollArea, ScrollBar } from "./scroll-area"
 export {
