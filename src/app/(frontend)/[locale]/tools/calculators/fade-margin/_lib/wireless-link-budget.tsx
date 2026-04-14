@@ -57,12 +57,16 @@ export class FreeSpace implements IWirelessLinkComponent {
     public name: string,
     public description: string,
     public distance: number,
+    public multiplier: Multiplier = {
+      unit: "GHz",
+      value: 1,
+    },
   ) {}
 
   // Free space path loss formula: FSPL(dB) = 20 * log10(d) + 20 * log10(f) + 92.45
-  getEffectiveValue({ frequency }: { frequency: number }): number {
-    if (this.distance <= 0 || frequency <= 0) return 0
-    return 92.5 + 20 * Math.log10(this.distance * frequency)
+  getEffectiveValue(): number {
+    if (this.distance <= 0 || this.multiplier.value <= 0) return 0
+    return 92.5 + 20 * Math.log10(this.distance * this.multiplier.value)
   }
 
   getValue() {
@@ -75,10 +79,7 @@ export class FreeSpace implements IWirelessLinkComponent {
 }
 
 export class LinkBudgetManager {
-  constructor(
-    private linkComponents: IWirelessLinkComponent[] = [],
-    public frequency = 0,
-  ) {}
+  constructor(private linkComponents: IWirelessLinkComponent[] = []) {}
 
   public addComponent(linkComponent: IWirelessLinkComponent) {
     this.linkComponents.push(linkComponent)
@@ -107,18 +108,22 @@ export class LinkBudgetManager {
   }
 
   public getEffectiveSensitivity() {
-    const rxRadio = this.linkComponents.find(
-      (c) => c.role === Role.RX && c instanceof RadioComponent,
-    )
-    const rxAntenna = this.linkComponents.find(
-      (c) => c.role === Role.RX && c instanceof Antenna,
-    )
+    const sensitivity = this.linkComponents.reduce((total, c) => {
+      if (c.role === Role.RX && c instanceof RadioComponent) {
+        return total + c.getEffectiveValue()
+      }
+      return total
+    }, 0)
+
+    const gain = this.linkComponents.reduce((total, c) => {
+      if (c.role === Role.RX && c instanceof Antenna) {
+        return total + c.getEffectiveValue()
+      }
+      return total
+    }, 0)
     const rxLosses = this.getLosses(Role.RX)
 
-    const apSensitivity = rxRadio ? rxRadio.getEffectiveValue() : 0
-    const antennaGain = rxAntenna ? rxAntenna.getEffectiveValue() : 0
-
-    return antennaGain - rxLosses + apSensitivity
+    return gain - rxLosses + sensitivity
   }
 
   public getFadeMargin() {
@@ -132,8 +137,12 @@ export class LinkBudgetManager {
   }
 
   public getPathLoss() {
-    const space = this.linkComponents.find((c) => c.role === Role.FREE_SPACE)
-    return space ? space.getEffectiveValue({ frequency: this.frequency }) : 0
+    return this.linkComponents.reduce((totalSpaceLoss, component) => {
+      if (component.role === Role.FREE_SPACE) {
+        return totalSpaceLoss + component.getEffectiveValue()
+      }
+      return totalSpaceLoss
+    }, 0)
   }
 
   public removeComponent(index: number) {

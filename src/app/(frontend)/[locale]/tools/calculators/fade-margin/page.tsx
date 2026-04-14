@@ -6,8 +6,6 @@ import { useState } from "react"
 import {
   Button,
   ButtonGroup,
-  Field,
-  FieldLabel,
   Input,
   InputGroup,
   InputGroupAddon,
@@ -24,7 +22,6 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-  Separator,
 } from "@/components"
 
 import {
@@ -61,7 +58,7 @@ export default function FadeMarginPage() {
       "Conector",
       "Adiciona a perda do conector em dB.",
       Role.TX,
-      0,
+      0.2,
       <PlugIcon />,
       { unit: "unidade", value: 2 },
     ),
@@ -70,7 +67,7 @@ export default function FadeMarginPage() {
       "Protetor de Surtos",
       "Adiciona a perda do protetor de surto em dB.",
       Role.TX,
-      0,
+      2,
       <PlugZap />,
     ),
   ]
@@ -78,34 +75,6 @@ export default function FadeMarginPage() {
   return (
     <div className="container grid grid-cols-2 py-6">
       <header>
-        <Field>
-          <FieldLabel htmlFor="frequency">Frequência</FieldLabel>
-          <InputGroup className="w-fit">
-            <InputGroupInput
-              id="frequency"
-              min={0}
-              onChange={(event) => {
-                const value = event.target.value
-                if (value === "") return
-                const parsed = parseFloat(value)
-                if (isNaN(parsed)) return
-                setLinkBudgetManager((previous) => {
-                  return new LinkBudgetManager(
-                    [...previous.getComponents()],
-                    parsed,
-                  )
-                })
-              }}
-              placeholder="Frequência"
-              step={0.01}
-              type="number"
-              value={linkBudgetManager.frequency}
-            />
-            <InputGroupAddon align="inline-end">
-              <InputGroupText>GHz</InputGroupText>
-            </InputGroupAddon>
-          </InputGroup>
-        </Field>
         <menu className="flex flex-col gap-4">
           {availableLinkElements.map((component, index) => (
             <Item key={index}>
@@ -119,10 +88,9 @@ export default function FadeMarginPage() {
                   onClick={() => {
                     setLinkBudgetManager((previous) => {
                       previous.addComponent(component)
-                      return new LinkBudgetManager(
-                        [...previous.getComponents()],
-                        previous.frequency,
-                      )
+                      return new LinkBudgetManager([
+                        ...previous.getComponents(),
+                      ])
                     })
                   }}
                 >
@@ -145,10 +113,9 @@ export default function FadeMarginPage() {
                       setLinkBudgetManager((previous) => {
                         previous.getComponents()[index].name =
                           event.target.value
-                        return new LinkBudgetManager(
-                          [...previous.getComponents()],
-                          previous.frequency,
-                        )
+                        return new LinkBudgetManager([
+                          ...previous.getComponents(),
+                        ])
                       })
                     }}
                     value={linkComponent.name}
@@ -167,10 +134,9 @@ export default function FadeMarginPage() {
                       if (isNaN(parsedValue)) return
                       setLinkBudgetManager((previous) => {
                         previous.getComponents()[index].setValue(parsedValue)
-                        return new LinkBudgetManager(
-                          [...previous.getComponents()],
-                          previous.frequency,
-                        )
+                        return new LinkBudgetManager([
+                          ...previous.getComponents(),
+                        ])
                       })
                     }}
                     step={0.01}
@@ -196,10 +162,9 @@ export default function FadeMarginPage() {
                             unit: linkComponent.multiplier?.unit || "",
                             value: parsedValue,
                           }
-                          return new LinkBudgetManager(
-                            [...previous.getComponents()],
-                            previous.frequency,
-                          )
+                          return new LinkBudgetManager([
+                            ...previous.getComponents(),
+                          ])
                         })
                       }}
                       type="number"
@@ -220,10 +185,9 @@ export default function FadeMarginPage() {
                           previous.getComponents()[index].role = parseInt(
                             value,
                           ) as Role
-                          return new LinkBudgetManager(
-                            [...previous.getComponents()],
-                            previous.frequency,
-                          )
+                          return new LinkBudgetManager([
+                            ...previous.getComponents(),
+                          ])
                         })
                       }}
                       value={linkComponent.role.toString()}
@@ -241,10 +205,9 @@ export default function FadeMarginPage() {
                     onClick={() => {
                       setLinkBudgetManager((previous) => {
                         previous.removeComponent(index)
-                        return new LinkBudgetManager(
-                          [...previous.getComponents()],
-                          previous.frequency,
-                        )
+                        return new LinkBudgetManager([
+                          ...previous.getComponents(),
+                        ])
                       })
                     }}
                   >
@@ -261,6 +224,7 @@ export default function FadeMarginPage() {
           Potência efetivamente irradiada{" "}
           {linkBudgetManager.getEffectiveRadiatedPower()} dB
         </p>
+        <p>Perda em espaço livre {linkBudgetManager.getPathLoss()} dB</p>
         <p>
           Sensibilidade efetiva do receptor{" "}
           {linkBudgetManager.getEffectiveSensitivity()} dB
