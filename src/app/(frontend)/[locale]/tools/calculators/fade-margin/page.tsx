@@ -64,6 +64,13 @@ export default function FadeMarginPage() {
     ),
     new FreeSpace("Distância", "Distância do enlace em quilômetros (km).", 0),
     new PassiveComponent(
+      "Pigtail",
+      "Adiciona a perda do pigtail em dB.",
+      Role.TX,
+      1.5,
+      <PlugIcon />,
+    ),
+    new PassiveComponent(
       "Protetor de Surtos",
       "Adiciona a perda do protetor de surto em dB.",
       Role.TX,
